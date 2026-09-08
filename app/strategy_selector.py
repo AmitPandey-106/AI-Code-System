@@ -72,9 +72,9 @@ class StrategySelector:
         
         # Calculate scores
         for strat in available_candidates:
-            stats = self.stats.get(strat, {}).get(error_type, {"successes": 0, "total": 0, "reward": 0.0})
-            if stats["total"] > 0:
-                score = stats["reward"] / stats["total"]
+            stats = self.stats.get(strat, {}).get(error_type, {"successes": 0, "total_attempts": 0, "reward": 0.0})
+            if stats["total_attempts"] > 0:
+                score = stats["reward"] / stats["total_attempts"]
             else:
                 score = 0.0 # Prioritize unexplored? Let's leave at 0.0
             

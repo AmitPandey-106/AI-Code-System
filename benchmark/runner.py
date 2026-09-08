@@ -38,7 +38,7 @@ def run_benchmark(experiment_id: str, mode: str, size: int = None, dataset_path:
         tasks = tasks[:size]
         
     results = []
-    checkpoint_path = f"{experiment_id}/checkpoint.json"
+    checkpoint_path = f"experiments/{experiment_id}/checkpoint.json"
     
     # Resume from checkpoint
     completed_task_ids = set()
@@ -130,8 +130,8 @@ def run_benchmark(experiment_id: str, mode: str, size: int = None, dataset_path:
         results.append(res)
         
         # Checkpointing
-        checkpoint_path = f"{experiment_id}/checkpoint.json"
-        os.makedirs(experiment_id, exist_ok=True)
+        checkpoint_path = f"experiments/{experiment_id}/checkpoint.json"
+        os.makedirs(f"experiments/{experiment_id}", exist_ok=True)
         with open(checkpoint_path, "w") as f:
             json.dump([r.dict() if hasattr(r, 'dict') else r.model_dump() for r in results], f, indent=4)
             
