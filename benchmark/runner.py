@@ -62,7 +62,10 @@ def run_benchmark(experiment_id: str, mode: str, size: int = None, dataset_path:
         if task.expected_tests:
             prompt += "\n\nEnsure it passes these tests:\n" + "\n".join(task.expected_tests)
             
-        req = Request(prompt=prompt)
+        req = Request(
+            prompt=prompt,
+            authoritative_tests=task.expected_tests
+        )
         
         start = time.time()
         try:

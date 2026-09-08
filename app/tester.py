@@ -274,10 +274,13 @@ def compare_results(actual, expected, operator):
 # RUN TESTS
 # =========================================================
 
-def run_tests(prompt, code):
+def run_tests(prompt, code, authoritative_tests=None):
 
     try:
-        test_code = generate_tests_with_llm(prompt, code)
+        if authoritative_tests:
+            test_code = "\n".join(authoritative_tests)
+        else:
+            test_code = generate_tests_with_llm(prompt, code)
         if not test_code.strip():
             return {
                 "success": False,

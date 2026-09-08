@@ -18,8 +18,12 @@ app = FastAPI()
 # REQUEST MODEL
 # =========================================================
 
+from typing import List
+from pydantic import Field
+
 class Request(BaseModel):
     prompt: str
+    authoritative_tests: List[str] = Field(default_factory=list)
 
 
 # =========================================================
@@ -255,7 +259,11 @@ def generate(req: Request):
         # RUN AI-GENERATED TESTS
         # =================================================
 
-        tests = run_tests(req.prompt, current_code)
+        tests = run_tests(
+            req.prompt,
+            current_code,
+            authoritative_tests=req.authoritative_tests
+        )
         attempt_record["tests_generated"] = tests.get("tests", "")
         attempt_record["test_results"] = tests.get("test_summary", {})
 
