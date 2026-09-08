@@ -131,7 +131,9 @@ def generate(req: Request):
         save_feedback(feedback_record)
         return {
             "success": False,
-            "message": "Model returned empty code"
+            "message": "Model returned empty code",
+            "attempts_used": 0,
+            "feedback_record": feedback_record
         }
 
     attempt_history = []
