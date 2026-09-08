@@ -1,0 +1,2566 @@
+[
+    {
+        "task_id": "TASK_248A149E",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_C4A8AE96",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_1E88EF5E",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_5A10345D",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_2B6D2849",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_343500D2",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_5C5F2013",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_FB475E1F",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_8E0AE6BB",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_78F9D7AB",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_6D787E00",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_AC1D1EC0",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_527A01D3",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_18282011",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_53CB0778",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_5A9419BC",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_FEE64E00",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_69A14E63",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_1AC7E084",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_16D34D22",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_55A55247",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "LtE",
+            "mutated": "GtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_8CCE471D",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_F4CD3BEC",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_7C30D0A1",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_24351ED5",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_A076C74B",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_D6757592",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_602420FB",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_761B7D7E",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_E6E16446",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_7AE983CC",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_C3E37906",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_8E25E875",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_96161F4B",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_115EF1B7",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_492A6DB5",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "LtE",
+            "mutated": "GtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_171B092B",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_88179AD5",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_BC89315E",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_1949AD82",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_996BE834",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_01CF853B",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_22EF6E15",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_435DA3AE",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_DAE61E15",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_E86381A6",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "LtE",
+            "mutated": "GtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_C305BDB3",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_C615FC35",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_07E3AAD9",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_50B0F89F",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_2BECF080",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_FE335544",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_995A9CD2",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_44FC1C51",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_34E90ED9",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_58D4007C",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_61DE3671",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "LtE",
+            "mutated": "GtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_46FE7E87",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_ABC07B11",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_43D5CB16",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_61ECFD6A",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_92164E2D",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_495776C1",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "LtE",
+            "mutated": "GtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_86ABF08F",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_1DA9FFE1",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_BDCCF2EB",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_8FC95909",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_02A5297E",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_E4D12ED6",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_26E9FDB3",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_0E25977A",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_D63646F1",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_71B9E063",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_ACCDEA61",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_29DC986C",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_8CAFAF3C",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_4FC2042B",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_37352093",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_2A60D1B1",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_B8A15ABC",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_4F646FFF",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_4DD4E728",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_43200D99",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_00487A65",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_64497C8C",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_B1315198",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_D027C3B7",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_F8BC87BE",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_21D2E862",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_7D2AAE3E",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_52F6CB07",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_F69F485C",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_3CA90906",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "LtE",
+            "mutated": "GtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_46D3F670",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_DA87DDDF",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "reference_code": "def max_val(a, b):\n    if a > b:\n        return a\n    return b",
+        "broken_code": "def max_val(a, b):\n    if a < b:\n        return a\n    return b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Gt",
+            "mutated": "Lt",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 4,
+            "functions": 1,
+            "ast_nodes": 18,
+            "branches": 1
+        },
+        "expected_tests": [
+            "assert max_val(10, 5) == 10",
+            "assert max_val(3, 7) == 7"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_0DB97680",
+        "category": "strings",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        "reference_code": "def concat(a, b):\n    return a + b",
+        "broken_code": "def concat(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert concat('a', 'b') == 'ab'"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_DA1469C8",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b",
+        "reference_code": "def multiply(a, b):\n    return a * b",
+        "broken_code": "def multiply(a, b):\n    return a / b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Mult",
+            "mutated": "Div",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert multiply(3, 4) == 12"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_77C30EA5",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "reference_code": "def in_range(val, minimum, maximum):\n    return val >= minimum and val <= maximum",
+        "broken_code": "def in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "GtE",
+            "mutated": "LtE",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 21,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert in_range(5, 1, 10) == True",
+            "assert in_range(0, 1, 10) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_9A262A5F",
+        "category": "arithmetic",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        "reference_code": "def add(a, b):\n    return a + b",
+        "broken_code": "def add(a, b):\n    return a - b",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Add",
+            "mutated": "Sub",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 12,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert add(2, 3) == 5",
+            "assert add(-1, 1) == 0"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    },
+    {
+        "task_id": "TASK_803EEF67",
+        "category": "algorithms",
+        "difficulty": "EASY",
+        "prompt": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0",
+        "reference_code": "def is_even(n):\n    return n % 2 == 0",
+        "broken_code": "def is_even(n):\n    return n % 2 != 0",
+        "fault": {
+            "type": "LOGICAL_OPERATOR_MUTATION",
+            "original": "Eq",
+            "mutated": "NotEq",
+            "location": 2
+        },
+        "complexity": {
+            "loc": 2,
+            "functions": 1,
+            "ast_nodes": 13,
+            "branches": 0
+        },
+        "expected_tests": [
+            "assert is_even(2) == True",
+            "assert is_even(3) == False"
+        ],
+        "source": "fault_injection_synthetic",
+        "version": "2.0"
+    }
+]

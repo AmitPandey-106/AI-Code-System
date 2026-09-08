@@ -1,0 +1,11 @@
+[
+    {
+        "text": "Fix this Python code:\n\ndef add(a, b):\n    return a + str(b)\n\nError:\nunsupported operand type(s) for +: 'int' and 'str'\n\nCorrect Code:\ndef add(a, b):\n    return a + b\n",
+        "fingerprint": "fb328b47e9429a9f675c4c0889c97f91",
+        "raw_task": "Write Python code to add two numbers",
+        "raw_broken_code": "def add(a, b):\n    return a + str(b)",
+        "raw_error_message": "unsupported operand type(s) for +: 'int' and 'str'",
+        "raw_successful_fix": "def add(a, b):\n    return a + b",
+        "raw_tests": "assert add(1, 2) == 3"
+    }
+]
