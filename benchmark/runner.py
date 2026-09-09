@@ -187,4 +187,9 @@ if __name__ == "__main__":
     parser.add_argument("--experiment-id", type=str, required=True, help="Experiment ID for folder creation")
     args = parser.parse_args()
     
-    run_benchmark(args.experiment_id, args.mode, size=args.size)
+    run_benchmark(
+        args.experiment_id, 
+        args.mode, 
+        size=args.size, 
+        dataset_path="data/benchmark/v1.0/dataset.json"
+    )
