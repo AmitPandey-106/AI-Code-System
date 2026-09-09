@@ -50,5 +50,7 @@ def apply_ablation_mode(mode: str):
         config.set("DIFFICULTY_ALLOCATION_ENABLED", True)
     else:
         raise ValueError(f"Unknown ablation mode: {mode}")
+        
+    config.set("DETERMINISTIC_GENERATION", True)
 
     print(f"Applied Ablation Mode: {mode}")

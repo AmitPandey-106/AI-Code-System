@@ -1,12 +1,38 @@
 import os
 import json
 import time
+import shutil
 from typing import List
 from benchmark.schemas import BenchmarkResult
 from benchmark.dataset import load_dataset
 from benchmark.ablation import apply_ablation_mode
 from app.main import generate, Request
 from app.config import config
+
+STATE_FILES = [
+    "data/repair_memory.json",
+    "data/repair_memory_index.faiss",
+    "data/strategy_stats.json"
+]
+
+def snapshot_experiment_state(experiment_dir: str):
+    snapshot_dir = os.path.join(experiment_dir, "state_snapshot")
+    os.makedirs(snapshot_dir, exist_ok=True)
+    for file_path in STATE_FILES:
+        if os.path.exists(file_path):
+            shutil.copy2(file_path, snapshot_dir)
+
+def restore_experiment_state(experiment_dir: str):
+    snapshot_dir = os.path.join(experiment_dir, "state_snapshot")
+    if not os.path.exists(snapshot_dir):
+        raise RuntimeError(f"Checkpoint exists but state snapshot is missing at {snapshot_dir}. Exact resume cannot be guaranteed.")
+        
+    for file_path in STATE_FILES:
+        basename = os.path.basename(file_path)
+        snapshot_file = os.path.join(snapshot_dir, basename)
+        if os.path.exists(snapshot_file):
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            shutil.copy2(snapshot_file, file_path)
 
 def reset_state():
     # Safely clear memory and strategy states for isolated experiments
@@ -38,17 +64,32 @@ def run_benchmark(experiment_id: str, mode: str, size: int = None, dataset_path:
         tasks = tasks[:size]
         
     results = []
-    checkpoint_path = f"experiments/{experiment_id}/checkpoint.json"
+    experiment_dir = f"experiments/{experiment_id}"
+    checkpoint_path = f"{experiment_dir}/checkpoint.json"
     
     # Resume from checkpoint
     completed_task_ids = set()
     if os.path.exists(checkpoint_path):
         with open(checkpoint_path, "r") as f:
             saved_results = json.load(f)
-            # Reconstruct BenchmarkResult objects if necessary, or just store the raw dicts
-            for r in saved_results:
-                results.append(BenchmarkResult(**r))
-                completed_task_ids.add(r["task_id"])
+            
+        if saved_results:
+            checkpoint_mode = saved_results[0].get("mode")
+            if checkpoint_mode and checkpoint_mode != mode:
+                raise ValueError(f"Checkpoint mode mismatch: checkpoint was created with {checkpoint_mode} but resume requested {mode}")
+                
+        restore_experiment_state(experiment_dir)
+        
+        # Reload singletons
+        from app.repair_memory import repair_memory
+        from app.strategy_selector import strategy_selector
+        repair_memory.initialize_memory()
+        strategy_selector.stats = strategy_selector._load_stats()
+
+        # Reconstruct BenchmarkResult objects if necessary, or just store the raw dicts
+        for r in saved_results:
+            results.append(BenchmarkResult(**r))
+            completed_task_ids.add(r["task_id"])
         print(f"Resumed {len(completed_task_ids)} tasks from checkpoint.")
     
     for idx, task in enumerate(tasks):
@@ -130,9 +171,20 @@ def run_benchmark(experiment_id: str, mode: str, size: int = None, dataset_path:
         results.append(res)
         
         # Checkpointing
-        checkpoint_path = f"experiments/{experiment_id}/checkpoint.json"
-        os.makedirs(f"experiments/{experiment_id}", exist_ok=True)
+        os.makedirs(experiment_dir, exist_ok=True)
         with open(checkpoint_path, "w") as f:
             json.dump([r.dict() if hasattr(r, 'dict') else r.model_dump() for r in results], f, indent=4)
             
+        snapshot_experiment_state(experiment_dir)
+            
     return results
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Run LITE-CODER benchmark")
+    parser.add_argument("--mode", type=str, required=True, help="Ablation mode")
+    parser.add_argument("--size", type=int, default=None, help="Number of tasks to run")
+    parser.add_argument("--experiment-id", type=str, required=True, help="Experiment ID for folder creation")
+    args = parser.parse_args()
+    
+    run_benchmark(args.experiment_id, args.mode, size=args.size)

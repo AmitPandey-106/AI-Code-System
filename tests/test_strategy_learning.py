@@ -57,7 +57,7 @@ def test_exploitation():
     selector = StrategySelector()
     # Force some stats
     selector.stats = {
-        "TEST_GUIDED_REPAIR": {"AssertionError": {"successes": 10, "total": 10, "reward": 20.0}}
+        "TEST_GUIDED_REPAIR": {"AssertionError": {"successes": 10, "total_attempts": 10, "reward": 20.0}}
     }
     # Mock random to 1.0 (always exploit)
     import random
@@ -89,12 +89,12 @@ def test_strategy_memory():
 
 def test_learning_off():
     # TEST 12: Strategy learning OFF produces deterministic baseline behavior.
-    import app.strategy_selector
-    app.strategy_selector.STRATEGY_LEARNING_ENABLED = False
+    from app.config import config
+    config.set("STRATEGY_LEARNING_ENABLED", False)
     selector = StrategySelector()
     info = selector.select_strategy("TypeError", 1, [], True, "EASY")
     assert info["selection_mode"] == "baseline"
-    app.strategy_selector.STRATEGY_LEARNING_ENABLED = True
+    config.set("STRATEGY_LEARNING_ENABLED", True)
 
 def test_difficulty_levels():
     # TEST 13: Difficulty estimator produces valid levels.

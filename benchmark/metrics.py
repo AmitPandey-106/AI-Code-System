@@ -28,7 +28,7 @@ def calculate_metrics(results: List[BenchmarkResult]) -> dict:
     strategies = {}
     for r in results:
         for strat in r.strategy_history:
-            sid = strat.get("strategy_id")
+            sid = strat.get("selected_strategy")
             if not sid: continue
             if sid not in strategies:
                 strategies[sid] = {"total": 0, "success": 0}

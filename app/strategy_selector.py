@@ -82,11 +82,25 @@ class StrategySelector:
                 best_score = score
                 best_strategy = strat
                 
+        # Setup RNG
+        if config.get("DETERMINISTIC_GENERATION", False):
+            seed_components = [
+                config.get("BENCHMARK_SEED", 42),
+                error_type,
+                attempt_number,
+                len(previous_strategies),
+                tuple(sorted(available_candidates))
+            ]
+            seed_str = "|".join(map(str, seed_components))
+            rng = random.Random(seed_str)
+        else:
+            rng = random
+
         # Epsilon greedy exploration
         is_exploration = False
-        if random.random() < STRATEGY_EXPLORATION_RATE or best_strategy is None:
+        if rng.random() < STRATEGY_EXPLORATION_RATE or best_strategy is None:
             is_exploration = True
-            selected = random.choice(available_candidates)
+            selected = rng.choice(available_candidates)
             confidence = 0.0
             reason = "Exploration mode selected a random plausible strategy."
         else:

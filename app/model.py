@@ -187,30 +187,30 @@ def generate_raw(prompt):
     with torch.no_grad():
         from app.config import config
         
+        deterministic = config.get("DETERMINISTIC_GENERATION", False)
+        
+        generation_kwargs = {
+            "max_new_tokens": 300,
+            "repetition_penalty": 1.1,
+            "eos_token_id": tokenizer.eos_token_id,
+            "pad_token_id": tokenizer.eos_token_id
+        }
+        
+        if deterministic:
+            generation_kwargs["do_sample"] = False
+        else:
+            generation_kwargs.update({
+                "do_sample": True,
+                "temperature": 0.2,
+                "top_p": 0.95
+            })
+        
         # If LORA_ENABLED is False and we have a PEFT model, disable it for this generation
         if not config.get("LORA_ENABLED") and hasattr(model, "disable_adapter"):
             with model.disable_adapter():
-                outputs = model.generate(
-                    **inputs,
-                    max_new_tokens=300,
-                    do_sample=True,
-                    temperature=0.2,
-                    top_p=0.95,
-                    repetition_penalty=1.1,
-                    eos_token_id=tokenizer.eos_token_id,
-                    pad_token_id=tokenizer.eos_token_id
-                )
+                outputs = model.generate(**inputs, **generation_kwargs)
         else:
-            outputs = model.generate(
-                **inputs,
-                max_new_tokens=300,
-                do_sample=True,
-                temperature=0.2,
-                top_p=0.95,
-                repetition_penalty=1.1,
-                eos_token_id=tokenizer.eos_token_id,
-                pad_token_id=tokenizer.eos_token_id
-            )
+            outputs = model.generate(**inputs, **generation_kwargs)
 
     full_output = tokenizer.decode(
         outputs[0],
@@ -354,6 +354,9 @@ IMPORTANT:
 - NO explanations
 - NO markdown
 - NO comments
+- Return the FULL, COMPLETE corrected Python program.
+- Do NOT return a patch, diff, isolated replacement line, or partial snippet.
+- The returned code will replace the entire previous program and must be independently executable.
 {memory_section}
 CURRENT PROBLEM:
 BROKEN CODE:

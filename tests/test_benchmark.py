@@ -25,7 +25,7 @@ def test_metrics_calculation():
         BenchmarkResult(
             experiment_id="test", task_id="1", mode="A", success=True, 
             error_type="SyntaxError", attempts=2, repair_effort=2, 
-            execution_time_ms=1000, strategy_history=[{"strategy_id": "DIRECT_REPAIR", "success": True}], 
+            execution_time_ms=1000, strategy_history=[{"selected_strategy": "DIRECT_REPAIR", "success": True}], 
             difficulty={}, verification={}, memory_used=False, lora_enabled=False, timestamp=0.0
         ),
         BenchmarkResult(

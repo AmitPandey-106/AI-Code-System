@@ -238,7 +238,8 @@ def generate(req: Request):
             strat_prompt = get_strategy_prompt(strat_info["selected_strategy"])
             fixed_code = fix_code(current_code, error, memory_context, strategy_prompt=strat_prompt)
             attempt_record["repair_applied"] = fixed_code
-            current_code = fixed_code
+            if fixed_code and fixed_code.strip():
+                current_code = fixed_code
             feedback_record["total_repairs"] += 1
             # Difficulty-Aware Compute Allocation
             if config.get("DIFFICULTY_ALLOCATION_ENABLED"):
@@ -380,7 +381,8 @@ def generate(req: Request):
         strat_prompt = get_strategy_prompt(strat_info["selected_strategy"])
         fixed_code = fix_code(current_code, error, memory_context, strategy_prompt=strat_prompt)
         attempt_record["repair_applied"] = fixed_code
-        current_code = fixed_code
+        if fixed_code and fixed_code.strip():
+            current_code = fixed_code
         feedback_record["total_repairs"] += 1
         
         # Difficulty-Aware Compute Allocation
