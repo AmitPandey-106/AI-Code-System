@@ -3,7 +3,12 @@ import os
 
 FILE_PATH = "data/feedback.json"
 
-def save_feedback(record):
+def save_feedback(record, experiment_id=None):
+    if experiment_id:
+        FILE_PATH = f"experiments/{experiment_id}/feedback.json"
+    else:
+        FILE_PATH = "data/feedback.json"
+        
     try:
         # Validate basic feedback structure
         required_keys = ["task", "initial_code", "attempts", "final_code", "final_status"]

@@ -11,43 +11,55 @@ import re
 base_model_name = "Qwen/Qwen2.5-Coder-1.5B"
 import os
 
-tokenizer = AutoTokenizer.from_pretrained(base_model_name)
+_model = None
+_tokenizer = None
 
-if torch.cuda.is_available():
-    selected_device = "cuda"
-    selected_dtype = torch.float16
-    gpu_name = torch.cuda.get_device_name(0)
-    print(f"CUDA is available.")
-    print(f"GPU Name: {gpu_name}")
-    print(f"Selected device: {selected_device}")
-    print(f"Selected dtype: {selected_dtype}")
-    
-    base_model = AutoModelForCausalLM.from_pretrained(
-        base_model_name,
-        torch_dtype=selected_dtype,
-        device_map="auto"
-    )
-else:
-    print("CUDA is NOT available. CPU inference is being used.")
-    base_model = AutoModelForCausalLM.from_pretrained(
-        base_model_name,
-        torch_dtype=torch.float32,
-        device_map="auto"
-    )
+def get_model():
+    global _model, _tokenizer
 
-# Active adapter paths
-ACTIVE_ADAPTER_PATH = "models/adapters/active"
-LEGACY_ADAPTER_PATH = "lora-finetuned"
+    if _model is None or _tokenizer is None:
+        tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
-if os.path.exists(ACTIVE_ADAPTER_PATH):
-    model = PeftModel.from_pretrained(base_model, ACTIVE_ADAPTER_PATH)
-    print("Active LoRA adapter loaded successfully.")
-elif os.path.exists(LEGACY_ADAPTER_PATH):
-    model = PeftModel.from_pretrained(base_model, LEGACY_ADAPTER_PATH)
-    print("Legacy LoRA adapter loaded successfully.")
-else:
-    model = base_model
-    print("No LoRA adapter found. Using base model.")
+        if torch.cuda.is_available():
+            selected_device = "cuda"
+            selected_dtype = torch.float16
+            gpu_name = torch.cuda.get_device_name(0)
+            print(f"CUDA is available.")
+            print(f"GPU Name: {gpu_name}")
+            print(f"Selected device: {selected_device}")
+            print(f"Selected dtype: {selected_dtype}")
+            
+            base_model = AutoModelForCausalLM.from_pretrained(
+                base_model_name,
+                torch_dtype=selected_dtype,
+                device_map="auto"
+            )
+        else:
+            print("CUDA is NOT available. CPU inference is being used.")
+            base_model = AutoModelForCausalLM.from_pretrained(
+                base_model_name,
+                torch_dtype=torch.float32,
+                device_map="auto"
+            )
+
+        # Active adapter paths
+        ACTIVE_ADAPTER_PATH = "models/adapters/active"
+        LEGACY_ADAPTER_PATH = "lora-finetuned"
+
+        if os.path.exists(ACTIVE_ADAPTER_PATH):
+            model = PeftModel.from_pretrained(base_model, ACTIVE_ADAPTER_PATH)
+            print("Active LoRA adapter loaded successfully.")
+        elif os.path.exists(LEGACY_ADAPTER_PATH):
+            model = PeftModel.from_pretrained(base_model, LEGACY_ADAPTER_PATH)
+            print("Legacy LoRA adapter loaded successfully.")
+        else:
+            model = base_model
+            print("No LoRA adapter found. Using base model.")
+            
+        _model = model
+        _tokenizer = tokenizer
+        
+    return _model, _tokenizer
 
 from app.config import config
 
@@ -177,6 +189,7 @@ def get_input_device(model_obj):
         return model_obj.device if hasattr(model_obj, 'device') else torch.device('cpu')
 
 def generate_raw(prompt):
+    model, tokenizer = get_model()
 
     target_device = get_input_device(model)
     inputs = tokenizer(

@@ -1,0 +1,303 @@
+{
+    "task_id": "TASK_1E88EF5E",
+    "success": false,
+    "attempts_used": 5,
+    "error_type": "AssertionError",
+    "runtime_ms": 2966602,
+    "timestamp": 1789030506.9850514,
+    "generated_code": null,
+    "execution": null,
+    "tests": null,
+    "history": [
+        {
+            "attempt": 1,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpb0vc4wpb\\script_62b231b0e70e49bda5bb2b4666fbc85d.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        },
+        {
+            "attempt": 2,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpues9dw7z\\script_a84f8c3d7fc5448f8343af03ae718b49.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        },
+        {
+            "attempt": 3,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpr5acfpap\\script_51f4e73459f6498c847c6146a3281431.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        },
+        {
+            "attempt": 4,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpzp47_m_o\\script_93c9db15d67647c79d827fc13eb6cf5b.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        },
+        {
+            "attempt": 5,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp8uf9mphk\\script_5de544297b58483fb06638914a8d7b84.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        }
+    ],
+    "feedback_record": {
+        "feedback_id": "6f96bf25a10e44a7bd905789f2916e59",
+        "timestamp": 1789027540.382007,
+        "task": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'",
+        "initial_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 3.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline",
+                    "success": true
+                }
+            },
+            {
+                "attempt_number": 2,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 5.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 2)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "ALTERNATIVE_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline",
+                    "success": true
+                }
+            },
+            {
+                "attempt_number": 3,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 6.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 3)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline",
+                    "success": true
+                }
+            },
+            {
+                "attempt_number": 4,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 8.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 4)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline",
+                    "success": true
+                }
+            },
+            {
+                "attempt_number": 5,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "VERY_HARD",
+                    "score": 9.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 5)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 5
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline",
+                    "success": true
+                }
+            }
+        ],
+        "final_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "final_status": "failure",
+        "total_attempts": 5,
+        "total_repairs": 5,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": false,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 72,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 2966.5827317237854
+    },
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": false,
+        "sandboxed_execution": true
+    }
+}

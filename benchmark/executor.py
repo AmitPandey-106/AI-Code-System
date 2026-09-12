@@ -55,7 +55,7 @@ def run_isolated_ablation(modes: List[str], dataset_path: str, base_dir: str = "
         print(f"Executing Mode: {mode} (Saving to {exp_id})")
         size_limit = len(dataset) if args.large else 5
         results = run_benchmark(exp_id, mode, size=size_limit, dataset_path=dataset_path)
-        save_report(exp_id, results)
+        save_report(exp_id, results, size_limit)
         
 def run_continual_learning(batch_size: int, dataset_path: str, base_dir: str = "experiments/continual"):
     print("Continual Learning Pipeline NOT YET FULLY IMPLEMENTED IN THIS SCRIPT.")

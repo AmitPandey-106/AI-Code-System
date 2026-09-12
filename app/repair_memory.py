@@ -14,16 +14,45 @@ TOP_K_REPAIRS = 3
 SIMILARITY_THRESHOLD = 0.5  # Cosine similarity threshold
 from app.config import config
 
-print(f"Loading embedding model {EMBEDDING_MODEL_NAME}...")
-embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
-print("Embedding model loaded successfully")
+_embedding_model = None
+
+def get_embedding_model():
+    global _embedding_model
+    if _embedding_model is None:
+        print(f"Loading embedding model {EMBEDDING_MODEL_NAME}...")
+        _embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+        print("Embedding model loaded successfully")
+    return _embedding_model
 
 class RepairMemory:
     def __init__(self):
-        self.memories = []
-        self.index = None
-        self.dimension = embedding_model.get_sentence_embedding_dimension()
-        self.initialize_memory()
+        self._memories = []
+        self._index = None
+        self._initialized = False
+        
+    @property
+    def memories(self):
+        self._ensure_initialized()
+        return self._memories
+
+    @memories.setter
+    def memories(self, value):
+        self._memories = value
+
+    @property
+    def index(self):
+        self._ensure_initialized()
+        return self._index
+
+    @index.setter
+    def index(self, value):
+        self._index = value
+
+    def _ensure_initialized(self):
+        if not self._initialized:
+            self.dimension = get_embedding_model().get_sentence_embedding_dimension()
+            self.initialize_memory()
+            self._initialized = True
         
     def initialize_memory(self):
         os.makedirs("data", exist_ok=True)
@@ -52,8 +81,9 @@ class RepairMemory:
                 if m["error_message"] == error_message and m["broken_code"] == broken_code:
                     return False
                     
+            self._ensure_initialized()
             text = self._normalize_text(error_type, error_message, task, broken_code)
-            embedding = embedding_model.encode([text], normalize_embeddings=True)
+            embedding = get_embedding_model().encode([text], normalize_embeddings=True)
             
             memory_record = {
                 "memory_id": uuid.uuid4().hex,
@@ -85,11 +115,12 @@ class RepairMemory:
         
     def search_similar_experiences(self, task, error_type, error_message, broken_code):
         try:
+            self._ensure_initialized()
             if not config.get("MEMORY_ENABLED") or self.index.ntotal == 0:
                 return []
                 
             text = self._normalize_text(error_type, error_message, task, broken_code)
-            embedding = embedding_model.encode([text], normalize_embeddings=True)
+            embedding = get_embedding_model().encode([text], normalize_embeddings=True)
             
             k = min(TOP_K_REPAIRS, self.index.ntotal)
             distances, indices = self.index.search(embedding, k)
@@ -108,6 +139,7 @@ class RepairMemory:
             return []
 
     def get_memory_stats(self):
+        self._ensure_initialized()
         return {
             "total_memories": len(self.memories),
             "memory_enabled": config.get("MEMORY_ENABLED"),

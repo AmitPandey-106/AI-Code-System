@@ -1,0 +1,46 @@
+{
+    "task_id": "TASK_248A149E",
+    "success": true,
+    "attempts_used": 1,
+    "error_type": null,
+    "runtime_ms": 0,
+    "timestamp": 1789021887.9611542,
+    "generated_code": "def hello(): pass",
+    "execution": "Success",
+    "tests": "All passed",
+    "history": [],
+    "feedback_record": {
+        "task": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "initial_code": "",
+        "attempts": [
+            {
+                "strategy": {
+                    "selected_strategy": "baseline",
+                    "success": true
+                },
+                "execution_status": "success",
+                "error_type": null,
+                "difficulty": {
+                    "level": "easy"
+                },
+                "memory_used": false
+            }
+        ],
+        "final_code": "def hello(): pass",
+        "final_status": "success",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        }
+    },
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": true,
+        "sandboxed_execution": true
+    }
+}

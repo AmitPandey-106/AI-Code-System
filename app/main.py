@@ -18,12 +18,13 @@ app = FastAPI()
 # REQUEST MODEL
 # =========================================================
 
-from typing import List
+from typing import List, Optional
 from pydantic import Field
 
 class Request(BaseModel):
     prompt: str
     authoritative_tests: List[str] = Field(default_factory=list)
+    experiment_id: Optional[str] = None
 
 
 # =========================================================
@@ -128,7 +129,7 @@ def generate(req: Request):
 
     if not current_code or not current_code.strip():
         feedback_record["execution_time"] = time.time() - start_time
-        save_feedback(feedback_record)
+        save_feedback(feedback_record, experiment_id=req.experiment_id)
         return {
             "success": False,
             "message": "Model returned empty code",
@@ -311,7 +312,7 @@ def generate(req: Request):
                     subprocess.Popen([sys.executable, "train_worker.py"], creationflags=subprocess.CREATE_NEW_CONSOLE | getattr(subprocess, 'DETACHED_PROCESS', 8))
             
             record_strategy_outcomes(feedback_record)
-            save_feedback(feedback_record)
+            save_feedback(feedback_record, experiment_id=req.experiment_id)
 
             return {
                 "success": True,
@@ -404,7 +405,7 @@ def generate(req: Request):
     feedback_record["execution_time"] = time.time() - start_time
     
     record_strategy_outcomes(feedback_record)
-    save_feedback(feedback_record)
+    save_feedback(feedback_record, experiment_id=req.experiment_id)
 
     return {
         "success": False,

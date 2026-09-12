@@ -18,15 +18,15 @@ class BenchmarkResult(BaseModel):
     experiment_id: str
     task_id: str
     mode: str
-    success: bool
+    success: Optional[bool] = None
     error_type: Optional[str] = None
-    attempts: int
-    repair_effort: int
+    attempts: Optional[int] = None
+    repair_effort: Optional[int] = None
     execution_time_ms: int
-    strategy_history: List[Dict[str, Any]]
-    difficulty: Dict[str, Any]
-    verification: Dict[str, Any]
-    memory_used: bool
+    strategy_history: List[Dict[str, Any]] = []
+    difficulty: Dict[str, Any] = {}
+    verification: Optional[Dict[str, Any]] = None
+    memory_used: Optional[bool] = None
     lora_enabled: bool
     adapter_version: Optional[str] = None
     timestamp: float
