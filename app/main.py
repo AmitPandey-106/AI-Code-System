@@ -48,7 +48,8 @@ import uuid
 
 def record_strategy_outcomes(feedback_record):
     """Update strategy policy using the fully verified outcomes (pass or fail)."""
-    for att in feedback_record["attempts"]:
+    attempts = feedback_record.get("attempts", [])
+    for i, att in enumerate(attempts):
         strat = att.get("strategy")
         if not strat:
             continue
@@ -57,13 +58,20 @@ def record_strategy_outcomes(feedback_record):
         error_type = att.get("error_type", "Unknown")
         attempt_num = att.get("attempt_number", 1)
         
-        # Determine if THIS strategy step was successful
-        # It's successful if this attempt produced code that fixed the problem (i.e. no next attempt)
-        this_attempt_succeeded = (att.get("execution_status") == "success" and att.get("test_results", {}).get("success", False))
+        # The strategy generated a repair evaluated in the NEXT attempt.
+        this_attempt_succeeded = False
+        execution_passed = False
+        tests_passed = False
+        sec_viol = False
+        t_out = False
         
-        # Did it time out or have a security violation?
-        sec_viol = "SecurityViolation" in att.get("error_type", "")
-        t_out = "TimeoutError" in att.get("error_type", "")
+        if i + 1 < len(attempts):
+            next_att = attempts[i + 1]
+            execution_passed = (next_att.get("execution_status") == "success")
+            tests_passed = (next_att.get("test_results") or {}).get("success", False)
+            this_attempt_succeeded = (execution_passed and tests_passed)
+            sec_viol = "SecurityViolation" in next_att.get("error_type", "")
+            t_out = "TimeoutError" in next_att.get("error_type", "")
         
         strategy_selector.record_outcome(
             strategy_id=strategy_id,
@@ -71,8 +79,8 @@ def record_strategy_outcomes(feedback_record):
             task=feedback_record["task"],
             attempt_number=attempt_num,
             success=this_attempt_succeeded,
-            tests_passed=this_attempt_succeeded,
-            execution_passed=(att.get("execution_status") == "success"),
+            tests_passed=tests_passed,
+            execution_passed=execution_passed,
             duration_ms=feedback_record.get("execution", {}).get("duration_ms", 500),
             feedback_id=feedback_record["feedback_id"],
             security_violation=sec_viol,
@@ -81,6 +89,8 @@ def record_strategy_outcomes(feedback_record):
 
 @app.post("/generate")
 def generate(req: Request):
+    from app.model import check_and_reload_adapter
+    check_and_reload_adapter()
 
     MAX_RETRIES = 5
     start_time = time.time()
@@ -116,12 +126,17 @@ def generate(req: Request):
         "execution_time": 0.0
     }
 
+    from app.model import _loaded_adapter_id
+    feedback_record["lora_enabled"] = config.get("LORA_ENABLED", False)
+    feedback_record["active_adapter_id"] = _loaded_adapter_id
+
     # =====================================================
     # STEP 1: INITIAL CODE GENERATION
     # =====================================================
 
-    current_code = generate_code(req.prompt)
+    current_code, prompt_text = generate_code(req.prompt)
     feedback_record["initial_code"] = current_code
+    feedback_record["generation_prompt"] = prompt_text
 
     # =====================================================
     # STEP 2: EMPTY GENERATION CHECK
@@ -223,6 +238,8 @@ def generate(req: Request):
                     for idx, m in enumerate(memories):
                         memory_context += f"Experience {idx+1}:\nError:\n{m['memory']['error_message']}\nBroken Code:\n{m['memory']['broken_code']}\nSuccessful Fix:\n{m['memory']['successful_fix']}\n\n"
 
+            attempt_record["memory_injected"] = len(memory_context) > 0
+            
             attempt_history.append({
                 "attempt": attempt + 1,
                 "stage": "execution",
@@ -237,19 +254,25 @@ def generate(req: Request):
             # FIX CODE
             # =============================================
             strat_prompt = get_strategy_prompt(strat_info["selected_strategy"])
-            fixed_code = fix_code(current_code, error, memory_context, strategy_prompt=strat_prompt)
+            fixed_code, debug_prompt = fix_code(current_code, error, memory_context, strategy_prompt=strat_prompt)
+            attempt_record["debug_prompt"] = debug_prompt
             attempt_record["repair_applied"] = fixed_code
-            if fixed_code and fixed_code.strip():
-                current_code = fixed_code
-            feedback_record["total_repairs"] += 1
-            # Difficulty-Aware Compute Allocation
-            if config.get("DIFFICULTY_ALLOCATION_ENABLED"):
-                budget = diff_info.get("recommended_attempts", MAX_RETRIES)
+            
+            # Explicit failure handling and identical state detection
+            if not fixed_code or not fixed_code.strip():
+                attempt_record["repair_generation_failed"] = True
+                attempt_record["repair_failure_reason"] = "Model failed to produce valid Python code"
+                attempt_record["repair_changed_code"] = False
             else:
-                budget = MAX_RETRIES
+                attempt_record["repair_generation_failed"] = False
+                attempt_record["repair_failure_reason"] = None
+                attempt_record["repair_changed_code"] = (fixed_code.strip() != current_code.strip())
+                current_code = fixed_code
                 
-            if attempt + 1 >= budget:
-                print(f"\nRepair budget exhausted ({budget} attempts).")
+            feedback_record["total_repairs"] += 1
+            # Difficulty is observational only. Use MAX_RETRIES.
+            if attempt + 1 >= MAX_RETRIES:
+                print(f"\nMax retries exhausted ({MAX_RETRIES} attempts).")
                 break
             continue
             
@@ -285,24 +308,24 @@ def generate(req: Request):
             # Store valid repairs in memory only if all verification passes
             if config.get("MEMORY_ENABLED") and feedback_record["verification"]["syntax_passed"] and feedback_record["verification"]["safety_passed"] and feedback_record["verification"]["execution_passed"] and feedback_record["verification"]["tests_passed"]:
                 memories_added = False
-                for i, att in enumerate(feedback_record["attempts"]):
-                    if att["error_message"] and att["repair_applied"]:
+                if len(feedback_record["attempts"]) > 1:
+                    last_failed_att = feedback_record["attempts"][-2]
+                    successful_att = feedback_record["attempts"][-1]
+                    if last_failed_att["error_message"] and last_failed_att["repair_applied"]:
                         # Do not store security failures as successful repair memories
-                        if "SecurityViolation" in att["error_type"]:
-                            continue
-                            
-                        added = repair_memory.add_repair_experience(
-                            task=req.prompt,
-                            error_type=att["error_type"],
-                            error_message=att["error_message"],
-                            broken_code=att["code"],
-                            successful_fix=att["repair_applied"],
-                            tests=att["tests_generated"],
-                            verification=feedback_record["verification"],
-                            repair_attempts=1
-                        )
-                        if added:
-                            memories_added = True
+                        if "SecurityViolation" not in last_failed_att["error_type"]:
+                            added = repair_memory.add_repair_experience(
+                                task=req.prompt,
+                                error_type=last_failed_att["error_type"],
+                                error_message=last_failed_att["error_message"],
+                                broken_code=last_failed_att["code"],
+                                successful_fix=last_failed_att["repair_applied"],
+                                tests=successful_att["tests_generated"],
+                                verification=feedback_record["verification"],
+                                repair_attempts=1
+                            )
+                            if added:
+                                memories_added = True
                             
                 if config.get("LORA_ENABLED") and memories_added:
                     # Trigger training worker asynchronously (non-blocking)
@@ -365,6 +388,8 @@ def generate(req: Request):
                 for idx, m in enumerate(memories):
                     memory_context += f"Experience {idx+1}:\nError:\n{m['memory']['error_message']}\nBroken Code:\n{m['memory']['broken_code']}\nSuccessful Fix:\n{m['memory']['successful_fix']}\n\n"
 
+        attempt_record["memory_injected"] = len(memory_context) > 0
+
         attempt_history.append({
             "attempt": attempt + 1,
             "stage": "testing",
@@ -380,20 +405,26 @@ def generate(req: Request):
         # =================================================
 
         strat_prompt = get_strategy_prompt(strat_info["selected_strategy"])
-        fixed_code = fix_code(current_code, error, memory_context, strategy_prompt=strat_prompt)
+        fixed_code, debug_prompt = fix_code(current_code, error, memory_context, strategy_prompt=strat_prompt)
+        attempt_record["debug_prompt"] = debug_prompt
         attempt_record["repair_applied"] = fixed_code
-        if fixed_code and fixed_code.strip():
+        
+        # Explicit failure handling and identical state detection
+        if not fixed_code or not fixed_code.strip():
+            attempt_record["repair_generation_failed"] = True
+            attempt_record["repair_failure_reason"] = "Model failed to produce valid Python code"
+            attempt_record["repair_changed_code"] = False
+        else:
+            attempt_record["repair_generation_failed"] = False
+            attempt_record["repair_failure_reason"] = None
+            attempt_record["repair_changed_code"] = (fixed_code.strip() != current_code.strip())
             current_code = fixed_code
+            
         feedback_record["total_repairs"] += 1
         
-        # Difficulty-Aware Compute Allocation
-        if config.get("DIFFICULTY_ALLOCATION_ENABLED"):
-            budget = diff_info.get("recommended_attempts", MAX_RETRIES)
-        else:
-            budget = MAX_RETRIES
-            
-        if attempt + 1 >= budget:
-            print(f"\nRepair budget exhausted ({budget} attempts).")
+        # Difficulty is observational only. Use MAX_RETRIES.
+        if attempt + 1 >= MAX_RETRIES:
+            print(f"\nMax retries exhausted ({MAX_RETRIES} attempts).")
             break
 
     # =====================================================

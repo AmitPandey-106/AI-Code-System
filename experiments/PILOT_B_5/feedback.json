@@ -1,0 +1,459 @@
+[
+    {
+        "feedback_id": "d0fba6cf415246dd9082401d9d89391f",
+        "timestamp": 1789376251.035393,
+        "task": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "initial_code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert add(2, 3) == 5\nassert add(-1, 1) == 0",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 64,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 91.63640475273132
+    },
+    {
+        "feedback_id": "696932176c1c4583b0c04daf10e19cb6",
+        "timestamp": 1789376342.6773014,
+        "task": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b\n\nEnsure it passes these tests:\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "initial_code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 57,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 143.24559593200684
+    },
+    {
+        "feedback_id": "8a6eca00a0174bdb9c625b364d823287",
+        "timestamp": 1789376485.9741342,
+        "task": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'",
+        "initial_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 3.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline"
+                }
+            },
+            {
+                "attempt_number": 2,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 5.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 2)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "ALTERNATIVE_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline"
+                }
+            },
+            {
+                "attempt_number": 3,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 6.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 3)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline"
+                }
+            },
+            {
+                "attempt_number": 4,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 8.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 4)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline"
+                }
+            },
+            {
+                "attempt_number": 5,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "VERY_HARD",
+                    "score": 9.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 5)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 5
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 1.0,
+                    "reason": "Baseline mapping for AssertionError (Learning disabled).",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "baseline"
+                }
+            }
+        ],
+        "final_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "final_status": "failure",
+        "total_attempts": 5,
+        "total_repairs": 5,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": false,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 57,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 809.5664312839508
+    },
+    {
+        "feedback_id": "a07b22577eed4684820f422a1aa35a91",
+        "timestamp": 1789377295.5686355,
+        "task": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b\n\nEnsure it passes these tests:\nassert multiply(3, 4) == 12",
+        "initial_code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert multiply(3, 4) == 12",
+                "test_results": {
+                    "total": 1,
+                    "passed": 1,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 72,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 80.89374542236328
+    },
+    {
+        "feedback_id": "818adf776d814db2a74ffac31dfd99c4",
+        "timestamp": 1789377376.5186646,
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "initial_code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 62,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 133.14147543907166
+    }
+]

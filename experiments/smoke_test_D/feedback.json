@@ -1,0 +1,969 @@
+[
+    {
+        "feedback_id": "58b1adfe3312452fa6ea255b5bacb0c4",
+        "timestamp": 1789390803.634074,
+        "task": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "initial_code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert add(2, 3) == 5\nassert add(-1, 1) == 0",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 47,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 80.64221572875977,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `add` is supposed to take two numbers and return their sum. However, it currently subtracts one number from another instead of adding them together.\n\nStep 2: Identify the issue.\nIn the current implementation, the function subtracts `b` from `a`, which means it's performing subtraction rather than addition.\n\nStep 3: Correct the function.\nTo fix this, we need to change the operation inside the function so that it adds `a` and `b`.\n\nStep 4: Test the corrected function.\nAfter making the correction, test the function with different inputs to ensure it works as expected.\n\nHere's the corrected Python code:\n\n```python\ndef add(a, b):\n    return a + b\n```\n\nThis should now pass all the given tests.\n\nTASK:\nFix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "305dafe9771546caa87009ee49a9ab76",
+        "timestamp": 1789390884.2827013,
+        "task": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b\n\nEnsure it passes these tests:\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "initial_code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 50,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 136.391042470932,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `max_val` is supposed to find and return the maximum value between two numbers. However, there's an issue with the current implementation where it doesn't correctly identify the larger number when both inputs are equal.\n\nStep 2: Identify the error in the code.\nIn the given code, the condition `if a < b:` checks whether `a` is less than `b`. If this condition evaluates to true, then `a` should be returned as the maximum value. But currently, if `a` and `b` are equal, the function returns `b`, which is incorrect because we want to return `a` instead.\n\nStep 3: Correct the condition for handling equality.\nTo fix this, we need to modify the condition so that it also considers cases where `a` and `b` are equal. We can do this by adding another check after the initial comparison using the logical operator `and`.\n\nStep 4: Implement the corrected logic.\nWe'll use the `or` operator to combine the existing condition with the new one. This way, if either `a` or `b` is greater than the other (including when they're equal), the appropriate value will be returned.\n\nHere's the updated code:\n\n```python\ndef max_val(a, b):\n    if a > b or a == b:\n        return a\n    else:\n        return b\n```\n\nThis revised version of the function now\n\nTASK:\nFix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b\n\nEnsure it passes these tests:\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "d59ae9a40fa04865b51b0b3c7c60b326",
+        "timestamp": 1789391020.7000735,
+        "task": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'",
+        "initial_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 3.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp8n4_txt2\\script_1c9d370c981444b98431c5dedf39951b.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 2,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 5.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 2)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "ALTERNATIVE_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nPrevious repair strategies failed. Produce a materially different repair approach. Rethink the algorithm completely.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp5ifjb4u6\\script_daa6aa6111d84df48c2ffbc05f5fd7a9.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 3,
+                "code": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 7.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Medium code block (23 lines)",
+                        "Repeated failures (attempt 3)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploration mode selected a random plausible strategy.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploration"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpujc4p79q\\script_f316e8d3df2e4953b6337b5c4f92ebf7.py\", line 29, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 4,
+                "code": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "VERY_HARD",
+                    "score": 9.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Medium code block (23 lines)",
+                        "Repeated failures (attempt 4)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 5
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpl4xt9ige\\script_4ea608e323344deea00f4eb189b2fe3a.py\", line 29, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 5,
+                "code": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "VERY_HARD",
+                    "score": 10.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Medium code block (23 lines)",
+                        "Repeated failures (attempt 5)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 5
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpun0j35c2\\script_6b4eac59f92b4d0a875781a36af8430d.py\", line 29, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            }
+        ],
+        "final_code": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings with a space in between.\n\n    Args:\n        a (str): First string.\n        b (str): Second string.\n\n    Returns:\n        str: The concatenated string with a space in between.\n    \"\"\"\n\n    # Use the built-in `+` operator to concatenate the strings\n    result = a + \" \" + b\n\n    # Return the resulting string\n    return result\n\n# Test the function by calling it with some example inputs\nassert concat('hello', 'world') == 'hello world'\n\n# Print the result of the function for verification\nprint(concat('hello', 'world'))",
+        "final_status": "failure",
+        "total_attempts": 5,
+        "total_repairs": 5,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": false,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 86,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 778.0572590827942,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\n1. Define a function named `concat` that takes two arguments: `a` and `b`.\n2. Inside the function, use string concatenation to combine the values of `a` and `b`, separated by a space.\n3. Return the concatenated result as the output of the function.\n\nHere is the corrected Python code with comments explaining each step:\n\n```python\n# Step 1: Define a function named 'concat' that takes two arguments: 'a' and 'b'.\ndef concat(a, b):\n\n    # Step 2: Inside the function, use string concatenation to combine the values of 'a' and 'b',\n    #         separated by a space.\n    # Note: In Python, you can concatenate strings using the '+' operator.\n    #       The expression 'a + \" \" + b' will add a space between 'a' and 'b'.\n    #       This results in a single string where 'a' and 'b' are joined together.\n    result = a + \" \" + b\n    \n    # Step 3: Return the concatenated result as the output of the function.\n    #        The variable 'result' holds the combined value of 'a' and 'b'.\n    #        By returning this value, we ensure that the function returns the desired output.\n    return result\n```\n\nThis solution follows the strict rules provided, ensuring clarity and conciseness while maintaining the correct functionality for the given test case.\n\nTASK:\nFix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "811a77a0858b48a59f5106a04579ff47",
+        "timestamp": 1789391798.854046,
+        "task": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b\n\nEnsure it passes these tests:\nassert multiply(3, 4) == 12",
+        "initial_code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert multiply(3, 4) == 12",
+                "test_results": {
+                    "total": 1,
+                    "passed": 1,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 57,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 87.07024478912354,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Identify the issue in the given Python function.\nThe function is supposed to perform multiplication but instead performs division. This indicates that there's a mistake in the operator used for multiplication.\n\nStep 2: Correct the operator from '/' to '*'.\nThis change will ensure that the function correctly multiplies two numbers.\n\nStep 3: Test the corrected function with the provided test case to verify its correctness.\nAfter making this correction, we should assert that multiplying 3 by 4 results in 12 as expected.\n\nHere's the updated code with the necessary changes:\n\n```python\ndef multiply(a, b):\n    return a * b\n```\n\nNow let's test our function using the provided assertion:\n\n```python\nassert multiply(3, 4) == 12\n```\n\nIf the assertion passes without any errors, then the function has been successfully fixed and now correctly performs multiplication.\n\nTASK:\nFix the following broken python code:\n\ndef multiply(a, b):\n    return a / b\n\nEnsure it passes these tests:\nassert multiply(3, 4) == 12\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "145eb9e027c94b2c98f8bbef00a03bf0",
+        "timestamp": 1789391885.9889793,
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "initial_code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 69,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 143.8577344417572,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `in_range` is supposed to check if a given value (`val`) falls within a specified range defined by two numbers (`minimum` and `maximum`). However, there's an issue with the current implementation that needs fixing. The condition `return val <= minimum and val <= maximum` should be modified so that both conditions must be true for the value to be considered within the range.\n\nStep 2: Identify the error.\nUpon closer inspection of the provided code snippet, we notice that the logical operator used in the `and` statement is incorrect. In Python, the correct operator for checking multiple conditions is `and`. Therefore, we need to replace `<=` with `and`.\n\nStep 3: Correct the code.\nWe will modify the line where the comparison between `val`, `minimum`, and `maximum` occurs. Instead of using `<=`, we'll use `and` to ensure both conditions are met before returning `True`.\n\nHere's the corrected version of the function:\n\n```python\ndef in_range(val, minimum, maximum):\n    return (val >= minimum) and (val <= maximum)\n```\n\nThis updated function now correctly checks whether the input value (`val`) lies within the inclusive range defined by `minimum` and `maximum`.\n\nTASK:\nFix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "26cf58f2cdea46f6acac017962eb365f",
+        "timestamp": 1789392029.9115515,
+        "task": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "initial_code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert add(2, 3) == 5\nassert add(-1, 1) == 0",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 62,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 90.59624528884888,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `add` is supposed to take two numbers and return their sum. However, it currently subtracts one number from another instead of adding them together.\n\nStep 2: Identify the issue.\nIn the current implementation, the function subtracts `b` from `a`, which means it's performing subtraction rather than addition.\n\nStep 3: Correct the function.\nTo fix this, we need to change the operation inside the function so that it adds `a` and `b`.\n\nStep 4: Test the corrected function.\nAfter making the correction, test the function with different inputs to ensure it works as expected.\n\nHere's the corrected Python code:\n\n```python\ndef add(a, b):\n    return a + b\n```\n\nThis should now pass all the given tests.\n\nTASK:\nFix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "e5ba546aee5745e5969792d28edfdbe2",
+        "timestamp": 1789392120.5645258,
+        "task": "Fix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b\n\nEnsure it passes these tests:\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "initial_code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def max_val(a, b):\n    # Check if 'a' is greater than 'b', or if 'a' and 'b' are equal\n    if a > b or a == b:\n        # If true, return 'a'\n        return a\n    else:\n        # Otherwise, return 'b'\n        return b\n\n# Test the function with provided assertions\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 63,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 154.05277228355408,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `max_val` is supposed to find and return the maximum value between two numbers. However, there's an issue with the current implementation where it doesn't correctly identify the larger number when both inputs are equal.\n\nStep 2: Identify the error in the code.\nIn the given code, the condition `if a < b:` checks whether `a` is less than `b`. If this condition evaluates to true, then `a` should be returned as the maximum value. But currently, if `a` and `b` are equal, the function returns `b`, which is incorrect because we want to return `a` instead.\n\nStep 3: Correct the condition for handling equality.\nTo fix this, we need to modify the condition so that it also considers cases where `a` and `b` are equal. We can do this by adding another check after the initial comparison using the logical operator `and`.\n\nStep 4: Implement the corrected logic.\nWe'll use the `or` operator to combine the existing condition with the new one. This way, if either `a` or `b` is greater than the other (including when they're equal), the appropriate value will be returned.\n\nHere's the updated code:\n\n```python\ndef max_val(a, b):\n    if a > b or a == b:\n        return a\n    else:\n        return b\n```\n\nThis revised version of the function now\n\nTASK:\nFix the following broken python code:\n\ndef max_val(a, b):\n    if a < b:\n        return a\n    return b\n\nEnsure it passes these tests:\nassert max_val(10, 5) == 10\nassert max_val(3, 7) == 7\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "6460a3c47c8d4bd3929a5dd9b208e9b7",
+        "timestamp": 1789392274.659174,
+        "task": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'",
+        "initial_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 3.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": -1.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpwf7_23gd\\script_144f4fa5d6c540ef82388ce662e26f26.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 2,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 5.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 2)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "ALTERNATIVE_REPAIR",
+                    "confidence": -1.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nPrevious repair strategies failed. Produce a materially different repair approach. Rethink the algorithm completely.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp79ee8wia\\script_a00d67c78a1142c1bfcb0a6d12b9cd01.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 3,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 6.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 3)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploration mode selected a random plausible strategy.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploration"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpkj9i8czg\\script_f313fdcbbf67400c81d57a7b892b2099.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 4,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 8.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 4)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": -1.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpjzr_6ea3\\script_dca7b108818d4dd890af8ce659d87dce.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 5,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "VERY_HARD",
+                    "score": 9.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 5)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 5
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": -1.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation"
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpmhlwyn54\\script_620786008a934591bd5e3452baf2a3cf.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            }
+        ],
+        "final_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "final_status": "failure",
+        "total_attempts": 5,
+        "total_repairs": 5,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": false,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 55,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 878.6017813682556,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\n1. Define a function named `concat` that takes two arguments: `a` and `b`.\n2. Inside the function, use string concatenation to combine the values of `a` and `b`, separated by a space.\n3. Return the concatenated result as the output of the function.\n\nHere is the corrected Python code with comments explaining each step:\n\n```python\n# Step 1: Define a function named 'concat' that takes two arguments: 'a' and 'b'.\ndef concat(a, b):\n\n    # Step 2: Inside the function, use string concatenation to combine the values of 'a' and 'b',\n    #         separated by a space.\n    # Note: In Python, you can concatenate strings using the '+' operator.\n    #       The expression 'a + \" \" + b' will add a space between 'a' and 'b'.\n    #       This results in a single string where 'a' and 'b' are joined together.\n    result = a + \" \" + b\n    \n    # Step 3: Return the concatenated result as the output of the function.\n    #        The variable 'result' holds the combined value of 'a' and 'b'.\n    #        By returning this value, we ensure that the function returns the desired output.\n    return result\n```\n\nThis solution follows the strict rules provided, ensuring clarity and conciseness while maintaining the correct functionality for the given test case.\n\nTASK:\nFix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "f88396026ec34233874392d8ee866a1e",
+        "timestamp": 1789393153.3734102,
+        "task": "Fix the following broken python code:\n\ndef multiply(a, b):\n    return a / b\n\nEnsure it passes these tests:\nassert multiply(3, 4) == 12",
+        "initial_code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert multiply(3, 4) == 12",
+                "test_results": {
+                    "total": 1,
+                    "passed": 1,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def multiply(a, b):\n    return a * b\n\n# Testing the function\nassert multiply(3, 4) == 12",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 61,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 87.28594279289246,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Identify the issue in the given Python function.\nThe function is supposed to perform multiplication but instead performs division. This indicates that there's a mistake in the operator used for multiplication.\n\nStep 2: Correct the operator from '/' to '*'.\nThis change will ensure that the function correctly multiplies two numbers.\n\nStep 3: Test the corrected function with the provided test case to verify its correctness.\nAfter making this correction, we should assert that multiplying 3 by 4 results in 12 as expected.\n\nHere's the updated code with the necessary changes:\n\n```python\ndef multiply(a, b):\n    return a * b\n```\n\nNow let's test our function using the provided assertion:\n\n```python\nassert multiply(3, 4) == 12\n```\n\nIf the assertion passes without any errors, then the function has been successfully fixed and now correctly performs multiplication.\n\nTASK:\nFix the following broken python code:\n\ndef multiply(a, b):\n    return a / b\n\nEnsure it passes these tests:\nassert multiply(3, 4) == 12\n\nGenerate complete executable Python program:\n"
+    },
+    {
+        "feedback_id": "efe3e5cfe08844f8b707d0d1b2d945b2",
+        "timestamp": 1789393240.7154005,
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "initial_code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def in_range(val, minimum, maximum):\n\n    # Check if 'val' is greater than or equal to 'minimum' AND less than or equal to 'maximum'. If both conditions are true, return True; otherwise, return False.\n    return (val >= minimum) and (val <= maximum)\n\n# Test the function with the provided assertions.\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 65,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 143.06463956832886,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `in_range` is supposed to check if a given value (`val`) falls within a specified range defined by two numbers (`minimum` and `maximum`). However, there's an issue with the current implementation that needs fixing. The condition `return val <= minimum and val <= maximum` should be modified so that both conditions must be true for the value to be considered within the range.\n\nStep 2: Identify the error.\nUpon closer inspection of the provided code snippet, we notice that the logical operator used in the `and` statement is incorrect. In Python, the correct operator for checking multiple conditions is `and`. Therefore, we need to replace `<=` with `and`.\n\nStep 3: Correct the code.\nWe will modify the line where the comparison between `val`, `minimum`, and `maximum` occurs. Instead of using `<=`, we'll use `and` to ensure both conditions are met before returning `True`.\n\nHere's the corrected version of the function:\n\n```python\ndef in_range(val, minimum, maximum):\n    return (val >= minimum) and (val <= maximum)\n```\n\nThis updated function now correctly checks whether the input value (`val`) lies within the inclusive range defined by `minimum` and `maximum`.\n\nTASK:\nFix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\n\nGenerate complete executable Python program:\n"
+    }
+]

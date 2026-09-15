@@ -2,10 +2,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from unittest.mock import MagicMock
-sys.modules['app.main'] = MagicMock()
-sys.modules['app.model'] = MagicMock()
-sys.modules['transformers'] = MagicMock()
-sys.modules['torch'] = MagicMock()
 
 import json
 import pytest
@@ -58,6 +54,8 @@ def test_metrics_complete_run():
     metrics = calculate_metrics(results, 2)
     assert metrics["is_complete_run"] is True
     assert metrics["success_rate"] == 1 / 2
+
+from unittest.mock import patch
 
 def test_save_manifest(tmp_path):
     exp_dir = tmp_path / "exp_dir"

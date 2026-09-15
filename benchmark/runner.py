@@ -25,22 +25,62 @@ def get_dataset_hash(dataset_path: str) -> str:
 
 def save_experiment_manifest(experiment_dir: str, mode: str, dataset_path: str, task_count: int, dataset_hash: str):
     import psutil
+    import torch
+    import transformers
+    
+    peft_version = None
+    try:
+        import peft
+        peft_version = peft.__version__
+    except ImportError:
+        pass
+        
+    st_version = None
+    try:
+        import sentence_transformers
+        st_version = sentence_transformers.__version__
+    except ImportError:
+        pass
+        
+    faiss_version = None
+    try:
+        import faiss
+        faiss_version = faiss.__version__
+    except ImportError:
+        pass
+
     hw_info = {
         "os": platform.system(),
         "os_version": platform.version(),
         "cpu": platform.processor(),
-        "python": platform.python_version()
+        "python": platform.python_version(),
+        "pytorch_version": torch.__version__,
+        "transformers_version": transformers.__version__,
+        "peft_version": peft_version,
+        "sentence_transformers_version": st_version,
+        "faiss_version": faiss_version
     }
+    
     manifest = {
         "experiment_id": os.path.basename(experiment_dir),
         "mode": mode,
         "dataset_path": dataset_path,
         "dataset_sha256": dataset_hash,
+        "benchmark_size": task_count,
         "task_count": task_count,
+        "benchmark_seed": config.get("BENCHMARK_SEED", 42),
+        "deterministic_generation": config.get("DETERMINISTIC_GENERATION", False),
+        "model_name": "Qwen/Qwen2.5-Coder-1.5B",
+        "lora_enabled": config.get("LORA_ENABLED", False),
+        "memory_enabled": config.get("MEMORY_ENABLED", False),
+        "strategy_learning_enabled": config.get("STRATEGY_LEARNING_ENABLED", False),
+        "difficulty_allocation_enabled": config.get("DIFFICULTY_ALLOCATION_ENABLED", False),
+        "max_retries": 5,
         "timestamp": time.time(),
         "hardware": hw_info,
-        "lora_enabled": config.get("LORA_ENABLED", False)
+        "full_config": config.config
     }
+    
     os.makedirs(experiment_dir, exist_ok=True)
     with open(f"{experiment_dir}/experiment_manifest.json", "w") as f:
         json.dump(manifest, f, indent=4)
@@ -66,24 +106,36 @@ def restore_experiment_state(experiment_dir: str):
 
 def reset_state():
     # Safely clear memory and strategy states for isolated experiments
-    if os.path.exists("data/repair_memory.json"):
-        with open("data/repair_memory.json", "w") as f:
-            json.dump([], f)
     if os.path.exists("data/strategy_memory.json"):
         with open("data/strategy_memory.json", "w") as f:
             json.dump([], f)
     if os.path.exists("data/strategy_stats.json"):
         with open("data/strategy_stats.json", "w") as f:
             json.dump({}, f)
-    # Clear FAISS index
+            
+    # Clear memory and FAISS index properly using persistence logic
     from app.repair_memory import repair_memory
     from app.strategy_selector import strategy_selector
     
     repair_memory.index.reset()
     repair_memory.memories = []
+    repair_memory._save()
     
     # Clear in-memory strategy learning stats
     strategy_selector.reset()
+    
+    # Clear active LoRA adapter state securely
+    ACTIVE_ADAPTER_PATH = "models/adapters/active"
+    if os.path.exists(ACTIVE_ADAPTER_PATH):
+        shutil.rmtree(ACTIVE_ADAPTER_PATH)
+        
+    TRAINING_STATE_FILE = "data/training_state.json"
+    if os.path.exists(TRAINING_STATE_FILE):
+        os.remove(TRAINING_STATE_FILE)
+        
+    # Reset model/cache state and adapter identity cache
+    from app.model import reload_model
+    reload_model()
 
 def run_benchmark(experiment_id: str, mode: str, size: int = None, dataset_path: str = None) -> List[BenchmarkResult]:
     apply_ablation_mode(mode)
@@ -206,6 +258,7 @@ def run_benchmark(experiment_id: str, mode: str, size: int = None, dataset_path:
             verification=verification_data,
             memory_used=memory_used,
             lora_enabled=config.get("LORA_ENABLED", False),
+            adapter_version=feedback.get("active_adapter_id"),
             timestamp=time.time()
         )
         results.append(res)
@@ -223,11 +276,14 @@ def run_benchmark(experiment_id: str, mode: str, size: int = None, dataset_path:
             
         raw_record = {
             "task_id": task.task_id,
+            "task_index": idx + 1,
             "success": success,
             "attempts_used": attempts,
             "error_type": error_type,
             "runtime_ms": elapsed_ms,
             "timestamp": time.time(),
+            "lora_enabled": feedback.get("lora_enabled", config.get("LORA_ENABLED", False)),
+            "active_adapter_id": feedback.get("active_adapter_id"),
             "generated_code": resp.get("generated_code"),
             "execution": resp.get("execution"),
             "tests": resp.get("tests"),

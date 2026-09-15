@@ -11,53 +11,89 @@ import re
 base_model_name = "Qwen/Qwen2.5-Coder-1.5B"
 import os
 
+import json
+
+_base_model = None
 _model = None
 _tokenizer = None
+_loaded_adapter_id = None
+
+def reload_model():
+    global _model, _loaded_adapter_id
+    _model = None
+    _loaded_adapter_id = None
+
+def check_and_reload_adapter():
+    global _loaded_adapter_id, _model
+    from app.config import config
+    
+    if not config.get("LORA_ENABLED"):
+        if _loaded_adapter_id is not None:
+            reload_model()
+        return
+        
+    meta_path = "models/adapters/active/metadata.json"
+    if os.path.exists(meta_path):
+        try:
+            with open(meta_path, "r") as f:
+                disk_id = json.load(f).get("adapter_id")
+            if disk_id and disk_id != _loaded_adapter_id:
+                reload_model()
+        except Exception:
+            pass
 
 def get_model():
-    global _model, _tokenizer
+    global _base_model, _model, _tokenizer, _loaded_adapter_id
+    from app.config import config
 
-    if _model is None or _tokenizer is None:
+    if _base_model is None or _tokenizer is None:
         tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
         if torch.cuda.is_available():
             selected_device = "cuda"
             selected_dtype = torch.float16
-            gpu_name = torch.cuda.get_device_name(0)
-            print(f"CUDA is available.")
-            print(f"GPU Name: {gpu_name}")
-            print(f"Selected device: {selected_device}")
-            print(f"Selected dtype: {selected_dtype}")
-            
             base_model = AutoModelForCausalLM.from_pretrained(
                 base_model_name,
                 torch_dtype=selected_dtype,
                 device_map="auto"
             )
         else:
-            print("CUDA is NOT available. CPU inference is being used.")
             base_model = AutoModelForCausalLM.from_pretrained(
                 base_model_name,
                 torch_dtype=torch.float32,
                 device_map="auto"
             )
 
-        # Active adapter paths
+        _base_model = base_model
+        _tokenizer = tokenizer
+
+    if _model is None:
         ACTIVE_ADAPTER_PATH = "models/adapters/active"
         LEGACY_ADAPTER_PATH = "lora-finetuned"
-
-        if os.path.exists(ACTIVE_ADAPTER_PATH):
-            model = PeftModel.from_pretrained(base_model, ACTIVE_ADAPTER_PATH)
-            print("Active LoRA adapter loaded successfully.")
-        elif os.path.exists(LEGACY_ADAPTER_PATH):
-            model = PeftModel.from_pretrained(base_model, LEGACY_ADAPTER_PATH)
-            print("Legacy LoRA adapter loaded successfully.")
+        
+        if config.get("LORA_ENABLED"):
+            meta_path = os.path.join(ACTIVE_ADAPTER_PATH, "metadata.json")
+            if os.path.exists(ACTIVE_ADAPTER_PATH):
+                model = PeftModel.from_pretrained(_base_model, ACTIVE_ADAPTER_PATH)
+                if os.path.exists(meta_path):
+                    try:
+                        with open(meta_path, "r") as f:
+                            _loaded_adapter_id = json.load(f).get("adapter_id", "active_unknown")
+                    except Exception:
+                        _loaded_adapter_id = "active_unknown"
+                else:
+                    _loaded_adapter_id = "active_unknown"
+            elif os.path.exists(LEGACY_ADAPTER_PATH):
+                model = PeftModel.from_pretrained(_base_model, LEGACY_ADAPTER_PATH)
+                _loaded_adapter_id = "legacy"
+            else:
+                model = _base_model
+                _loaded_adapter_id = None
         else:
-            model = base_model
-            print("No LoRA adapter found. Using base model.")
+            model = _base_model
+            _loaded_adapter_id = None
             
         _model = model
-        _tokenizer = tokenizer
         
     return _model, _tokenizer
 
@@ -115,49 +151,28 @@ def clean_generated_code(code: str):
 # =========================================================
 
 def extract_code(text: str):
-
-    text = text.replace("```python", "")
-    text = text.replace("```", "")
-
+    import re
+    # 1. Try standard markdown code fences
+    matches = re.findall(r'```(?:python|py)?\s*(.*?)```', text, re.DOTALL | re.IGNORECASE)
+    if matches:
+        return max(matches, key=len).strip()
+    
+    # 2. Fallback to AST shrink method
     lines = text.split("\n")
-
-    collected = []
-
-    started = False
-
-    for line in lines:
-
+    start_idx = 0
+    for i, line in enumerate(lines):
         stripped = line.strip()
-
-        # detect start
-        if stripped.startswith((
-            "def ",
-            "class ",
-            "import ",
-            "from ",
-            "arr ",
-            "nums ",
-            "if __name__"
-        )):
-            started = True
-
-        if not started:
-            continue
-
-        # stop garbage
-        if stripped.startswith((
-            "Explanation",
-            "Example",
-            "Output",
-            "Expected",
-            "Traceback",
-            "Error:"
-        )):
+        if stripped.startswith(("def ", "class ", "import ", "from ", "@", "if __name__")) or ("=" in stripped and not stripped.startswith(("#", "//"))):
+            start_idx = i
             break
-
-        collected.append(line.rstrip())
-
-    return "\n".join(collected).strip()
+            
+    code_lines = lines[start_idx:]
+    for end_idx in range(len(code_lines), 0, -1):
+        candidate = "\n".join(code_lines[:end_idx])
+        if is_code_valid(candidate):
+            return candidate.strip()
+            
+    return text.strip()
 
 
 # =========================================================
@@ -304,9 +319,9 @@ Generate complete executable Python program:
         code = clean_generated_code(code)
 
         if is_code_valid(code): 
-            return code
+            return code, formatted_prompt
 
-    return ""
+    return "", formatted_prompt
 
 
 # =========================================================
@@ -394,10 +409,9 @@ Return corrected executable Python code:
         code = clean_generated_code(code)
 
         if is_code_valid(code):
+            return code, debug_prompt
 
-            return code
-
-    return ""
+    return "", debug_prompt
 
 
 def generate_plan(user_prompt):

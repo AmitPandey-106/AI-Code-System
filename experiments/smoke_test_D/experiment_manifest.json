@@ -1,0 +1,36 @@
+{
+    "experiment_id": "smoke_test_D",
+    "mode": "MODE_D",
+    "dataset_path": "data/benchmark/v1.0/dataset.json",
+    "dataset_sha256": "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620",
+    "benchmark_size": 10,
+    "task_count": 10,
+    "benchmark_seed": 42,
+    "deterministic_generation": true,
+    "model_name": "Qwen/Qwen2.5-Coder-1.5B",
+    "lora_enabled": false,
+    "memory_enabled": true,
+    "strategy_learning_enabled": true,
+    "difficulty_allocation_enabled": true,
+    "max_retries": 5,
+    "timestamp": 1789390803.6335554,
+    "hardware": {
+        "os": "Windows",
+        "os_version": "10.0.22621",
+        "cpu": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+        "python": "3.10.11",
+        "pytorch_version": "2.11.0+cpu",
+        "transformers_version": "5.7.0",
+        "peft_version": "0.19.1",
+        "sentence_transformers_version": "6.0.0",
+        "faiss_version": "1.15.0"
+    },
+    "full_config": {
+        "MEMORY_ENABLED": true,
+        "STRATEGY_LEARNING_ENABLED": true,
+        "LORA_ENABLED": false,
+        "DIFFICULTY_ALLOCATION_ENABLED": true,
+        "BENCHMARK_SEED": 42,
+        "DETERMINISTIC_GENERATION": true
+    }
+}

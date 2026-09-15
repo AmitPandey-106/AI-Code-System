@@ -26,11 +26,22 @@ def save_training_state(state):
     with open(TRAINING_STATE_FILE, "w") as f:
         json.dump(state, f, indent=4)
 
+from filelock import FileLock, Timeout
+
+TRAINING_LOCK_FILE = "models/adapters/training.lock"
+
 def run_training_pipeline():
-    state = get_training_state()
-    if state.get("is_training"):
+    os.makedirs(os.path.dirname(TRAINING_LOCK_FILE), exist_ok=True)
+    lock = FileLock(TRAINING_LOCK_FILE, timeout=0)
+    try:
+        with lock:
+            _run_training_pipeline_internal()
+    except Timeout:
         print("Training lock active. Skipping.")
         return
+
+def _run_training_pipeline_internal():
+    state = get_training_state()
 
     # 1. Build Dataset
     print("Building verified experience dataset...")
@@ -50,10 +61,6 @@ def run_training_pipeline():
     if new_memories < MIN_NEW_EXPERIENCES:
         print(f"Threshold not reached ({new_memories} < {MIN_NEW_EXPERIENCES}). Skipping training.")
         return
-
-    # Lock
-    state["is_training"] = True
-    save_training_state(state)
 
     try:
         # 2. Train LoRA
@@ -165,24 +172,27 @@ def run_training_pipeline():
             
         if accepted:
             print("Candidate ACCEPTED! Activating...")
-            # Archive old
+            # Atomically replace via tmp directory
+            active_tmp = os.path.join(CANDIDATES_DIR, f"tmp_active_{candidate_id}")
+            if os.path.exists(active_tmp):
+                shutil.rmtree(active_tmp)
+            shutil.copytree(candidate_path, active_tmp)
+            
             if os.path.exists(ACTIVE_ADAPTER_DIR):
                 archive_path = os.path.join(ARCHIVE_DIR, f"archive_{int(time.time())}")
                 os.makedirs(os.path.dirname(archive_path), exist_ok=True)
-                shutil.move(ACTIVE_ADAPTER_DIR, archive_path)
+                os.rename(ACTIVE_ADAPTER_DIR, archive_path)
                 
-            shutil.copytree(candidate_path, ACTIVE_ADAPTER_DIR)
+            os.rename(active_tmp, ACTIVE_ADAPTER_DIR)
         else:
             print("Candidate REJECTED! Preserving current active model.")
             
         # Update state
         state["last_trained_count"] = unique_memories
+        save_training_state(state)
         
     except Exception as e:
         print("Training job failed:", e)
-    finally:
-        state["is_training"] = False
-        save_training_state(state)
 
 if __name__ == "__main__":
     run_training_pipeline()

@@ -1,0 +1,319 @@
+{
+    "task_id": "TASK_1E88EF5E",
+    "task_index": 3,
+    "success": false,
+    "attempts_used": 5,
+    "error_type": "AssertionError",
+    "runtime_ms": 883560,
+    "timestamp": 1789394521.927487,
+    "lora_enabled": true,
+    "active_adapter_id": "legacy",
+    "generated_code": null,
+    "execution": null,
+    "tests": null,
+    "history": [
+        {
+            "attempt": 1,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp70fadkl5\\script_da4ca00362704a6da02a1560a51e055c.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        },
+        {
+            "attempt": 2,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp6bj6mii4\\script_8a7c1a3f1393493c8e85858cd5a8c24a.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        },
+        {
+            "attempt": 3,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp2myv78zo\\script_7ae79b87947046f99e4b160374a08019.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        },
+        {
+            "attempt": 4,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpxu4pj6us\\script_c8a079d14d5941c9a1985af7106bbb79.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        },
+        {
+            "attempt": 5,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpegiwnpl2\\script_db715f3112bb4b0986012a609f008a92.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n"
+        }
+    ],
+    "feedback_record": {
+        "feedback_id": "c2708631032340279746df931ff6b020",
+        "timestamp": 1789393638.3673759,
+        "task": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'",
+        "initial_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 3.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation",
+                    "success": true
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp70fadkl5\\script_da4ca00362704a6da02a1560a51e055c.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 2,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "MEDIUM",
+                    "score": 5.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 2)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 3
+                },
+                "strategy": {
+                    "selected_strategy": "ALTERNATIVE_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation",
+                    "success": true
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nPrevious repair strategies failed. Produce a materially different repair approach. Rethink the algorithm completely.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp6bj6mii4\\script_8a7c1a3f1393493c8e85858cd5a8c24a.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 3,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 6.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 3)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploration mode selected a random plausible strategy.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploration",
+                    "success": true
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp2myv78zo\\script_7ae79b87947046f99e4b160374a08019.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 4,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "HARD",
+                    "score": 8.0,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 4)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 4
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation",
+                    "success": true
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpxu4pj6us\\script_c8a079d14d5941c9a1985af7106bbb79.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            },
+            {
+                "attempt_number": 5,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": false,
+                "retrieved_memory_count": 0,
+                "retrieved_memories": [],
+                "difficulty": {
+                    "difficulty": "VERY_HARD",
+                    "score": 9.5,
+                    "reasons": [
+                        "Test failures require logic changes",
+                        "Repeated failures (attempt 5)",
+                        "No verified experiences available"
+                    ],
+                    "recommended_attempts": 5
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": 0.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation",
+                    "success": true
+                },
+                "memory_injected": false,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpegiwnpl2\\script_db715f3112bb4b0986012a609f008a92.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\nAssertionError\n\n\nReturn corrected executable Python code:\n"
+            }
+        ],
+        "final_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "final_status": "failure",
+        "total_attempts": 5,
+        "total_repairs": 5,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": false,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 57,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 883.5060822963715,
+        "lora_enabled": true,
+        "active_adapter_id": "legacy",
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\n1. Define a function named `concat` that takes two arguments: `a` and `b`.\n2. Inside the function, use string concatenation to combine the values of `a` and `b`, separated by a space.\n3. Return the concatenated result as the output of the function.\n\nHere is the corrected Python code with comments explaining each step:\n\n```python\n# Step 1: Define a function named 'concat' that takes two arguments: 'a' and 'b'.\ndef concat(a, b):\n\n    # Step 2: Inside the function, use string concatenation to combine the values of 'a' and 'b',\n    #         separated by a space.\n    # Note: In Python, you can concatenate strings using the '+' operator.\n    #       The expression 'a + \" \" + b' will add a space between 'a' and 'b'.\n    #       This results in a single string where 'a' and 'b' are joined together.\n    result = a + \" \" + b\n    \n    # Step 3: Return the concatenated result as the output of the function.\n    #        The variable 'result' holds the combined value of 'a' and 'b'.\n    #        By returning this value, we ensure that the function returns the desired output.\n    return result\n```\n\nThis solution follows the strict rules provided, ensuring clarity and conciseness while maintaining the correct functionality for the given test case.\n\nTASK:\nFix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'\n\nGenerate complete executable Python program:\n"
+    },
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": false,
+        "sandboxed_execution": true
+    }
+}

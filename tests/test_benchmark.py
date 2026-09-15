@@ -9,7 +9,7 @@ from app.config import config
 def test_dataset_loads():
     tasks = load_dataset()
     assert len(tasks) > 0
-    assert tasks[0].task_id == "T001"
+    assert tasks[0].task_id.startswith("TASK_") or tasks[0].task_id == "T001"
 
 def test_ablation_configuration():
     apply_ablation_mode("MODE_A")
@@ -35,7 +35,7 @@ def test_metrics_calculation():
             difficulty={}, verification={}, memory_used=False, lora_enabled=False, timestamp=0.0
         )
     ]
-    metrics = calculate_metrics(results)
+    metrics = calculate_metrics(results, dataset_size=2)
     assert metrics["success_rate"] == 0.5
     assert metrics["average_attempts"] == 3.5
     assert metrics["error_type_performance"]["SyntaxError"] == 0.5
@@ -43,5 +43,5 @@ def test_metrics_calculation():
 
 def test_registry_persists():
     from benchmark.reporter import save_report
-    save_report("TEST_EXP", [])
+    save_report("TEST_EXP", [], dataset_size=2)
     assert os.path.exists("experiments/TEST_EXP/report.md")
