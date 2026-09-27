@@ -1,0 +1,93 @@
+{
+    "experiment_id": "SMOKE_V2_HARDENED",
+    "task_id": "TASK_248A149E",
+    "task_index": 1,
+    "mode": "MODE_A",
+    "status": "model_success",
+    "success": true,
+    "attempts_used": 1,
+    "repair_effort": 1,
+    "generated_code": "def solution(): return 42",
+    "initial_code": "def solution(): return 42",
+    "error_category": null,
+    "error_type": null,
+    "error_message": null,
+    "error_stage": null,
+    "exception_class": null,
+    "traceback": null,
+    "error_diagnostic": null,
+    "execution": {
+        "success": true,
+        "output": "42",
+        "error": ""
+    },
+    "tests": {
+        "success": true,
+        "message": "All passed",
+        "tests": "assert solution() == 42",
+        "test_summary": {
+            "total": 1,
+            "passed": 1,
+            "failed": 0,
+            "errors": 0
+        }
+    },
+    "history": [],
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": true,
+        "sandboxed_execution": true
+    },
+    "strategy_history": [
+        {
+            "selected_strategy": "DIRECT_REPAIR",
+            "success": true
+        }
+    ],
+    "difficulty": {
+        "difficulty": "EASY"
+    },
+    "memory_used": null,
+    "lora_enabled": false,
+    "active_adapter_id": null,
+    "feedback_record": {
+        "task": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "initial_code": "def solution(): return 42",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def solution(): return 42",
+                "execution_status": "success",
+                "strategy": {
+                    "selected_strategy": "DIRECT_REPAIR",
+                    "success": true
+                },
+                "difficulty": {
+                    "difficulty": "EASY"
+                },
+                "memory_used": false,
+                "error_type": null
+            }
+        ],
+        "final_code": "def solution(): return 42",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "lora_enabled": false,
+        "active_adapter_id": null
+    },
+    "timing": {
+        "total_ms": 0
+    },
+    "runtime_ms": 0,
+    "timestamp": 1789720937.8177173
+}

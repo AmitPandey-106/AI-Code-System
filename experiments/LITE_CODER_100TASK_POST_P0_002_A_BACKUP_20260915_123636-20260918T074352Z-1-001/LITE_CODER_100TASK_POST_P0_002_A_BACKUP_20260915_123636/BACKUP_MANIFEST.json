@@ -1,0 +1,12 @@
+{
+  "original_experiment": "LITE_CODER_100TASK_POST_P0_002_A",
+  "backup_created": "20260915_123636",
+  "source": "/content/drive/MyDrive/LITE-CODER Code/ai-code-system/experiments/LITE_CODER_100TASK_POST_P0_002_A",
+  "backup": "/content/drive/MyDrive/LITE-CODER Code/BENCHMARK_BACKUPS/LITE_CODER_100TASK_POST_P0_002_A_BACKUP_20260915_123636",
+  "tasks": 100,
+  "success": 76,
+  "failure": 0,
+  "unresolved": 24,
+  "dataset_sha256": "7f7ff7305431cc66e8ee327a3c209b788d84818a9651789d70a56653376c47f6",
+  "note": "Preserved forensic benchmark evidence. This run is not treated as a clean final MODE A baseline because 24 tasks remain unresolved."
+}

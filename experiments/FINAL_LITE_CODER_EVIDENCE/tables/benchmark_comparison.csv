@@ -1,0 +1,5 @@
+mode,tasks,successes,success_rate,avg_attempts,median_attempts,min_attempts,max_attempts,execution_passed,syntax_passed,tests_passed,safety_passed,none_type_errors,audit_pass
+MODE_A_BASELINE,100,100,1.0,1.58,1.0,1,4,100,100,100,100,0,True
+MODE_A_CLEAN_V1,18,15,,1,1,1,1,15,15,15,15,3,False
+MODE_D,100,100,1.0,1.26,1.0,1,4,100,100,100,100,0,True
+MODE_F,100,100,1.0,1.26,1.0,1,4,100,100,100,100,0,True

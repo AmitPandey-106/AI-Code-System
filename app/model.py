@@ -19,9 +19,12 @@ _tokenizer = None
 _loaded_adapter_id = None
 
 def reload_model():
-    global _model, _loaded_adapter_id
+    global _model, _base_model, _loaded_adapter_id
     _model = None
+    _base_model = None
     _loaded_adapter_id = None
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
 
 def check_and_reload_adapter():
     global _loaded_adapter_id, _model
@@ -41,6 +44,8 @@ def check_and_reload_adapter():
                 reload_model()
         except Exception:
             pass
+    elif _loaded_adapter_id is not None:
+        reload_model()
 
 def get_model():
     global _base_model, _model, _tokenizer, _loaded_adapter_id
@@ -50,7 +55,6 @@ def get_model():
         tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
         if torch.cuda.is_available():
-            selected_device = "cuda"
             selected_dtype = torch.float16
             base_model = AutoModelForCausalLM.from_pretrained(
                 base_model_name,
@@ -60,32 +64,38 @@ def get_model():
         else:
             base_model = AutoModelForCausalLM.from_pretrained(
                 base_model_name,
-                torch_dtype=torch.float32,
-                device_map="auto"
+                torch_dtype=torch.float32
             )
 
         _base_model = base_model
         _tokenizer = tokenizer
 
     if _model is None:
-        ACTIVE_ADAPTER_PATH = "models/adapters/active"
-        LEGACY_ADAPTER_PATH = "lora-finetuned"
+        ACTIVE_ADAPTER_PATH = os.path.abspath("models/adapters/active")
         
         if config.get("LORA_ENABLED"):
             meta_path = os.path.join(ACTIVE_ADAPTER_PATH, "metadata.json")
-            if os.path.exists(ACTIVE_ADAPTER_PATH):
-                model = PeftModel.from_pretrained(_base_model, ACTIVE_ADAPTER_PATH)
-                if os.path.exists(meta_path):
-                    try:
-                        with open(meta_path, "r") as f:
-                            _loaded_adapter_id = json.load(f).get("adapter_id", "active_unknown")
-                    except Exception:
+            config_path = os.path.join(ACTIVE_ADAPTER_PATH, "adapter_config.json")
+            weights_st = os.path.join(ACTIVE_ADAPTER_PATH, "adapter_model.safetensors")
+            weights_bin = os.path.join(ACTIVE_ADAPTER_PATH, "adapter_model.bin")
+            has_weights = (os.path.exists(weights_st) and os.path.getsize(weights_st) > 0) or \
+                          (os.path.exists(weights_bin) and os.path.getsize(weights_bin) > 0)
+
+            if os.path.exists(ACTIVE_ADAPTER_PATH) and os.path.exists(config_path) and has_weights:
+                try:
+                    model = PeftModel.from_pretrained(_base_model, ACTIVE_ADAPTER_PATH)
+                    if os.path.exists(meta_path):
+                        try:
+                            with open(meta_path, "r", encoding="utf-8") as f:
+                                _loaded_adapter_id = json.load(f).get("adapter_id", "active_unknown")
+                        except Exception:
+                            _loaded_adapter_id = "active_unknown"
+                    else:
                         _loaded_adapter_id = "active_unknown"
-                else:
-                    _loaded_adapter_id = "active_unknown"
-            elif os.path.exists(LEGACY_ADAPTER_PATH):
-                model = PeftModel.from_pretrained(_base_model, LEGACY_ADAPTER_PATH)
-                _loaded_adapter_id = "legacy"
+                except Exception as e:
+                    print(f"[MODEL ERROR] Failed loading active adapter from {ACTIVE_ADAPTER_PATH}: {e}")
+                    model = _base_model
+                    _loaded_adapter_id = None
             else:
                 model = _base_model
                 _loaded_adapter_id = None
@@ -240,12 +250,11 @@ def generate_raw(prompt):
         else:
             outputs = model.generate(**inputs, **generation_kwargs)
 
-    full_output = tokenizer.decode(
-        outputs[0],
+    input_length = inputs["input_ids"].shape[-1]
+    generated = tokenizer.decode(
+        outputs[0][input_length:],
         skip_special_tokens=True
-    )
-
-    generated = full_output.replace(prompt, "").strip()
+    ).strip()
 
     return generated
 
@@ -254,13 +263,16 @@ def generate_raw(prompt):
 # MAIN CODE GENERATION
 # =========================================================
 
-def generate_code(user_prompt):
+def generate_code(user_prompt, approved_plan=None):
     
     # ==============================================
     # STEP 1: GENERATE PLAN
     # ==============================================
 
-    plan = generate_plan(user_prompt)
+    if approved_plan:
+        plan = approved_plan
+    else:
+        plan = generate_plan(user_prompt)
     
     print("\n========== GENERATED PLAN ==========")
     print(plan)
@@ -435,8 +447,9 @@ PLAN:
 """
 
     generated = generate_raw(planning_prompt)
-
-    return generated.strip()
+    # Filter out any hallucinated code blocks to keep plan purely algorithmic
+    cleaned_plan = re.sub(r'```(?:python|py)?\s*.*?```', '', generated, flags=re.DOTALL).strip()
+    return cleaned_plan or generated.strip()
 
 
 # =========================================================

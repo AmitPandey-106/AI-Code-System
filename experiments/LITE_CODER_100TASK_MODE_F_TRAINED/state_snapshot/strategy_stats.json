@@ -1,0 +1,22 @@
+{
+    "TEST_GUIDED_REPAIR": {
+        "AssertionError": {
+            "total_attempts": 14,
+            "successes": 0,
+            "failures": 14,
+            "reward": -14.0,
+            "average_attempts": 1.1428571428571428,
+            "average_runtime_ms": 62.57142857142857
+        }
+    },
+    "ALTERNATIVE_REPAIR": {
+        "AssertionError": {
+            "total_attempts": 1,
+            "successes": 0,
+            "failures": 1,
+            "reward": -1.0,
+            "average_attempts": 2.0,
+            "average_runtime_ms": 56.0
+        }
+    }
+}

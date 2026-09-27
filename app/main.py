@@ -13,6 +13,15 @@ from app.config import config
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # =========================================================
 # REQUEST MODEL
@@ -25,17 +34,144 @@ class Request(BaseModel):
     prompt: str
     authoritative_tests: List[str] = Field(default_factory=list)
     experiment_id: Optional[str] = None
+    task_id: Optional[str] = None
+    task_index: Optional[int] = None
+    approved_plan: Optional[str] = None
 
+class PlanRequest(BaseModel):
+    prompt: str
+    feedback: Optional[str] = None
+    authoritative_tests: List[str] = Field(default_factory=list)
+
+def infer_initial_tests(prompt: str) -> List[str]:
+    """Intelligently infer default test assertions if none are provided or if previous tests mismatched."""
+    import re
+    lower_prompt = prompt.lower()
+    
+    # Check if number count is specified (three / 3, four / 4, etc.)
+    num_args = 2
+    if any(k in lower_prompt for k in ["three", " 3 ", "3 number", "three number", "3 args", "three args"]):
+        num_args = 3
+    elif any(k in lower_prompt for k in ["four", " 4 ", "4 number", "four number"]):
+        num_args = 4
+
+    match = re.search(r"def\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*?)\)", prompt)
+    func_name = match.group(1) if match else None
+    params = [p.strip().split(":")[0].strip() for p in match.group(2).split(",") if p.strip()] if match else []
+    
+    if not func_name:
+        if "binary" in lower_prompt and "search" in lower_prompt:
+            func_name = "binary_search"
+            params = ["arr", "target"]
+        elif "fibonacci" in lower_prompt or "fibo" in lower_prompt:
+            func_name = "fibonacci"
+            params = ["n"]
+        elif "factorial" in lower_prompt:
+            func_name = "factorial"
+            params = ["n"]
+        elif "palindrome" in lower_prompt:
+            func_name = "is_palindrome"
+            params = ["s"]
+        elif "reverse" in lower_prompt and "string" in lower_prompt:
+            func_name = "reverse_string"
+            params = ["s"]
+        elif "add" in lower_prompt or "sum" in lower_prompt:
+            func_name = "add"
+            if num_args == 3:
+                params = ["a", "b", "c"]
+            elif num_args == 4:
+                params = ["a", "b", "c", "d"]
+            else:
+                params = ["a", "b"]
+        elif "concat" in lower_prompt:
+            func_name = "concat"
+            params = ["a", "b"]
+        elif "sort" in lower_prompt:
+            func_name = "sort_list"
+            params = ["arr"]
+        elif "even" in lower_prompt:
+            func_name = "is_even"
+            params = ["n"]
+            
+    if func_name:
+        p_len = len(params)
+        fn = func_name
+        if "search" in fn or "binary" in fn:
+            return [
+                f"assert {fn}([1, 2, 3, 4, 5], 3) == 2 or {fn}([1, 2, 3, 4, 5], 3) is True",
+                f"assert {fn}([10, 20, 30], 25) == -1 or {fn}([10, 20, 30], 25) is False"
+            ]
+        elif "add" in fn or "sum" in fn:
+            if p_len == 3 or num_args == 3:
+                return [f"assert {fn}(1, 2, 3) == 6", f"assert {fn}(10, 20, 30) == 60"]
+            elif p_len == 4 or num_args == 4:
+                return [f"assert {fn}(1, 2, 3, 4) == 10", f"assert {fn}(5, 5, 5, 5) == 20"]
+            elif p_len == 2:
+                return [f"assert {fn}(2, 3) == 5", f"assert {fn}(-1, 1) == 0"]
+            return [f"assert {fn}([1, 2, 3]) == 6", f"assert {fn}([0]) == 0"]
+        elif "concat" in fn:
+            return [f"assert {fn}('Hello ', 'World') == 'Hello World'", f"assert {fn}('Lite', 'Coder') == 'LiteCoder'"]
+        elif "fib" in fn:
+            if any(k in lower_prompt for k in ["seq", "series", "list", "array", "first", "terms", "numbers"]):
+                return [
+                    f"assert {fn}(0) in (0, [], [0])",
+                    f"assert {fn}(1) in (1, [0], [1], [0, 1])",
+                    f"assert {fn}(5) == 5 or {fn}(5) == [0, 1, 1, 2, 3] or {fn}(5) == [0, 1, 1, 2, 3, 5] or (isinstance({fn}(5), (list, tuple)) and len({fn}(5)) in (5, 6))"
+                ]
+            return [
+                f"assert {fn}(0) in (0, [], [0]) or {fn}(0) == 0",
+                f"assert {fn}(1) in (1, [0], [1], [0, 1]) or {fn}(1) == 1",
+                f"assert {fn}(5) == 5 or (isinstance({fn}(5), (list, tuple)) and (5 in {fn}(5) or len({fn}(5)) in (5, 6)))"
+            ]
+        elif "factorial" in fn:
+            return [f"assert {fn}(0) == 1", f"assert {fn}(4) == 24"]
+        elif "palindrome" in fn:
+            return [f"assert {fn}('radar') is True", f"assert {fn}('hello') is False"]
+        elif "reverse" in fn:
+            return [f"assert {fn}('hello') == 'olleh'", f"assert {fn}('') == ''"]
+        elif "even" in fn:
+            return [f"assert {fn}(4) is True", f"assert {fn}(7) is False"]
+        elif p_len == 2:
+            return [f"assert {fn}(10, 5) is not None"]
+        elif p_len == 1:
+            return [f"assert {fn}(5) is not None"]
+            
+    return []
 
 # =========================================================
-# HOME ROUTE
+# HOME & PLAN ROUTES
 # =========================================================
 
 @app.get("/")
 def home():
-
     return {
         "message": "AI Code Generator Running 🚀"
+    }
+
+@app.post("/plan")
+def plan(req: PlanRequest):
+    from app.model import generate_plan
+    task_prompt = req.prompt
+    if req.feedback:
+        task_prompt = f"{req.prompt}\n\nUSER FEEDBACK / REVISION REQUIREMENTS:\n{req.feedback}"
+        
+    plan_text = generate_plan(task_prompt)
+    
+    # Infer matching tests using combined prompt and feedback
+    combined_prompt = f"{req.prompt} {req.feedback or ''}"
+    inferred = infer_initial_tests(combined_prompt)
+
+    if req.feedback:
+        # User gave explicit feedback (e.g. "for assert add three number")
+        suggested_tests = inferred if inferred else req.authoritative_tests
+    else:
+        suggested_tests = req.authoritative_tests if req.authoritative_tests else inferred
+
+    return {
+        "success": True,
+        "plan": plan_text,
+        "suggested_tests": suggested_tests,
+        "task_prompt": task_prompt
     }
 
 
@@ -70,8 +206,9 @@ def record_strategy_outcomes(feedback_record):
             execution_passed = (next_att.get("execution_status") == "success")
             tests_passed = (next_att.get("test_results") or {}).get("success", False)
             this_attempt_succeeded = (execution_passed and tests_passed)
-            sec_viol = "SecurityViolation" in next_att.get("error_type", "")
-            t_out = "TimeoutError" in next_att.get("error_type", "")
+            next_err = next_att.get("error_type") or ""
+            sec_viol = "SecurityViolation" in next_err
+            t_out = "TimeoutError" in next_err
         
         strategy_selector.record_outcome(
             strategy_id=strategy_id,
@@ -126,15 +263,21 @@ def generate(req: Request):
         "execution_time": 0.0
     }
 
-    from app.model import _loaded_adapter_id
+    from app import model as app_model
+    app_model.check_and_reload_adapter()
+    feedback_record["task_id"] = getattr(req, "task_id", None)
+    feedback_record["task_index"] = getattr(req, "task_index", None)
     feedback_record["lora_enabled"] = config.get("LORA_ENABLED", False)
-    feedback_record["active_adapter_id"] = _loaded_adapter_id
+    feedback_record["active_adapter_id"] = app_model._loaded_adapter_id
+    feedback_record["training_triggered"] = False
+    feedback_record["training_cycle_id"] = None
+    feedback_record["training_status"] = None
 
     # =====================================================
     # STEP 1: INITIAL CODE GENERATION
     # =====================================================
 
-    current_code, prompt_text = generate_code(req.prompt)
+    current_code, prompt_text = generate_code(req.prompt, approved_plan=getattr(req, "approved_plan", None))
     feedback_record["initial_code"] = current_code
     feedback_record["generation_prompt"] = prompt_text
 
@@ -328,11 +471,37 @@ def generate(req: Request):
                                 memories_added = True
                             
                 if config.get("LORA_ENABLED") and memories_added:
-                    # Trigger training worker asynchronously (non-blocking)
-                    import subprocess
-                    import sys
-                    # Popen without wait allows FastAPI to return immediately
-                    subprocess.Popen([sys.executable, "train_worker.py"], creationflags=subprocess.CREATE_NEW_CONSOLE | getattr(subprocess, 'DETACHED_PROCESS', 8))
+                    # Trigger controlled continual-learning training pipeline
+                    try:
+                        from train_worker import run_training_pipeline
+                        train_res = run_training_pipeline(
+                            force=False,
+                            experiment_id=req.experiment_id,
+                            trigger_task_id=getattr(req, "task_id", None),
+                            trigger_task_index=getattr(req, "task_index", None)
+                        )
+                        if train_res.get("trained"):
+                            feedback_record["training_triggered"] = True
+                            feedback_record["training_cycle_id"] = train_res.get("training_cycle_id")
+                            if train_res.get("promotion_status") == "promoted" or (train_res.get("success") and not train_res.get("rollback")):
+                                feedback_record["training_status"] = "success"
+                                print(f"[MAIN] Successfully updated adapter to {train_res.get('adapter_id')}")
+                                check_and_reload_adapter()
+                                feedback_record["active_adapter_id"] = app_model._loaded_adapter_id
+                            elif train_res.get("rollback"):
+                                feedback_record["training_status"] = "rejected_rollback"
+                                feedback_record["training_error"] = train_res.get("rejection_reason")
+                                print(f"[MAIN WARNING] Candidate {train_res.get('adapter_id')} rejected by Canary Gate. Retaining stable adapter: {train_res.get('active_adapter_id')}")
+                                feedback_record["active_adapter_id"] = app_model._loaded_adapter_id
+                            else:
+                                feedback_record["training_status"] = "failed"
+                                print(f"[MAIN ERROR] Training cycle failed: {train_res.get('error')}")
+                                feedback_record["training_error"] = train_res.get("error")
+                    except Exception as train_exc:
+                        print(f"[MAIN ERROR] Unexpected error during training pipeline execution: {train_exc}")
+                        feedback_record["training_error"] = str(train_exc)
+                        feedback_record["training_triggered"] = True
+                        feedback_record["training_status"] = "failed"
             
             record_strategy_outcomes(feedback_record)
             save_feedback(feedback_record, experiment_id=req.experiment_id)

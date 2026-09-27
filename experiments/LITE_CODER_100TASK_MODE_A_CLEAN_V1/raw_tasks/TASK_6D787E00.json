@@ -1,0 +1,120 @@
+{
+    "experiment_id": "LITE_CODER_100TASK_MODE_A_CLEAN_V1",
+    "task_id": "TASK_6D787E00",
+    "task_index": 11,
+    "mode": "MODE_A",
+    "status": "model_success",
+    "success": true,
+    "attempts_used": 1,
+    "repair_effort": 1,
+    "generated_code": "# Define the function 'add' that takes two arguments 'a' and 'b'\ndef add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+    "initial_code": "# Define the function 'add' that takes two arguments 'a' and 'b'\ndef add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+    "error_category": null,
+    "error_type": null,
+    "error_message": null,
+    "error_stage": null,
+    "exception_class": null,
+    "traceback": null,
+    "error_diagnostic": null,
+    "execution": {
+        "success": true,
+        "output": "15",
+        "error": "",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "tests": {
+        "success": true,
+        "message": "All tests passed",
+        "tests": "assert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "test_summary": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "errors": 0,
+            "timeout": false
+        },
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "history": [],
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": true,
+        "sandboxed_execution": true
+    },
+    "strategy_history": [],
+    "difficulty": {},
+    "memory_used": null,
+    "lora_enabled": false,
+    "active_adapter_id": null,
+    "feedback_record": {
+        "feedback_id": "0990b277bd69478ba6fa1a22754b0f63",
+        "timestamp": 1789727592.62726,
+        "task": "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "initial_code": "# Define the function 'add' that takes two arguments 'a' and 'b'\ndef add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "# Define the function 'add' that takes two arguments 'a' and 'b'\ndef add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert add(2, 3) == 5\nassert add(-1, 1) == 0",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "# Define the function 'add' that takes two arguments 'a' and 'b'\ndef add(a, b):\n    # Return the result of adding 'a' and 'b'\n    return a + b\n\n# Test the function with assertions\nassert add(2, 3) == 5\nassert add(-1, 1) == 0",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 57,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 91.13455080986023,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `add` is supposed to take two numbers and return their sum. However, it currently subtracts one number from another instead of adding them together.\n\nStep 2: Identify the issue.\nIn the current implementation, the function subtracts `b` from `a`, which means it's performing subtraction rather than addition.\n\nStep 3: Correct the function.\nTo fix this, we need to change the operation inside the function so that it adds `a` and `b`.\n\nStep 4: Test the corrected function.\nAfter making the correction, test the function with different inputs to ensure it works as expected.\n\nHere's the corrected Python code:\n\n```python\ndef add(a, b):\n    return a + b\n```\n\nThis should now pass all the given tests.\n\nTASK:\nFix the following broken python code:\n\ndef add(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert add(2, 3) == 5\nassert add(-1, 1) == 0\n\nGenerate complete executable Python program:\n"
+    },
+    "timing": {
+        "total_ms": 91152
+    },
+    "runtime_ms": 91152,
+    "timestamp": 1789727683.779342
+}

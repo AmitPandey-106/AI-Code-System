@@ -1,0 +1,58 @@
+{
+    "adapter_id": "adapter_v1_1790329571",
+    "version": 1,
+    "base_model": "Qwen/Qwen2.5-Coder-1.5B",
+    "created_at": 1790329587.2205453,
+    "duration_seconds": 15.44,
+    "training_examples": 4,
+    "new_examples_count": 6,
+    "replay_examples_count": 0,
+    "source_experience_count": 6,
+    "train_loss": 0.6961,
+    "peft_config": {
+        "r": 8,
+        "lora_alpha": 16,
+        "lora_dropout": 0.05,
+        "target_modules": [
+            "q_proj",
+            "v_proj"
+        ]
+    },
+    "status": "rejected",
+    "promotion_status": "rejected",
+    "rollback": true,
+    "rejection_reason": "canary_regression_detected",
+    "retained_active_adapter_id": null,
+    "previous_adapter": null,
+    "canary_results": {
+        "gate_passed": false,
+        "canary_tasks_count": 3,
+        "canary_passed_count": 2,
+        "canary_failed_count": 1,
+        "canary_success_rate": 0.6667,
+        "threshold": 1.0,
+        "task_results": [
+            {
+                "task_id": "CANARY_PARITY_001",
+                "name": "is_even",
+                "passed": true,
+                "error": null,
+                "generated_code_snippet": "def is_even(n):     return n % 2 == 0"
+            },
+            {
+                "task_id": "CANARY_RANGE_002",
+                "name": "in_range",
+                "passed": false,
+                "error": "Assertion failed: ",
+                "generated_code_snippet": "def in_range(val, min_val, max_val):     return val > min_val and val < max_val"
+            },
+            {
+                "task_id": "CANARY_ARITH_003",
+                "name": "add",
+                "passed": true,
+                "error": null,
+                "generated_code_snippet": "def add(a, b):     return a + b"
+            }
+        ]
+    }
+}

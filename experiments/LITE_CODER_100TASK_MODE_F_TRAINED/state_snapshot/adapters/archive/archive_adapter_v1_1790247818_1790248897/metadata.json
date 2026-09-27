@@ -1,0 +1,20 @@
+{
+    "adapter_id": "adapter_v1_1790247818",
+    "version": 1,
+    "base_model": "Qwen/Qwen2.5-Coder-1.5B",
+    "created_at": 1790247833.5229669,
+    "duration_seconds": 15.09,
+    "training_examples": 3,
+    "source_experience_count": 4,
+    "train_loss": 0.6402,
+    "peft_config": {
+        "r": 8,
+        "lora_alpha": 16,
+        "lora_dropout": 0.05,
+        "target_modules": [
+            "q_proj",
+            "v_proj"
+        ]
+    },
+    "status": "active"
+}

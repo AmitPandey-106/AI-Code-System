@@ -1,0 +1,4 @@
+group,number_of_tasks,successful_tasks,failed_tasks,success_rate,attempts_on_successful_tasks,mean_successful_task_attempts,median_successful_task_attempts
+BASE MODEL,39,39,0,1.0000,51,1.3077,1.0
+adapter_v1,55,48,7,0.8727,51,1.0625,1.0
+adapter_v2,6,5,1,0.8333,5,1.0000,1.0

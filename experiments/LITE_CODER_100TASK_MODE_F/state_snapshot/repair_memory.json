@@ -1,0 +1,154 @@
+[
+    {
+        "memory_id": "864d9d84af364820bf27634300ad3d12",
+        "task": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'",
+        "error_type": "AssertionError",
+        "error_message": "A generated test case failed",
+        "broken_code": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a} {b}\"",
+        "successful_fix": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a}{b}\"",
+        "tests": "assert concat('a', 'b') == 'ab'",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "repair_attempts": 1,
+        "timestamp": 1789910191.9139326,
+        "success": true
+    },
+    {
+        "memory_id": "f8cefb3d002345f89be733e4c4c16a21",
+        "task": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'",
+        "error_type": "AssertionError",
+        "error_message": "A generated test case failed",
+        "broken_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "successful_fix": "def concat(a, b):\n    return a + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "tests": "assert concat('a', 'b') == 'ab'",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "repair_attempts": 1,
+        "timestamp": 1789910273.1037097,
+        "success": true
+    },
+    {
+        "memory_id": "7f54c6d71ca9476b870a68340869fabc",
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "error_type": "AssertionError",
+        "error_message": "Traceback (most recent call last):\n  File \"/tmp/tmp4tfrxjdj/script_3d07e334d0374f43a6cf5f386ee6abb0.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError",
+        "broken_code": "# Define the function to check if a value is within a range\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify the correctness of the function\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "successful_fix": "def in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum",
+        "tests": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "repair_attempts": 1,
+        "timestamp": 1789910470.534975,
+        "success": true
+    },
+    {
+        "memory_id": "c62e006bc7dc4c418d8c431c19e1467d",
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "error_type": "AssertionError",
+        "error_message": "Traceback (most recent call last):\n  File \"/tmp/tmp7hh68vn2/script_2157b8f2b8f54a2a956d745d122e21f0.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError",
+        "broken_code": "# Define the function to check if a value is within a range\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify the correctness of the function\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "successful_fix": "def in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "tests": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "repair_attempts": 1,
+        "timestamp": 1789910700.7211668,
+        "success": true
+    },
+    {
+        "memory_id": "ede2b80c51e94460b2958230549a9b7b",
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "error_type": "AssertionError",
+        "error_message": "Traceback (most recent call last):\n  File \"/tmp/tmpbz3wswju/script_2991d5d8b76a49c5a69086a401680128.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError",
+        "broken_code": "# Define the function to check if a value is within a range\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify the correctness of the function\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "successful_fix": "def in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "tests": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "repair_attempts": 1,
+        "timestamp": 1789910862.3950524,
+        "success": true
+    },
+    {
+        "memory_id": "62092a9b471a4e79a88cb5a4d14e6837",
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "error_type": "AssertionError",
+        "error_message": "Traceback (most recent call last):\n  File \"/tmp/tmpof9u4en3/script_fc8eacb6f5744314bc777505b6198616.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError",
+        "broken_code": "# Define the function to check if a value is within a range\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify the correctness of the function\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "successful_fix": "def in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "tests": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "repair_attempts": 1,
+        "timestamp": 1789911032.7029288,
+        "success": true
+    },
+    {
+        "memory_id": "ee623296250e430d87535858929d2b89",
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "error_type": "AssertionError",
+        "error_message": "Traceback (most recent call last):\n  File \"/tmp/tmplit3ujfd/script_c5718fe18e22417597abefc8e9cef90c.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError",
+        "broken_code": "# Define the function to check if a value is within a range\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify the correctness of the function\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "successful_fix": "def in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "tests": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "repair_attempts": 1,
+        "timestamp": 1789911130.0182607,
+        "success": true
+    },
+    {
+        "memory_id": "f24f65c5af914ab5baa3c34397b2eba7",
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "error_type": "AssertionError",
+        "error_message": "Traceback (most recent call last):\n  File \"/tmp/tmpo0u0j6wb/script_ac4deb620cd44b9199ed32ee5b76a723.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError",
+        "broken_code": "# Define the function to check if a value is within a range\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify the correctness of the function\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "successful_fix": "# Define the function to check if a value is within a range\ndef in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n\n# Test cases to verify the correctness of the function\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "tests": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "repair_attempts": 1,
+        "timestamp": 1789911567.2055979,
+        "success": true
+    }
+]

@@ -1,0 +1,153 @@
+{
+    "audit_timestamp": "2026-09-18T14:12:17.873838",
+    "experiment_dir": "D:\\Amit Stuff\\ai-code-system\\experiments\\SMOKE_V2_HARDENED",
+    "dataset": {
+        "dataset_path": "data/benchmark/v1.0/dataset.json",
+        "exists": true,
+        "task_count": 100,
+        "sha256": "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620",
+        "duplicate_ids": [],
+        "issues": []
+    },
+    "manifest": {
+        "manifest_path": "experiments/SMOKE_V2_HARDENED\\experiment_manifest.json",
+        "exists": false,
+        "experiment_id": null,
+        "mode": null,
+        "model": null,
+        "seed": null,
+        "deterministic": null,
+        "benchmark_size": null,
+        "dataset_sha256": null,
+        "lora_enabled": null,
+        "memory_enabled": null,
+        "strategy_learning_enabled": null,
+        "issues": [
+            "Manifest file missing"
+        ]
+    },
+    "checkpoint": {
+        "checkpoint_path": "experiments/SMOKE_V2_HARDENED\\checkpoint.json",
+        "exists": true,
+        "total_records": 3,
+        "unique_task_ids": 3,
+        "duplicate_task_ids": [],
+        "success_true": 2,
+        "success_false": 0,
+        "success_null": 1,
+        "error_categories": {
+            "none": 2,
+            "runner": 1
+        },
+        "error_types": {
+            "none": 2,
+            "TypeError": 1
+        },
+        "status_counts": {
+            "model_success": 2,
+            "infrastructure_failure": 1
+        },
+        "missing_fields": [],
+        "issues": []
+    },
+    "raw_tasks": {
+        "raw_tasks_dir": "experiments/SMOKE_V2_HARDENED\\raw_tasks",
+        "exists": true,
+        "total_files": 3,
+        "outcomes": {
+            "MODEL_SUCCESS": 2,
+            "INFRASTRUCTURE_FAILURE": 1
+        },
+        "has_generated_code": 2,
+        "has_attempts": 2,
+        "has_execution": 2,
+        "has_tests": 2,
+        "has_verification": 2,
+        "has_traceback": 1,
+        "has_error_diagnostic": 1,
+        "missing_task_ids": [],
+        "per_task": [
+            {
+                "task_id": "TASK_1E88EF5E",
+                "task_index": 3,
+                "outcome": "MODEL_SUCCESS",
+                "success": true,
+                "status": "model_success",
+                "error_type": null,
+                "error_message": null,
+                "error_stage": null,
+                "has_generated_code": true,
+                "has_attempts": true,
+                "has_execution": true,
+                "has_tests": true,
+                "has_verification": true,
+                "has_traceback": false,
+                "runtime_ms": 0,
+                "timestamp": 1789720937.8327928
+            },
+            {
+                "task_id": "TASK_248A149E",
+                "task_index": 1,
+                "outcome": "MODEL_SUCCESS",
+                "success": true,
+                "status": "model_success",
+                "error_type": null,
+                "error_message": null,
+                "error_stage": null,
+                "has_generated_code": true,
+                "has_attempts": true,
+                "has_execution": true,
+                "has_tests": true,
+                "has_verification": true,
+                "has_traceback": false,
+                "runtime_ms": 0,
+                "timestamp": 1789720937.8177173
+            },
+            {
+                "task_id": "TASK_C4A8AE96",
+                "task_index": 2,
+                "outcome": "INFRASTRUCTURE_FAILURE",
+                "success": null,
+                "status": "infrastructure_failure",
+                "error_type": "TypeError",
+                "error_message": "simulated runner TypeError: object of type 'NoneType' has no method 'view'",
+                "error_stage": "generation",
+                "has_generated_code": false,
+                "has_attempts": false,
+                "has_execution": false,
+                "has_tests": false,
+                "has_verification": false,
+                "has_traceback": true,
+                "runtime_ms": 0,
+                "timestamp": 1789720937.830688
+            }
+        ],
+        "issues": []
+    },
+    "feedback": {
+        "feedback_path": "experiments/SMOKE_V2_HARDENED\\feedback.json",
+        "exists": false,
+        "feedback_count": 0,
+        "matched_to_successful": 0,
+        "unmatched": [],
+        "issues": []
+    },
+    "summary": {
+        "total_tasks_in_dataset": 100,
+        "tasks_with_records": 3,
+        "outcomes": {
+            "MODEL_SUCCESS": 2,
+            "INFRASTRUCTURE_FAILURE": 1
+        },
+        "success_true": 2,
+        "success_false": 0,
+        "success_null": 1,
+        "infrastructure_failures": 1,
+        "unresolved": 0,
+        "model_successes": 2,
+        "model_failures": 0,
+        "verification_failures": 0,
+        "is_complete": false,
+        "all_resolved": false
+    }
+}

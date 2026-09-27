@@ -1,11 +1,50 @@
 [
     {
-        "text": "Fix this Python code:\n\ndef add(a, b):\n    return a + str(b)\n\nError:\nunsupported operand type(s) for +: 'int' and 'str'\n\nCorrect Code:\ndef add(a, b):\n    return a + b\n",
-        "fingerprint": "fb328b47e9429a9f675c4c0889c97f91",
-        "raw_task": "Write Python code to add two numbers",
-        "raw_broken_code": "def add(a, b):\n    return a + str(b)",
-        "raw_error_message": "unsupported operand type(s) for +: 'int' and 'str'",
-        "raw_successful_fix": "def add(a, b):\n    return a + b",
-        "raw_tests": "assert add(1, 2) == 3"
+        "prompt": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f1(): pass\n\nERROR:\nerror_1\n\nReturn corrected executable Python code:\n",
+        "completion": "\ndef f1(): return 1\n",
+        "text": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f1(): pass\n\nERROR:\nerror_1\n\nReturn corrected executable Python code:\n\ndef f1(): return 1\n",
+        "fingerprint": "06408be2aac391e1098d5a3d7ca86f9d",
+        "raw_task": "Task 1",
+        "raw_broken_code": "def f1(): pass",
+        "raw_error_message": "error_1",
+        "raw_successful_fix": "def f1(): return 1",
+        "raw_tests": "",
+        "is_replay": false
+    },
+    {
+        "prompt": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f3(): pass\n\nERROR:\nerror_3\n\nReturn corrected executable Python code:\n",
+        "completion": "\ndef f3(): return 3\n",
+        "text": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f3(): pass\n\nERROR:\nerror_3\n\nReturn corrected executable Python code:\n\ndef f3(): return 3\n",
+        "fingerprint": "2951dc9848f31d6204911ef5976d142a",
+        "raw_task": "Task 3",
+        "raw_broken_code": "def f3(): pass",
+        "raw_error_message": "error_3",
+        "raw_successful_fix": "def f3(): return 3",
+        "raw_tests": "",
+        "is_replay": false
+    },
+    {
+        "prompt": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f0(): pass\n\nERROR:\nerror_0\n\nReturn corrected executable Python code:\n",
+        "completion": "\ndef f0(): return 0\n",
+        "text": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f0(): pass\n\nERROR:\nerror_0\n\nReturn corrected executable Python code:\n\ndef f0(): return 0\n",
+        "fingerprint": "8dde68faf17c1f16b1bed748978d160d",
+        "raw_task": "Task 0",
+        "raw_broken_code": "def f0(): pass",
+        "raw_error_message": "error_0",
+        "raw_successful_fix": "def f0(): return 0",
+        "raw_tests": "",
+        "is_replay": false
+    },
+    {
+        "prompt": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f2(): pass\n\nERROR:\nerror_2\n\nReturn corrected executable Python code:\n",
+        "completion": "\ndef f2(): return 2\n",
+        "text": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f2(): pass\n\nERROR:\nerror_2\n\nReturn corrected executable Python code:\n\ndef f2(): return 2\n",
+        "fingerprint": "ead6d5b4e6a0285f09c26e3347065ca9",
+        "raw_task": "Task 2",
+        "raw_broken_code": "def f2(): pass",
+        "raw_error_message": "error_2",
+        "raw_successful_fix": "def f2(): return 2",
+        "raw_tests": "",
+        "is_replay": false
     }
 ]

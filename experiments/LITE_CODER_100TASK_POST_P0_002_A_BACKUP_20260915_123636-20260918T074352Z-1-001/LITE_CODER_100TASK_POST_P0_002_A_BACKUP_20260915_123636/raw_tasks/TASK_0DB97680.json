@@ -1,0 +1,17 @@
+{
+    "task_id": "TASK_0DB97680",
+    "task_index": 96,
+    "success": null,
+    "attempts_used": null,
+    "error_type": "TypeError",
+    "runtime_ms": 27313,
+    "timestamp": 1789475425.744775,
+    "lora_enabled": false,
+    "active_adapter_id": null,
+    "generated_code": null,
+    "execution": null,
+    "tests": null,
+    "history": null,
+    "feedback_record": null,
+    "verification": null
+}

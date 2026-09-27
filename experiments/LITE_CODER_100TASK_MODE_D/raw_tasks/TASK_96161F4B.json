@@ -1,0 +1,203 @@
+{
+    "experiment_id": "LITE_CODER_100TASK_MODE_D",
+    "task_id": "TASK_96161F4B",
+    "task_index": 34,
+    "mode": "MODE_D",
+    "status": "model_success",
+    "success": true,
+    "attempts_used": 2,
+    "repair_effort": 2,
+    "generated_code": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a}{b}\"",
+    "initial_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+    "error_category": null,
+    "error_type": "AssertionError",
+    "error_message": null,
+    "error_stage": null,
+    "exception_class": "AssertionError",
+    "traceback": null,
+    "error_diagnostic": null,
+    "execution": {
+        "success": true,
+        "output": "[1, 2][3, 4]",
+        "error": "",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "tests": {
+        "success": true,
+        "message": "All tests passed",
+        "tests": "assert concat('a', 'b') == 'ab'",
+        "test_summary": {
+            "total": 1,
+            "passed": 1,
+            "failed": 0,
+            "errors": 0,
+            "timeout": false
+        },
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "history": [
+        {
+            "attempt": 1,
+            "stage": "testing",
+            "error": "Test Failed\nTraceback (most recent call last):\n  File \"/tmp/tmp8rj4igqy/script_d340795d3a8a4b35b66022bb8e2fb55a.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\n           ^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+        }
+    ],
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": true,
+        "sandboxed_execution": true
+    },
+    "strategy_history": [
+        {
+            "selected_strategy": "TEST_GUIDED_REPAIR",
+            "confidence": -1.0,
+            "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+            "alternatives": [
+                "TEST_GUIDED_REPAIR",
+                "ALTERNATIVE_REPAIR"
+            ],
+            "selection_mode": "exploitation",
+            "success": true
+        }
+    ],
+    "difficulty": {
+        "difficulty": "EASY",
+        "score": 3.0,
+        "reasons": [
+            "Test failures require logic changes"
+        ],
+        "recommended_attempts": 2
+    },
+    "memory_used": true,
+    "lora_enabled": false,
+    "active_adapter_id": null,
+    "feedback_record": {
+        "feedback_id": "40edb94b08a447f3b1c4f57e93d72503",
+        "timestamp": 1789907780.4194813,
+        "task": "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'",
+        "initial_code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "def concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))",
+                "execution_status": "success",
+                "error_type": "AssertionError",
+                "error_message": "A generated test case failed",
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 0,
+                    "failed": 1,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a}{b}\"",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": true,
+                "retrieved_memory_count": 2,
+                "retrieved_memories": [
+                    {
+                        "memory_id": "1bf5f386851247469f2a83738775aac2",
+                        "similarity": 1.0
+                    },
+                    {
+                        "memory_id": "4e1910d9895f4ca4ba8718f16c5470bf",
+                        "similarity": 0.9138081073760986
+                    }
+                ],
+                "difficulty": {
+                    "difficulty": "EASY",
+                    "score": 3.0,
+                    "reasons": [
+                        "Test failures require logic changes"
+                    ],
+                    "recommended_attempts": 2
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": -1.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation",
+                    "success": true
+                },
+                "memory_injected": true,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nPREVIOUS SUCCESSFUL REPAIR EXPERIENCES:\nExperience 1:\nError:\nA generated test case failed\nBroken Code:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\nSuccessful Fix:\n# Corrected Code:\n\ndef concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a}{b}\"\n\nprint(concat(\"Hello\", \"World\"))\n\nExperience 2:\nError:\nA generated test case failed\nBroken Code:\ndef concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a} {b}\"\nSuccessful Fix:\ndef concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a}{b}\"\n\n\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef concat(a, b):\n    return a + \" \" + b\n\nprint(concat(\"Hello\", \"World\"))\n\nERROR:\nTest Failed\nTraceback (most recent call last):\n  File \"/tmp/tmp8rj4igqy/script_d340795d3a8a4b35b66022bb8e2fb55a.py\", line 10, in <module>\n    assert concat('a', 'b') == 'ab'\n           ^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n\n\nReturn corrected executable Python code:\n",
+                "repair_generation_failed": false,
+                "repair_failure_reason": null,
+                "repair_changed_code": true
+            },
+            {
+                "attempt_number": 2,
+                "code": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a}{b}\"",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert concat('a', 'b') == 'ab'",
+                "test_results": {
+                    "total": 1,
+                    "passed": 1,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "def concat(a: str, b: str) -> str:\n    \"\"\"\n    Concatenates two strings.\n\n    Parameters:\n        a (str): First string to concatenate.\n        b (str): Second string to concatenate.\n\n    Returns:\n        str: The concatenated string.\n    \"\"\"\n    return f\"{a}{b}\"",
+        "final_status": "success",
+        "total_attempts": 2,
+        "total_repairs": 1,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 57,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 17.797476530075073,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\n1. Define a function named `concat` that takes two arguments: `a` and `b`.\n2. Inside the function, use string concatenation to combine the values of `a` and `b`, separated by a space.\n3. Return the concatenated result as a single string.\n\nHere is the corrected Python code with comments explaining each step:\n\n```python\n# Step 1: Define the function 'concat' with two parameters 'a' and 'b'\ndef concat(a, b):\n\n    # Step 2: Use string concatenation to join 'a' and 'b' with a space in between\n    # The '+' operator is used for string concatenation in Python\n    result = a + \" \" + b\n    \n    # Step 3: Return the resulting string\n    return result\n```\n\nThis implementation correctly performs the desired operation of joining two strings together using a space separator.\n\nTASK:\nFix the following broken python code:\n\ndef concat(a, b):\n    return a - b\n\nEnsure it passes these tests:\nassert concat('a', 'b') == 'ab'\n\nGenerate complete executable Python program:\n"
+    },
+    "timing": {
+        "total_ms": 17803
+    },
+    "runtime_ms": 17803,
+    "timestamp": 1789907798.2230756
+}

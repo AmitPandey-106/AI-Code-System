@@ -1,0 +1,4 @@
+task_id,task_index,outcome,success,status,error_type,error_message,error_stage,has_generated_code,has_attempts,has_execution,has_tests,has_verification,has_traceback,runtime_ms,timestamp
+TASK_1E88EF5E,3,MODEL_SUCCESS,True,model_success,,,,True,True,True,True,True,False,0,1789720937.8327928
+TASK_248A149E,1,MODEL_SUCCESS,True,model_success,,,,True,True,True,True,True,False,0,1789720937.8177173
+TASK_C4A8AE96,2,INFRASTRUCTURE_FAILURE,,infrastructure_failure,TypeError,simulated runner TypeError: object of type 'NoneType' has no method 'view',generation,False,False,False,False,False,True,0,1789720937.830688

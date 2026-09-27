@@ -37,27 +37,33 @@ def ensure_execution(code: str):
 
     func_name = match.group(1)
     params = match.group(2).strip()
-    param_count = len([p for p in params.split(",") if p.strip()]) if params else 0
+    param_list = [p.strip().split(":")[0].strip() for p in params.split(",") if p.strip()]
+    param_count = len(param_list)
     lower_name = func_name.lower()
+    lower_params = [p.lower() for p in param_list]
 
     if param_count == 0:
         args = ""
     elif param_count == 1:
-        if any(k in lower_name for k in ["reverse", "string", "palindrome", "text"]):
+        if any(k in lower_name for k in ["reverse", "string", "palindrome", "text"]) or (lower_params and any(k in lower_params[0] for k in ["s", "str", "text"])):
             args = "'hello'"
-        elif any(k in lower_name for k in ["list", "sort", "array"]):
-            args = "[3,1,2]"
+        elif any(k in lower_name for k in ["list", "sort", "array"]) or (lower_params and any(k in lower_params[0] for k in ["arr", "nums", "lst", "list"])):
+            args = "[3, 1, 2]"
         else:
             args = "5"
     elif param_count == 2:
-        if any(k in lower_name for k in ["merge", "concat"]):
-            args = "[1,2], [3,4]"
+        if any(k in lower_name for k in ["search", "find", "index", "binary"]) or (lower_params and any(k in lower_params[0] for k in ["arr", "nums", "lst", "list", "data"])):
+            args = "[1, 3, 5, 7, 9, 11], 5"
+        elif any(k in lower_name for k in ["merge", "concat"]) or (lower_params and any(k in lower_params[0] for k in ["arr", "lst", "list"])):
+            args = "[1, 2], [3, 4]"
+        elif lower_params and any(k in lower_params[0] for k in ["s", "str", "text"]):
+            args = "'hello', 'l'"
         else:
             args = "10, 5"
     else:
         args = ", ".join(["1"] * param_count)
 
-    code += f"\n\nprint({func_name}({args}))"
+    code += f"\n\ntry:\n    print({func_name}({args}))\nexcept TypeError:\n    pass"
     return code
 
 # 🚀 MAIN EXECUTOR

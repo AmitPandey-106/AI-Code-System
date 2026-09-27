@@ -1,8 +1,12 @@
 {
-    "total_memories": 1,
+    "total_memories": 5,
     "rejected_count": 0,
-    "accepted_unique_count": 1,
-    "train_count": 1,
+    "accepted_unique_count": 5,
+    "new_examples_count": 5,
+    "replay_examples_count": 0,
+    "replay_strategy": "all",
+    "replay_size": 4,
+    "train_count": 4,
     "val_count": 0,
     "test_count": 1
 }

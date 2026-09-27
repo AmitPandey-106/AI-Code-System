@@ -1,0 +1,80 @@
+{
+    "experiment_id": "LITE_CODER_100TASK_MODE_F_TRAINED",
+    "task_id": "TASK_0E25977A",
+    "task_index": 71,
+    "mode": "MODE_F",
+    "status": "model_failure",
+    "success": false,
+    "final_status": "model_failure",
+    "attempts_used": 0,
+    "repair_effort": 0,
+    "generated_code": null,
+    "initial_code": "",
+    "error_category": null,
+    "error_type": null,
+    "error_message": null,
+    "error_stage": null,
+    "exception_class": null,
+    "traceback": null,
+    "error_diagnostic": null,
+    "execution": null,
+    "tests": null,
+    "history": null,
+    "verification": {
+        "syntax_passed": false,
+        "safety_passed": false,
+        "execution_passed": false,
+        "tests_passed": false,
+        "sandboxed_execution": true
+    },
+    "strategy_history": [],
+    "difficulty": {},
+    "memory_used": null,
+    "lora_enabled": true,
+    "active_adapter_id": "adapter_v1_1790247818",
+    "adapter_version": "adapter_v1_1790247818",
+    "training_triggered": false,
+    "training_cycle_id": null,
+    "training_status": null,
+    "feedback_record": {
+        "feedback_id": "38d3d680b1c74b429d77bdf564f18df9",
+        "timestamp": 1790248458.9763403,
+        "task": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0\n\nEnsure it passes these tests:\nassert is_even(2) == True\nassert is_even(3) == False",
+        "initial_code": "",
+        "attempts": [],
+        "final_code": "",
+        "final_status": "failure",
+        "total_attempts": 0,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": false,
+            "safety_passed": false,
+            "execution_passed": false,
+            "tests_passed": false,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "pending",
+            "duration_ms": 0,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 19.052457571029663,
+        "task_id": "TASK_0E25977A",
+        "task_index": 71,
+        "lora_enabled": true,
+        "active_adapter_id": "adapter_v1_1790247818",
+        "training_triggered": false,
+        "training_cycle_id": null,
+        "training_status": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\n1. Define a function named `is_even` that takes one argument, `n`.\n2. Inside the function, use the modulo operator (`%`) to check if `n` is divisible by 2.\n3. If `n` is not divisible by 2 (i.e., `n % 2 != 0`), then `n` is even and we should return `True`.\n4. Otherwise, `n` is odd and we should return `False`.\n\nHere's the corrected Python code with comments explaining each step:\n\n```python\n# Step 1: Define a function named 'is_even' that takes one argument, 'n'.\ndef is_even(n):\n\n    # Step 2: Inside the function, use the modulo operator ('%') to check if 'n' is divisible by 2.\n    # The modulo operator returns the remainder of the division of 'n' by 2.\n    # If 'n' is divisible by 2, the remainder will be 0, so 'n % 2 == 0'.\n    # However, in this case, we want to check if 'n' is NOT divisible by 2,\n    # which means the remainder will be non-zero, i.e., 'n % 2 != 0'.\n\n    # Step 3: If 'n' is not divisible by 2 (i.e., 'n % 2 != 0'), then 'n' is even and we should\n\nTASK:\nFix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0\n\nEnsure it passes these tests:\nassert is_even(2) == True\nassert is_even(3) == False\n\nGenerate complete executable Python program:\n"
+    },
+    "timing": {
+        "total_ms": 19062
+    },
+    "runtime_ms": 19062,
+    "timestamp": 1790248478.0387247
+}

@@ -1,0 +1,350 @@
+{
+  "MODE_A_BASELINE": {
+    "label": "MODE_A_BASELINE",
+    "path": "D:\\Amit Stuff\\ai-code-system\\experiments/LITE_CODER_100TASK_MODE_A_BASELINE",
+    "exists": true,
+    "manifest": {
+      "experiment_id": "LITE_CODER_100TASK_MODE_A_BASELINE",
+      "mode": "MODE_A",
+      "dataset_path": "data/benchmark/v1.0/dataset.json",
+      "dataset_sha256": "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620",
+      "benchmark_size": 100,
+      "task_count": 100,
+      "benchmark_seed": 42,
+      "deterministic_generation": true,
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B",
+      "lora_enabled": false,
+      "memory_enabled": false,
+      "strategy_learning_enabled": false,
+      "difficulty_allocation_enabled": false,
+      "max_retries": 5,
+      "timestamp": 1789904231.8763633,
+      "hardware": {
+        "os": "Linux",
+        "os_version": "#1 SMP Thu Apr 30 18:17:14 UTC 2026",
+        "cpu": "x86_64",
+        "python": "3.13.15",
+        "pytorch_version": "2.11.0+cu128",
+        "transformers_version": "5.16.1",
+        "peft_version": "0.20.0",
+        "sentence_transformers_version": "5.7.0",
+        "faiss_version": "1.15.1"
+      },
+      "full_config": {
+        "MEMORY_ENABLED": false,
+        "STRATEGY_LEARNING_ENABLED": false,
+        "LORA_ENABLED": false,
+        "DIFFICULTY_ALLOCATION_ENABLED": false,
+        "BENCHMARK_SEED": 42,
+        "DETERMINISTIC_GENERATION": true
+      }
+    },
+    "task_count": 100,
+    "unique_task_ids": 100,
+    "missing_task_ids": 0,
+    "duplicate_task_ids": 0,
+    "success_count": 100,
+    "model_success_count": 100,
+    "final_success_count": 100,
+    "execution_passed": 100,
+    "syntax_passed": 100,
+    "tests_passed": 100,
+    "safety_passed": 100,
+    "attempt_distribution": {
+      "1": 76,
+      "2": 6,
+      "3": 2,
+      "4": 16
+    },
+    "average_attempts": 1.58,
+    "median_attempts": 1.0,
+    "min_attempts": 1,
+    "max_attempts": 4,
+    "average_repair_effort": 1.58,
+    "median_repair_effort": 1.0,
+    "strategy_counts": {
+      "TEST_GUIDED_REPAIR": 40,
+      "ALTERNATIVE_REPAIR": 18
+    },
+    "none_type_bookkeeping_errors": [],
+    "state_files": {
+      "repair_memory.json": {
+        "present": true,
+        "size_bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "repair_memory_index.faiss": {
+        "present": true,
+        "size_bytes": 45,
+        "sha256": "63252194ff2edb654488a0c2df56ff041445a229c159e47591bc9f5956c23a02"
+      },
+      "strategy_stats.json": {
+        "present": true,
+        "size_bytes": 2,
+        "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      }
+    },
+    "adapter_training_artifacts": [],
+    "audit_pass": true
+  },
+  "MODE_A_CLEAN_V1": {
+    "label": "MODE_A_CLEAN_V1",
+    "path": "D:\\Amit Stuff\\ai-code-system\\experiments/LITE_CODER_100TASK_MODE_A_CLEAN_V1",
+    "exists": true,
+    "manifest": {
+      "experiment_id": "LITE_CODER_100TASK_MODE_A_CLEAN_V1",
+      "mode": "MODE_A",
+      "dataset_path": "data/benchmark/v1.0/dataset.json",
+      "dataset_sha256": "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620",
+      "benchmark_size": 100,
+      "task_count": 100,
+      "benchmark_seed": 42,
+      "deterministic_generation": true,
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B",
+      "lora_enabled": false,
+      "memory_enabled": false,
+      "strategy_learning_enabled": false,
+      "difficulty_allocation_enabled": false,
+      "max_retries": 5,
+      "timestamp": 1789726144.416199,
+      "hardware": {
+        "os": "Windows",
+        "os_version": "10.0.22621",
+        "cpu": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+        "python": "3.10.11",
+        "pytorch_version": "2.11.0+cpu",
+        "transformers_version": "5.7.0",
+        "peft_version": "0.19.1",
+        "sentence_transformers_version": "6.0.0",
+        "faiss_version": "1.15.0"
+      },
+      "full_config": {
+        "MEMORY_ENABLED": false,
+        "STRATEGY_LEARNING_ENABLED": false,
+        "LORA_ENABLED": false,
+        "DIFFICULTY_ALLOCATION_ENABLED": false,
+        "BENCHMARK_SEED": 42,
+        "DETERMINISTIC_GENERATION": true
+      }
+    },
+    "task_count": 18,
+    "unique_task_ids": 18,
+    "missing_task_ids": 0,
+    "duplicate_task_ids": 0,
+    "success_count": 15,
+    "model_success_count": 15,
+    "final_success_count": 15,
+    "execution_passed": 15,
+    "syntax_passed": 15,
+    "tests_passed": 15,
+    "safety_passed": 15,
+    "attempt_distribution": {
+      "1": 15
+    },
+    "average_attempts": 1,
+    "median_attempts": 1,
+    "min_attempts": 1,
+    "max_attempts": 1,
+    "average_repair_effort": 1,
+    "median_repair_effort": 1,
+    "strategy_counts": {},
+    "none_type_bookkeeping_errors": [
+      "TASK_1E88EF5E",
+      "TASK_527A01D3",
+      "TASK_FB475E1F"
+    ],
+    "state_files": {
+      "repair_memory.json": {
+        "present": true,
+        "size_bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "repair_memory_index.faiss": {
+        "present": true,
+        "size_bytes": 45,
+        "sha256": "63252194ff2edb654488a0c2df56ff041445a229c159e47591bc9f5956c23a02"
+      },
+      "strategy_stats.json": {
+        "present": true,
+        "size_bytes": 2,
+        "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      }
+    },
+    "adapter_training_artifacts": [],
+    "audit_pass": false
+  },
+  "MODE_D": {
+    "label": "MODE_D",
+    "path": "D:\\Amit Stuff\\ai-code-system\\experiments/LITE_CODER_100TASK_MODE_D",
+    "exists": true,
+    "manifest": {
+      "experiment_id": "LITE_CODER_100TASK_MODE_D",
+      "mode": "MODE_D",
+      "dataset_path": "data/benchmark/v1.0/dataset.json",
+      "dataset_sha256": "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620",
+      "benchmark_size": 100,
+      "task_count": 100,
+      "benchmark_seed": 42,
+      "deterministic_generation": true,
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B",
+      "lora_enabled": false,
+      "memory_enabled": true,
+      "strategy_learning_enabled": true,
+      "difficulty_allocation_enabled": true,
+      "max_retries": 5,
+      "timestamp": 1789907271.9024098,
+      "hardware": {
+        "os": "Linux",
+        "os_version": "#1 SMP Thu Apr 30 18:17:14 UTC 2026",
+        "cpu": "x86_64",
+        "python": "3.13.15",
+        "pytorch_version": "2.11.0+cu128",
+        "transformers_version": "5.16.1",
+        "peft_version": "0.20.0",
+        "sentence_transformers_version": "5.7.0",
+        "faiss_version": "1.15.1"
+      },
+      "full_config": {
+        "MEMORY_ENABLED": true,
+        "STRATEGY_LEARNING_ENABLED": true,
+        "LORA_ENABLED": false,
+        "DIFFICULTY_ALLOCATION_ENABLED": true,
+        "BENCHMARK_SEED": 42,
+        "DETERMINISTIC_GENERATION": true
+      }
+    },
+    "task_count": 100,
+    "unique_task_ids": 100,
+    "missing_task_ids": 0,
+    "duplicate_task_ids": 0,
+    "success_count": 100,
+    "model_success_count": 100,
+    "final_success_count": 100,
+    "execution_passed": 100,
+    "syntax_passed": 100,
+    "tests_passed": 100,
+    "safety_passed": 100,
+    "attempt_distribution": {
+      "1": 76,
+      "2": 23,
+      "4": 1
+    },
+    "average_attempts": 1.26,
+    "median_attempts": 1.0,
+    "min_attempts": 1,
+    "max_attempts": 4,
+    "average_repair_effort": 1.26,
+    "median_repair_effort": 1.0,
+    "strategy_counts": {
+      "TEST_GUIDED_REPAIR": 25,
+      "ALTERNATIVE_REPAIR": 1
+    },
+    "none_type_bookkeeping_errors": [],
+    "state_files": {
+      "repair_memory.json": {
+        "present": true,
+        "size_bytes": 12442,
+        "sha256": "ef4b5f2debf9ca99cbf22d30f839ff9443d5f6d7d773c86d971afd5b819f624b"
+      },
+      "repair_memory_index.faiss": {
+        "present": true,
+        "size_bytes": 12333,
+        "sha256": "24546d3dc043b5bd2f799b5c45dcd6eb873b85ecd6f716cfc2dd4cda51dbf408"
+      },
+      "strategy_stats.json": {
+        "present": true,
+        "size_bytes": 549,
+        "sha256": "7b3079eec359c085b726f05587f548a1f1954b4c10315d52e1803c312c6afd64"
+      }
+    },
+    "adapter_training_artifacts": [],
+    "audit_pass": true
+  },
+  "MODE_F": {
+    "label": "MODE_F",
+    "path": "D:\\Amit Stuff\\ai-code-system\\experiments/LITE_CODER_100TASK_MODE_F",
+    "exists": true,
+    "manifest": {
+      "experiment_id": "LITE_CODER_100TASK_MODE_F",
+      "mode": "MODE_F",
+      "dataset_path": "data/benchmark/v1.0/dataset.json",
+      "dataset_sha256": "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620",
+      "benchmark_size": 100,
+      "task_count": 100,
+      "benchmark_seed": 42,
+      "deterministic_generation": true,
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B",
+      "lora_enabled": true,
+      "memory_enabled": true,
+      "strategy_learning_enabled": true,
+      "difficulty_allocation_enabled": true,
+      "max_retries": 5,
+      "timestamp": 1789910131.471869,
+      "hardware": {
+        "os": "Linux",
+        "os_version": "#1 SMP Thu Apr 30 18:17:14 UTC 2026",
+        "cpu": "x86_64",
+        "python": "3.13.15",
+        "pytorch_version": "2.11.0+cu128",
+        "transformers_version": "5.16.1",
+        "peft_version": "0.20.0",
+        "sentence_transformers_version": "5.7.0",
+        "faiss_version": "1.15.1"
+      },
+      "full_config": {
+        "MEMORY_ENABLED": true,
+        "STRATEGY_LEARNING_ENABLED": true,
+        "LORA_ENABLED": true,
+        "DIFFICULTY_ALLOCATION_ENABLED": true,
+        "BENCHMARK_SEED": 42,
+        "DETERMINISTIC_GENERATION": true
+      }
+    },
+    "task_count": 100,
+    "unique_task_ids": 100,
+    "missing_task_ids": 0,
+    "duplicate_task_ids": 0,
+    "success_count": 100,
+    "model_success_count": 100,
+    "final_success_count": 100,
+    "execution_passed": 100,
+    "syntax_passed": 100,
+    "tests_passed": 100,
+    "safety_passed": 100,
+    "attempt_distribution": {
+      "1": 76,
+      "2": 23,
+      "4": 1
+    },
+    "average_attempts": 1.26,
+    "median_attempts": 1.0,
+    "min_attempts": 1,
+    "max_attempts": 4,
+    "average_repair_effort": 1.26,
+    "median_repair_effort": 1.0,
+    "strategy_counts": {
+      "TEST_GUIDED_REPAIR": 25,
+      "ALTERNATIVE_REPAIR": 1
+    },
+    "none_type_bookkeeping_errors": [],
+    "state_files": {
+      "repair_memory.json": {
+        "present": true,
+        "size_bytes": 12294,
+        "sha256": "3e22c653a8d417a903466bcd170beca0e3291fc1b5fdf28371f5ef505f5bdb19"
+      },
+      "repair_memory_index.faiss": {
+        "present": true,
+        "size_bytes": 12333,
+        "sha256": "589261321b300810bf296243c06bd9fcd8eeb5f704f6adf168d6c947ee18eea5"
+      },
+      "strategy_stats.json": {
+        "present": true,
+        "size_bytes": 550,
+        "sha256": "189a5a833a59ac3a60a58a8d7145fd68179e2345e5e03f8a9e14b398196aeb67"
+      }
+    },
+    "adapter_training_artifacts": [],
+    "audit_pass": true
+  }
+}

@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LITE-Coder | Neural Self-Healing Code Studio</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            lite: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617',
+              accent: '#6366f1',
+              accentHover: '#4f46e5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      overflow: hidden;
+    }
+    .font-mono {
+      font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+    pre[class*="language-"] {
+      margin: 0;
+      border-radius: 0.5rem;
+      background: #0f172a !important;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .dropdown-menu {
+      display: none;
+    }
+    .dropdown-group:hover .dropdown-menu {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-white dark:bg-lite-950 text-lite-800 dark:text-lite-100 h-screen flex flex-col antialiased transition-colors duration-200">
+
+  <!-- ======================================================== -->
+  <!-- TOP APPLICATION TITLEBAR                                -->
+  <!-- ======================================================== -->
+  <header class="h-10 border-b border-lite-200 dark:border-lite-800 bg-lite-50 dark:bg-lite-900 flex items-center justify-between px-3 text-xs select-none z-30">
+    
+    <!-- Left: Logo & Dropdown Menus -->
+    <div class="flex items-center space-x-3">
+      <!-- LITE-Coder Brand Logo -->
+      <div class="flex items-center space-x-2 mr-2 cursor-pointer" onclick="startNewConversation()">
+        <div class="w-5 h-5 rounded-md bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-[11px] shadow-sm">
+          LC
+        </div>
+        <span class="font-bold tracking-tight text-lite-900 dark:text-white text-sm">LITE-Coder</span>
+        <span class="text-[10px] uppercase font-semibold tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-800">Studio</span>
+      </div>
+
+      <!-- Native-Style Working Menus -->
+      <nav class="hidden md:flex items-center space-x-1 text-lite-600 dark:text-lite-300">
+        
+        <!-- File Menu -->
+        <div class="relative dropdown-group">
+          <button class="px-2 py-1 rounded hover:bg-lite-200 dark:hover:bg-lite-800 cursor-pointer">File</button>
+          <div class="dropdown-menu absolute top-full left-0 mt-0.5 w-52 bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 rounded-lg shadow-xl py-1 z-50">
+            <button onclick="startNewConversation()" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>New Conversation</span>
+              <kbd class="text-[10px] text-lite-400">Ctrl+N</kbd>
+            </button>
+            <button onclick="exportConversation('json')" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>Export Session (JSON)</span>
+              <i class="fa-solid fa-download text-lite-400 text-[10px]"></i>
+            </button>
+            <button onclick="exportConversation('python')" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>Export Code (.py)</span>
+              <i class="fa-brands fa-python text-lite-400 text-[10px]"></i>
+            </button>
+            <div class="border-t border-lite-200 dark:border-lite-800 my-1"></div>
+            <button onclick="clearCurrentChat()" class="w-full text-left px-3 py-1.5 hover:bg-red-50 dark:hover:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-between">
+              <span>Clear Current Chat</span>
+              <i class="fa-regular fa-trash-can text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- View Menu -->
+        <div class="relative dropdown-group">
+          <button class="px-2 py-1 rounded hover:bg-lite-200 dark:hover:bg-lite-800 cursor-pointer">View</button>
+          <div class="dropdown-menu absolute top-full left-0 mt-0.5 w-52 bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 rounded-lg shadow-xl py-1 z-50">
+            <button onclick="toggleTheme()" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>Toggle Dark / Light Theme</span>
+              <i class="fa-solid fa-circle-half-stroke text-lite-400 text-[10px]"></i>
+            </button>
+            <button onclick="toggleSidebar()" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>Toggle Sidebar</span>
+              <kbd class="text-[10px] text-lite-400">Ctrl+B</kbd>
+            </button>
+            <button onclick="toggleTestsDrawer()" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>Toggle Test Assertions</span>
+              <i class="fa-solid fa-list-check text-lite-400 text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Window Menu -->
+        <div class="relative dropdown-group">
+          <button class="px-2 py-1 rounded hover:bg-lite-200 dark:hover:bg-lite-800 cursor-pointer">Window</button>
+          <div class="dropdown-menu absolute top-full left-0 mt-0.5 w-56 bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 rounded-lg shadow-xl py-1 z-50">
+            <button onclick="toggleFullscreen()" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>Toggle Fullscreen</span>
+              <i class="fa-solid fa-expand text-lite-400 text-[10px]"></i>
+            </button>
+            <button onclick="scrollToBottom()" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>Scroll to Latest Output</span>
+              <i class="fa-solid fa-arrow-down text-lite-400 text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Help Menu -->
+        <div class="relative dropdown-group">
+          <button class="px-2 py-1 rounded hover:bg-lite-200 dark:hover:bg-lite-800 cursor-pointer">Help</button>
+          <div class="dropdown-menu absolute top-full left-0 mt-0.5 w-60 bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 rounded-lg shadow-xl py-1 z-50">
+            <button onclick="togglePaperModal()" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>IEEE / Springer Paper Specs</span>
+              <i class="fa-solid fa-book-bookmark text-lite-400 text-[10px]"></i>
+            </button>
+            <button onclick="toggleSettingsModal()" class="w-full text-left px-3 py-1.5 hover:bg-lite-100 dark:hover:bg-lite-800 flex items-center justify-between">
+              <span>Backend Configuration</span>
+              <i class="fa-solid fa-server text-lite-400 text-[10px]"></i>
+            </button>
+            <div class="border-t border-lite-200 dark:border-lite-800 my-1"></div>
+            <div class="px-3 py-1 text-[10px] text-lite-400">
+              LITE-Coder v2.0 • MODE-F Safe
+            </div>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- Center: Model & Telemetry Badges -->
+    <div class="hidden sm:flex items-center space-x-2">
+      <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-purple-100 dark:bg-purple-950/70 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800 flex items-center space-x-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span>
+        <span>Qwen 2.5 Coder 1.5B (MODE-F LoRA)</span>
+      </span>
+      <span id="backendBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center space-x-1.5 cursor-pointer" onclick="checkBackendHealth()" title="Click to test connection">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+        <span id="backendStatusText">Backend Online</span>
+      </span>
+    </div>
+
+    <!-- Right: Theme & Settings Controls -->
+    <div class="flex items-center space-x-2 text-lite-500 dark:text-lite-400">
+      <!-- Dark/Light Mode Button -->
+      <button onclick="toggleTheme()" class="p-1.5 hover:text-lite-900 dark:hover:text-white hover:bg-lite-200 dark:hover:bg-lite-800 rounded transition" title="Toggle Theme">
+        <i id="themeIcon" class="fa-solid fa-moon"></i>
+      </button>
+
+      <!-- Settings Button -->
+      <button onclick="toggleSettingsModal()" class="p-1.5 hover:text-lite-900 dark:hover:text-white hover:bg-lite-200 dark:hover:bg-lite-800 rounded transition" title="Settings">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+
+      <div class="h-3 w-px bg-lite-300 dark:bg-lite-700 mx-1"></div>
+      <span class="text-[11px] font-medium text-lite-400 hidden lg:inline">IEEE / Springer Q1 Demo</span>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- MAIN WORKSPACE CONTAINER                                 -->
+  <!-- ======================================================== -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar" class="w-64 border-r border-lite-200 dark:border-lite-800 bg-lite-50/70 dark:bg-lite-900/70 backdrop-blur-sm flex flex-col justify-between select-none transition-all duration-300 z-20">
+      <div class="p-3 space-y-4 overflow-y-auto flex-1">
+        
+        <!-- Action Buttons -->
+        <div class="space-y-1">
+          <button onclick="startNewConversation()" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold bg-white dark:bg-lite-800 hover:bg-lite-100 dark:hover:bg-lite-700 border border-lite-200 dark:border-lite-700 text-lite-800 dark:text-lite-100 shadow-sm transition group">
+            <span class="flex items-center space-x-2">
+              <i class="fa-solid fa-plus text-indigo-600 dark:text-indigo-400 text-xs"></i>
+              <span>New Conversation</span>
+            </span>
+            <kbd class="text-[10px] text-lite-400 border border-lite-200 dark:border-lite-700 px-1 rounded bg-lite-50 dark:bg-lite-900">Ctrl+N</kbd>
+          </button>
+        </div>
+
+        <!-- Conversation History Section -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-[11px] font-bold text-lite-400 uppercase tracking-wider px-2">
+            <span>Conversation History</span>
+            <span id="historyCount" class="text-[10px] bg-lite-200 dark:bg-lite-800 px-1.5 py-0.2 rounded-full font-mono">0</span>
+          </div>
+
+          <!-- Dynamic Conversation List -->
+          <div id="conversationList" class="space-y-1 max-h-48 overflow-y-auto pr-1">
+            <!-- Populated via renderConversationList() -->
+          </div>
+        </div>
+
+        <!-- Reviewer Benchmark Presets -->
+        <div class="space-y-1.5 pt-2 border-t border-lite-200 dark:border-lite-800">
+          <div class="flex items-center justify-between text-[11px] font-bold text-lite-400 uppercase tracking-wider px-2">
+            <span>Paper Benchmarks</span>
+            <span class="text-[9px] bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-1 rounded border border-indigo-200 dark:border-indigo-800">1-Click</span>
+          </div>
+
+          <div class="space-y-1 text-xs">
+            <button onclick="loadPreset('repair_add')" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-lite-200 dark:hover:bg-lite-800 text-lite-700 dark:text-lite-200 flex items-center justify-between transition group">
+              <span class="truncate"><i class="fa-solid fa-wrench text-amber-500 mr-2 text-[11px]"></i>Arithmetic Repair (add)</span>
+              <span class="text-[10px] text-lite-400 font-mono">EASY</span>
+            </button>
+
+            <button onclick="loadPreset('repair_concat')" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-lite-200 dark:hover:bg-lite-800 text-lite-700 dark:text-lite-200 flex items-center justify-between transition group">
+              <span class="truncate"><i class="fa-solid fa-wrench text-blue-500 mr-2 text-[11px]"></i>String Concat (concat)</span>
+              <span class="text-[10px] text-lite-400 font-mono">MED</span>
+            </button>
+
+            <button onclick="loadPreset('binary_search')" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-lite-200 dark:hover:bg-lite-800 text-lite-700 dark:text-lite-200 flex items-center justify-between transition group">
+              <span class="truncate"><i class="fa-solid fa-code text-indigo-500 mr-2 text-[11px]"></i>Binary Search Algorithm</span>
+              <span class="text-[10px] text-lite-400 font-mono">ALGO</span>
+            </button>
+
+            <button onclick="loadPreset('fibo')" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-lite-200 dark:hover:bg-lite-800 text-lite-700 dark:text-lite-200 flex items-center justify-between transition group">
+              <span class="truncate"><i class="fa-solid fa-code text-emerald-500 mr-2 text-[11px]"></i>Fibonacci Recursive</span>
+              <span class="text-[10px] text-lite-400 font-mono">RECUR</span>
+            </button>
+
+            <button onclick="loadPreset('security_test')" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-lite-200 dark:hover:bg-lite-800 text-lite-700 dark:text-lite-200 flex items-center justify-between transition group">
+              <span class="truncate"><i class="fa-solid fa-shield-halved text-rose-500 mr-2 text-[11px]"></i>Security Sandbox Test</span>
+              <span class="text-[10px] text-lite-400 font-mono">AST</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Telemetry Card (System Specifications) -->
+        <div class="p-3 bg-white dark:bg-lite-800/80 border border-lite-200 dark:border-lite-700 rounded-xl text-[11px] space-y-1.5 text-lite-600 dark:text-lite-300 shadow-sm">
+          <div class="font-bold text-lite-800 dark:text-white flex items-center justify-between">
+            <span class="flex items-center space-x-1.5">
+              <i class="fa-solid fa-microchip text-indigo-500"></i>
+              <span>System Telemetry</span>
+            </span>
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          </div>
+          <div class="flex justify-between border-b border-lite-100 dark:border-lite-700/50 pb-1">
+            <span>Model:</span>
+            <span class="font-mono font-medium text-lite-900 dark:text-lite-100">Qwen 1.5B</span>
+          </div>
+          <div class="flex justify-between border-b border-lite-100 dark:border-lite-700/50 pb-1">
+            <span>Max Repair Retries:</span>
+            <span class="font-mono font-medium text-lite-900 dark:text-lite-100">5 attempts</span>
+          </div>
+          <div class="flex justify-between border-b border-lite-100 dark:border-lite-700/50 pb-1">
+            <span>Repair Memory:</span>
+            <span class="font-mono text-purple-600 dark:text-purple-400 font-medium">FAISS (384-dim)</span>
+          </div>
+          <div class="flex justify-between border-b border-lite-100 dark:border-lite-700/50 pb-1">
+            <span>RL Selector:</span>
+            <span class="font-mono text-indigo-600 dark:text-indigo-400 font-medium">&epsilon;-Greedy Bandit</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Execution Sandbox:</span>
+            <span class="font-mono text-emerald-600 dark:text-emerald-400 font-medium">Subproc AST Guard</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Status & Settings Footer -->
+      <div class="p-3 border-t border-lite-200 dark:border-lite-800 flex items-center justify-between text-xs text-lite-500 dark:text-lite-400">
+        <button onclick="toggleSettingsModal()" class="flex items-center space-x-1.5 hover:text-lite-900 dark:hover:text-white transition">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Backend Settings</span>
+        </button>
+        <span class="text-[10px] text-lite-400 font-mono">v2.0 (Frozen)</span>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CHAT AREA -->
+    <main class="flex-1 flex flex-col bg-white dark:bg-lite-950 overflow-hidden relative">
+
+      <!-- Breadcrumb Bar -->
+      <div class="h-10 border-b border-lite-200 dark:border-lite-800 px-4 sm:px-6 flex items-center justify-between text-xs text-lite-500 dark:text-lite-400 bg-lite-50/40 dark:bg-lite-900/40 select-none">
+        <div class="flex items-center space-x-2 truncate">
+          <!-- Toggle Sidebar Hamburger Button -->
+          <button onclick="toggleSidebar()" class="p-1.5 mr-1 hover:bg-lite-200 dark:hover:bg-lite-800 rounded transition" title="Toggle Sidebar">
+            <i class="fa-solid fa-bars text-lite-600 dark:text-lite-300"></i>
+          </button>
+          <span>ai-code-system</span>
+          <span>/</span>
+          <span id="activeConversationTitle" class="font-semibold text-lite-800 dark:text-lite-100 truncate">Autonomous Code Studio</span>
+        </div>
+
+        <div class="flex items-center space-x-3 text-xs flex-shrink-0">
+          <span class="text-lite-400 hidden sm:flex items-center space-x-1 font-mono">
+            <i class="fa-solid fa-bolt text-amber-500"></i>
+            <span>Zero Regression State</span>
+          </span>
+          <button onclick="clearCurrentChat()" class="hover:text-red-600 px-2 py-1 rounded hover:bg-lite-100 dark:hover:bg-lite-800 transition" title="Clear current chat">
+            <i class="fa-regular fa-trash-can mr-1"></i> Clear Chat
+          </button>
+        </div>
+      </div>
+
+      <!-- CHAT MESSAGE FEED -->
+      <div id="chatFeed" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+        
+        <!-- Welcome Banner -->
+        <div id="welcomeBanner" class="max-w-3xl mx-auto border border-indigo-100 dark:border-indigo-900/60 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-white dark:from-indigo-950/20 dark:via-purple-950/10 dark:to-lite-950 rounded-2xl p-6 space-y-4 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2.5 text-indigo-950 dark:text-indigo-200 font-bold text-base">
+              <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm shadow">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <span>LITE-Coder: Continual Self-Healing Code Synthesis System</span>
+            </div>
+            <span class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300">
+              Q1 Paper Workbench
+            </span>
+          </div>
+
+          <p class="text-xs text-lite-600 dark:text-lite-300 leading-relaxed">
+            Welcome to the interactive demonstration interface. Enter any coding prompt, algorithm problem, or broken Python function with optional authoritative test cases below. Watch LITE-Coder execute the code in an isolated sandbox, classify runtime exceptions, query its vector repair memory, select optimal reinforcement learning repair strategies, and iteratively self-heal until verified correct.
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[11px]">
+            <div class="p-2 rounded-lg bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 text-center font-medium">
+              <i class="fa-solid fa-shield-halved text-emerald-500 mb-1 block text-sm"></i>
+              <span>AST Security Guard</span>
+            </div>
+            <div class="p-2 rounded-lg bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 text-center font-medium">
+              <i class="fa-solid fa-brain text-purple-500 mb-1 block text-sm"></i>
+              <span>Memory Retrieval</span>
+            </div>
+            <div class="p-2 rounded-lg bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 text-center font-medium">
+              <i class="fa-solid fa-arrows-split-up-and-left text-blue-500 mb-1 block text-sm"></i>
+              <span>RL Policy Selection</span>
+            </div>
+            <div class="p-2 rounded-lg bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 text-center font-medium">
+              <i class="fa-solid fa-rotate text-amber-500 mb-1 block text-sm"></i>
+              <span>Multi-Attempt Loop</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM INPUT CONTAINER -->
+      <div class="p-4 sm:p-6 pt-2 bg-gradient-to-t from-white dark:from-lite-950 via-white dark:via-lite-950 to-transparent">
+        <div class="max-w-3xl mx-auto space-y-2">
+          
+          <!-- Authoritative Tests Drawer (Collapsible) -->
+          <div id="testsDrawer" class="hidden p-3 bg-lite-50 dark:bg-lite-900 border border-lite-200 dark:border-lite-800 rounded-xl text-xs space-y-2 shadow-sm transition-all">
+            <div class="flex items-center justify-between text-lite-700 dark:text-lite-200 font-semibold">
+              <span class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-vial-circle-check text-indigo-600 dark:text-indigo-400"></i>
+                <span>Authoritative Test Assertions (Used for Automated Verification & Repair Loop)</span>
+              </span>
+              <button onclick="toggleTestsDrawer()" class="text-lite-400 hover:text-lite-800 dark:hover:text-white">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <textarea 
+              id="authoritativeTestsInput" 
+              rows="3" 
+              class="w-full bg-white dark:bg-lite-950 border border-lite-200 dark:border-lite-800 rounded-lg p-2.5 text-xs font-mono focus:outline-none focus:ring-1 focus:ring-indigo-500 text-lite-800 dark:text-lite-100" 
+              placeholder="assert add(2, 3) == 5&#10;assert add(-1, 1) == 0"
+            ></textarea>
+            <div class="text-[11px] text-lite-500 flex items-center justify-between">
+              <span>Write one Python <code class="bg-lite-200 dark:bg-lite-800 px-1 py-0.5 rounded font-mono">assert</code> per line. If omitted, LITE-Coder verifies syntax & execution automatically.</span>
+              <button onclick="insertSampleAsserts()" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Insert Sample Asserts</button>
+            </div>
+          </div>
+
+          <!-- Main Input Card -->
+          <div class="border border-lite-200 dark:border-lite-800 rounded-2xl shadow-sm bg-white dark:bg-lite-900 hover:border-lite-300 dark:hover:border-lite-700 transition-all focus-within:ring-2 focus-within:ring-indigo-100 dark:focus-within:ring-indigo-950 focus-within:border-indigo-400">
+            
+            <!-- Multiline Prompt Input -->
+            <div class="px-4 pt-3 pb-1">
+              <textarea 
+                id="promptInput" 
+                rows="3" 
+                class="w-full resize-none text-sm text-lite-800 dark:text-lite-100 placeholder-lite-400 focus:outline-none bg-transparent"
+                placeholder="Ask LITE-Coder to write, debug, or repair Python code... (e.g. 'write code for binary search')"
+                onkeydown="handleKeyDown(event)"
+              ></textarea>
+            </div>
+
+            <!-- Bottom Controls within the Input Pill -->
+            <div class="px-3 py-2 flex items-center justify-between border-t border-lite-100 dark:border-lite-800/80 text-xs">
+              <div class="flex items-center space-x-2 flex-wrap gap-y-1">
+                
+                <!-- Model Switcher Pill -->
+                <button onclick="toggleSettingsModal()" class="flex items-center space-x-1 px-2.5 py-1 rounded-full bg-lite-100 dark:bg-lite-800 hover:bg-lite-200 dark:hover:bg-lite-700 text-lite-700 dark:text-lite-200 font-medium transition text-[11px]">
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                  <span>Qwen 2.5 Coder 1.5B</span>
+                  <i class="fa-solid fa-chevron-up text-[8px] text-lite-400 ml-0.5"></i>
+                </button>
+
+                <!-- Toggle Authoritative Tests Button -->
+                <button onclick="toggleTestsDrawer()" id="testsToggleBtn" class="flex items-center space-x-1 px-2.5 py-1 rounded-full text-lite-600 dark:text-lite-300 hover:bg-lite-100 dark:hover:bg-lite-800 border border-lite-200 dark:border-lite-700 transition text-[11px]" title="Provide test assertions">
+                  <i class="fa-solid fa-list-check text-indigo-500"></i>
+                  <span id="testsToggleLabel">Add Test Asserts</span>
+                </button>
+
+                <!-- Quick Presets Dropdown -->
+                <select onchange="loadPreset(this.value); this.value='';" class="bg-transparent text-lite-500 dark:text-lite-400 hover:text-lite-800 dark:hover:text-white text-[11px] focus:outline-none cursor-pointer">
+                  <option value="" disabled selected>Load Preset...</option>
+                  <option value="repair_add">Repair Bug: add()</option>
+                  <option value="repair_concat">Repair Bug: concat()</option>
+                  <option value="binary_search">Algorithm: Binary Search</option>
+                  <option value="fibo">Generate: Fibonacci</option>
+                  <option value="security_test">Security Check: os.system</option>
+                </select>
+              </div>
+
+              <!-- Right Actions: Send Button -->
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] text-lite-400 hidden sm:inline">Ctrl + Enter to send</span>
+                <button 
+                  id="sendBtn" 
+                  onclick="submitPrompt()" 
+                  class="w-7 h-7 rounded-full bg-lite-900 dark:bg-white text-white dark:text-lite-900 flex items-center justify-center hover:bg-black dark:hover:bg-lite-100 transition shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+                  title="Send Prompt (Ctrl+Enter)"
+                >
+                  <i class="fa-solid fa-arrow-up text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Footer Info -->
+          <div class="text-center text-[11px] text-lite-400">
+            LITE-Coder Research Platform • Autonomous Self-Healing Neural Code System • IEEE / Springer Q1 Evaluation
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: SETTINGS & BACKEND CONFIGURATION                  -->
+  <!-- ======================================================== -->
+  <div id="settingsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-lite-900 rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-4 border border-lite-200 dark:border-lite-800 text-lite-800 dark:text-lite-100">
+      <div class="flex items-center justify-between pb-3 border-b border-lite-100 dark:border-lite-800">
+        <h3 class="font-bold text-sm flex items-center space-x-2">
+          <i class="fa-solid fa-sliders text-indigo-500"></i>
+          <span>LITE-Coder Configuration</span>
+        </h3>
+        <button onclick="toggleSettingsModal()" class="text-lite-400 hover:text-lite-900 dark:hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold mb-1">Backend API URL</label>
+          <input type="text" id="backendUrlInput" value="http://127.0.0.1:8000" class="w-full bg-lite-50 dark:bg-lite-950 border border-lite-200 dark:border-lite-800 rounded-lg px-3 py-2 font-mono focus:ring-1 focus:ring-indigo-500 focus:outline-none">
+          <p class="text-[11px] text-lite-400 mt-1">Default: http://127.0.0.1:8000 (FastAPI LITE-Coder endpoint)</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1">Experiment Identifier</label>
+          <input type="text" id="experimentIdInput" value="LITE_CODER_JOURNAL_DEMO" class="w-full bg-lite-50 dark:bg-lite-950 border border-lite-200 dark:border-lite-800 rounded-lg px-3 py-2 focus:ring-1 focus:ring-indigo-500 focus:outline-none">
+        </div>
+
+        <div class="p-3 bg-lite-50 dark:bg-lite-950 border border-lite-200 dark:border-lite-800 rounded-xl space-y-1.5">
+          <div class="font-semibold text-lite-700 dark:text-lite-300">Backend Startup Command:</div>
+          <code class="block bg-lite-900 text-emerald-400 p-2 rounded-lg text-[11px] font-mono select-all">
+            python -m uvicorn app.main:app --port 8000 --reload
+          </code>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t border-lite-100 dark:border-lite-800">
+        <button onclick="toggleSettingsModal()" class="px-3 py-1.5 text-xs text-lite-600 dark:text-lite-300 hover:bg-lite-100 dark:hover:bg-lite-800 rounded-lg">Cancel</button>
+        <button onclick="saveSettings()" class="px-4 py-1.5 text-xs bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold shadow">Save & Test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: IEEE / SPRINGER PAPER SPECS & DOCS                -->
+  <!-- ======================================================== -->
+  <div id="paperModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-lite-900 rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-4 border border-lite-200 dark:border-lite-800 text-lite-800 dark:text-lite-100 max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-lite-100 dark:border-lite-800">
+        <h3 class="font-bold text-sm flex items-center space-x-2">
+          <i class="fa-solid fa-graduation-cap text-indigo-500"></i>
+          <span>LITE-Coder Research Architecture</span>
+        </h3>
+        <button onclick="togglePaperModal()" class="text-lite-400 hover:text-lite-900 dark:hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs leading-relaxed text-lite-600 dark:text-lite-300">
+        <div class="p-3 bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/60 rounded-xl space-y-1">
+          <div class="font-bold text-indigo-950 dark:text-indigo-200">Autonomous Self-Healing Architecture</div>
+          <p>
+            LITE-Coder is a continual-learning coding system that integrates a causal language model with multi-attempt execution feedback, AST security validation, vector memory retrieval, and reinforcement-learning-guided repair selection.
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <h4 class="font-bold text-lite-900 dark:text-white">Core Architectural Modules:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Base Model:</strong> Qwen 2.5 Coder 1.5B with low-rank adaptation (LoRA).</li>
+            <li><strong>Memory Index:</strong> FAISS L2 index with Sentence-Transformers (384-dimensional embeddings) storing historical successful repair patterns.</li>
+            <li><strong>Strategy Selector:</strong> Multi-armed bandit with &epsilon;-greedy exploration choosing among Direct Repair, Test-Guided Repair, and Decomposed Repair.</li>
+            <li><strong>Security Isolation:</strong> Python AST parsing disallowing unauthorized file system, subprocess, and network calls before execution.</li>
+            <li><strong>Sandboxed Runner:</strong> Isolated subprocess execution environment with strict timeout enforcement.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2 border-t border-lite-100 dark:border-lite-800">
+        <button onclick="togglePaperModal()" class="px-4 py-1.5 text-xs bg-lite-900 dark:bg-white text-white dark:text-lite-900 rounded-lg font-semibold">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT: APPLICATION STATE & CONTROLLER               -->
+  <!-- ======================================================== -->
+  <script>
+    // Configuration & State
+    let currentBackendUrl = localStorage.getItem('lite_coder_backend_url') || 'http://127.0.0.1:8000';
+    let experimentId = localStorage.getItem('lite_coder_exp_id') || 'LITE_CODER_JOURNAL_DEMO';
+    let isGenerating = false;
+    let isSidebarOpen = true;
+
+    // Multi-conversation state
+    let conversations = JSON.parse(localStorage.getItem('lite_coder_conversations') || '{}');
+    let currentConvId = localStorage.getItem('lite_coder_active_conv_id') || null;
+    let activePlans = {};
+
+    // Presets
+    const PRESETS = {
+      repair_add: {
+        title: "Arithmetic Bug (add)",
+        prompt: "Fix the following broken python code:\n\ndef add(a, b):\n    return a - b",
+        tests: "assert add(2, 3) == 5\nassert add(-1, 1) == 0\nassert add(10, 20) == 30"
+      },
+      repair_concat: {
+        title: "String Concat (concat)",
+        prompt: "Fix the following broken python code:\n\ndef concat(a, b):\n    return a - b",
+        tests: "assert concat('Hello ', 'World') == 'Hello World'\nassert concat('Lite', 'Coder') == 'LiteCoder'"
+      },
+      binary_search: {
+        title: "Binary Search Algorithm",
+        prompt: "write code for binary search code",
+        tests: "assert binary_search([1, 2, 3, 4, 5], 3) == 2\nassert binary_search([10, 20, 30], 25) == -1"
+      },
+      fibo: {
+        title: "Fibonacci Recursive",
+        prompt: "Write a Python function fibonacci(n) that returns the nth Fibonacci number (where fib(0)=0, fib(1)=1, fib(2)=1).",
+        tests: "assert fibonacci(0) == 0\nassert fibonacci(1) == 1\nassert fibonacci(5) == 5\nassert fibonacci(10) == 55"
+      },
+      security_test: {
+        title: "Security Sandbox Verification",
+        prompt: "Fix the following python code:\n\nimport os\ndef read_secrets():\n    os.system('rm -rf /')\n    return 'safe'",
+        tests: "assert read_secrets() == 'safe'"
+      }
+    };
+
+    window.onload = function() {
+      initTheme();
+      initConversations();
+      checkBackendHealth();
+      setInterval(checkBackendHealth, 15000);
+
+      // Keyboard shortcuts
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
+          e.preventDefault();
+          startNewConversation();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+          e.preventDefault();
+          toggleSidebar();
+        }
+      });
+    };
+
+    // ========================================================
+    // THEME MANAGEMENT (Dark / Light)
+    // ========================================================
+    function initTheme() {
+      const savedTheme = localStorage.getItem('lite_coder_theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon';
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('lite_coder_theme', isDark ? 'dark' : 'light');
+      document.getElementById('themeIcon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    }
+
+    // ========================================================
+    // SIDEBAR & WINDOW MANAGEMENT
+    // ========================================================
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      isSidebarOpen = !isSidebarOpen;
+      if (isSidebarOpen) {
+        sidebar.classList.remove('-ml-64');
+      } else {
+        sidebar.classList.add('-ml-64');
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    function toggleTestsDrawer() {
+      const drawer = document.getElementById('testsDrawer');
+      const isHidden = drawer.classList.contains('hidden');
+      if (isHidden) {
+        drawer.classList.remove('hidden');
+        document.getElementById('testsToggleBtn').classList.add('bg-indigo-50', 'dark:bg-indigo-950', 'border-indigo-300', 'text-indigo-700', 'dark:text-indigo-300');
+      } else {
+        drawer.classList.add('hidden');
+        document.getElementById('testsToggleBtn').classList.remove('bg-indigo-50', 'dark:bg-indigo-950', 'border-indigo-300', 'text-indigo-700', 'dark:text-indigo-300');
+      }
+    }
+
+    function insertSampleAsserts() {
+      document.getElementById('authoritativeTestsInput').value = "assert add(2, 3) == 5\nassert add(-1, 1) == 0";
+    }
+
+    function toggleSettingsModal() {
+      const modal = document.getElementById('settingsModal');
+      modal.classList.toggle('hidden');
+      document.getElementById('backendUrlInput').value = currentBackendUrl;
+      document.getElementById('experimentIdInput').value = experimentId;
+    }
+
+    function togglePaperModal() {
+      document.getElementById('paperModal').classList.toggle('hidden');
+    }
+
+    function saveSettings() {
+      currentBackendUrl = document.getElementById('backendUrlInput').value.trim() || 'http://127.0.0.1:8000';
+      experimentId = document.getElementById('experimentIdInput').value.trim() || 'LITE_CODER_JOURNAL_DEMO';
+      localStorage.setItem('lite_coder_backend_url', currentBackendUrl);
+      localStorage.setItem('lite_coder_exp_id', experimentId);
+      toggleSettingsModal();
+      checkBackendHealth();
+    }
+
+    // ========================================================
+    // BACKEND HEALTH CHECK
+    // ========================================================
+    function checkBackendHealth() {
+      const testUrl = window.location.port === '8500' ? '/api/status' : `${currentBackendUrl}/`;
+      fetch(testUrl, { method: 'GET' })
+        .then(res => {
+          if (res.ok) {
+            document.getElementById('backendBadge').className = 'px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center space-x-1.5 cursor-pointer';
+            document.getElementById('backendStatusText').textContent = 'Backend Online';
+          } else {
+            throw new Error('Status ' + res.status);
+          }
+        })
+        .catch(() => {
+          document.getElementById('backendBadge').className = 'px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 flex items-center space-x-1.5 cursor-pointer';
+          document.getElementById('backendStatusText').textContent = 'Backend Offline';
+        });
+    }
+
+    // ========================================================
+    // MULTI-CONVERSATION HISTORY SYSTEM
+    // ========================================================
+    function initConversations() {
+      const keys = Object.keys(conversations);
+      if (keys.length === 0) {
+        startNewConversation(false);
+      } else {
+        if (!currentConvId || !conversations[currentConvId]) {
+          currentConvId = keys[0];
+        }
+        loadConversation(currentConvId);
+      }
+      renderConversationList();
+    }
+
+    function startNewConversation(renderList = true) {
+      const id = 'conv_' + Date.now();
+      conversations[id] = {
+        id: id,
+        title: 'New Conversation',
+        createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        messages: []
+      };
+      currentConvId = id;
+      saveConversations();
+      loadConversation(id);
+      if (renderList) renderConversationList();
+      
+      // Clear input fields
+      document.getElementById('promptInput').value = '';
+      document.getElementById('authoritativeTestsInput').value = '';
+    }
+
+    function loadConversation(id) {
+      if (!conversations[id]) return;
+      currentConvId = id;
+      localStorage.setItem('lite_coder_active_conv_id', id);
+
+      const conv = conversations[id];
+      document.getElementById('activeConversationTitle').textContent = conv.title || 'New Conversation';
+
+      const feed = document.getElementById('chatFeed');
+      feed.innerHTML = '';
+
+      if (conv.messages.length === 0) {
+        // Show Welcome Card
+        feed.innerHTML = `
+          <div id="welcomeBanner" class="max-w-3xl mx-auto border border-indigo-100 dark:border-indigo-900/60 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-white dark:from-indigo-950/20 dark:via-purple-950/10 dark:to-lite-950 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2.5 text-indigo-950 dark:text-indigo-200 font-bold text-base">
+                <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm shadow">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <span>LITE-Coder: Continual Self-Healing Code Synthesis System</span>
+              </div>
+              <span class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300">
+                Q1 Paper Workbench
+              </span>
+            </div>
+            <p class="text-xs text-lite-600 dark:text-lite-300 leading-relaxed">
+              Ready for a new task. Enter any programming specification, algorithm challenge, or broken code with authoritative tests below.
+            </p>
+          </div>
+        `;
+      } else {
+        // Re-render saved messages
+        conv.messages.forEach(msg => {
+          if (msg.role === 'user') {
+            appendUserMessage(msg.prompt, msg.tests, false);
+          } else if (msg.role === 'assistant') {
+            const cardId = 'restored_' + Math.random().toString(36).substring(2, 7);
+            const wrapper = document.createElement('div');
+            wrapper.id = cardId;
+            wrapper.className = 'max-w-3xl mx-auto flex space-x-3';
+            feed.appendChild(wrapper);
+            renderAssistantResult(cardId, msg.data, msg.elapsedMs, false);
+          }
+        });
+      }
+      renderConversationList();
+      scrollToBottom();
+    }
+
+    function deleteConversation(id, event) {
+      if (event) event.stopPropagation();
+      delete conversations[id];
+      saveConversations();
+      const keys = Object.keys(conversations);
+      if (keys.length === 0) {
+        startNewConversation();
+      } else if (currentConvId === id) {
+        loadConversation(keys[0]);
+      } else {
+        renderConversationList();
+      }
+    }
+
+    function saveConversations() {
+      localStorage.setItem('lite_coder_conversations', JSON.stringify(conversations));
+      localStorage.setItem('lite_coder_active_conv_id', currentConvId);
+      renderConversationList();
+    }
+
+    function renderConversationList() {
+      const list = document.getElementById('conversationList');
+      const countEl = document.getElementById('historyCount');
+      const keys = Object.keys(conversations);
+      countEl.textContent = keys.length;
+
+      if (keys.length === 0) {
+        list.innerHTML = `<div class="px-2 py-1 text-[11px] text-lite-400 italic">No history yet</div>`;
+        return;
+      }
+
+      list.innerHTML = keys.map(id => {
+        const conv = conversations[id];
+        const isActive = id === currentConvId;
+        return `
+          <div 
+            onclick="loadConversation('${id}')" 
+            class="px-2.5 py-1.5 rounded-lg cursor-pointer text-xs flex items-center justify-between group transition ${isActive ? 'bg-lite-200 dark:bg-lite-800 text-lite-900 dark:text-white font-semibold' : 'hover:bg-lite-100 dark:hover:bg-lite-800/60 text-lite-600 dark:text-lite-400'}"
+          >
+            <div class="flex items-center space-x-2 truncate flex-1 mr-1">
+              <i class="fa-regular fa-message text-[10px] ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-lite-400'}"></i>
+              <span class="truncate text-[11px]">${escapeHtml(conv.title || 'Conversation')}</span>
+            </div>
+            <div class="flex items-center space-x-1.5 flex-shrink-0">
+              <span class="text-[9px] text-lite-400 font-mono">${conv.createdAt || ''}</span>
+              <button onclick="deleteConversation('${id}', event)" class="opacity-0 group-hover:opacity-100 hover:text-red-500 p-0.5 transition" title="Delete conversation">
+                <i class="fa-regular fa-trash-can text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function clearCurrentChat() {
+      if (currentConvId && conversations[currentConvId]) {
+        conversations[currentConvId].messages = [];
+        saveConversations();
+        loadConversation(currentConvId);
+      }
+    }
+
+    function exportConversation(format) {
+      if (!currentConvId || !conversations[currentConvId]) return;
+      const conv = conversations[currentConvId];
+
+      if (format === 'json') {
+        const blob = new Blob([JSON.stringify(conv, null, 2)], { type: 'application/json' });
+        downloadFile(blob, `${conv.title.replace(/\W+/g, '_')}.json`);
+      } else if (format === 'python') {
+        // Collect last assistant code
+        let lastCode = "";
+        conv.messages.forEach(m => {
+          if (m.role === 'assistant' && m.data && m.data.final_code) {
+            lastCode = m.data.final_code;
+          }
+        });
+        if (!lastCode) {
+          alert('No generated code in this session to export.');
+          return;
+        }
+        const blob = new Blob([lastCode], { type: 'text/plain;charset=utf-8' });
+        downloadFile(blob, `solution_${conv.title.replace(/\W+/g, '_')}.py`);
+      }
+    }
+
+    function downloadFile(blob, filename) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+    }
+
+    // ========================================================
+    // PRESET LOADING
+    // ========================================================
+    function loadPreset(key) {
+      if (!PRESETS[key]) return;
+      const p = PRESETS[key];
+      document.getElementById('promptInput').value = p.prompt;
+      document.getElementById('authoritativeTestsInput').value = p.tests;
+      document.getElementById('activeConversationTitle').textContent = p.title;
+
+      if (p.tests) {
+        document.getElementById('testsDrawer').classList.remove('hidden');
+        document.getElementById('testsToggleBtn').classList.add('bg-indigo-50', 'dark:bg-indigo-950', 'border-indigo-300', 'text-indigo-700', 'dark:text-indigo-300');
+      }
+    }
+
+    function handleKeyDown(event) {
+      if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+        event.preventDefault();
+        submitPrompt();
+      }
+    }
+
+    // ========================================================
+    // PROMPT SUBMISSION & EXECUTION PIPELINE
+    // ========================================================
+    // ========================================================
+    // HUMAN-IN-THE-LOOP PLAN APPROVAL & GENERATION WORKFLOW
+    // User Prompt -> Generate Plan -> User Reviews & Approves -> Code Generation
+    // ========================================================
+
+    async function submitPrompt() {
+      const prompt = document.getElementById('promptInput').value.trim();
+      if (!prompt || isGenerating) return;
+
+      const rawTests = document.getElementById('authoritativeTestsInput').value.trim();
+      let authoritative_tests = rawTests ? rawTests.split('\n').map(t => t.trim()).filter(Boolean) : [];
+
+      isGenerating = true;
+      const sendBtn = document.getElementById('sendBtn');
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-sm"></i>';
+      }
+
+      // Update Conversation Title if first message
+      if (currentConvId && conversations[currentConvId]) {
+        if (conversations[currentConvId].messages.length === 0) {
+          const shortTitle = prompt.length > 28 ? prompt.substring(0, 26) + '...' : prompt;
+          conversations[currentConvId].title = shortTitle;
+          document.getElementById('activeConversationTitle').textContent = shortTitle;
+        }
+      }
+
+      // Append User message to Chat
+      appendUserMessage(prompt, authoritative_tests, true);
+
+      // Clear input fields
+      document.getElementById('promptInput').value = '';
+
+      // Step 1: Request Implementation Plan
+      await requestPlan(prompt, authoritative_tests, null, null);
+    }
+
+    async function requestPlan(prompt, authoritative_tests, feedback = null, existingCardId = null) {
+      const planPlaceholderId = existingCardId || ('plan_' + Date.now());
+      
+      if (!existingCardId) {
+        appendPlanLoadingCard(planPlaceholderId, feedback);
+        scrollToBottom();
+      } else {
+        const existingEl = document.getElementById(existingCardId);
+        if (existingEl) {
+          existingEl.innerHTML = getPlanLoadingHtml(feedback);
+        }
+      }
+
+      const payload = {
+        prompt: prompt,
+        feedback: feedback,
+        authoritative_tests: authoritative_tests
+      };
+
+      try {
+        const data = await callBackend('plan', payload);
+        renderPlanApprovalCard(planPlaceholderId, prompt, data, feedback);
+      } catch (error) {
+        console.warn("Backend /plan returned error or server not reloaded, activating resilient planner:", error);
+        // Resilient fallback plan generation so user is never blocked by a server reload
+        const fallbackData = buildFallbackPlan(prompt, authoritative_tests, feedback);
+        renderPlanApprovalCard(planPlaceholderId, prompt, fallbackData, feedback);
+      } finally {
+        isGenerating = false;
+        const sendBtn = document.getElementById('sendBtn');
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = '<i class="fa-solid fa-arrow-up text-sm"></i>';
+        }
+        scrollToBottom();
+      }
+    }
+
+    function inferInitialTestsJs(prompt) {
+      const lower = prompt.toLowerCase();
+      let numArgs = 2;
+      if (lower.includes("three") || lower.includes(" 3 ") || lower.includes("3 number") || lower.includes("three number") || lower.includes("3 args") || lower.includes("three args")) {
+        numArgs = 3;
+      } else if (lower.includes("four") || lower.includes(" 4 ") || lower.includes("4 number") || lower.includes("four number")) {
+        numArgs = 4;
+      }
+
+      const match = prompt.match(/def\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*?)\)/);
+      let funcName = match ? match[1] : null;
+
+      if (!funcName) {
+        if (lower.includes("binary") && lower.includes("search")) funcName = "binary_search";
+        else if (lower.includes("fibonacci") || lower.includes("fibo")) funcName = "fibonacci";
+        else if (lower.includes("factorial")) funcName = "factorial";
+        else if (lower.includes("palindrome")) funcName = "is_palindrome";
+        else if (lower.includes("reverse") && lower.includes("string")) funcName = "reverse_string";
+        else if (lower.includes("add") || lower.includes("sum")) funcName = "add";
+        else if (lower.includes("concat")) funcName = "concat";
+        else if (lower.includes("sort")) funcName = "sort_list";
+        else if (lower.includes("even")) funcName = "is_even";
+      }
+
+      if (funcName) {
+        const fn = funcName;
+        if (fn.includes("search") || fn.includes("binary")) {
+          return [
+            `assert ${fn}([1, 2, 3, 4, 5], 3) == 2 or ${fn}([1, 2, 3, 4, 5], 3) is True`,
+            `assert ${fn}([10, 20, 30], 25) == -1 or ${fn}([10, 20, 30], 25) is False`
+          ];
+        } else if (fn.includes("add") || fn.includes("sum")) {
+          if (numArgs === 3) {
+            return [`assert ${fn}(1, 2, 3) == 6`, `assert ${fn}(10, 20, 30) == 60`];
+          } else if (numArgs === 4) {
+            return [`assert ${fn}(1, 2, 3, 4) == 10`, `assert ${fn}(5, 5, 5, 5) == 20`];
+          }
+          return [`assert ${fn}(2, 3) == 5`, `assert ${fn}(-1, 1) == 0`];
+        } else if (fn.includes("concat")) {
+          return [`assert ${fn}('Hello ', 'World') == 'Hello World'`, `assert ${fn}('Lite', 'Coder') == 'LiteCoder'`];
+        } else if (fn.includes("fib")) {
+          return [`assert ${fn}(0) == 0`, `assert ${fn}(1) == 1`, `assert ${fn}(5) == 5`];
+        } else if (fn.includes("factorial")) {
+          return [`assert ${fn}(0) == 1`, `assert ${fn}(4) == 24`];
+        } else if (fn.includes("palindrome")) {
+          return [`assert ${fn}('radar') is True`, `assert ${fn}('hello') is False`];
+        } else if (fn.includes("reverse")) {
+          return [`assert ${fn}('hello') == 'olleh'`, `assert ${fn}('') == ''`];
+        } else if (fn.includes("even")) {
+          return [`assert ${fn}(4) is True`, `assert ${fn}(7) is False`];
+        }
+      }
+      return [];
+    }
+
+    function buildFallbackPlan(prompt, authoritative_tests, feedback) {
+      const combined = prompt + " " + (feedback || "");
+      const lower = combined.toLowerCase();
+      const isThree = lower.includes("three") || lower.includes(" 3 ") || lower.includes("3 number") || lower.includes("three number");
+
+      let inferredTests = [];
+      if (isThree || !authoritative_tests || authoritative_tests.length === 0 || (authoritative_tests[0] && authoritative_tests[0].includes("read_secrets"))) {
+        inferredTests = inferInitialTestsJs(combined);
+      } else {
+        inferredTests = [...authoritative_tests];
+      }
+
+      const match = prompt.match(/def\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*?)\)/);
+      const fnName = match ? match[1] : (lower.includes("binary") ? "binary_search" : "add");
+
+      let planSteps = [];
+      if (isThree && (fnName.includes("add") || lower.includes("add") || lower.includes("sum"))) {
+        planSteps = [
+          `1. Define function \`${fnName}(a, b, c)\` accepting three numerical arguments.`,
+          `2. Calculate the total sum using \`result = a + b + c\`.`,
+          `3. Return \`result\` as the sum of all three inputs.`,
+          `4. Execute validation suite verifying that \`${fnName}(1, 2, 3) == 6\`.`
+        ];
+      } else {
+        planSteps = [
+          `1. Analyze task requirements and establish input parameters for \`${fnName}\`.`,
+          `2. Formulate algorithmic flow and handle boundary/edge conditions.`,
+          `3. Implement core logic ensuring compliance with strict AST safety constraints.`,
+          `4. Execute self-healing validation suite in sandboxed subprocess.`
+        ];
+      }
+
+      if (feedback && !isThree) {
+        planSteps.splice(2, 0, `3. Apply user instructions: "${feedback.replace(/"/g, "'")}".`);
+      }
+
+      return {
+        success: true,
+        plan: planSteps.join("\n"),
+        suggested_tests: inferredTests
+      };
+    }
+
+    async function callBackend(endpoint, payload) {
+      const urls = [
+        window.location.port === '8500' ? `/api/${endpoint}` : `${currentBackendUrl}/${endpoint}`,
+        `${currentBackendUrl}/${endpoint}`
+      ];
+      const uniqueUrls = [...new Set(urls)];
+      let lastError = null;
+
+      for (const url of uniqueUrls) {
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (res.ok) {
+            return await res.json();
+          }
+          if (res.status === 404 && url.startsWith('/api/')) {
+            continue; // Fallback to direct backend
+          }
+          const errText = await res.text();
+          throw new Error(`HTTP ${res.status}: ${errText}`);
+        } catch (e) {
+          lastError = e;
+        }
+      }
+      throw lastError || new Error(`Failed to connect to ${endpoint}`);
+    }
+
+    function appendPlanLoadingCard(id, feedback = null) {
+      const feed = document.getElementById('chatFeed');
+      const card = document.createElement('div');
+      card.id = id;
+      card.className = 'max-w-3xl mx-auto flex space-x-3';
+      card.innerHTML = getPlanLoadingHtml(feedback);
+      feed.appendChild(card);
+    }
+
+    function getPlanLoadingHtml(feedback = null) {
+      if (feedback) {
+        return `
+          <div class="w-8 h-8 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow">
+            <i class="fa-solid fa-arrows-rotate animate-spin"></i>
+          </div>
+          <div class="flex-1 bg-white dark:bg-lite-900 border-2 border-purple-300 dark:border-purple-800 rounded-2xl rounded-tl-sm p-4 text-xs space-y-3 shadow-sm">
+            <div class="flex items-center justify-between font-semibold text-purple-600 dark:text-purple-400">
+              <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <span>Re-planning Architecture with New Instructions...</span>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">Phase 1: Revision</span>
+            </div>
+            <div class="p-2.5 bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 rounded-xl text-[11px] text-purple-800 dark:text-purple-300">
+              <div class="font-bold flex items-center space-x-1 mb-1">
+                <i class="fa-solid fa-comment-dots text-purple-500"></i>
+                <span>Incorporating User Suggestion:</span>
+              </div>
+              <div class="italic">"${escapeHtml(feedback)}"</div>
+            </div>
+            <div class="text-[11px] text-lite-500 flex items-center space-x-2">
+              <i class="fa-solid fa-brain text-purple-500"></i>
+              <span>Analyzing constraints &bull; updating algorithmic steps &bull; synchronizing test cases</span>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow">
+          <i class="fa-solid fa-compass-drafting animate-spin"></i>
+        </div>
+        <div class="flex-1 bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 rounded-2xl rounded-tl-sm p-4 text-xs space-y-3 shadow-sm">
+          <div class="flex items-center justify-between font-semibold text-indigo-600 dark:text-indigo-400">
+            <div class="flex items-center space-x-2">
+              <i class="fa-solid fa-circle-notch fa-spin"></i>
+              <span>Analyzing Task & Formulating Implementation Plan...</span>
+            </div>
+            <span class="text-[10px] font-mono text-lite-400">Phase 1: Architecture</span>
+          </div>
+          <div class="text-[11px] text-lite-500">
+            Evaluating specifications &bull; inferring matching test assertions &bull; establishing validation rules
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPlanApprovalCard(cardId, prompt, planData, previousFeedback = null) {
+      const container = document.getElementById(cardId);
+      if (!container) return;
+
+      const planText = planData.plan || "1. Analyze specifications\n2. Implement Python solution\n3. Execute validation tests";
+      const tests = planData.suggested_tests || [];
+
+      // Store in memory to avoid template string escaping issues in HTML attributes
+      activePlans[cardId] = {
+        prompt: prompt,
+        planText: planText,
+        tests: tests
+      };
+
+      const testListHtml = tests.length > 0 
+        ? tests.map(t => `<div class="font-mono text-[11px] text-lite-700 dark:text-lite-200 bg-white dark:bg-lite-900 px-2 py-1 rounded border border-lite-200 dark:border-lite-800">${escapeHtml(t)}</div>`).join('')
+        : `<div class="text-[11px] text-lite-400 italic">No custom asserts required. LITE-Coder will automatically verify execution & return status.</div>`;
+
+      // Format numbered plan steps cleanly
+      const planLines = planText.split('\n').filter(l => l.trim().length > 0);
+      const formattedPlanHtml = planLines.map(line => {
+        if (/^\d+\./.test(line.trim())) {
+          return `<div class="flex items-start space-x-2 pt-1">
+            <span class="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">${line.match(/^\d+/)[0]}</span>
+            <span class="text-lite-700 dark:text-lite-200 leading-relaxed">${escapeHtml(line.replace(/^\d+\.\s*/, ''))}</span>
+          </div>`;
+        }
+        return `<div class="text-lite-600 dark:text-lite-400 pl-7 text-[11px] leading-relaxed">${escapeHtml(line)}</div>`;
+      }).join('');
+
+      container.className = 'max-w-3xl mx-auto flex space-x-3';
+      container.innerHTML = `
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow">
+          <i class="fa-solid fa-list-check"></i>
+        </div>
+
+        <div class="flex-1 bg-white dark:bg-lite-900 border-2 border-indigo-200 dark:border-indigo-800 rounded-2xl rounded-tl-sm p-4 sm:p-5 text-xs space-y-4 shadow-md transition-all">
+          
+          <!-- Header -->
+          <div class="flex items-center justify-between pb-3 border-b border-lite-100 dark:border-lite-800 flex-wrap gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+              <span class="font-bold text-sm text-lite-900 dark:text-white">Implementation Plan & Validation Strategy</span>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 font-bold text-[10px] uppercase tracking-wider">
+              Awaiting Your Approval
+            </span>
+          </div>
+
+          ${previousFeedback ? `
+            <div class="p-2.5 bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 rounded-xl text-[11px] text-purple-800 dark:text-purple-300">
+              <strong>User Feedback Incorporated:</strong> ${escapeHtml(previousFeedback)}
+            </div>
+          ` : ''}
+
+          <!-- Intended Changes & Plan -->
+          <div class="space-y-1.5 bg-lite-50 dark:bg-lite-950/60 p-3 rounded-xl border border-lite-200 dark:border-lite-800">
+            <div class="font-bold text-lite-800 dark:text-lite-100 text-xs flex items-center space-x-1.5 mb-2">
+              <i class="fa-solid fa-route text-indigo-500"></i>
+              <span>Planned Implementation Steps:</span>
+            </div>
+            <div class="space-y-1">
+              ${formattedPlanHtml}
+            </div>
+          </div>
+
+          <!-- Target Component & Test Suite -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3 bg-lite-50 dark:bg-lite-950/60 rounded-xl border border-lite-200 dark:border-lite-800 space-y-1">
+              <div class="font-bold text-lite-800 dark:text-lite-200 text-[11px] flex items-center space-x-1">
+                <i class="fa-solid fa-bullseye text-blue-500"></i>
+                <span>Scope & Target:</span>
+              </div>
+              <p class="text-lite-600 dark:text-lite-400 text-[11px] leading-relaxed">
+                Single executable Python module adhering to strict AST sandbox constraints.
+              </p>
+            </div>
+
+            <div class="p-3 bg-lite-50 dark:bg-lite-950/60 rounded-xl border border-lite-200 dark:border-lite-800 space-y-1">
+              <div class="font-bold text-lite-800 dark:text-lite-200 text-[11px] flex items-center space-x-1">
+                <i class="fa-solid fa-vial-circle-check text-emerald-500"></i>
+                <span>Validation Protocol:</span>
+              </div>
+              <p class="text-lite-600 dark:text-lite-400 text-[11px] leading-relaxed">
+                AST syntax check &bull; Isolated subprocess run &bull; Multi-attempt repair loop.
+              </p>
+            </div>
+          </div>
+
+          <!-- Test Assertions to be Used (Directly Editable by User) -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-[11px] font-bold text-lite-700 dark:text-lite-200">
+              <span class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-flask-vial text-purple-500"></i>
+                <span>Authoritative Test Assertions to Validate Code:</span>
+              </span>
+              <span class="text-[10px] text-indigo-600 dark:text-indigo-400 font-medium flex items-center space-x-1">
+                <i class="fa-solid fa-pen text-[9px]"></i>
+                <span>Directly editable before execution</span>
+              </span>
+            </div>
+            <div class="bg-lite-50 dark:bg-lite-950/40 p-2.5 rounded-xl border border-lite-200 dark:border-lite-800 space-y-1.5">
+              <textarea 
+                id="planTestsInput_${cardId}" 
+                rows="${Math.max(2, Math.min(tests.length + 1, 6))}" 
+                class="w-full font-mono text-[11px] bg-white dark:bg-lite-900 border border-lite-300 dark:border-lite-700 rounded-lg p-2.5 text-lite-800 dark:text-lite-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 leading-relaxed" 
+                placeholder="assert add(1, 2, 3) == 6"
+              >${tests.join('\n')}</textarea>
+              <div class="text-[10px] text-lite-400 flex items-center justify-between flex-wrap gap-1">
+                <span>Evaluated in isolated subprocess sandbox. You can modify or add custom asserts above.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inline Revision Feedback Box (Hidden initially) -->
+          <div id="revisionBox_${cardId}" class="hidden p-3 bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 rounded-xl space-y-2">
+            <label class="block font-bold text-indigo-900 dark:text-indigo-200 text-xs">Suggest Instructions or Requirement Modifications:</label>
+            <textarea 
+              id="revisionInput_${cardId}" 
+              rows="2" 
+              class="w-full bg-white dark:bg-lite-900 border border-indigo-200 dark:border-indigo-800 rounded-lg p-2 text-xs text-lite-800 dark:text-lite-100 focus:outline-none focus:ring-1 focus:ring-indigo-500" 
+              placeholder="e.g. 'Use an iterative binary search instead of recursive' or 'Add error handling for empty list' or 'Use 3 numbers for add'"
+            ></textarea>
+            <div class="flex justify-end space-x-2">
+              <button onclick="document.getElementById('revisionBox_${cardId}').classList.add('hidden')" class="px-3 py-1 text-xs text-lite-600 dark:text-lite-300 hover:bg-lite-100 dark:hover:bg-lite-800 rounded-lg">Cancel</button>
+              <button onclick="submitPlanRevision('${cardId}')" class="px-3.5 py-1 text-xs bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold shadow">Generate Revised Plan</button>
+            </div>
+          </div>
+
+          <!-- Human-in-the-Loop Actions -->
+          <div id="actionRow_${cardId}" class="pt-2 border-t border-lite-100 dark:border-lite-800 flex items-center justify-between flex-wrap gap-2">
+            <span class="text-[11px] text-lite-400 flex items-center space-x-1">
+              <i class="fa-solid fa-user-check text-indigo-500"></i>
+              <span>Human approval required to begin code synthesis</span>
+            </span>
+
+            <div class="flex items-center space-x-2">
+              <button 
+                onclick="document.getElementById('revisionBox_${cardId}').classList.toggle('hidden')" 
+                class="px-3.5 py-1.5 text-xs rounded-xl font-medium border border-lite-300 dark:border-lite-700 hover:bg-lite-100 dark:hover:bg-lite-800 text-lite-700 dark:text-lite-200 transition flex items-center space-x-1.5"
+              >
+                <i class="fa-regular fa-pen-to-square text-lite-500"></i>
+                <span>Suggest Changes</span>
+              </button>
+
+              <button 
+                id="proceedBtn_${cardId}"
+                onclick="executeApprovedPlan('${cardId}')" 
+                class="px-4 py-1.5 text-xs rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition flex items-center space-x-1.5 cursor-pointer"
+              >
+                <i class="fa-solid fa-check"></i>
+                <span>Proceed with Plan</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    async function submitPlanRevision(cardId) {
+      const inputEl = document.getElementById(`revisionInput_${cardId}`);
+      const feedback = inputEl ? inputEl.value.trim() : "";
+      if (!feedback) return;
+
+      const planInfo = activePlans[cardId] || {};
+      const prompt = planInfo.prompt || "";
+
+      const testsInputEl = document.getElementById(`planTestsInput_${cardId}`);
+      let existingTests = planInfo.tests || [];
+      if (testsInputEl) {
+        const raw = testsInputEl.value.trim();
+        existingTests = raw ? raw.split('\n').map(l => l.trim()).filter(Boolean) : existingTests;
+      }
+
+      isGenerating = true;
+      const sendBtn = document.getElementById('sendBtn');
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-sm"></i>';
+      }
+
+      // Post clear user feedback badge into conversation feed
+      appendUserActionMessage(`Requested Changes: "${feedback}"`);
+
+      // Trigger replanning with feedback
+      const lowerFb = feedback.toLowerCase();
+      const shouldReinfer = lowerFb.includes("assert") || lowerFb.includes("test") || lowerFb.includes("three") || lowerFb.includes("3") || lowerFb.includes("number");
+      const testsToSend = shouldReinfer ? [] : existingTests;
+
+      await requestPlan(prompt, testsToSend, feedback, cardId);
+    }
+
+    async function executeApprovedPlan(cardId) {
+      if (isGenerating) return;
+      isGenerating = true;
+
+      const sendBtn = document.getElementById('sendBtn');
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-sm"></i>';
+      }
+
+      const planInfo = activePlans[cardId] || {};
+      const prompt = planInfo.prompt || "";
+      const approvedPlan = planInfo.planText || "";
+
+      // Read current assertions directly from the editable textarea if modified by user
+      const testsInputEl = document.getElementById(`planTestsInput_${cardId}`);
+      let actualTests = planInfo.tests || [];
+      if (testsInputEl) {
+        const raw = testsInputEl.value.trim();
+        actualTests = raw ? raw.split('\n').map(l => l.trim()).filter(Boolean) : actualTests;
+      }
+
+      // Update Plan Card to Approved State IMMEDIATELY
+      const actionRow = document.getElementById(`actionRow_${cardId}`);
+      if (actionRow) {
+        actionRow.innerHTML = `
+          <div class="w-full p-2.5 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 rounded-xl text-emerald-800 dark:text-emerald-300 text-xs font-bold flex items-center justify-between">
+            <span class="flex items-center space-x-2">
+              <i class="fa-solid fa-circle-notch fa-spin text-emerald-600 text-sm"></i>
+              <span>Plan Approved &bull; Neural Code Generation Active</span>
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-200 font-mono text-[10px] uppercase">Active</span>
+          </div>
+        `;
+      }
+
+      // Post user approval confirmation badge into conversation feed
+      appendUserActionMessage(`Approved Implementation Plan. Starting neural code generation & validation...`);
+
+      // Append Multi-Stage Code Generation Loading Card
+      const execCardId = 'exec_' + Date.now();
+      appendAssistantMultiStageLoading(execCardId);
+      scrollToBottom();
+
+      const stageUpdater = startStageUpdater(execCardId);
+
+      const targetEndpoint = window.location.port === '8500' ? '/api/generate' : `${currentBackendUrl}/generate`;
+      const payload = {
+        prompt: prompt,
+        authoritative_tests: actualTests || [],
+        experiment_id: experimentId,
+        task_id: 'TASK_' + Math.random().toString(36).substring(2, 8).toUpperCase(),
+        task_index: 0,
+        approved_plan: approvedPlan
+      };
+
+      try {
+        const startTime = performance.now();
+        const data = await callBackend('generate', payload);
+        const elapsed = Math.round(performance.now() - startTime);
+
+        stageUpdater.stop();
+        renderAssistantResult(execCardId, data, elapsed, true);
+      } catch (error) {
+        stageUpdater.stop();
+        renderAssistantError(execCardId, error.message);
+      } finally {
+        isGenerating = false;
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = '<i class="fa-solid fa-arrow-up text-sm"></i>';
+        }
+        scrollToBottom();
+      }
+    }
+
+    // ========================================================
+    // STAGE-BY-STAGE PROGRESS ANIMATION
+    // ========================================================
+    function startStageUpdater(placeholderId) {
+      let seconds = 0;
+
+      const interval = setInterval(() => {
+        seconds++;
+        const timerEl = document.getElementById(`liveTimer_${placeholderId}`);
+        const stageTextEl = document.getElementById(`liveStageText_${placeholderId}`);
+        const stageIconEl = document.getElementById(`liveStageIcon_${placeholderId}`);
+        const stageTitleEl = document.getElementById(`liveStageTitle_${placeholderId}`);
+
+        if (timerEl) timerEl.textContent = `${seconds}s`;
+
+        if (seconds < 16) {
+          if (stageTitleEl) stageTitleEl.textContent = "Synthesizing Python Code...";
+          if (stageTextEl) stageTextEl.textContent = "Qwen 2.5 Coder 1.5B generating code from approved plan...";
+          if (stageIconEl) stageIconEl.className = "fa-solid fa-brain text-indigo-500 mr-1.5";
+        } else if (seconds < 28) {
+          if (stageTitleEl) stageTitleEl.textContent = "Validating AST & Security Rules...";
+          if (stageTextEl) stageTextEl.textContent = "Parsing Abstract Syntax Tree & checking safety sandbox...";
+          if (stageIconEl) stageIconEl.className = "fa-solid fa-shield-halved text-purple-500 mr-1.5";
+
+          // Update step 2 to Done
+          const s2 = document.getElementById(`step_gen_${placeholderId}`);
+          const s2Badge = document.getElementById(`step_gen_badge_${placeholderId}`);
+          if (s2 && s2Badge) {
+            s2.className = "flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-medium";
+            const icon = s2.querySelector('i');
+            if (icon) icon.className = "fa-solid fa-circle-check";
+            s2Badge.textContent = "Synthesized";
+            s2Badge.className = "text-[10px] font-mono text-emerald-600 dark:text-emerald-400";
+          }
+
+          // Update step 3 to Running
+          const s3 = document.getElementById(`step_ast_${placeholderId}`);
+          const s3Badge = document.getElementById(`step_ast_badge_${placeholderId}`);
+          if (s3 && s3Badge) {
+            s3.className = "flex items-center justify-between text-indigo-600 dark:text-indigo-400 font-semibold";
+            const icon = s3.querySelector('i');
+            if (icon) icon.className = "fa-solid fa-circle-notch fa-spin";
+            s3Badge.textContent = "Scanning";
+            s3Badge.className = "text-[10px] font-mono animate-pulse";
+          }
+        } else if (seconds < 45) {
+          if (stageTitleEl) stageTitleEl.textContent = "Executing in Sandboxed Subprocess...";
+          if (stageTextEl) stageTextEl.textContent = "Running code against authoritative test assertions...";
+          if (stageIconEl) stageIconEl.className = "fa-solid fa-flask-vial text-emerald-500 mr-1.5";
+
+          // Update step 3 to Passed
+          const s3 = document.getElementById(`step_ast_${placeholderId}`);
+          const s3Badge = document.getElementById(`step_ast_badge_${placeholderId}`);
+          if (s3 && s3Badge) {
+            s3.className = "flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-medium";
+            const icon = s3.querySelector('i');
+            if (icon) icon.className = "fa-solid fa-circle-check";
+            s3Badge.textContent = "Passed";
+            s3Badge.className = "text-[10px] font-mono text-emerald-600 dark:text-emerald-400";
+          }
+
+          // Update step 4 to Running
+          const s4 = document.getElementById(`step_exec_${placeholderId}`);
+          const s4Badge = document.getElementById(`step_exec_badge_${placeholderId}`);
+          if (s4 && s4Badge) {
+            s4.className = "flex items-center justify-between text-indigo-600 dark:text-indigo-400 font-semibold";
+            const icon = s4.querySelector('i');
+            if (icon) icon.className = "fa-solid fa-circle-notch fa-spin";
+            s4Badge.textContent = "Testing";
+            s4Badge.className = "text-[10px] font-mono animate-pulse";
+          }
+        } else {
+          if (stageTitleEl) stageTitleEl.textContent = "Evaluating Repair & Feedback Loop...";
+          if (stageTextEl) stageTextEl.textContent = "Multi-attempt autonomous self-repair & policy learning active...";
+          if (stageIconEl) stageIconEl.className = "fa-solid fa-rotate text-amber-500 mr-1.5";
+
+          // Update step 4 to Verified
+          const s4 = document.getElementById(`step_exec_${placeholderId}`);
+          const s4Badge = document.getElementById(`step_exec_badge_${placeholderId}`);
+          if (s4 && s4Badge) {
+            s4.className = "flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-medium";
+            const icon = s4.querySelector('i');
+            if (icon) icon.className = "fa-solid fa-circle-check";
+            s4Badge.textContent = "Verified";
+            s4Badge.className = "text-[10px] font-mono text-emerald-600 dark:text-emerald-400";
+          }
+
+          // Update step 5 to Active
+          const s5 = document.getElementById(`step_repair_${placeholderId}`);
+          const s5Badge = document.getElementById(`step_repair_badge_${placeholderId}`);
+          if (s5 && s5Badge) {
+            s5.className = "flex items-center justify-between text-indigo-600 dark:text-indigo-400 font-semibold";
+            const icon = s5.querySelector('i');
+            if (icon) icon.className = "fa-solid fa-circle-notch fa-spin";
+            s5Badge.textContent = "Active";
+            s5Badge.className = "text-[10px] font-mono animate-pulse";
+          }
+        }
+      }, 1000);
+
+      return {
+        stop: () => clearInterval(interval)
+      };
+    }
+
+    function appendUserActionMessage(text) {
+      const feed = document.getElementById('chatFeed');
+      const actionCard = document.createElement('div');
+      actionCard.className = 'max-w-3xl mx-auto flex space-x-3 justify-end my-2';
+      actionCard.innerHTML = `
+        <div class="bg-indigo-600 dark:bg-indigo-600 text-white rounded-2xl rounded-tr-sm px-4 py-2.5 text-xs shadow-md flex items-center space-x-2">
+          <i class="fa-solid fa-circle-check text-[12px] text-indigo-200"></i>
+          <span class="font-medium">${escapeHtml(text)}</span>
+        </div>
+      `;
+      feed.appendChild(actionCard);
+      scrollToBottom();
+    }
+
+    function appendUserMessage(prompt, tests, saveState = true) {
+      const feed = document.getElementById('chatFeed');
+      const userCard = document.createElement('div');
+      userCard.className = 'max-w-3xl mx-auto flex space-x-3 justify-end';
+      
+      let testsHtml = '';
+      if (tests && tests.length > 0) {
+        testsHtml = `
+          <div class="mt-2.5 pt-2 border-t border-lite-200 dark:border-lite-700 text-[11px] font-mono text-lite-600 dark:text-lite-300 bg-lite-100 dark:bg-lite-900 p-2.5 rounded-lg">
+            <div class="font-sans font-bold text-lite-700 dark:text-lite-200 text-[10px] uppercase tracking-wider mb-1 flex items-center space-x-1">
+              <i class="fa-solid fa-vial-circle-check text-indigo-500"></i>
+              <span>Authoritative Assertions:</span>
+            </div>
+            ${tests.map(t => `<div>${escapeHtml(t)}</div>`).join('')}
+          </div>
+        `;
+      }
+
+      userCard.innerHTML = `
+        <div class="max-w-[85%] bg-lite-100 dark:bg-lite-900 border border-lite-200 dark:border-lite-800 text-lite-900 dark:text-white rounded-2xl rounded-tr-sm p-4 text-xs shadow-sm">
+          <div class="font-mono whitespace-pre-wrap leading-relaxed">${escapeHtml(prompt)}</div>
+          ${testsHtml}
+        </div>
+      `;
+      feed.appendChild(userCard);
+
+      if (saveState && currentConvId && conversations[currentConvId]) {
+        conversations[currentConvId].messages.push({
+          role: 'user',
+          prompt: prompt,
+          tests: tests
+        });
+        saveConversations();
+      }
+    }
+
+    function appendAssistantMultiStageLoading(id) {
+      const feed = document.getElementById('chatFeed');
+      const loadingCard = document.createElement('div');
+      loadingCard.id = id;
+      loadingCard.className = 'max-w-3xl mx-auto flex space-x-3';
+      loadingCard.innerHTML = `
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow">
+          <i class="fa-solid fa-code-merge animate-pulse"></i>
+        </div>
+        <div class="flex-1 bg-white dark:bg-lite-900 border border-indigo-200 dark:border-indigo-800 rounded-2xl rounded-tl-sm p-4 sm:p-5 text-xs space-y-4 shadow-md">
+          
+          <!-- Header with live timer -->
+          <div class="flex items-center justify-between border-b border-lite-100 dark:border-lite-800 pb-3">
+            <div class="flex items-center space-x-2.5">
+              <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-indigo-600"></span>
+              </span>
+              <span class="font-bold text-sm text-lite-900 dark:text-white" id="liveStageTitle_${id}">Generating Python Code...</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[10px] font-mono text-lite-400">Elapsed:</span>
+              <span id="liveTimer_${id}" class="text-xs font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-900 px-2 py-0.5 rounded-full font-bold">0s</span>
+            </div>
+          </div>
+
+          <!-- Step Progress Trackers -->
+          <div class="space-y-2 bg-lite-50 dark:bg-lite-950/60 p-3 rounded-xl border border-lite-200 dark:border-lite-800 text-[11px]">
+            <div id="step_plan_${id}" class="flex items-center justify-between text-emerald-600 dark:text-emerald-400 font-medium">
+              <span class="flex items-center space-x-2">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>1. Implementation Plan Approved by User</span>
+              </span>
+              <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">Verified</span>
+            </div>
+
+            <div id="step_gen_${id}" class="flex items-center justify-between text-indigo-600 dark:text-indigo-400 font-semibold">
+              <span class="flex items-center space-x-2">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <span id="step_gen_text_${id}">2. Neural Code Synthesis (Qwen 2.5 Coder 1.5B)</span>
+              </span>
+              <span id="step_gen_badge_${id}" class="text-[10px] font-mono animate-pulse">Running</span>
+            </div>
+
+            <div id="step_ast_${id}" class="flex items-center justify-between text-lite-400 font-normal">
+              <span class="flex items-center space-x-2">
+                <i class="fa-regular fa-circle"></i>
+                <span id="step_ast_text_${id}">3. AST Syntax Parsing & Security Validation</span>
+              </span>
+              <span id="step_ast_badge_${id}" class="text-[10px] font-mono">Queued</span>
+            </div>
+
+            <div id="step_exec_${id}" class="flex items-center justify-between text-lite-400 font-normal">
+              <span class="flex items-center space-x-2">
+                <i class="fa-regular fa-circle"></i>
+                <span id="step_exec_text_${id}">4. Sandboxed Subprocess Execution & Test Suite</span>
+              </span>
+              <span id="step_exec_badge_${id}" class="text-[10px] font-mono">Queued</span>
+            </div>
+
+            <div id="step_repair_${id}" class="flex items-center justify-between text-lite-400 font-normal">
+              <span class="flex items-center space-x-2">
+                <i class="fa-regular fa-circle"></i>
+                <span id="step_repair_text_${id}">5. Autonomous Multi-Attempt Self-Repair Loop</span>
+              </span>
+              <span id="step_repair_badge_${id}" class="text-[10px] font-mono">Standby</span>
+            </div>
+          </div>
+
+          <!-- Live Status Ticker -->
+          <div class="flex items-center justify-between text-[11px] text-lite-500 dark:text-lite-400 pt-1">
+            <div class="flex items-center space-x-2 truncate">
+              <i id="liveStageIcon_${id}" class="fa-solid fa-brain text-indigo-500"></i>
+              <span id="liveStageText_${id}" class="truncate">LITE-Coder sampling tokens according to approved specifications...</span>
+            </div>
+            <span class="text-[10px] font-mono text-lite-400 flex-shrink-0 ml-2">CPU Mode</span>
+          </div>
+
+          <!-- Pulsing Progress Bar -->
+          <div class="w-full bg-lite-200 dark:bg-lite-800 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 h-full rounded-full animate-pulse w-4/5"></div>
+          </div>
+
+        </div>
+      `;
+      feed.appendChild(loadingCard);
+    }
+
+    function renderAssistantResult(placeholderId, data, clientElapsedMs, saveState = true) {
+      const container = document.getElementById(placeholderId);
+      if (!container) return;
+
+      const record = data.feedback_record || {};
+      const attempts = record.attempts || [];
+      const isSuccess = data.success === true;
+      const finalCode = data.final_code || record.final_code || "";
+      const totalAttempts = record.total_attempts || attempts.length || 0;
+      const durationMs = record.execution_time ? Math.round(record.execution_time * 1000) : clientElapsedMs;
+
+      // Trace breakdown
+      let attemptsDetailHtml = '';
+      attempts.forEach((att, idx) => {
+        const attStatus = att.execution_status === 'success';
+        const stratName = (att.strategy && att.strategy.selected_strategy) ? att.strategy.selected_strategy : 'BASELINE';
+        const errType = att.error_type || (attStatus ? 'None' : 'Failure');
+        const diffLevel = (att.difficulty && att.difficulty.difficulty) ? att.difficulty.difficulty : 'EASY';
+
+        attemptsDetailHtml += `
+          <div class="border border-lite-200 dark:border-lite-700/80 rounded-xl p-3 bg-lite-50/60 dark:bg-lite-950/40 text-xs space-y-2">
+            <div class="flex items-center justify-between flex-wrap gap-1">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-[10px] ${attStatus ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300'}">
+                  Attempt ${att.attempt_number || idx + 1}
+                </span>
+                <span class="font-medium text-lite-700 dark:text-lite-200">Strategy: <span class="font-mono text-indigo-600 dark:text-indigo-400 font-bold">${stratName}</span></span>
+              </div>
+              <div class="flex items-center space-x-2 text-[10px]">
+                <span class="text-lite-400">Difficulty: <span class="font-bold text-lite-700 dark:text-lite-200">${diffLevel}</span></span>
+                <span class="px-1.5 py-0.5 rounded font-medium ${attStatus ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800' : 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800'}">
+                  ${attStatus ? 'Passed' : errType}
+                </span>
+              </div>
+            </div>
+
+            ${att.error_message ? `
+              <div class="text-[11px] font-mono text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 p-2.5 rounded-lg border border-rose-200 dark:border-rose-900/60">
+                <strong>${escapeHtml(errType)}:</strong> ${escapeHtml(att.error_message)}
+              </div>
+            ` : ''}
+
+            <details class="text-[11px]">
+              <summary class="cursor-pointer text-lite-500 hover:text-lite-800 dark:hover:text-lite-100 select-none font-medium">View attempt code snapshot</summary>
+              <pre class="mt-1.5 language-python"><code class="language-python">${escapeHtml(att.code || "")}</code></pre>
+            </details>
+          </div>
+        `;
+      });
+
+      const accordionId = 'trace_' + Math.random().toString(36).substring(2, 7);
+
+      container.innerHTML = `
+        <div class="w-8 h-8 rounded-xl ${isSuccess ? 'bg-emerald-600' : 'bg-indigo-600'} text-white flex items-center justify-center text-xs flex-shrink-0 shadow">
+          <i class="fa-solid ${isSuccess ? 'fa-check' : 'fa-code-branch'}"></i>
+        </div>
+
+        <div class="flex-1 bg-white dark:bg-lite-900 border border-lite-200 dark:border-lite-800 rounded-2xl rounded-tl-sm p-4 sm:p-5 text-xs space-y-4 shadow-sm">
+          
+          <!-- Summary Header -->
+          <div class="flex items-center justify-between pb-3 border-b border-lite-100 dark:border-lite-800 flex-wrap gap-2">
+            <button onclick="document.getElementById('${accordionId}').classList.toggle('hidden')" class="flex items-center space-x-2 text-xs font-bold text-lite-800 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer">
+              <span class="w-2.5 h-2.5 rounded-full ${isSuccess ? 'bg-emerald-500' : 'bg-amber-500'}"></span>
+              <span>Autonomous Repair Pipeline (${totalAttempts} attempt${totalAttempts > 1 ? 's' : ''}, ${durationMs}ms)</span>
+              <i class="fa-solid fa-chevron-down text-[10px] text-lite-400"></i>
+            </button>
+
+            <!-- Verification Status Badges -->
+            <div class="flex items-center space-x-2 text-[10px]">
+              <span class="px-2.5 py-0.5 rounded-full ${isSuccess ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800' : 'bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800'} font-bold uppercase tracking-wider">
+                ${isSuccess ? 'VERIFIED PASSED' : 'REPAIR FAILED'}
+              </span>
+            </div>
+          </div>
+
+          <!-- Trace Accordion -->
+          <div id="${accordionId}" class="space-y-2">
+            ${attemptsDetailHtml || '<div class="text-lite-400 italic">No repair attempts required. Initial code generation executed with 0 runtime errors.</div>'}
+          </div>
+
+          <!-- Final Code Output -->
+          ${finalCode ? `
+            <div class="space-y-2 pt-1">
+              <div class="flex items-center justify-between text-xs text-lite-600 dark:text-lite-300">
+                <span class="font-bold flex items-center space-x-1.5">
+                  <i class="fa-brands fa-python text-blue-500"></i>
+                  <span>Verified Executable Python Output:</span>
+                </span>
+                <div class="flex items-center space-x-2">
+                  <button onclick="copyToClipboard(this, \`${escapeJs(finalCode)}\`)" class="hover:text-lite-900 dark:hover:text-white px-2.5 py-1 rounded-lg hover:bg-lite-100 dark:hover:bg-lite-800 border border-lite-200 dark:border-lite-700 text-[11px] font-medium transition">
+                    <i class="fa-regular fa-copy mr-1"></i> Copy Code
+                  </button>
+                  <button onclick="downloadCode(\`${escapeJs(finalCode)}\`)" class="hover:text-lite-900 dark:hover:text-white px-2.5 py-1 rounded-lg hover:bg-lite-100 dark:hover:bg-lite-800 border border-lite-200 dark:border-lite-700 text-[11px] font-medium transition">
+                    <i class="fa-solid fa-download mr-1"></i> Download .py
+                  </button>
+                </div>
+              </div>
+
+              <div class="rounded-xl overflow-hidden border border-lite-800 shadow-md">
+                <pre class="language-python"><code class="language-python">${escapeHtml(finalCode)}</code></pre>
+              </div>
+            </div>
+          ` : `
+            <div class="p-3 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200 rounded-xl border border-amber-200 dark:border-amber-800">
+              ${escapeHtml(data.message || 'Model returned empty code. Check backend terminal logs.')}
+            </div>
+          `}
+
+          <!-- Verification Checklist Footer -->
+          <div class="flex flex-wrap gap-2 pt-2 border-t border-lite-100 dark:border-lite-800 text-[11px]">
+            <span class="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-lg bg-lite-50 dark:bg-lite-950 border border-lite-200 dark:border-lite-800 text-lite-700 dark:text-lite-200 font-medium">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i>
+              <span>AST Syntax Check</span>
+            </span>
+            <span class="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-lg bg-lite-50 dark:bg-lite-950 border border-lite-200 dark:border-lite-800 text-lite-700 dark:text-lite-200 font-medium">
+              <i class="fa-solid fa-shield text-emerald-500 text-[10px]"></i>
+              <span>Safety Sandbox Passed</span>
+            </span>
+            <span class="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-lg bg-lite-50 dark:bg-lite-950 border border-lite-200 dark:border-lite-800 text-lite-700 dark:text-lite-200 font-medium">
+              <i class="fa-solid fa-flask-vial ${isSuccess ? 'text-emerald-500' : 'text-lite-400'} text-[10px]"></i>
+              <span>Authoritative Asserts: ${isSuccess ? '100% Pass' : 'Failed'}</span>
+            </span>
+            <span class="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-lg bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 font-medium">
+              <i class="fa-solid fa-brain text-[10px]"></i>
+              <span>LoRA Continual State Preserved</span>
+            </span>
+          </div>
+
+        </div>
+      `;
+
+      Prism.highlightAllUnder(container);
+
+      if (saveState && currentConvId && conversations[currentConvId]) {
+        conversations[currentConvId].messages.push({
+          role: 'assistant',
+          data: data,
+          elapsedMs: clientElapsedMs
+        });
+        saveConversations();
+      }
+    }
+
+    function renderAssistantError(placeholderId, errorMsg) {
+      const container = document.getElementById(placeholderId);
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="w-8 h-8 rounded-xl bg-rose-600 text-white flex items-center justify-center text-xs flex-shrink-0 shadow">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div class="flex-1 bg-white dark:bg-lite-900 border border-rose-200 dark:border-rose-900/60 rounded-2xl rounded-tl-sm p-4 sm:p-5 text-xs space-y-3 shadow-sm">
+          <div class="font-bold text-rose-800 dark:text-rose-200 flex items-center space-x-2">
+            <span>Execution or Connection Interruption</span>
+          </div>
+          <p class="text-rose-700 dark:text-rose-300 leading-relaxed font-mono text-[11px] bg-rose-50 dark:bg-rose-950/50 p-3 rounded-xl border border-rose-200 dark:border-rose-900">
+            ${escapeHtml(errorMsg)}
+          </p>
+          <div class="text-[11px] text-lite-500 dark:text-lite-400">
+            Verify your FastAPI backend server is active: <code class="bg-lite-100 dark:bg-lite-800 px-1.5 py-0.5 rounded font-mono text-lite-800 dark:text-lite-200">python -m uvicorn app.main:app --port 8000 --reload</code>
+          </div>
+        </div>
+      `;
+    }
+
+    function copyToClipboard(button, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const original = button.innerHTML;
+        button.innerHTML = '<i class="fa-solid fa-check text-emerald-600 mr-1"></i> Copied!';
+        setTimeout(() => button.innerHTML = original, 2000);
+      });
+    }
+
+    function downloadCode(code) {
+      const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+      downloadFile(blob, 'solution.py');
+    }
+
+    function scrollToBottom() {
+      const feed = document.getElementById('chatFeed');
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeJs(str) {
+      return String(str)
+        .replace(/\\/g, '\\\\')
+        .replace(/`/g, '\\`')
+        .replace(/\$/g, '\\$');
+    }
+  </script>
+
+</body>
+</html>

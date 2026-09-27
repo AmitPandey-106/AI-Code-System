@@ -1,0 +1,80 @@
+{
+    "experiment_id": "LITE_CODER_100TASK_MODE_F_TRAINED",
+    "task_id": "TASK_77C30EA5",
+    "task_index": 98,
+    "mode": "MODE_F",
+    "status": "model_failure",
+    "success": false,
+    "final_status": "model_failure",
+    "attempts_used": 0,
+    "repair_effort": 0,
+    "generated_code": null,
+    "initial_code": "",
+    "error_category": null,
+    "error_type": null,
+    "error_message": null,
+    "error_stage": null,
+    "exception_class": null,
+    "traceback": null,
+    "error_diagnostic": null,
+    "execution": null,
+    "tests": null,
+    "history": null,
+    "verification": {
+        "syntax_passed": false,
+        "safety_passed": false,
+        "execution_passed": false,
+        "tests_passed": false,
+        "sandboxed_execution": true
+    },
+    "strategy_history": [],
+    "difficulty": {},
+    "memory_used": null,
+    "lora_enabled": true,
+    "active_adapter_id": "adapter_v2_1790248884",
+    "adapter_version": "adapter_v2_1790248884",
+    "training_triggered": false,
+    "training_cycle_id": null,
+    "training_status": null,
+    "feedback_record": {
+        "feedback_id": "066b66a5fed641abb4e8c44f7d2be4a3",
+        "timestamp": 1790248970.5216308,
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "initial_code": "",
+        "attempts": [],
+        "final_code": "",
+        "final_status": "failure",
+        "total_attempts": 0,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": false,
+            "safety_passed": false,
+            "execution_passed": false,
+            "tests_passed": false,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "pending",
+            "duration_ms": 0,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 17.949148893356323,
+        "task_id": "TASK_77C30EA5",
+        "task_index": 98,
+        "lora_enabled": true,
+        "active_adapter_id": "adapter_v2_1790248884",
+        "training_triggered": false,
+        "training_cycle_id": null,
+        "training_status": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `in_range` is supposed to check if a given value (`val`) falls within a specified range defined by two numbers (`minimum` and `maximum`). However, there's an issue with the current implementation that needs fixing. The condition `return val <= minimum and val <= maximum` should be modified so that both conditions must be true for the value to be considered within the range.\n\nStep 2: Identify the error.\nUpon closer inspection of the provided code snippet, we notice that the comparison operator used in the `and` statement is incorrect. In Python, the correct operator for checking whether one number is less than or equal to another is `<=`, not `<`.\n\nStep 3: Correct the code.\nTo fix the issue, replace the `<` operator with `<=` in the `and` statement. This ensures that both conditions (`val <= minimum` and `val <= maximum`) must be satisfied for the value to be considered within the range.\n\nHere's the corrected version of the function:\n\n```python\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n```\n\nNow, let's verify that this updated function meets the requirements set out in the test cases:\n\n```python\n# Test case 1\nassert in_range(5, 1, 10) == True\n\n# Test case 2\nassert in_range(0, 1, 10) ==\n\nTASK:\nFix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\n\nGenerate complete executable Python program:\n"
+    },
+    "timing": {
+        "total_ms": 17961
+    },
+    "runtime_ms": 17961,
+    "timestamp": 1790248988.4837365
+}

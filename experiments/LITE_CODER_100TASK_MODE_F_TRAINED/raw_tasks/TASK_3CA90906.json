@@ -1,0 +1,211 @@
+{
+    "experiment_id": "LITE_CODER_100TASK_MODE_F_TRAINED",
+    "task_id": "TASK_3CA90906",
+    "task_index": 93,
+    "mode": "MODE_F",
+    "status": "model_success",
+    "success": true,
+    "final_status": "model_success",
+    "attempts_used": 2,
+    "repair_effort": 2,
+    "generated_code": "# Define the function 'in_range' with corrected logic\ndef in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+    "initial_code": "# Define the function 'in_range' with corrected logic\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+    "error_category": null,
+    "error_type": "AssertionError",
+    "error_message": null,
+    "error_stage": null,
+    "exception_class": "AssertionError",
+    "traceback": null,
+    "error_diagnostic": null,
+    "execution": {
+        "success": true,
+        "output": "True",
+        "error": "",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "tests": {
+        "success": true,
+        "message": "All tests passed",
+        "tests": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "test_summary": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "errors": 0,
+            "timeout": false
+        },
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "history": [
+        {
+            "attempt": 1,
+            "stage": "execution",
+            "error": "Traceback (most recent call last):\n  File \"/tmp/tmpz55zcjxo/script_0290ef5dbfdb4e79ad304849fe70b781.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+        }
+    ],
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": true,
+        "sandboxed_execution": true
+    },
+    "strategy_history": [
+        {
+            "selected_strategy": "TEST_GUIDED_REPAIR",
+            "confidence": -1.0,
+            "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+            "alternatives": [
+                "TEST_GUIDED_REPAIR",
+                "ALTERNATIVE_REPAIR"
+            ],
+            "selection_mode": "exploitation",
+            "success": false
+        }
+    ],
+    "difficulty": {
+        "difficulty": "EASY",
+        "score": 3.0,
+        "reasons": [
+            "Test failures require logic changes"
+        ],
+        "recommended_attempts": 2
+    },
+    "memory_used": true,
+    "lora_enabled": true,
+    "active_adapter_id": null,
+    "adapter_version": null,
+    "training_triggered": true,
+    "training_cycle_id": "cycle_v2_1790248884",
+    "training_status": "success",
+    "feedback_record": {
+        "feedback_id": "854cbd71c0c5457597cb74b061737e12",
+        "timestamp": 1790248856.6348922,
+        "task": "Fix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "initial_code": "# Define the function 'in_range' with corrected logic\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "# Define the function 'in_range' with corrected logic\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "execution_status": "failed",
+                "error_type": "AssertionError",
+                "error_message": "Traceback (most recent call last):\n  File \"/tmp/tmpz55zcjxo/script_0290ef5dbfdb4e79ad304849fe70b781.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError",
+                "tests_generated": "",
+                "test_results": null,
+                "repair_applied": "# Define the function 'in_range' with corrected logic\ndef in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "memory_used": true,
+                "retrieved_memory_count": 3,
+                "retrieved_memories": [
+                    {
+                        "memory_id": "f9c7a7017922467d946b14982d738db7",
+                        "similarity": 0.975341796875
+                    },
+                    {
+                        "memory_id": "0abef427000b4aada2ff71564b8540e9",
+                        "similarity": 0.9703863263130188
+                    },
+                    {
+                        "memory_id": "25d7c1e567c54b9ab9b97860b4010450",
+                        "similarity": 0.9698482155799866
+                    }
+                ],
+                "difficulty": {
+                    "difficulty": "EASY",
+                    "score": 3.0,
+                    "reasons": [
+                        "Test failures require logic changes"
+                    ],
+                    "recommended_attempts": 2
+                },
+                "strategy": {
+                    "selected_strategy": "TEST_GUIDED_REPAIR",
+                    "confidence": -1.0,
+                    "reason": "Exploitation mode selected historically best strategy for AssertionError.",
+                    "alternatives": [
+                        "TEST_GUIDED_REPAIR",
+                        "ALTERNATIVE_REPAIR"
+                    ],
+                    "selection_mode": "exploitation",
+                    "success": false
+                },
+                "memory_injected": true,
+                "debug_prompt": "\nYou are an expert Python debugger.\n\nSTRATEGY:\nUse the observed test failures to identify the behavioral defect before modifying the code. Focus on edge cases.\n\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nPREVIOUS SUCCESSFUL REPAIR EXPERIENCES:\nExperience 1:\nError:\nTraceback (most recent call last):\n  File \"/tmp/tmp8rl1jnz_/script_a7889631a68e4b94854d40e1188cd79c.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\nBroken Code:\n# Define the function 'in_range' with corrected logic\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\nSuccessful Fix:\ndef in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\n\nExperience 2:\nError:\nTraceback (most recent call last):\n  File \"/tmp/tmpjlwfs058/script_d132a3ea8c4641b4b71a51c97e52329d.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\nBroken Code:\n# Define the function 'in_range' with corrected logic\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\nSuccessful Fix:\ndef in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\n\nExperience 3:\nError:\nTraceback (most recent call last):\n  File \"/tmp/tmpq5qs3r1g/script_d4da193f485f49bdac6c0421e9ad7c68.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\nBroken Code:\n# Define the function 'in_range' with corrected logic\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\nSuccessful Fix:\n# Define the function 'in_range' with corrected logic\ndef in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\n\n\n\nCURRENT PROBLEM:\nBROKEN CODE:\n# Define the function 'in_range' with corrected logic\ndef in_range(val, minimum, maximum):\n    # Check if the value is less than or equal to the minimum and less than or equal to the maximum\n    return val <= minimum and val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\n\nERROR:\nTraceback (most recent call last):\n  File \"/tmp/tmpz55zcjxo/script_0290ef5dbfdb4e79ad304849fe70b781.py\", line 7, in <module>\n    assert in_range(5, 1, 10) == True\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n\nReturn corrected executable Python code:\n",
+                "repair_generation_failed": false,
+                "repair_failure_reason": null,
+                "repair_changed_code": true
+            },
+            {
+                "attempt_number": 2,
+                "code": "# Define the function 'in_range' with corrected logic\ndef in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "# Define the function 'in_range' with corrected logic\ndef in_range(val: int, minimum: int, maximum: int) -> bool:\n    \"\"\"Check if a value is within a given range.\"\"\"\n    return minimum <= val <= maximum\n\n# Test cases to verify correctness\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False",
+        "final_status": "success",
+        "total_attempts": 2,
+        "total_repairs": 1,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 59,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 27.558298110961914,
+        "task_id": "TASK_3CA90906",
+        "task_index": 93,
+        "lora_enabled": true,
+        "active_adapter_id": null,
+        "training_triggered": true,
+        "training_cycle_id": "cycle_v2_1790248884",
+        "training_status": "success",
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\nStep 1: Understand the problem.\nThe function `in_range` is supposed to check if a value (`val`) falls within a range defined by two other values (`minimum` and `maximum`). However, there's an issue with the current implementation where both conditions are checked for equality instead of inequality. This means that even if one condition is true, the overall result will be false because both conditions must be met simultaneously (i.e., `val >= minimum` AND `val >= maximum`).\n\nStep 2: Identify the error.\nThe error lies in the comparison operators used in the function definition. The correct operator should be `<=` rather than `>=`. By using `<=`, we ensure that the value being compared against the minimum or maximum is less than or equal to them, which aligns with our requirement of checking whether the value is within the specified range.\n\nStep 3: Correct the code.\nTo fix this, replace all instances of `>=` with `<=` in the function definition.\n\nHere\u2019s how you can do it:\n\n```python\ndef in_range(val, minimum, maximum):\n    return val <= minimum and val <= maximum\n```\n\nThis corrected version ensures that the value is strictly greater than or equal to the minimum and strictly less than or equal to the maximum, thus accurately determining if the value falls within the given range.\n\nTASK:\nFix the following broken python code:\n\ndef in_range(val, minimum, maximum):\n    return val >= minimum and val >= maximum\n\nEnsure it passes these tests:\nassert in_range(5, 1, 10) == True\nassert in_range(0, 1, 10) == False\n\nGenerate complete executable Python program:\n"
+    },
+    "timing": {
+        "total_ms": 40840
+    },
+    "runtime_ms": 40840,
+    "timestamp": 1790248897.4751372
+}

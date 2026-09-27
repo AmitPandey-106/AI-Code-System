@@ -1,0 +1,102 @@
+[
+    {
+        "training_cycle_id": "cycle_v1_1790247818",
+        "trigger_task_id": "TASK_492A6DB5",
+        "trigger_task_index": 36,
+        "training_example_count": 3,
+        "training_started_at": 1790247818.4310336,
+        "training_finished_at": 1790247833.5270426,
+        "training_status": "success",
+        "training_loss": 0.6402,
+        "adapter_id": "adapter_v1_1790247818",
+        "candidate_adapter_path": "models/adapters/candidates/adapter_v1_1790247818",
+        "adapter_config_exists": true,
+        "adapter_weights_exists": true,
+        "adapter_weights_size": 4372840,
+        "validation_status": "passed",
+        "promotion_status": "promoted",
+        "active_adapter_id": "adapter_v1_1790247818",
+        "reload_status": "ready_for_reload",
+        "error_message": null,
+        "candidate_id": "adapter_v1_1790247818",
+        "version": 1,
+        "experiment_id": "LITE_CODER_100TASK_MODE_F_TRAINED",
+        "timestamp": 1790247818.4310336,
+        "source_memory_count": 4,
+        "training_examples_count": 3,
+        "status": "success",
+        "error": null,
+        "train_loss": 0.6402,
+        "duration_seconds": 15.09,
+        "metadata": {
+            "adapter_id": "adapter_v1_1790247818",
+            "version": 1,
+            "base_model": "Qwen/Qwen2.5-Coder-1.5B",
+            "created_at": 1790247833.5229669,
+            "duration_seconds": 15.09,
+            "training_examples": 3,
+            "source_experience_count": 4,
+            "train_loss": 0.6402,
+            "peft_config": {
+                "r": 8,
+                "lora_alpha": 16,
+                "lora_dropout": 0.05,
+                "target_modules": [
+                    "q_proj",
+                    "v_proj"
+                ]
+            },
+            "status": "active"
+        }
+    },
+    {
+        "training_cycle_id": "cycle_v2_1790248884",
+        "trigger_task_id": "TASK_3CA90906",
+        "trigger_task_index": 93,
+        "training_example_count": 6,
+        "training_started_at": 1790248884.203465,
+        "training_finished_at": 1790248897.404986,
+        "training_status": "success",
+        "training_loss": 0.5718,
+        "adapter_id": "adapter_v2_1790248884",
+        "candidate_adapter_path": "models/adapters/candidates/adapter_v2_1790248884",
+        "adapter_config_exists": true,
+        "adapter_weights_exists": true,
+        "adapter_weights_size": 4372840,
+        "validation_status": "passed",
+        "promotion_status": "promoted",
+        "active_adapter_id": "adapter_v2_1790248884",
+        "reload_status": "ready_for_reload",
+        "error_message": null,
+        "candidate_id": "adapter_v2_1790248884",
+        "version": 2,
+        "experiment_id": "LITE_CODER_100TASK_MODE_F_TRAINED",
+        "timestamp": 1790248884.203465,
+        "source_memory_count": 8,
+        "training_examples_count": 6,
+        "status": "success",
+        "error": null,
+        "train_loss": 0.5718,
+        "duration_seconds": 13.2,
+        "metadata": {
+            "adapter_id": "adapter_v2_1790248884",
+            "version": 2,
+            "base_model": "Qwen/Qwen2.5-Coder-1.5B",
+            "created_at": 1790248897.4007764,
+            "duration_seconds": 13.2,
+            "training_examples": 6,
+            "source_experience_count": 8,
+            "train_loss": 0.5718,
+            "peft_config": {
+                "r": 8,
+                "lora_alpha": 16,
+                "lora_dropout": 0.05,
+                "target_modules": [
+                    "q_proj",
+                    "v_proj"
+                ]
+            },
+            "status": "active"
+        }
+    }
+]

@@ -1,0 +1,120 @@
+{
+    "experiment_id": "LITE_CODER_100TASK_MODE_A_CLEAN_V1",
+    "task_id": "TASK_FEE64E00",
+    "task_index": 17,
+    "mode": "MODE_A",
+    "status": "model_success",
+    "success": true,
+    "attempts_used": 1,
+    "repair_effort": 1,
+    "generated_code": "# Fixing the given code snippet\ndef is_even(n):\n    # Check if n is not divisible by 2\n    if n % 2 != 0:\n        return False\n    else:\n        return True\n\n# Testing the function with provided assertions\nassert is_even(2) == True\nassert is_even(3) == False",
+    "initial_code": "# Fixing the given code snippet\ndef is_even(n):\n    # Check if n is not divisible by 2\n    if n % 2 != 0:\n        return False\n    else:\n        return True\n\n# Testing the function with provided assertions\nassert is_even(2) == True\nassert is_even(3) == False",
+    "error_category": null,
+    "error_type": null,
+    "error_message": null,
+    "error_stage": null,
+    "exception_class": null,
+    "traceback": null,
+    "error_diagnostic": null,
+    "execution": {
+        "success": true,
+        "output": "False",
+        "error": "",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "tests": {
+        "success": true,
+        "message": "All tests passed",
+        "tests": "assert is_even(2) == True\nassert is_even(3) == False",
+        "test_summary": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "errors": 0,
+            "timeout": false
+        },
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "history": [],
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": true,
+        "sandboxed_execution": true
+    },
+    "strategy_history": [],
+    "difficulty": {},
+    "memory_used": null,
+    "lora_enabled": false,
+    "active_adapter_id": null,
+    "feedback_record": {
+        "feedback_id": "b18ca4fa8f7e4405a277ad37a7ec8085",
+        "timestamp": 1789728405.7576656,
+        "task": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0\n\nEnsure it passes these tests:\nassert is_even(2) == True\nassert is_even(3) == False",
+        "initial_code": "# Fixing the given code snippet\ndef is_even(n):\n    # Check if n is not divisible by 2\n    if n % 2 != 0:\n        return False\n    else:\n        return True\n\n# Testing the function with provided assertions\nassert is_even(2) == True\nassert is_even(3) == False",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "# Fixing the given code snippet\ndef is_even(n):\n    # Check if n is not divisible by 2\n    if n % 2 != 0:\n        return False\n    else:\n        return True\n\n# Testing the function with provided assertions\nassert is_even(2) == True\nassert is_even(3) == False",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert is_even(2) == True\nassert is_even(3) == False",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                }
+            }
+        ],
+        "final_code": "# Fixing the given code snippet\ndef is_even(n):\n    # Check if n is not divisible by 2\n    if n % 2 != 0:\n        return False\n    else:\n        return True\n\n# Testing the function with provided assertions\nassert is_even(2) == True\nassert is_even(3) == False",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 64,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 105.83264112472534,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\n1. Define a function named `is_even` that takes one argument, `n`.\n2. Inside the function, use the modulo operator (`%`) to check if `n` is divisible by 2.\n3. If `n` is not divisible by 2 (i.e., `n % 2 != 0`), then `n` is even and we should return `True`.\n4. Otherwise, `n` is odd and we should return `False`.\n\nHere's how you can implement this in Python:\n\n```python\ndef is_even(n):\n    # Check if n is not divisible by 2\n    if n % 2 != 0:\n        return False\n    else:\n        return True\n```\n\nThis implementation correctly checks whether a number is even or odd based on its divisibility by 2.\n\nTASK:\nFix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0\n\nEnsure it passes these tests:\nassert is_even(2) == True\nassert is_even(3) == False\n\nGenerate complete executable Python program:\n"
+    },
+    "timing": {
+        "total_ms": 105848
+    },
+    "runtime_ms": 105848,
+    "timestamp": 1789728511.6057427
+}

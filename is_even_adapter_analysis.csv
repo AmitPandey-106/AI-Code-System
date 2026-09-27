@@ -1,0 +1,10 @@
+task_index,task_id,mode_a_success,mode_d_success,mode_f_orig_success,mode_f_trained_success,mode_f_active_adapter_id,mode_f_adapter_version,mode_a_attempts,mode_d_attempts,mode_f_trained_attempts
+17,TASK_FEE64E00,True,True,True,True,None,None,1,1,1
+48,TASK_C615FC35,True,True,True,False,adapter_v1_1790247818,adapter_v1_1790247818,1,1,0
+59,TASK_ABC07B11,True,True,True,False,adapter_v1_1790247818,adapter_v1_1790247818,1,1,0
+65,TASK_1DA9FFE1,True,True,True,False,adapter_v1_1790247818,adapter_v1_1790247818,1,1,0
+71,TASK_0E25977A,True,True,True,False,adapter_v1_1790247818,adapter_v1_1790247818,1,1,0
+77,TASK_4FC2042B,True,True,True,False,adapter_v1_1790247818,adapter_v1_1790247818,1,1,0
+83,TASK_43200D99,True,True,True,False,adapter_v1_1790247818,adapter_v1_1790247818,1,1,0
+89,TASK_21D2E862,True,True,True,False,adapter_v1_1790247818,adapter_v1_1790247818,1,1,0
+100,TASK_803EEF67,True,True,True,True,adapter_v2_1790248884,adapter_v2_1790248884,1,1,1
