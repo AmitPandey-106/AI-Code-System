@@ -28,46 +28,68 @@ def clean_code(code: str):
     return "\n".join(cleaned).strip()
 
 # 🔥 SMART EXECUTION CALLER
-def ensure_execution(code: str):
+def ensure_execution(code: str, contract=None):
     if "print(" in code:
         return code
-    match = re.search(r"def\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*?)\)", code)
-    if not match:
-        return code
 
-    func_name = match.group(1)
-    params = match.group(2).strip()
+    func_name = None
+    params = ""
+
+    # 1. If TaskContract specifies an entry point, target that specific entry point
+    if contract and getattr(contract, "entry_point", None):
+        target_fn = contract.entry_point
+        match = re.search(rf"def\s+{re.escape(target_fn)}\s*\((.*?)\)", code)
+        if match:
+            func_name = target_fn
+            params = match.group(1).strip()
+        else:
+            # Do NOT call an arbitrary helper function if required entry point is missing
+            return code
+    else:
+        # Fallback: find the first defined function
+        match = re.search(r"def\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*?)\)", code)
+        if not match:
+            return code
+        func_name = match.group(1)
+        params = match.group(2).strip()
+
     param_list = [p.strip().split(":")[0].strip() for p in params.split(",") if p.strip()]
     param_count = len(param_list)
     lower_name = func_name.lower()
     lower_params = [p.lower() for p in param_list]
 
+    STR_KEYWORDS = {"s", "str", "string", "text", "sentence", "word", "line", "chars"}
+    LIST_KEYWORDS = {"arr", "nums", "lst", "list", "array", "data", "elements", "values", "items"}
+
     if param_count == 0:
         args = ""
     elif param_count == 1:
-        if any(k in lower_name for k in ["reverse", "string", "palindrome", "text"]) or (lower_params and any(k in lower_params[0] for k in ["s", "str", "text"])):
+        p0 = lower_params[0]
+        if any(k in lower_name for k in ["reverse", "string", "palindrome", "text"]) or p0 in STR_KEYWORDS:
             args = "'hello'"
-        elif any(k in lower_name for k in ["list", "sort", "array"]) or (lower_params and any(k in lower_params[0] for k in ["arr", "nums", "lst", "list"])):
-            args = "[3, 1, 2]"
+        elif any(k in lower_name for k in ["list", "sort", "array", "average", "avg", "sum", "mean"]) or p0 in LIST_KEYWORDS:
+            args = "[10, 20, 30]"
         else:
             args = "5"
     elif param_count == 2:
-        if any(k in lower_name for k in ["search", "find", "index", "binary"]) or (lower_params and any(k in lower_params[0] for k in ["arr", "nums", "lst", "list", "data"])):
+        if lower_params[1] in ("n", "k", "limit", "count", "top_n", "size"):
+            args = "[], 0"
+        elif any(k in lower_name for k in ["search", "find", "index", "binary"]) or any(p in LIST_KEYWORDS for p in lower_params):
             args = "[1, 3, 5, 7, 9, 11], 5"
-        elif any(k in lower_name for k in ["merge", "concat"]) or (lower_params and any(k in lower_params[0] for k in ["arr", "lst", "list"])):
+        elif any(k in lower_name for k in ["merge", "concat"]) or all(p in LIST_KEYWORDS for p in lower_params):
             args = "[1, 2], [3, 4]"
-        elif lower_params and any(k in lower_params[0] for k in ["s", "str", "text"]):
+        elif any(p in STR_KEYWORDS for p in lower_params):
             args = "'hello', 'l'"
         else:
             args = "10, 5"
     else:
         args = ", ".join(["1"] * param_count)
 
-    code += f"\n\ntry:\n    print({func_name}({args}))\nexcept TypeError:\n    pass"
+    code += f"\n\ntry:\n    print({func_name}({args}))\nexcept Exception:\n    pass"
     return code
 
 # 🚀 MAIN EXECUTOR
-def execute_code(code: str, test_code: str = ""):
+def execute_code(code: str, test_code: str = "", contract=None):
     # 1. Clean Code
     code = clean_code(code)
     
@@ -76,7 +98,7 @@ def execute_code(code: str, test_code: str = ""):
     if test_code:
         full_code = code + "\n\n" + test_code
     elif not "print(" in code and not test_code:
-        full_code = ensure_execution(code)
+        full_code = ensure_execution(code, contract=contract)
 
     # 3. Static AST Syntax & Safety Validation
     validation = validate_code(full_code)

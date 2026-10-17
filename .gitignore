@@ -58,3 +58,7 @@ experiments/**/training_state.json
 
 # Generated ablation experiment runs
 experiments/ablation/
+
+# HuggingFace cache and archive packages
+.hf_cache/
+*.zip

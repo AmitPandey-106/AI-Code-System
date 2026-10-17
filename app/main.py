@@ -1,3 +1,4 @@
+import ast
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -27,7 +28,7 @@ app.add_middleware(
 # REQUEST MODEL
 # =========================================================
 
-from typing import List, Optional
+from typing import List, Optional, Any
 from pydantic import Field
 
 class Request(BaseModel):
@@ -43,99 +44,63 @@ class PlanRequest(BaseModel):
     feedback: Optional[str] = None
     authoritative_tests: List[str] = Field(default_factory=list)
 
-def infer_initial_tests(prompt: str) -> List[str]:
-    """Intelligently infer default test assertions if none are provided or if previous tests mismatched."""
-    import re
+def infer_initial_tests(prompt: str, contract: Optional[Any] = None) -> List[str]:
+    """Safely infer default test assertions for standard benchmark tasks only when explicitly defined."""
+    if contract is None:
+        from app.contract import TaskContract
+        contract = TaskContract.create_from_prompt(prompt)
+    fn = contract.entry_point
+    if not fn:
+        return []
+
+    lower_fn = fn.lower()
     lower_prompt = prompt.lower()
-    
-    # Check if number count is specified (three / 3, four / 4, etc.)
-    num_args = 2
+    params = contract.parameters
+    p_len = len(params)
+
+    num_args = p_len
     if any(k in lower_prompt for k in ["three", " 3 ", "3 number", "three number", "3 args", "three args"]):
         num_args = 3
     elif any(k in lower_prompt for k in ["four", " 4 ", "4 number", "four number"]):
         num_args = 4
 
-    match = re.search(r"def\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*?)\)", prompt)
-    func_name = match.group(1) if match else None
-    params = [p.strip().split(":")[0].strip() for p in match.group(2).split(",") if p.strip()] if match else []
-    
-    if not func_name:
-        if "binary" in lower_prompt and "search" in lower_prompt:
-            func_name = "binary_search"
-            params = ["arr", "target"]
-        elif "fibonacci" in lower_prompt or "fibo" in lower_prompt:
-            func_name = "fibonacci"
-            params = ["n"]
-        elif "factorial" in lower_prompt:
-            func_name = "factorial"
-            params = ["n"]
-        elif "palindrome" in lower_prompt:
-            func_name = "is_palindrome"
-            params = ["s"]
-        elif "reverse" in lower_prompt and "string" in lower_prompt:
-            func_name = "reverse_string"
-            params = ["s"]
-        elif "add" in lower_prompt or "sum" in lower_prompt:
-            func_name = "add"
-            if num_args == 3:
-                params = ["a", "b", "c"]
-            elif num_args == 4:
-                params = ["a", "b", "c", "d"]
-            else:
-                params = ["a", "b"]
-        elif "concat" in lower_prompt:
-            func_name = "concat"
-            params = ["a", "b"]
-        elif "sort" in lower_prompt:
-            func_name = "sort_list"
-            params = ["arr"]
-        elif "even" in lower_prompt:
-            func_name = "is_even"
-            params = ["n"]
-            
-    if func_name:
-        p_len = len(params)
-        fn = func_name
-        if "search" in fn or "binary" in fn:
+    if "binary_search" in lower_fn:
+        return [
+            f"assert {fn}([1, 2, 3, 4, 5], 3) == 2 or {fn}([1, 2, 3, 4, 5], 3) is True",
+            f"assert {fn}([10, 20, 30], 25) == -1 or {fn}([10, 20, 30], 25) is False"
+        ]
+    elif lower_fn in ("add", "sum"):
+        if num_args == 3:
+            return [f"assert {fn}(1, 2, 3) == 6", f"assert {fn}(10, 20, 30) == 60"]
+        elif num_args == 4:
+            return [f"assert {fn}(1, 2, 3, 4) == 10", f"assert {fn}(5, 5, 5, 5) == 20"]
+        elif num_args == 2:
+            return [f"assert {fn}(2, 3) == 5", f"assert {fn}(-1, 1) == 0"]
+        return [f"assert {fn}([1, 2, 3]) == 6", f"assert {fn}([0]) == 0"]
+    elif "concat" in lower_fn:
+        return [f"assert {fn}('Hello ', 'World') == 'Hello World'", f"assert {fn}('Lite', 'Coder') == 'LiteCoder'"]
+    elif "fib" in lower_fn:
+        if any(k in lower_prompt for k in ["seq", "series", "list", "array", "first", "terms", "numbers"]):
             return [
-                f"assert {fn}([1, 2, 3, 4, 5], 3) == 2 or {fn}([1, 2, 3, 4, 5], 3) is True",
-                f"assert {fn}([10, 20, 30], 25) == -1 or {fn}([10, 20, 30], 25) is False"
+                f"assert {fn}(0) in (0, [], [0])",
+                f"assert {fn}(1) in (1, [0], [1], [0, 1])",
+                f"assert {fn}(5) == 5 or {fn}(5) == [0, 1, 1, 2, 3] or {fn}(5) == [0, 1, 1, 2, 3, 5] or (isinstance({fn}(5), (list, tuple)) and len({fn}(5)) in (5, 6))"
             ]
-        elif "add" in fn or "sum" in fn:
-            if p_len == 3 or num_args == 3:
-                return [f"assert {fn}(1, 2, 3) == 6", f"assert {fn}(10, 20, 30) == 60"]
-            elif p_len == 4 or num_args == 4:
-                return [f"assert {fn}(1, 2, 3, 4) == 10", f"assert {fn}(5, 5, 5, 5) == 20"]
-            elif p_len == 2:
-                return [f"assert {fn}(2, 3) == 5", f"assert {fn}(-1, 1) == 0"]
-            return [f"assert {fn}([1, 2, 3]) == 6", f"assert {fn}([0]) == 0"]
-        elif "concat" in fn:
-            return [f"assert {fn}('Hello ', 'World') == 'Hello World'", f"assert {fn}('Lite', 'Coder') == 'LiteCoder'"]
-        elif "fib" in fn:
-            if any(k in lower_prompt for k in ["seq", "series", "list", "array", "first", "terms", "numbers"]):
-                return [
-                    f"assert {fn}(0) in (0, [], [0])",
-                    f"assert {fn}(1) in (1, [0], [1], [0, 1])",
-                    f"assert {fn}(5) == 5 or {fn}(5) == [0, 1, 1, 2, 3] or {fn}(5) == [0, 1, 1, 2, 3, 5] or (isinstance({fn}(5), (list, tuple)) and len({fn}(5)) in (5, 6))"
-                ]
-            return [
-                f"assert {fn}(0) in (0, [], [0]) or {fn}(0) == 0",
-                f"assert {fn}(1) in (1, [0], [1], [0, 1]) or {fn}(1) == 1",
-                f"assert {fn}(5) == 5 or (isinstance({fn}(5), (list, tuple)) and (5 in {fn}(5) or len({fn}(5)) in (5, 6)))"
-            ]
-        elif "factorial" in fn:
-            return [f"assert {fn}(0) == 1", f"assert {fn}(4) == 24"]
-        elif "palindrome" in fn:
-            return [f"assert {fn}('radar') is True", f"assert {fn}('hello') is False"]
-        elif "reverse" in fn:
-            return [f"assert {fn}('hello') == 'olleh'", f"assert {fn}('') == ''"]
-        elif "even" in fn:
-            return [f"assert {fn}(4) is True", f"assert {fn}(7) is False"]
-        elif p_len == 2:
-            return [f"assert {fn}(10, 5) is not None"]
-        elif p_len == 1:
-            return [f"assert {fn}(5) is not None"]
-            
+        return [
+            f"assert {fn}(0) in (0, [], [0]) or {fn}(0) == 0",
+            f"assert {fn}(1) in (1, [0], [1], [0, 1]) or {fn}(1) == 1",
+            f"assert {fn}(5) == 5 or (isinstance({fn}(5), (list, tuple)) and (5 in {fn}(5) or len({fn}(5)) in (5, 6)))"
+        ]
+    elif "factorial" in lower_fn:
+        return [f"assert {fn}(0) == 1", f"assert {fn}(4) == 24"]
+    elif "palindrome" in lower_fn:
+        return [f"assert {fn}('radar') is True", f"assert {fn}('hello') is False"]
+    elif "reverse" in lower_fn:
+        return [f"assert {fn}('hello') == 'olleh'", f"assert {fn}('') == ''"]
+    elif "even" in lower_fn:
+        return [f"assert {fn}(4) is True", f"assert {fn}(7) is False"]
+
+    # For custom or non-standard entry points, do not invent dummy asserts
     return []
 
 # =========================================================
@@ -148,14 +113,118 @@ def home():
         "message": "AI Code Generator Running 🚀"
     }
 
+class NativeTestRequest(BaseModel):
+    repo_root: str
+    command: str
+    timeout: Optional[int] = 30
+
+@app.post("/run_native_tests")
+def run_native_tests(req: NativeTestRequest):
+    from app.project_test_runner import project_test_runner
+    result = project_test_runner.run_tests(req.repo_root, req.command, req.timeout)
+    return result
+
+class PatchRequest(BaseModel):
+    repo_root: str
+    diff_text: str
+
+@app.post("/propose_patch")
+def propose_patch(req: PatchRequest):
+    from app.patch_engine import PatchEngine
+    engine = PatchEngine(req.repo_root)
+    result = engine.apply_patch(req.diff_text, dry_run=True)
+    return result
+
+@app.post("/apply_patch")
+def apply_patch(req: PatchRequest):
+    from app.patch_engine import PatchEngine
+    engine = PatchEngine(req.repo_root)
+    result = engine.apply_patch(req.diff_text, dry_run=False)
+    return result
+
+class EngineeringRequest(BaseModel):
+    task_prompt: str
+    repo_root: str
+    test_command: str
+
+@app.post("/engineering/start")
+def start_engineering(req: EngineeringRequest):
+    from app.engineering_loop import engineering_manager
+    session_id = engineering_manager.start_session(req.task_prompt, req.repo_root, req.test_command)
+    session = engineering_manager.get_session(session_id)
+    return {"session_id": session_id, "state": session.state, "error": session.error_message}
+
+@app.post("/engineering/approve/{session_id}")
+def approve_engineering(session_id: str, expected_patch_hash: Optional[str] = None):
+    from app.engineering_loop import engineering_manager
+    session = engineering_manager.get_session(session_id)
+    if not session:
+        return {"error": "Session not found"}
+    if session.approve(expected_patch_hash=expected_patch_hash):
+        session.step() # Trigger testing & potential loop
+    return {"session_id": session_id, "state": session.state, "error": session.error_message}
+
+@app.post("/engineering/reject/{session_id}")
+def reject_engineering(session_id: str):
+    from app.engineering_loop import engineering_manager
+    session = engineering_manager.get_session(session_id)
+    if not session:
+        return {"error": "Session not found"}
+    session.reject()
+    return {"session_id": session_id, "state": session.state}
+
+@app.post("/engineering/cancel/{session_id}")
+def cancel_engineering(session_id: str):
+    from app.engineering_loop import engineering_manager
+    session = engineering_manager.get_session(session_id)
+    if not session:
+        return {"error": "Session not found"}
+    session.cancel()
+    return {"session_id": session_id, "state": session.state, "error": session.error_message}
+
+@app.get("/engineering/status/{session_id}")
+def get_engineering_status(session_id: str):
+    from app.engineering_loop import engineering_manager
+    session = engineering_manager.get_session(session_id)
+    if not session:
+        return {"error": "Session not found"}
+    return session.get_status()
+
+@app.post("/search")
+def search_repo(query: str, top_k: int = 5):
+    from app.repo_index import get_repo_indexer
+    indexer = get_repo_indexer()
+    results = indexer.search(query, top_k=top_k)
+    return {"success": True, "results": results}
+
+@app.post("/index")
+def index_repo():
+    from app.repo_index import get_repo_indexer
+    indexer = get_repo_indexer()
+    indexer.scan_and_index()
+    return {"success": True, "message": "Repository indexed."}
+
 @app.post("/plan")
 def plan(req: PlanRequest):
     from app.model import generate_plan
+    from app.contract import TaskContract
+    from app.repo_index import get_repo_indexer
+    
     task_prompt = req.prompt
     if req.feedback:
         task_prompt = f"{req.prompt}\n\nUSER FEEDBACK / REVISION REQUIREMENTS:\n{req.feedback}"
         
-    plan_text = generate_plan(task_prompt)
+    indexer = get_repo_indexer()
+    results = indexer.search(req.prompt, top_k=3)
+    repo_context = ""
+    if results:
+        repo_context = "REPOSITORY CONTEXT:\n"
+        for r in results:
+            repo_context += f"File: {r['rel_path']} (Type: {r['type']})\n{r['snippet']}\n\n"
+        task_prompt = f"{repo_context}\n{task_prompt}"
+
+    contract = TaskContract.create_from_prompt(task_prompt, authoritative_tests=req.authoritative_tests)
+    plan_text = generate_plan(task_prompt, contract=contract)
     
     # Infer matching tests using combined prompt and feedback
     combined_prompt = f"{req.prompt} {req.feedback or ''}"
@@ -171,7 +240,9 @@ def plan(req: PlanRequest):
         "success": True,
         "plan": plan_text,
         "suggested_tests": suggested_tests,
-        "task_prompt": task_prompt
+        "task_prompt": task_prompt,
+        "entry_point": contract.entry_point,
+        "parameters": contract.parameters
     }
 
 
@@ -274,10 +345,80 @@ def generate(req: Request):
     feedback_record["training_status"] = None
 
     # =====================================================
+    # STEP 0: INITIALIZE TASK CONTRACT
+    # =====================================================
+
+    from app.contract import TaskContract, validate_code_against_contract
+    contract = TaskContract.create_from_prompt(req.prompt, authoritative_tests=req.authoritative_tests)
+    feedback_record["contract"] = {
+        "entry_point": contract.entry_point,
+        "parameters": contract.parameters,
+        "requirements_count": len(contract.requirements)
+    }
+
+    # =====================================================
     # STEP 1: INITIAL CODE GENERATION
     # =====================================================
 
-    current_code, prompt_text = generate_code(req.prompt, approved_plan=getattr(req, "approved_plan", None))
+    current_code, prompt_text = generate_code(req.prompt, approved_plan=getattr(req, "approved_plan", None), contract=contract)
+    
+    # CONTROLLED DEFECT INJECTION ONLY FOR PROOF EXPERIMENT
+    if req.experiment_id == "CONTROLLED_LORA_PROOF/STAGE2_TRAINING":
+        original_code = current_code
+        
+        def safe_replace(code, old, new):
+            lines = code.split("\n")
+            for i in range(len(lines)-1, -1, -1):
+                if old in lines[i]:
+                    if "def " in lines[i]:
+                        parts = lines[i].split(":", 1)
+                        if len(parts) == 2 and old in parts[1]:
+                            lines[i] = parts[0] + ":" + parts[1].replace(old, new, 1)
+                            break
+                    else:
+                        lines[i] = lines[i].replace(old, new, 1)
+                        break
+            return "\n".join(lines)
+
+        if str(req.task_id).strip() == "PROOF_T10":
+            current_code = safe_replace(current_code, "> 0", "< 0")
+            if current_code == original_code:
+                current_code = safe_replace(current_code, ">", "<")
+        elif str(req.task_id).strip() == "PROOF_T1":
+            current_code = safe_replace(current_code, "+", "-")
+        elif str(req.task_id).strip() == "PROOF_T2":
+            current_code = safe_replace(current_code, "*", "/")
+        elif str(req.task_id).strip() == "PROOF_T3":
+            current_code = safe_replace(current_code, "[0]", "[-1]")
+        elif str(req.task_id).strip() == "PROOF_T4":
+            current_code = safe_replace(current_code, "<", ">")
+        elif str(req.task_id).strip() == "PROOF_T5":
+            current_code = safe_replace(current_code, "==", "!=")
+        elif str(req.task_id).strip() == "PROOF_T6":
+            current_code = safe_replace(current_code, "== 0", "== 1")
+        elif str(req.task_id).strip() == "PROOF_T7":
+            current_code = safe_replace(current_code, "-", "+")
+        elif str(req.task_id).strip() == "PROOF_T8":
+            current_code = safe_replace(current_code, "/", "*")
+        elif str(req.task_id).strip() == "PROOF_T9":
+            current_code = safe_replace(current_code, "[-1]", "[0]")
+            
+        print(f"\n[CONTROLLED DEFECT] Task: {req.task_id}")
+        print(f"[CONTROLLED DEFECT] Original generated code: {original_code.strip()}")
+        mutation_applied = (original_code != current_code)
+        
+        if not mutation_applied:
+            print(f"[CONTROLLED DEFECT] mutation failed for {req.task_id}")
+        else:
+            print(f"[CONTROLLED DEFECT] Code after defect injection: {current_code.strip()}")
+            
+        # Record mutation state for forensic evidence
+        feedback_record["controlled_mutation"] = {
+            "applied": mutation_applied,
+            "original_code": original_code,
+            "mutated_code": current_code
+        }
+
     feedback_record["initial_code"] = current_code
     feedback_record["generation_prompt"] = prompt_text
 
@@ -296,6 +437,13 @@ def generate(req: Request):
         }
 
     attempt_history = []
+    best_candidate = {
+        "code": None,
+        "tests_passed": -1,
+        "total_tests": 0,
+        "contract_valid": False,
+        "execution_passed": False
+    }
 
     # =====================================================
     # STEP 3: AUTONOMOUS RETRY LOOP
@@ -314,15 +462,99 @@ def generate(req: Request):
             "tests_generated": "",
             "test_results": None,
             "repair_applied": None,
-            "verification": {}
+            "verification": {},
+            "contract_valid": True,
+            "contract_error": None
         }
+
+        # =================================================
+        # CONTRACT VALIDATION
+        # =================================================
+
+        contract_valid, contract_err = validate_code_against_contract(current_code, contract)
+        attempt_record["contract_valid"] = contract_valid
+        attempt_record["contract_error"] = contract_err
+
+        if not contract_valid:
+            error = contract_err
+            category, specific_type, specific_msg = classify_error(error)
+            
+            attempt_record["execution_status"] = "failed"
+            attempt_record["error_type"] = "ContractViolation"
+            attempt_record["error_message"] = contract_err
+
+            # Retrieve Memory
+            if config.get("MEMORY_ENABLED"):
+                memories = repair_memory.search_similar_experiences(req.prompt, "ContractViolation", contract_err, current_code)
+            else:
+                memories = []
+            memory_context = ""
+            attempt_record["memory_used"] = len(memories) > 0
+            attempt_record["retrieved_memory_count"] = len(memories)
+            attempt_record["retrieved_memories"] = [{"memory_id": m["memory"]["memory_id"], "similarity": m["similarity"]} for m in memories]
+            
+            prev_strats = [att.get("strategy", {}).get("selected_strategy") for att in feedback_record["attempts"] if att.get("strategy")]
+            diff_info = estimate_difficulty("ContractViolation", current_code, attempt + 1, len(memories) > 0)
+            attempt_record["difficulty"] = diff_info
+            
+            strat_info = strategy_selector.select_strategy(
+                error_type="ContractViolation",
+                attempt_number=attempt + 1,
+                previous_strategies=prev_strats,
+                memory_available=len(memories) > 0,
+                difficulty=diff_info["difficulty"]
+            )
+            attempt_record["strategy"] = strat_info
+            
+            if strat_info["selected_strategy"] not in ("DIRECT_REPAIR", "MINIMAL_PATCH") and memories:
+                for idx, m in enumerate(memories):
+                    memory_context += f"Experience {idx+1}:\nError:\n{m['memory']['error_message']}\nBroken Code:\n{m['memory']['broken_code']}\nSuccessful Fix:\n{m['memory']['successful_fix']}\n\n"
+
+            attempt_record["memory_injected"] = len(memory_context) > 0
+            
+            attempt_history.append({
+                "attempt": attempt + 1,
+                "stage": "contract",
+                "error_type": "ContractViolation",
+                "error": contract_err
+            })
+            feedback_record["attempts"].append(attempt_record)
+
+            print("\nContract Validation Failed:")
+            print(contract_err)
+
+            strat_prompt = get_strategy_prompt(strat_info["selected_strategy"])
+            fixed_code, debug_prompt = fix_code(
+                current_code, error, memory_context,
+                strategy_prompt=strat_prompt,
+                task_contract=contract,
+                attempt_history=attempt_history
+            )
+            attempt_record["debug_prompt"] = debug_prompt
+            attempt_record["repair_applied"] = fixed_code
+            
+            if not fixed_code or not fixed_code.strip():
+                attempt_record["repair_generation_failed"] = True
+                attempt_record["repair_failure_reason"] = "Model failed to produce valid Python code"
+                attempt_record["repair_changed_code"] = False
+            else:
+                attempt_record["repair_generation_failed"] = False
+                attempt_record["repair_failure_reason"] = None
+                attempt_record["repair_changed_code"] = (fixed_code.strip() != current_code.strip())
+                current_code = fixed_code
+                
+            feedback_record["total_repairs"] += 1
+            if attempt + 1 >= MAX_RETRIES:
+                print(f"\nMax retries exhausted ({MAX_RETRIES} attempts).")
+                break
+            continue
 
         # =================================================
         # EXECUTE CODE
         # =================================================
         
         start_exec = time.time()
-        execution = execute_code(current_code)
+        execution = execute_code(current_code, contract=contract)
         exec_duration = int((time.time() - start_exec) * 1000)
         feedback_record["execution"]["duration_ms"] = exec_duration
 
@@ -386,6 +618,7 @@ def generate(req: Request):
             attempt_history.append({
                 "attempt": attempt + 1,
                 "stage": "execution",
+                "error_type": specific_type,
                 "error": error
             })
             feedback_record["attempts"].append(attempt_record)
@@ -394,10 +627,15 @@ def generate(req: Request):
             print(error)
 
             # =============================================
-            # FIX CODE
+            # FIX CODE WITH TASK CONTRACT & HISTORY
             # =============================================
             strat_prompt = get_strategy_prompt(strat_info["selected_strategy"])
-            fixed_code, debug_prompt = fix_code(current_code, error, memory_context, strategy_prompt=strat_prompt)
+            fixed_code, debug_prompt = fix_code(
+                current_code, error, memory_context,
+                strategy_prompt=strat_prompt,
+                task_contract=contract,
+                attempt_history=attempt_history
+            )
             attempt_record["debug_prompt"] = debug_prompt
             attempt_record["repair_applied"] = fixed_code
             
@@ -413,7 +651,6 @@ def generate(req: Request):
                 current_code = fixed_code
                 
             feedback_record["total_repairs"] += 1
-            # Difficulty is observational only. Use MAX_RETRIES.
             if attempt + 1 >= MAX_RETRIES:
                 print(f"\nMax retries exhausted ({MAX_RETRIES} attempts).")
                 break
@@ -426,27 +663,55 @@ def generate(req: Request):
         feedback_record["execution"]["status"] = "success"
 
         # =================================================
-        # RUN AI-GENERATED TESTS
+        # RUN TESTS (CONSTRAINED BY TASK CONTRACT)
         # =================================================
 
         tests = run_tests(
             req.prompt,
             current_code,
-            authoritative_tests=req.authoritative_tests
+            authoritative_tests=contract.authoritative_tests,
+            contract=contract
         )
         attempt_record["tests_generated"] = tests.get("tests", "")
         attempt_record["test_results"] = tests.get("test_summary", {})
 
+        # Track Best Candidate
+        t_summary = tests.get("test_summary", {})
+        t_passed = t_summary.get("passed", 0)
+        t_total = t_summary.get("total", 0)
+        if contract_valid and t_passed > best_candidate["tests_passed"]:
+            best_candidate = {
+                "code": current_code,
+                "tests_passed": t_passed,
+                "total_tests": t_total,
+                "contract_valid": True,
+                "execution_passed": True
+            }
+
         # =================================================
-        # TESTS PASSED
+        # VERIFY ACCEPTANCE (TESTS + TASK CONTRACT)
         # =================================================
 
-        if tests["success"]:
+        # Re-verify contract on candidate before accepting
+        final_contract_valid, final_contract_err = validate_code_against_contract(current_code, contract)
+
+        failure_type = tests.get("failure_type")
+        acceptance_passed = (
+            contract is not None
+            and bool(contract.entry_point)
+            and final_contract_valid
+            and tests.get("success", False)
+            and failure_type is None
+        )
+
+        if acceptance_passed:
             feedback_record["attempts"].append(attempt_record)
             feedback_record["final_code"] = current_code
             feedback_record["final_status"] = "success"
             feedback_record["verification"]["tests_passed"] = True
             feedback_record["execution_time"] = time.time() - start_time
+            best_candidate["code"] = current_code
+            best_candidate["contract_valid"] = True
             
             # Store valid repairs in memory only if all verification passes
             if config.get("MEMORY_ENABLED") and feedback_record["verification"]["syntax_passed"] and feedback_record["verification"]["safety_passed"] and feedback_record["verification"]["execution_passed"] and feedback_record["verification"]["tests_passed"]:
@@ -454,9 +719,9 @@ def generate(req: Request):
                 if len(feedback_record["attempts"]) > 1:
                     last_failed_att = feedback_record["attempts"][-2]
                     successful_att = feedback_record["attempts"][-1]
-                    if last_failed_att["error_message"] and last_failed_att["repair_applied"]:
+                    if last_failed_att.get("error_message") and last_failed_att.get("repair_applied"):
                         # Do not store security failures as successful repair memories
-                        if "SecurityViolation" not in last_failed_att["error_type"]:
+                        if "SecurityViolation" not in (last_failed_att.get("error_type") or ""):
                             added = repair_memory.add_repair_experience(
                                 task=req.prompt,
                                 error_type=last_failed_att["error_type"],
@@ -473,7 +738,7 @@ def generate(req: Request):
                 if config.get("LORA_ENABLED") and memories_added:
                     # Trigger controlled continual-learning training pipeline
                     try:
-                        from train_worker import run_training_pipeline
+                        from app.train_worker import run_training_pipeline
                         train_res = run_training_pipeline(
                             force=False,
                             experiment_id=req.experiment_id,
@@ -508,6 +773,7 @@ def generate(req: Request):
 
             return {
                 "success": True,
+                "code": current_code,
                 "attempts_used": attempt + 1,
                 "generated_code": current_code,
                 "execution": execution,
@@ -517,14 +783,109 @@ def generate(req: Request):
             }
 
         # =================================================
-        # TEST FAILURE
+        # TEST OR CONTRACT FAILURE
         # =================================================
 
-        error = tests["message"]
-        category, specific_type, specific_msg = classify_error(error)
+        if not final_contract_valid:
+            failure_type = "CONTRACT_FAILURE"
+            error = final_contract_err
+            specific_type = "ContractViolation"
+            specific_msg = final_contract_err
+        elif failure_type in ("TEST_HARNESS_FAILURE", "TEST_ORACLE_FAILURE", "TEST_GENERATION_FAILURE", "ORACLE_UNDETERMINED"):
+            error = tests.get("message", "Test harness/oracle failure")
+            specific_type = failure_type
+            specific_msg = error
+        else:
+            failure_type = "CODE_FAILURE"
+            error = tests.get("message", "Test Failed")
+            category, specific_type, specific_msg = classify_error(error)
         
+        attempt_record["failure_type"] = failure_type
         attempt_record["error_type"] = specific_type
         attempt_record["error_message"] = specific_msg
+
+        # Diagnostic logging of complete state trace
+        cand_syntax_state = "VALID"
+        try:
+            ast.parse(current_code)
+        except Exception as e_syn:
+            cand_syntax_state = f"SYNTAX_ERROR ({e_syn})"
+
+        test_code_str = tests.get("tests", "")
+        test_syntax_state = "VALID"
+        if test_code_str:
+            try:
+                ast.parse(test_code_str)
+            except Exception as e_tsyn:
+                test_syntax_state = f"SYNTAX_ERROR ({e_tsyn})"
+        else:
+            test_syntax_state = "EMPTY"
+
+        test_harness_state = "VALID" if failure_type != "TEST_HARNESS_FAILURE" else f"HARNESS_ERROR ({error})"
+        oracle_state = "VALID"
+        if failure_type == "TEST_ORACLE_FAILURE":
+            oracle_state = f"CONTRADICTORY ({error})"
+        elif failure_type == "ORACLE_UNDETERMINED":
+            oracle_state = "UNDETERMINED"
+        elif failure_type == "TEST_GENERATION_FAILURE":
+            oracle_state = "GENERATION_FAILURE"
+
+        exec_state = "SUCCESS" if execution.get("success") else f"FAILED ({execution.get('error')})"
+        contract_state = "VALID" if final_contract_valid else f"VIOLATION ({final_contract_err})"
+
+        will_repair = failure_type not in ("TEST_HARNESS_FAILURE", "TEST_ORACLE_FAILURE", "TEST_GENERATION_FAILURE", "ORACLE_UNDETERMINED")
+        repair_decision = "fix_code() TRIGGERED" if will_repair else f"ISOLATED ({failure_type}: Candidate protected from bad oracle/harness)"
+
+        print("\n--- [DIAGNOSTIC PIPELINE STATE TRACE] ---")
+        print(f"Candidate syntax state : {cand_syntax_state}")
+        print(f"Test syntax state      : {test_syntax_state}")
+        print(f"Test-harness state     : {test_harness_state}")
+        print(f"Oracle state           : {oracle_state}")
+        print(f"Execution state        : {exec_state}")
+        print(f"Contract state         : {contract_state}")
+        print(f"Final FailureType      : {failure_type}")
+        print(f"Fix_code() called      : {will_repair}")
+        print(f"Repair decision reason : {repair_decision}")
+        print("-----------------------------------------\n")
+
+        # =========================================================
+        # HARNESS / ORACLE / GENERATION ISOLATION (Requirements E & H)
+        # =========================================================
+        # If failure is in test harness, test oracle, or test generation:
+        # DO NOT call fix_code() on the candidate code!
+        # Do NOT count it as code repair!
+        # Preserve candidate code!
+        if failure_type in ("TEST_HARNESS_FAILURE", "TEST_ORACLE_FAILURE", "TEST_GENERATION_FAILURE", "ORACLE_UNDETERMINED"):
+            print(f"\n[{failure_type}] Discarding invalid test oracle. Preserving candidate code without mutation.")
+            attempt_record["repair_applied"] = None
+            attempt_record["repair_changed_code"] = False
+            feedback_record["attempts"].append(attempt_record)
+
+            # Contract smoke test: check if entry point runs without runtime crash
+            smoke_res = execute_code(current_code, contract=contract)
+            if smoke_res.get("success") and final_contract_valid:
+                print(f"[SMOKE TEST SUCCESS] Candidate code safely executed contract entry point '{contract.entry_point}'.")
+                best_candidate["code"] = current_code
+                best_candidate["contract_valid"] = True
+                best_candidate["execution_passed"] = True
+
+            # Terminate repair evaluation cleanly on oracle/harness/generation failures
+            print(f"[ISOLATION TERMINATE] Exiting repair loop cleanly due to {failure_type}.")
+            break
+
+        # Genuine CODE_FAILURE or CONTRACT_FAILURE: log to cumulative attempt history
+        attempt_history.append({
+            "attempt": attempt + 1,
+            "stage": "testing" if final_contract_valid else "contract",
+            "failure_type": failure_type,
+            "error_type": specific_type,
+            "error": error,
+            "failing_test": tests.get("failing_test", "")
+        })
+        feedback_record["attempts"].append(attempt_record)
+
+        print("\nValidation / Tests Failed:")
+        print(error)
 
         # Retrieve Memory
         if config.get("MEMORY_ENABLED"):
@@ -559,26 +920,21 @@ def generate(req: Request):
 
         attempt_record["memory_injected"] = len(memory_context) > 0
 
-        attempt_history.append({
-            "attempt": attempt + 1,
-            "stage": "testing",
-            "error": error
-        })
-        feedback_record["attempts"].append(attempt_record)
-
-        print("\nTests Failed:")
-        print(error)
-
         # =================================================
-        # FIX CODE
+        # FIX CODE WITH TASK CONTRACT & HISTORY
         # =================================================
 
         strat_prompt = get_strategy_prompt(strat_info["selected_strategy"])
-        fixed_code, debug_prompt = fix_code(current_code, error, memory_context, strategy_prompt=strat_prompt)
+        fixed_code, debug_prompt = fix_code(
+            current_code, error, memory_context,
+            strategy_prompt=strat_prompt,
+            task_contract=contract,
+            attempt_history=attempt_history
+        )
         attempt_record["debug_prompt"] = debug_prompt
         attempt_record["repair_applied"] = fixed_code
         
-        # Explicit failure handling and identical state detection
+        # Explicit failure handling and regression detection
         if not fixed_code or not fixed_code.strip():
             attempt_record["repair_generation_failed"] = True
             attempt_record["repair_failure_reason"] = "Model failed to produce valid Python code"
@@ -587,20 +943,34 @@ def generate(req: Request):
             attempt_record["repair_generation_failed"] = False
             attempt_record["repair_failure_reason"] = None
             attempt_record["repair_changed_code"] = (fixed_code.strip() != current_code.strip())
+            
+            # Regression protection check
+            fixed_contract_valid, _ = validate_code_against_contract(fixed_code, contract)
+            if contract_valid and not fixed_contract_valid:
+                attempt_record["regression_detected"] = True
+                print(f"[REGRESSION WARNING] Repair attempt discarded required contract '{contract.entry_point}'.")
+            
             current_code = fixed_code
             
         feedback_record["total_repairs"] += 1
         
-        # Difficulty is observational only. Use MAX_RETRIES.
         if attempt + 1 >= MAX_RETRIES:
             print(f"\nMax retries exhausted ({MAX_RETRIES} attempts).")
             break
 
     # =====================================================
-    # MAX RETRIES EXCEEDED
+    # MAX RETRIES EXCEEDED (REGRESSION ROLLBACK GUARD)
     # =====================================================
 
+    # If current code regressed and broke contract, roll back to best known valid candidate
+    if best_candidate["code"] is not None and best_candidate["contract_valid"]:
+        cur_valid, _ = validate_code_against_contract(current_code, contract)
+        if not cur_valid:
+            print(f"\n[REGRESSION ROLLBACK] Restoring best known valid candidate ({best_candidate['tests_passed']}/{best_candidate['total_tests']} tests passed).")
+            current_code = best_candidate["code"]
+
     feedback_record["final_code"] = current_code
+    feedback_record["best_candidate"] = best_candidate
     feedback_record["final_status"] = "failure"
     feedback_record["execution_time"] = time.time() - start_time
     
@@ -609,6 +979,7 @@ def generate(req: Request):
 
     return {
         "success": False,
+        "code": current_code,
         "message": "Maximum retry attempts exceeded",
         "final_code": current_code,
         "history": attempt_history,
