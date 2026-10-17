@@ -294,3 +294,44 @@ def add(a, b):
 
     # Duplicate second approval must be safely rejected
     assert session.approve() is False
+
+# 13. Fallback rejects class methods safely
+def test_fallback_class_method_rejected_safely(repo_env):
+    class_file = os.path.join(repo_env, "service.py")
+    with open(class_file, "w", encoding="utf-8") as f:
+        f.write('''class Service:
+    def process(self, data):
+        return data * 2
+''')
+    session = EngineeringSession("Fix process", repo_env, "pytest test_calc.py", fallback_enabled=True)
+    # Model generates top-level function replacing class method
+    model_output = """Here is the fix:
+```python
+def process(self, data):
+    return data * 3
+```
+"""
+    diff = session._extract_patch(model_output)
+    # Must be safely rejected without guessing or corrupting class indentation
+    assert diff == ""
+
+# 14. Fallback preserves decorators on top-level functions
+def test_fallback_preserves_decorators(repo_env):
+    dec_file = os.path.join(repo_env, "api.py")
+    with open(dec_file, "w", encoding="utf-8") as f:
+        f.write('''@decorator
+def handler(req):
+    return "old"
+''')
+    session = EngineeringSession("Fix handler", repo_env, "pytest test_calc.py", fallback_enabled=True)
+    model_output = """```python
+@decorator
+def handler(req):
+    return "new"
+```"""
+    diff = session._extract_patch(model_output)
+    assert "FILE: api.py" in diff
+    assert "@decorator\ndef handler(req):" in diff
+    assert "return \"old\"" in diff
+    assert "return \"new\"" in diff
+

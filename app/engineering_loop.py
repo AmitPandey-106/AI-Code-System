@@ -468,7 +468,8 @@ class EngineeringSession:
                         with open(full_p, "r", encoding="utf-8") as py_f:
                             file_src = py_f.read()
                         file_tree = ast.parse(file_src)
-                        for node in ast.walk(file_tree):
+                        # Only accept top-level functions; reject class methods or nested functions
+                        for node in file_tree.body:
                             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == target_fn_name:
                                 matching_files.append((rel_p, full_p, node, file_src))
                     except Exception:
@@ -479,9 +480,15 @@ class EngineeringSession:
 
         rel_path, full_path, target_node, file_source = matching_files[0]
         source_lines = file_source.splitlines()
-        start_line = target_node.lineno - 1
+
+        # If candidate code specifies decorators, slice from target function's first decorator
+        if candidate_ast.decorator_list and target_node.decorator_list:
+            start_line = target_node.decorator_list[0].lineno - 1
+        else:
+            start_line = target_node.lineno - 1
+
         end_line = getattr(target_node, "end_lineno", None)
-        if end_line is None or end_line > len(source_lines):
+        if end_line is None or end_line > len(source_lines) or start_line < 0:
             return ""
 
         original_fn_lines = source_lines[start_line:end_line]
