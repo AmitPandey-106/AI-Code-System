@@ -4,6 +4,8 @@ import time
 import hashlib
 import threading
 import copy
+import ast
+import re
 from typing import Dict, Any, List, Optional
 from pydantic import BaseModel
 
@@ -25,12 +27,36 @@ class EngineeringState:
     CANCELLED = "cancelled"
 
 class EngineeringSession:
-    def __init__(self, task_prompt: str, repo_root: str, test_command: str):
+    def __init__(
+        self,
+        task_prompt: str,
+        repo_root: str,
+        test_command: str,
+        fallback_enabled: Optional[bool] = None,
+        eager_policy_check: Optional[bool] = None
+    ):
         self.session_id = str(uuid.uuid4())
         self.task_prompt = task_prompt
         self.repo_root = os.path.abspath(repo_root)
         self.test_command = test_command
         self.state = EngineeringState.RECEIVED
+
+        from app.config import config
+        if fallback_enabled is not None:
+            self.fallback_enabled = fallback_enabled
+        else:
+            self.fallback_enabled = (
+                os.environ.get("LITECODER_FALLBACK_SYNTHESIZER", "").lower() == "true" or
+                config.get("FALLBACK_SYNTHESIZER_ENABLED", False)
+            )
+
+        if eager_policy_check is not None:
+            self.eager_policy_check = eager_policy_check
+        else:
+            self.eager_policy_check = (
+                os.environ.get("LITECODER_EAGER_POLICY_CHECK", "").lower() == "true" or
+                config.get("EAGER_POLICY_CHECK_ENABLED", False)
+            )
 
         self.max_attempts = 3
         self.current_attempt = 1
@@ -49,6 +75,20 @@ class EngineeringSession:
 
         self._lock = threading.Lock()
         self._cancelled = False
+
+        # Eager command authorization validation at session creation
+        if self.eager_policy_check and self.test_command and not project_test_runner.is_command_allowed(self.test_command):
+            self.state = EngineeringState.FAILED
+            self.failure_category = "policy_rejection"
+            self.policy_event = {
+                "event": "unapproved_command_rejected",
+                "stage": "session_init",
+                "command": self.test_command,
+                "status": "unapproved_command",
+                "error": f"SecurityViolation: Command not approved: {self.test_command}"
+            }
+            self.error_message = f"SecurityViolation: Command not approved: {self.test_command}"
+            self._record_history()
 
     def get_status(self) -> Dict[str, Any]:
         """Thread-safe snapshot of session status."""
@@ -368,7 +408,87 @@ class EngineeringSession:
         if diff_lines:
             return "\n".join(diff_lines) + "\n"
 
+        # Fallback synthesizer: only if enabled and no delimiters were produced
+        if getattr(self, "fallback_enabled", False):
+            synthesized = self._synthesize_single_function_fallback(text)
+            if synthesized:
+                return synthesized
+
         return ""
+
+    def _synthesize_single_function_fallback(self, text: str) -> str:
+        """
+        Conservative fallback synthesizer for single-function Python replacements:
+        1. Only active if self.fallback_enabled is True.
+        2. Parses Python code fences conservatively.
+        3. Uses AST to identify exactly one function definition.
+        4. Scans the repository for an explicit, unambiguous match in existing Python files.
+        5. Extracts the exact original source lines using AST node positions.
+        6. Rejects ambiguous, multi-function, or multi-file matches.
+        7. Synthesizes a valid SEARCH/REPLACE block.
+        8. Does NOT execute generated code.
+        """
+        if not getattr(self, "fallback_enabled", False):
+            return ""
+
+        code_blocks = re.findall(r"```(?:python)?\s*\n(.*?)\n```", text, flags=re.DOTALL)
+        if not code_blocks:
+            return ""
+
+        candidate_ast = None
+        candidate_code = None
+        for block in code_blocks:
+            cleaned = block.strip()
+            if not cleaned:
+                continue
+            try:
+                tree = ast.parse(cleaned)
+                fns = [n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]
+                non_trivial = [n for n in tree.body if not (isinstance(n, ast.Expr) and isinstance(n.value, ast.Constant))]
+                if len(fns) == 1 and len(non_trivial) == 1:
+                    candidate_ast = fns[0]
+                    candidate_code = cleaned
+                    break
+            except Exception:
+                continue
+
+        if not candidate_ast or not candidate_code:
+            return ""
+
+        target_fn_name = candidate_ast.name
+
+        matching_files = []
+        for root, dirs, files in os.walk(self.repo_root):
+            dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ("venv", ".venv", "__pycache__", "data")]
+            for f in files:
+                if f.endswith(".py"):
+                    full_p = os.path.join(root, f)
+                    rel_p = os.path.relpath(full_p, self.repo_root).replace("\\", "/")
+                    try:
+                        with open(full_p, "r", encoding="utf-8") as py_f:
+                            file_src = py_f.read()
+                        file_tree = ast.parse(file_src)
+                        for node in ast.walk(file_tree):
+                            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == target_fn_name:
+                                matching_files.append((rel_p, full_p, node, file_src))
+                    except Exception:
+                        continue
+
+        if len(matching_files) != 1:
+            return ""
+
+        rel_path, full_path, target_node, file_source = matching_files[0]
+        source_lines = file_source.splitlines()
+        start_line = target_node.lineno - 1
+        end_line = getattr(target_node, "end_lineno", None)
+        if end_line is None or end_line > len(source_lines):
+            return ""
+
+        original_fn_lines = source_lines[start_line:end_line]
+        original_fn_text = "\n".join(original_fn_lines)
+
+        synthesized = f"FILE: {rel_path}\n<<<<<<< SEARCH\n{original_fn_text}\n=======\n{candidate_code}\n>>>>>>> REPLACE\n"
+        return synthesized
 
     def _do_planning(self):
         indexer = get_repo_indexer(self.repo_root)
@@ -393,18 +513,22 @@ class EngineeringSession:
         prompt += """
 
 INSTRUCTIONS:
-Output your code change using SEARCH/REPLACE blocks.
-Format:
-FILE: relative/path/to/file.py
+You must output your code change using explicit SEARCH/REPLACE blocks.
+Do NOT wrap the patch in markdown code fences (like ```python or ```diff).
+Do NOT include explanations, markdown headers, or conversational prose.
+The SEARCH block must be an exact, character-for-character copy of lines from the target file.
+
+EXAMPLE:
+FILE: math_utils.py
 <<<<<<< SEARCH
-exact lines to replace from target file
+def subtract(a, b):
+    return a + b
 =======
-new replacement lines
+def subtract(a, b):
+    return a - b
 >>>>>>> REPLACE
 
-You can include multiple blocks or multiple files.
-Ensure the text in SEARCH exactly matches lines in the file.
-Do not output conversational filler. Provide only the plan and the SEARCH/REPLACE block."""
+Now provide only the SEARCH/REPLACE block for the task above."""
 
         response = generate_raw(prompt)
         patch = self._extract_patch(response)
@@ -427,8 +551,21 @@ class SessionManager:
         self.sessions: Dict[str, EngineeringSession] = {}
         self._manager_lock = threading.Lock()
 
-    def start_session(self, task_prompt: str, repo_root: str, test_command: str) -> str:
-        session = EngineeringSession(task_prompt, repo_root, test_command)
+    def start_session(
+        self,
+        task_prompt: str,
+        repo_root: str,
+        test_command: str,
+        fallback_enabled: Optional[bool] = None,
+        eager_policy_check: Optional[bool] = None
+    ) -> str:
+        session = EngineeringSession(
+            task_prompt,
+            repo_root,
+            test_command,
+            fallback_enabled=fallback_enabled,
+            eager_policy_check=eager_policy_check
+        )
         with self._manager_lock:
             self.sessions[session.session_id] = session
         session.step()

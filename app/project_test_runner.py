@@ -22,6 +22,10 @@ class ProjectTestRunner:
                 return True
         return False
 
+    def is_command_allowed(self, command: str) -> bool:
+        """Public check to determine if a test command satisfies allowlist policy."""
+        return self._is_approved(command)
+
     def _truncate_output(self, text: str) -> str:
         if not text:
             return ""

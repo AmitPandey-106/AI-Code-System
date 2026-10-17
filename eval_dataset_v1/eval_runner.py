@@ -147,8 +147,15 @@ def main():
     
     from app.model import get_current_model_name
     active_model = get_current_model_name()
+    fallback_on = os.environ.get("LITECODER_FALLBACK_SYNTHESIZER", "").lower() == "true"
+    eager_policy_on = os.environ.get("LITECODER_EAGER_POLICY_CHECK", "").lower() == "true"
+    experiment_label = os.environ.get("LITECODER_EXPERIMENT_LABEL") or ("prompt_plus_fallback" if fallback_on else "prompt_only")
+
     env_metadata = {
         "model_name": active_model,
+        "experiment_label": experiment_label,
+        "fallback_synthesizer_enabled": fallback_on,
+        "eager_policy_check_enabled": eager_policy_on,
         "python_version": sys.version,
         "platform": sys.platform,
         "cpu_count": psutil.cpu_count(logical=True),
@@ -163,14 +170,15 @@ def main():
     }
     
     print(f"\nActive Model: {active_model}")
+    print(f"Experiment: {experiment_label} (Fallback: {fallback_on}, EagerPolicy: {eager_policy_on})")
     print("Running Evaluation Tasks on Integrated Engineering Loop...\n")
     eng_loop_results = []
     mode_d_results = []
     
     # Prepare output file
-    output_dir = "eval_results_phase6"
+    output_dir = os.environ.get("LITECODER_EVAL_DIR") or "eval_results_phase7b"
     os.makedirs(output_dir, exist_ok=True)
-    out_filename = os.environ.get("LITECODER_EVAL_OUT") or ("evaluation_results_instruct.json" if "instruct" in active_model.lower() else "evaluation_results.json")
+    out_filename = os.environ.get("LITECODER_EVAL_OUT") or f"evaluation_results_{experiment_label}.json"
     out_file = os.path.join(output_dir, out_filename)
 
     for task in ALL_TASKS:
