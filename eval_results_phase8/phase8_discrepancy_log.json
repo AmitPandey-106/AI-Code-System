@@ -1,0 +1,55 @@
+{
+  "audit_version": "1.0.0",
+  "benchmark_commit": "9ef5751",
+  "discrepancies": [
+    {
+      "id": "DISC-001",
+      "category": "Artifact Checksum Inconsistency",
+      "severity": "Medium",
+      "description": "PHASE8_ARCHITECTURE_REPORT.md Line 10 recorded Colab zip SHA256 as 'f798e9d252ec6124b276a241e7665dac7ba51f8fd0eb1a80adafa0a24b7771b3', whereas Section 5 Line 150 recorded '7a9ec59feed6a327d2ed0c9c2cffd198afbd3314a14b786c02e20ecba884ab40'.",
+      "cause": "The package builder was executed a second time after Section 6 was appended, updating the zip content and size (from 202,597 to 205,022 bytes). Section 5 was updated but Line 10 header retained the previous hash.",
+      "verified_actual_sha256": "7a9ec59feed6a327d2ed0c9c2cffd198afbd3314a14b786c02e20ecba884ab40",
+      "verified_actual_size_bytes": 205022
+    },
+    {
+      "id": "DISC-002",
+      "category": "Manifest Self-Reference Hash Mismatch",
+      "severity": "Low",
+      "description": "colab/COLAB_PACKAGE_MANIFEST.json contains an entry for itself with sha256 'c03dd8de1be951724b7fb92c7a4c1a91faf2d279720ab99b78e1017ba88f0b20', whereas the packed manifest file has sha256 '99196b0d3db32a578a6772c3d35a953491ca0fc964e23bfe59ac8e7daf567531'.",
+      "cause": "The manifest calculates file hashes prior to packaging and includes a pre-computed entry for itself, which is inherently altered when the manifest is serialized.",
+      "impact": "All other 64 packaged files have 100% exact matching hashes. Only the manifest's self-entry has a circular hash discrepancy."
+    },
+    {
+      "id": "DISC-003",
+      "category": "Duration Measurement Discrepancy",
+      "severity": "Low",
+      "description": "summary_config_e_autonomous.json reports total_duration_s = 4148.3s, whereas the sum of individual task duration_s in evaluation_results_config_e_autonomous.json is 3999.26s.",
+      "cause": "summary_config_e_autonomous.json records total benchmark wall-clock execution time (including model loading, temporary directory setup/teardown, indexer scans, and inter-task garbage collection), whereas per-task duration_s measures only the active run_task execution window.",
+      "difference_seconds": 149.04
+    },
+    {
+      "id": "DISC-004",
+      "category": "Multi-File Atomic Rollback Scope in Benchmark",
+      "severity": "Medium",
+      "description": "The architecture report stated that atomic rollback was verified on 100% of multi-file failures. However, in the benchmark run (Tasks 11-15), Step 1 failed during proposal dry-run validation (session.step()) before any patch was approved or applied to disk.",
+      "cause": "completed_files was empty ([]). While _rollback(snapshot) was called, no target files had been mutated on disk in the benchmark. Rollback of actual file mutations was proven in unit test test_multi_file_orchestrator_atomic_rollback, but was NOT exercised on disk in the benchmark.",
+      "evidence_status": "Rollback capability VERIFIED in unit tests; NOT EXERCISED on disk in benchmark tasks 11-15."
+    },
+    {
+      "id": "DISC-005",
+      "category": "Component Persistence Inactivity in Benchmark Loop",
+      "severity": "Medium",
+      "description": "eval_results_phase8/storage_config_e_autonomous/ was created but remained empty ([]). No repair experiences were ingested to repair_memory.json, and no strategy statistics were saved to strategy_stats.json.",
+      "cause": "In app/engineering_loop.py, RepairMemory and StrategySelector were instantiated without passing enabled=self.memory_enabled and enabled=self.strategy_enabled. Their internal is_enabled() checks defaulted to config.json ('MEMORY_ENABLED': false, 'STRATEGY_LEARNING_ENABLED': false), causing add_verified_experience() and record_outcome() to early-return.",
+      "impact": "Strategy prompts WERE selected and injected into model context, and memory retrieval WAS attempted. However, cross-task learning and memory growth were inactive during the benchmark."
+    },
+    {
+      "id": "DISC-006",
+      "category": "Environment Specification Ambiguity",
+      "severity": "Low",
+      "description": "The report header cited 'Model Identifier: Qwen/Qwen2.5-Coder-1.5B-Instruct (Local CPU / Colab T4)'.",
+      "cause": "Raw stdout in the task result JSON (platform win32, Python 3.10.11, rootdir: C:\\Users\\T14s\\AppData\\Local\\Temp\\...) proves that the benchmark was executed entirely on a Windows local CPU environment. There is no evidence of Colab T4 GPU execution for this run.",
+      "reconciled_fact": "Benchmark run was 100% local Windows CPU."
+    }
+  ]
+}
