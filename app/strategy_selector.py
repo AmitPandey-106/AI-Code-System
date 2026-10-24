@@ -2,7 +2,7 @@ import json
 import os
 import random
 import time
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 from app.repair_strategy import STRATEGIES, get_baseline_strategies
 
 STRATEGY_STATS_FILE = "data/strategy_stats.json"
@@ -12,28 +12,54 @@ STRATEGY_EXPLORATION_RATE = 0.20
 from app.config import config
 
 class StrategySelector:
-    def __init__(self):
+    def __init__(self, storage_dir: Optional[str] = None, enabled: Optional[bool] = None):
+        self.storage_dir = storage_dir
+        self.enabled = enabled
+        if storage_dir:
+            self.stats_file = os.path.join(storage_dir, "strategy_stats.json")
+            self.memory_file = os.path.join(storage_dir, "strategy_memory.json")
+        else:
+            self.stats_file = STRATEGY_STATS_FILE
+            self.memory_file = STRATEGY_MEMORY_FILE
         self.stats = self._load_stats()
+
+    def is_enabled(self) -> bool:
+        if self.enabled is not None:
+            return self.enabled
+        return bool(
+            config.get("STRATEGY_LEARNING_ENABLED") or
+            os.environ.get("LITECODER_STRATEGY_ENABLED", "").lower() in ("true", "1")
+        )
         
     def _load_stats(self) -> dict:
-        if os.path.exists(STRATEGY_STATS_FILE):
-            with open(STRATEGY_STATS_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
+        if os.path.exists(self.stats_file):
+            try:
+                with open(self.stats_file, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                return {}
         return {}
         
     def _save_stats(self):
-        os.makedirs(os.path.dirname(STRATEGY_STATS_FILE), exist_ok=True)
-        with open(STRATEGY_STATS_FILE, "w", encoding="utf-8") as f:
+        parent_dir = os.path.dirname(self.stats_file)
+        if parent_dir:
+            os.makedirs(parent_dir, exist_ok=True)
+        with open(self.stats_file, "w", encoding="utf-8") as f:
             json.dump(self.stats, f, indent=4)
             
     def _save_memory(self, record: dict):
-        os.makedirs(os.path.dirname(STRATEGY_MEMORY_FILE), exist_ok=True)
+        parent_dir = os.path.dirname(self.memory_file)
+        if parent_dir:
+            os.makedirs(parent_dir, exist_ok=True)
         memories = []
-        if os.path.exists(STRATEGY_MEMORY_FILE):
-            with open(STRATEGY_MEMORY_FILE, "r", encoding="utf-8") as f:
-                memories = json.load(f)
+        if os.path.exists(self.memory_file):
+            try:
+                with open(self.memory_file, "r", encoding="utf-8") as f:
+                    memories = json.load(f)
+            except Exception:
+                memories = []
         memories.append(record)
-        with open(STRATEGY_MEMORY_FILE, "w", encoding="utf-8") as f:
+        with open(self.memory_file, "w", encoding="utf-8") as f:
             json.dump(memories, f, indent=4)
 
     def select_strategy(self, error_type: str, attempt_number: int, previous_strategies: List[str], memory_available: bool, difficulty: str) -> dict:
@@ -56,7 +82,7 @@ class StrategySelector:
         if not available_candidates:
             available_candidates = candidates # If all tried, reuse
             
-        if not config.get("STRATEGY_LEARNING_ENABLED"):
+        if not self.is_enabled():
             selected = available_candidates[0]
             return {
                 "selected_strategy": selected,
@@ -141,7 +167,7 @@ class StrategySelector:
         
     def record_outcome(self, strategy_id: str, error_type: str, task: str, attempt_number: int, success: bool, tests_passed: bool, execution_passed: bool, duration_ms: int, feedback_id: str, security_violation: bool, timeout: bool):
         """Records the outcome and updates policy statistics."""
-        if not config.get("STRATEGY_LEARNING_ENABLED"):
+        if not self.is_enabled():
             return
             
         reward = self.compute_reward(success, tests_passed, attempt_number, duration_ms, error_type, security_violation, timeout)

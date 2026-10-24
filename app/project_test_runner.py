@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys
 import time
 import shutil
 from typing import Dict, Any, List, Optional
@@ -15,15 +16,72 @@ class ProjectTestRunner:
         self.default_timeout = 30
         self.max_output_length = 10000
 
+    def _validate_pytest_args(self, args: List[str]) -> bool:
+        """Validate that pytest arguments do not contain dangerous options or code injection."""
+        forbidden_flags = {
+            "--pdb",
+            "-c",
+            "--config-file",
+            "-o",
+            "--override-ini",
+            "--import-mode",
+            "--assert"
+        }
+        i = 0
+        while i < len(args):
+            arg = args[i]
+            # Check exact match or flag prefix
+            arg_lower = arg.lower()
+            for forbidden in forbidden_flags:
+                if arg_lower == forbidden or arg_lower.startswith(f"{forbidden}="):
+                    return False
+            # Check for shell metacharacters inside individual tokens
+            for dangerous in (";", "&", "|", "<", ">", "`", "$", "\n", "\r"):
+                if dangerous in arg:
+                    return False
+            i += 1
+        return True
+
     def _is_approved(self, command: str) -> bool:
+        if not command or not isinstance(command, str):
+            return False
         cmd_str = command.strip()
-        # Disallow dangerous shell operators / command chaining
-        for dangerous in (";", "&&", "||", "|", "&", "\n", "\r"):
+        if not cmd_str:
+            return False
+
+        # Disallow dangerous shell operators / command chaining / redirects / substitutions
+        for dangerous in (";", "&&", "||", "|", "&", "\n", "\r", "`", "$", ">", "<"):
             if dangerous in cmd_str:
                 return False
-        for allowed in self.allowed_commands:
-            if cmd_str.startswith(allowed):
-                return True
+
+        try:
+            tokens = shlex.split(cmd_str)
+        except Exception:
+            return False
+
+        if not tokens:
+            return False
+
+        exe = tokens[0].lower()
+        base_exe = os.path.basename(exe)
+        if base_exe.endswith(".exe"):
+            base_exe = base_exe[:-4]
+
+        # Allowed executables: pytest or python -m pytest
+        if base_exe == "pytest":
+            return self._validate_pytest_args(tokens[1:])
+        elif base_exe in ("python", "python3"):
+            if len(tokens) < 3:
+                return False
+            if tokens[1] != "-m":
+                return False
+            mod_name = os.path.basename(tokens[2]).lower()
+            if mod_name.endswith(".exe"):
+                mod_name = mod_name[:-4]
+            if mod_name != "pytest":
+                return False
+            return self._validate_pytest_args(tokens[3:])
+
         return False
 
     def is_command_allowed(self, command: str) -> bool:
@@ -86,15 +144,41 @@ class ProjectTestRunner:
         try:
             # We use shell=False for security, parse the command with shlex
             args = shlex.split(command)
-            resolved_exec = shutil.which(args[0])
-            if resolved_exec:
+            base_exe = os.path.basename(args[0]).lower()
+            if base_exe.endswith(".exe"):
+                base_exe = base_exe[:-4]
+
+            if base_exe in ("python", "python3"):
+                resolved_exec = shutil.which(args[0]) or sys.executable
                 args[0] = resolved_exec
+            else:
+                resolved_exec = shutil.which(args[0])
+                if resolved_exec:
+                    args[0] = resolved_exec
+
+            # Sanitized environment
+            clean_env = os.environ.copy()
+            for var in (
+                "LD_PRELOAD", "LD_LIBRARY_PATH", "DYLD_LIBRARY_PATH", "DYLD_INSERT_LIBRARIES",
+                "PYTHONSTARTUP", "PYTHONBREAKPOINT", "PYTHONINSPECT"
+            ):
+                clean_env.pop(var, None)
+            clean_env["PYTHONUNBUFFERED"] = "1"
+            clean_env["PYTHONDONTWRITEBYTECODE"] = "1"
+            
+            existing_pp = clean_env.get("PYTHONPATH", "")
+            if existing_pp:
+                clean_env["PYTHONPATH"] = f"{repo_root}{os.pathsep}{existing_pp}"
+            else:
+                clean_env["PYTHONPATH"] = repo_root
+
             result = subprocess.run(
                 args,
                 cwd=repo_root,
                 capture_output=True,
                 text=True,
-                timeout=timeout
+                timeout=timeout,
+                env=clean_env
             )
             
             duration_ms = int((time.time() - start_time) * 1000)
