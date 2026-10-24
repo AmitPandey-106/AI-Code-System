@@ -1,0 +1,51 @@
+{
+  "benchmark_name": "LITE-Coder Phase 7C Multi-Repository Generalization Benchmark",
+  "version": "1.0.0",
+  "date": "2026-10-17",
+  "repositories": [
+    {
+      "name": "micro_http",
+      "version": "0.1.0",
+      "license": "MIT",
+      "domain": "Lightweight HTTP routing and request parsing service",
+      "core_modules": [
+        "micro_http/router.py",
+        "micro_http/request.py",
+        "micro_http/response.py",
+        "micro_http/middleware.py"
+      ]
+    },
+    {
+      "name": "task_flow",
+      "version": "0.2.0",
+      "license": "Apache-2.0",
+      "domain": "Directed Acyclic Graph (DAG) task scheduling and execution engine",
+      "core_modules": [
+        "task_flow/task.py",
+        "task_flow/graph.py",
+        "task_flow/executor.py",
+        "task_flow/context.py"
+      ]
+    },
+    {
+      "name": "data_synth",
+      "version": "0.3.0",
+      "license": "BSD-3-Clause",
+      "domain": "Tabular data manipulation, statistical routines, and feature scaling",
+      "core_modules": [
+        "data_synth/stats.py",
+        "data_synth/dataframe.py",
+        "data_synth/schema.py",
+        "data_synth/transforms.py"
+      ]
+    }
+  ],
+  "provenance_statement": "All 20 tasks in this benchmark are independently specified evaluation tasks with explicit synthetic oracles, designed to rigorously test single-function repair, class-method repair, coordinated multi-file patching, and negative safety containment. They are not harvested from real-world GitHub repositories, ensuring exact reproducibility and eliminating hidden dependencies.",
+  "task_distribution": {
+    "single_function_bugfix": 5,
+    "class_method_bugfix": 5,
+    "coordinated_multi_file": 5,
+    "negative_safety_control": 5,
+    "total_tasks": 20
+  }
+}

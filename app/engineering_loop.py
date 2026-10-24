@@ -33,7 +33,11 @@ class EngineeringSession:
         repo_root: str,
         test_command: str,
         fallback_enabled: Optional[bool] = None,
-        eager_policy_check: Optional[bool] = None
+        eager_policy_check: Optional[bool] = None,
+        repo_index_enabled: Optional[bool] = None,
+        prompt_example_enabled: Optional[bool] = None,
+        memory_enabled: Optional[bool] = None,
+        strategy_enabled: Optional[bool] = None
     ):
         self.session_id = str(uuid.uuid4())
         self.task_prompt = task_prompt
@@ -58,6 +62,32 @@ class EngineeringSession:
                 config.get("EAGER_POLICY_CHECK_ENABLED", False)
             )
 
+        if repo_index_enabled is not None:
+            self.repo_index_enabled = repo_index_enabled
+        else:
+            self.repo_index_enabled = os.environ.get("LITECODER_REPO_INDEX", "true").lower() != "false"
+
+        if prompt_example_enabled is not None:
+            self.prompt_example_enabled = prompt_example_enabled
+        else:
+            self.prompt_example_enabled = os.environ.get("LITECODER_PROMPT_EXAMPLE", "true").lower() != "false"
+
+        if memory_enabled is not None:
+            self.memory_enabled = memory_enabled
+        else:
+            self.memory_enabled = (
+                os.environ.get("LITECODER_MEMORY_ENABLED", "").lower() == "true" or
+                config.get("MEMORY_ENABLED", False)
+            )
+
+        if strategy_enabled is not None:
+            self.strategy_enabled = strategy_enabled
+        else:
+            self.strategy_enabled = (
+                os.environ.get("LITECODER_STRATEGY_ENABLED", "").lower() == "true" or
+                config.get("STRATEGY_LEARNING_ENABLED", False)
+            )
+
         self.max_attempts = 3
         self.current_attempt = 1
         self.history: List[Dict[str, Any]] = []
@@ -72,6 +102,7 @@ class EngineeringSession:
         self.error_message = ""
         self.failure_category = "none"
         self.policy_event: Optional[Dict[str, Any]] = None
+        self.fallback_used = False
 
         self._lock = threading.Lock()
         self._cancelled = False
@@ -104,6 +135,7 @@ class EngineeringSession:
                 "last_syntax_error": self.last_syntax_error,
                 "current_diff": self.current_diff,
                 "current_patch_hash": self.current_patch_hash,
+                "fallback_used": getattr(self, "fallback_used", False),
                 "test_results": copy.deepcopy(self.current_test_results) if self.current_test_results else None
             }
 
@@ -143,10 +175,11 @@ class EngineeringSession:
                             self.state = EngineeringState.CANCELLED
                             return self.state
 
+                        self.current_plan = plan
                         if not patch:
                             if self.current_attempt < self.max_attempts:
                                 self.current_attempt += 1
-                                self.last_syntax_error = "Model response contained no parseable SEARCH/REPLACE blocks or unified diff."
+                                self.last_syntax_error = "Model response contained no parseable SEARCH/REPLACE blocks. You must use exact delimiters:\nFILE: path\n<<<<<<< SEARCH\n...\n=======\n...\n>>>>>>> REPLACE"
                                 self._record_history()
                                 continue  # Retry planning
                             else:
@@ -156,7 +189,6 @@ class EngineeringSession:
                                 self._record_history()
                                 return self.state
 
-                        self.current_plan = plan
                         self.current_diff = patch
                         self.state = EngineeringState.PATCH_PROPOSED
                 except Exception as e:
@@ -412,6 +444,7 @@ class EngineeringSession:
         if getattr(self, "fallback_enabled", False):
             synthesized = self._synthesize_single_function_fallback(text)
             if synthesized:
+                self.fallback_used = True
                 return synthesized
 
         return ""
@@ -444,8 +477,9 @@ class EngineeringSession:
             try:
                 tree = ast.parse(cleaned)
                 fns = [n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]
-                non_trivial = [n for n in tree.body if not (isinstance(n, ast.Expr) and isinstance(n.value, ast.Constant))]
-                if len(fns) == 1 and len(non_trivial) == 1:
+                other = [n for n in tree.body if not isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]
+                allowed_other = all(isinstance(n, (ast.Import, ast.ImportFrom, ast.Expr, ast.Pass)) for n in other)
+                if len(fns) == 1 and allowed_other:
                     candidate_ast = fns[0]
                     candidate_code = cleaned
                     break
@@ -498,32 +532,57 @@ class EngineeringSession:
         return synthesized
 
     def _do_planning(self):
-        indexer = get_repo_indexer(self.repo_root)
-        search_query = self.task_prompt
-        if self.current_diagnosis:
-            search_query += f" {self.current_diagnosis}"
-
-        context_results = indexer.search(search_query, top_k=3)
         context_str = ""
-        if context_results:
-            context_str = "REPOSITORY CONTEXT:\n"
-            for r in context_results:
-                context_str += f"File: {r['rel_path']}\n{r.get('snippet', '')}\n\n"
+        if getattr(self, "repo_index_enabled", True):
+            try:
+                indexer = get_repo_indexer(self.repo_root)
+                search_query = self.task_prompt
+                if self.current_diagnosis:
+                    search_query += f" {self.current_diagnosis}"
+                context_results = indexer.search(search_query, top_k=3)
+                if context_results:
+                    context_str = "REPOSITORY CONTEXT:\n"
+                    for r in context_results:
+                        context_str += f"File: {r['rel_path']}\n{r.get('snippet', '')}\n\n"
+            except Exception:
+                pass
 
-        prompt = f"{context_str}\n\nTASK:\n{self.task_prompt}"
+        prompt = f"{context_str}\n\nTASK:\n{self.task_prompt}" if context_str else f"TASK:\n{self.task_prompt}"
         if self.current_diagnosis:
             prompt += f"\n\nPREVIOUS TEST FAILURE DIAGNOSIS:\n{self.current_diagnosis}"
 
         if self.last_syntax_error:
             prompt += f"\n\nPREVIOUS PATCH VALIDATION ERROR:\n{self.last_syntax_error}\nEnsure SEARCH block exactly matches the target file."
 
-        prompt += """
+        if getattr(self, "memory_enabled", False):
+            try:
+                from app.repair_memory import RepairMemory
+                mem = RepairMemory()
+                experiences = mem.search_similar_experiences(self.task_prompt, "test_failure", self.current_diagnosis or "", "")
+                if experiences:
+                    prompt += f"\n\nSIMILAR REPAIR EXPERIENCE:\n{experiences[0].get('successful_fix', '')[:250]}"
+            except Exception:
+                pass
+
+        if getattr(self, "prompt_example_enabled", True):
+            prompt += """
 
 INSTRUCTIONS:
-You must output your code change using explicit SEARCH/REPLACE blocks.
-Do NOT wrap the patch in markdown code fences (like ```python or ```diff).
-Do NOT include explanations, markdown headers, or conversational prose.
-The SEARCH block must be an exact, character-for-character copy of lines from the target file.
+You must output your code change using explicit SEARCH/REPLACE blocks formatted exactly as:
+FILE: <relative_path>
+<<<<<<< SEARCH
+<exact lines to find>
+=======
+<replacement lines>
+>>>>>>> REPLACE
+
+CRITICAL FORMAT RULES:
+1. Always include the 'FILE: <relative_path>' line first.
+2. The search block must start with '<<<<<<< SEARCH' and end with '======='.
+3. The replace block must start with '=======' and end with '>>>>>>> REPLACE'.
+4. Do NOT omit '<<<<<<< ', '=======', or '>>>>>>> '. Do NOT write bare 'SEARCH' or 'REPLACE'.
+5. Do NOT wrap in markdown fences (like ```).
+6. Do NOT include explanations or conversational prose.
 
 EXAMPLE:
 FILE: math_utils.py
@@ -536,6 +595,12 @@ def subtract(a, b):
 >>>>>>> REPLACE
 
 Now provide only the SEARCH/REPLACE block for the task above."""
+        else:
+            prompt += """
+
+INSTRUCTIONS:
+Output your code change in SEARCH/REPLACE format.
+Provide only the code patch without markdown code fences or conversational prose."""
 
         response = generate_raw(prompt)
         patch = self._extract_patch(response)
@@ -564,14 +629,22 @@ class SessionManager:
         repo_root: str,
         test_command: str,
         fallback_enabled: Optional[bool] = None,
-        eager_policy_check: Optional[bool] = None
+        eager_policy_check: Optional[bool] = None,
+        repo_index_enabled: Optional[bool] = None,
+        prompt_example_enabled: Optional[bool] = None,
+        memory_enabled: Optional[bool] = None,
+        strategy_enabled: Optional[bool] = None
     ) -> str:
         session = EngineeringSession(
             task_prompt,
             repo_root,
             test_command,
             fallback_enabled=fallback_enabled,
-            eager_policy_check=eager_policy_check
+            eager_policy_check=eager_policy_check,
+            repo_index_enabled=repo_index_enabled,
+            prompt_example_enabled=prompt_example_enabled,
+            memory_enabled=memory_enabled,
+            strategy_enabled=strategy_enabled
         )
         with self._manager_lock:
             self.sessions[session.session_id] = session

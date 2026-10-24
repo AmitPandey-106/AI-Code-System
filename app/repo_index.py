@@ -122,7 +122,7 @@ class RepoIndexer:
             if isinstance(node, ast.ClassDef):
                 start = node.lineno - 1
                 end = node.end_lineno if getattr(node, 'end_lineno', None) else start + 1
-                snippet = "\\n".join(lines[start:end])
+                snippet = "\n".join(lines[start:end])
                 methods = [n.name for n in node.body if isinstance(n, ast.FunctionDef)]
                 symbols.append({
                     "type": "class",
@@ -137,7 +137,7 @@ class RepoIndexer:
             elif isinstance(node, ast.FunctionDef) or isinstance(node, ast.AsyncFunctionDef):
                 start = node.lineno - 1
                 end = node.end_lineno if getattr(node, 'end_lineno', None) else start + 1
-                snippet = "\\n".join(lines[start:end])
+                snippet = "\n".join(lines[start:end])
                 symbols.append({
                     "type": "function",
                     "name": node.name,

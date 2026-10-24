@@ -1,0 +1,522 @@
+{
+  "CONFIG_A": {
+    "metadata": {
+      "config_name": "CONFIG_A",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "timestamp": "2026-10-19 11:52:51",
+      "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+      "platform": "win32",
+      "flags": {
+        "repo_index_enabled": false,
+        "prompt_example_enabled": false,
+        "fallback_enabled": false,
+        "eager_policy_check": true,
+        "memory_enabled": false,
+        "strategy_enabled": false
+      }
+    },
+    "summary": {
+      "configuration": "CONFIG_A",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "total_tasks": 20,
+      "overall_accepted_count": 5,
+      "overall_acceptance_rate": 0.25,
+      "overall_wilson_ci_95": [
+        0.1119,
+        0.4687
+      ],
+      "functional_total": 15,
+      "functional_repaired_count": 0,
+      "functional_repair_rate": 0.0,
+      "functional_wilson_ci_95": [
+        0.0,
+        0.2039
+      ],
+      "safety_total": 5,
+      "safety_passed_count": 5,
+      "safety_pass_rate": 1.0,
+      "native_syntax_compliant_count": 1,
+      "native_syntax_compliance_rate": 0.05,
+      "fallback_assisted_count": 0,
+      "fallback_assisted_rate": 0.0,
+      "total_syntax_valid_count": 1,
+      "total_syntax_valid_rate": 0.05,
+      "average_attempts": 2.8,
+      "sum_task_durations_s": 2242.91,
+      "average_duration_s": 112.15,
+      "total_benchmark_duration_s": 2253.59,
+      "peak_memory_mb": 6437.1,
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 2,
+          "pass_rate": 0.25
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 2,
+          "pass_rate": 0.2857
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2
+        }
+      }
+    }
+  },
+  "CONFIG_B": {
+    "metadata": {
+      "config_name": "CONFIG_B",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "timestamp": "2026-10-19 12:42:21",
+      "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+      "platform": "win32",
+      "flags": {
+        "repo_index_enabled": false,
+        "prompt_example_enabled": true,
+        "fallback_enabled": false,
+        "eager_policy_check": true,
+        "memory_enabled": false,
+        "strategy_enabled": false
+      }
+    },
+    "summary": {
+      "configuration": "CONFIG_B",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "total_tasks": 20,
+      "overall_accepted_count": 5,
+      "overall_acceptance_rate": 0.25,
+      "overall_wilson_ci_95": [
+        0.1119,
+        0.4687
+      ],
+      "functional_total": 15,
+      "functional_repaired_count": 0,
+      "functional_repair_rate": 0.0,
+      "functional_wilson_ci_95": [
+        0.0,
+        0.2039
+      ],
+      "safety_total": 5,
+      "safety_passed_count": 5,
+      "safety_pass_rate": 1.0,
+      "native_syntax_compliant_count": 12,
+      "native_syntax_compliance_rate": 0.6,
+      "fallback_assisted_count": 0,
+      "fallback_assisted_rate": 0.0,
+      "total_syntax_valid_count": 12,
+      "total_syntax_valid_rate": 0.6,
+      "average_attempts": 2.8,
+      "sum_task_durations_s": 2905.95,
+      "average_duration_s": 145.3,
+      "total_benchmark_duration_s": 2921.38,
+      "peak_memory_mb": 6457.0,
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 2,
+          "pass_rate": 0.25
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 2,
+          "pass_rate": 0.2857
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2
+        }
+      }
+    }
+  },
+  "CONFIG_C": {
+    "metadata": {
+      "config_name": "CONFIG_C",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "timestamp": "2026-10-19 13:36:15",
+      "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+      "platform": "win32",
+      "flags": {
+        "repo_index_enabled": true,
+        "prompt_example_enabled": true,
+        "fallback_enabled": false,
+        "eager_policy_check": true,
+        "memory_enabled": false,
+        "strategy_enabled": false
+      }
+    },
+    "summary": {
+      "configuration": "CONFIG_C",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "total_tasks": 20,
+      "overall_accepted_count": 8,
+      "overall_acceptance_rate": 0.4,
+      "overall_wilson_ci_95": [
+        0.2188,
+        0.6134
+      ],
+      "functional_total": 15,
+      "functional_repaired_count": 3,
+      "functional_repair_rate": 0.2,
+      "functional_wilson_ci_95": [
+        0.0705,
+        0.4519
+      ],
+      "safety_total": 5,
+      "safety_passed_count": 5,
+      "safety_pass_rate": 1.0,
+      "native_syntax_compliant_count": 11,
+      "native_syntax_compliance_rate": 0.55,
+      "fallback_assisted_count": 0,
+      "fallback_assisted_rate": 0.0,
+      "total_syntax_valid_count": 11,
+      "total_syntax_valid_rate": 0.55,
+      "average_attempts": 2.5,
+      "sum_task_durations_s": 3083.73,
+      "average_duration_s": 154.19,
+      "total_benchmark_duration_s": 3215.49,
+      "peak_memory_mb": 7397.8,
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4,
+          "wilson_ci_95": [
+            0.1176,
+            0.7693
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2,
+          "wilson_ci_95": [
+            0.0362,
+            0.6245
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 3,
+          "pass_rate": 0.375
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 3,
+          "pass_rate": 0.4286
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4
+        }
+      }
+    }
+  },
+  "CONFIG_D": {
+    "metadata": {
+      "config_name": "CONFIG_D",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "timestamp": "2026-10-19 14:31:59",
+      "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+      "platform": "win32",
+      "flags": {
+        "repo_index_enabled": true,
+        "prompt_example_enabled": true,
+        "fallback_enabled": true,
+        "eager_policy_check": true,
+        "memory_enabled": false,
+        "strategy_enabled": false
+      }
+    },
+    "summary": {
+      "configuration": "CONFIG_D",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "total_tasks": 20,
+      "overall_accepted_count": 8,
+      "overall_acceptance_rate": 0.4,
+      "overall_wilson_ci_95": [
+        0.2188,
+        0.6134
+      ],
+      "functional_total": 15,
+      "functional_repaired_count": 3,
+      "functional_repair_rate": 0.2,
+      "functional_wilson_ci_95": [
+        0.0705,
+        0.4519
+      ],
+      "safety_total": 5,
+      "safety_passed_count": 5,
+      "safety_pass_rate": 1.0,
+      "native_syntax_compliant_count": 11,
+      "native_syntax_compliance_rate": 0.55,
+      "fallback_assisted_count": 0,
+      "fallback_assisted_rate": 0.0,
+      "total_syntax_valid_count": 11,
+      "total_syntax_valid_rate": 0.55,
+      "average_attempts": 2.5,
+      "sum_task_durations_s": 3178.39,
+      "average_duration_s": 158.92,
+      "total_benchmark_duration_s": 3318.3,
+      "peak_memory_mb": 7354.5,
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4,
+          "wilson_ci_95": [
+            0.1176,
+            0.7693
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2,
+          "wilson_ci_95": [
+            0.0362,
+            0.6245
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 3,
+          "pass_rate": 0.375
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 3,
+          "pass_rate": 0.4286
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4
+        }
+      }
+    }
+  },
+  "CONFIG_E": {
+    "metadata": {
+      "config_name": "CONFIG_E",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "timestamp": "2026-10-19 15:35:29",
+      "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+      "platform": "win32",
+      "flags": {
+        "repo_index_enabled": true,
+        "prompt_example_enabled": true,
+        "fallback_enabled": true,
+        "eager_policy_check": true,
+        "memory_enabled": true,
+        "strategy_enabled": true
+      }
+    },
+    "summary": {
+      "configuration": "CONFIG_E",
+      "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "total_tasks": 20,
+      "overall_accepted_count": 8,
+      "overall_acceptance_rate": 0.4,
+      "overall_wilson_ci_95": [
+        0.2188,
+        0.6134
+      ],
+      "functional_total": 15,
+      "functional_repaired_count": 3,
+      "functional_repair_rate": 0.2,
+      "functional_wilson_ci_95": [
+        0.0705,
+        0.4519
+      ],
+      "safety_total": 5,
+      "safety_passed_count": 5,
+      "safety_pass_rate": 1.0,
+      "native_syntax_compliant_count": 11,
+      "native_syntax_compliance_rate": 0.55,
+      "fallback_assisted_count": 0,
+      "fallback_assisted_rate": 0.0,
+      "total_syntax_valid_count": 11,
+      "total_syntax_valid_rate": 0.55,
+      "average_attempts": 2.5,
+      "sum_task_durations_s": 3638.67,
+      "average_duration_s": 181.93,
+      "total_benchmark_duration_s": 3790.03,
+      "peak_memory_mb": 7353.8,
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4,
+          "wilson_ci_95": [
+            0.1176,
+            0.7693
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2,
+          "wilson_ci_95": [
+            0.0362,
+            0.6245
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 3,
+          "pass_rate": 0.375
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 3,
+          "pass_rate": 0.4286
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4
+        }
+      }
+    }
+  }
+}

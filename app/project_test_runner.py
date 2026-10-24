@@ -17,6 +17,10 @@ class ProjectTestRunner:
 
     def _is_approved(self, command: str) -> bool:
         cmd_str = command.strip()
+        # Disallow dangerous shell operators / command chaining
+        for dangerous in (";", "&&", "||", "|", "&", "\n", "\r"):
+            if dangerous in cmd_str:
+                return False
         for allowed in self.allowed_commands:
             if cmd_str.startswith(allowed):
                 return True
