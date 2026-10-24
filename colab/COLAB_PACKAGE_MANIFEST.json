@@ -1,8 +1,8 @@
 {
   "package_name": "LITE-Coder Phase 8 Autonomous Engineering Package",
   "version": "1.0.0",
-  "total_files": 62,
-  "total_uncompressed_bytes": 859971,
+  "total_files": 65,
+  "total_uncompressed_bytes": 889022,
   "files": [
     {
       "path": "PHASE7C_EXPERIMENTAL_INTEGRITY_AUDIT.md",
@@ -13,6 +13,16 @@
       "path": "PHASE7C_MULTIREPO_BENCHMARK_REPORT.md",
       "size_bytes": 19935,
       "sha256": "439ee5ff0fe447a880d1f21de7559bc8408d8631c2bb5e93237c906aa70c14cc"
+    },
+    {
+      "path": "PHASE8_ARCHITECTURE_REPORT.md",
+      "size_bytes": 10061,
+      "sha256": "a687d996e5c44156822ffa9f7e1352592307f91de46743bdfc59f3b7a73afd25"
+    },
+    {
+      "path": "PHASE8_EXPERIMENT_PLAN.md",
+      "size_bytes": 7656,
+      "sha256": "c385ec6cced72cec9a9eb4c6a61356dacccb1f5a08dcd182ec56290ce8beb754"
     },
     {
       "path": "README.md",
@@ -130,6 +140,11 @@
       "sha256": "ba18d5c0de96e9662f04d27380791928b98892cf0261a1394863bc85008551be"
     },
     {
+      "path": "colab/COLAB_PACKAGE_MANIFEST.json",
+      "size_bytes": 10952,
+      "sha256": "470893ec235a08b9b4971e22e1a72099c717385293d0b939c4907eca9b21a56e"
+    },
+    {
       "path": "colab/COLAB_README.md",
       "size_bytes": 1730,
       "sha256": "c7ae4e77d976ee0410065d7d4e9ce630d603d256fdbc237c7da323da5880d1cb"
@@ -141,8 +156,8 @@
     },
     {
       "path": "config.json",
-      "size_bytes": 536,
-      "sha256": "6fe5f972d316f5393ec87d4335c76aa0f704397cf6b045f554887404d6660580"
+      "size_bytes": 535,
+      "sha256": "2b35d73d10a54289b654a659d7826129df795aadfac30e2e286104e1c0359d86"
     },
     {
       "path": "eval_dataset_v2/__init__.py",
@@ -286,8 +301,8 @@
     },
     {
       "path": "tests/test_phase8_architecture.py",
-      "size_bytes": 10341,
-      "sha256": "1b59694a64014ad5349522ea030fd313405c186d8a1272e98daff130e7e207d0"
+      "size_bytes": 10724,
+      "sha256": "c4abedd3c9fa0c73c6aa833dabbb9575be26883c0d8ba276bf5ad4f3a13bd55d"
     },
     {
       "path": "tests/test_project_test_runner.py",

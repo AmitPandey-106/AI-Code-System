@@ -7,7 +7,7 @@
 **Base Repository Commit:** `b940fa3` (`audit/phase7c-integrity`)  
 **Active Working Branch:** `feat/phase8-autonomous-engineering`  
 **Model Identifier:** `Qwen/Qwen2.5-Coder-1.5B-Instruct` (Local CPU / Colab T4)  
-**Colab Package:** `LITE_CODER_PHASE8_COLAB.zip` (SHA256: `b2b8a6f3e5b2ba11a723aac74048886cf2ee7e5b99f70c25ffc00a1a3ee9d779`)
+**Colab Package:** `LITE_CODER_PHASE8_COLAB.zip` (SHA256: `0f3da29bbe1b0385494babc1e082a96e3742c6fb9dfcb29b1f7738ee08aa74f8`)
 
 ---
 

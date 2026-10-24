@@ -199,6 +199,8 @@ def test_strategy_selector_isolation_and_rewards():
 # 5. MULTI-FILE ORCHESTRATOR TESTS (TRANSACTION & ROLLBACK)
 # ==============================================================================
 
+from unittest.mock import patch
+
 def test_multi_file_orchestrator_atomic_rollback():
     with tempfile.TemporaryDirectory() as td:
         file_a = os.path.join(td, "file_a.py")
@@ -218,11 +220,17 @@ def test_multi_file_orchestrator_atomic_rollback():
             fallback_enabled=True
         )
 
-        # Execute plan on files where tests will fail
-        res = orchestrator.execute_plan(
-            task_prompt="Update both files",
-            target_files=["file_a.py", "file_b.py"]
-        )
+        with patch("app.engineering_loop.generate_raw") as mock_gen:
+            mock_gen.side_effect = [
+                "FILE: file_a.py\n<<<<<<< SEARCH\n# ORIGINAL A\n=======\n# MODIFIED A\n>>>>>>> REPLACE",
+                "FILE: file_b.py\n<<<<<<< SEARCH\n# ORIGINAL B\n=======\n# MODIFIED B\n>>>>>>> REPLACE"
+            ]
+
+            # Execute plan on files where tests will fail
+            res = orchestrator.execute_plan(
+                task_prompt="Update both files",
+                target_files=["file_a.py", "file_b.py"]
+            )
 
         # Must report failure and rolled_back = True
         assert res.success is False
