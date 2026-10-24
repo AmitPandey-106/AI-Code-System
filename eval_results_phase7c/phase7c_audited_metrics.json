@@ -1,0 +1,758 @@
+{
+  "benchmark_metadata": {
+    "benchmark_name": "LITE-Coder Phase 7C Multi-Repository Generalization Benchmark",
+    "audit_date": "2026-10-24",
+    "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+    "hardware": "Local CPU (Windows x86_64, PyTorch, bfloat16/float32)",
+    "git_commit": "749e926 (eval/phase7c-multirepo)",
+    "audit_branch": "audit/phase7c-integrity",
+    "total_evaluations": 100
+  },
+  "configurations": {
+    "CONFIG_A": {
+      "label": "CONFIG_A",
+      "overall": {
+        "total_tasks": 20,
+        "passed_count": 5,
+        "acceptance_rate": 0.25,
+        "wilson_ci_95": [
+          0.1119,
+          0.4687
+        ]
+      },
+      "functional_repair": {
+        "total_tasks": 15,
+        "passed_count": 0,
+        "repair_rate": 0.0,
+        "wilson_ci_95": [
+          0.0,
+          0.2039
+        ]
+      },
+      "safety_controls": {
+        "total_tasks": 5,
+        "passed_count": 5,
+        "pass_rate": 1.0,
+        "wilson_ci_95": [
+          0.5655,
+          1.0
+        ]
+      },
+      "syntax_compliance": {
+        "all_tasks_denominator_n20": {
+          "count": 1,
+          "rate": 0.05,
+          "wilson_ci_95": [
+            0.0089,
+            0.2361
+          ]
+        },
+        "attempted_tasks_denominator_n18": {
+          "count": 1,
+          "rate": 0.0556,
+          "wilson_ci_95": [
+            0.0099,
+            0.2576
+          ]
+        },
+        "functional_tasks_denominator_n15": {
+          "count": 1,
+          "rate": 0.0667,
+          "wilson_ci_95": [
+            0.0119,
+            0.2982
+          ]
+        }
+      },
+      "outcome_funnel": {
+        "syntax_valid": 1,
+        "patches_applied": 0,
+        "tests_passed": 0,
+        "oracle_accepted_functional": 0,
+        "oracle_accepted_total": 5
+      },
+      "fallback_status": {
+        "fallback_enabled": false,
+        "fallback_invoked": 0,
+        "fallback_rejected": 0,
+        "fallback_validated": 0,
+        "fallback_assisted_repairs": 0
+      },
+      "memory_and_strategy": {
+        "memory_enabled": false,
+        "strategy_enabled": false,
+        "experiences_retrieved": 0,
+        "experiences_stored": 0,
+        "strategy_invocations": 0
+      },
+      "resource_metrics": {
+        "reported_model_calls": 38,
+        "audited_model_calls": 36,
+        "sum_task_duration_s": 2242.91,
+        "total_benchmark_duration_s": 2253.59,
+        "peak_rss_mb": 6437.1
+      },
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 2,
+          "pass_rate": 0.25
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 2,
+          "pass_rate": 0.2857
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2
+        }
+      }
+    },
+    "CONFIG_B": {
+      "label": "CONFIG_B",
+      "overall": {
+        "total_tasks": 20,
+        "passed_count": 5,
+        "acceptance_rate": 0.25,
+        "wilson_ci_95": [
+          0.1119,
+          0.4687
+        ]
+      },
+      "functional_repair": {
+        "total_tasks": 15,
+        "passed_count": 0,
+        "repair_rate": 0.0,
+        "wilson_ci_95": [
+          0.0,
+          0.2039
+        ]
+      },
+      "safety_controls": {
+        "total_tasks": 5,
+        "passed_count": 5,
+        "pass_rate": 1.0,
+        "wilson_ci_95": [
+          0.5655,
+          1.0
+        ]
+      },
+      "syntax_compliance": {
+        "all_tasks_denominator_n20": {
+          "count": 12,
+          "rate": 0.6,
+          "wilson_ci_95": [
+            0.3866,
+            0.7812
+          ]
+        },
+        "attempted_tasks_denominator_n18": {
+          "count": 12,
+          "rate": 0.6667,
+          "wilson_ci_95": [
+            0.4375,
+            0.8372
+          ]
+        },
+        "functional_tasks_denominator_n15": {
+          "count": 10,
+          "rate": 0.6667,
+          "wilson_ci_95": [
+            0.4171,
+            0.8482
+          ]
+        }
+      },
+      "outcome_funnel": {
+        "syntax_valid": 12,
+        "patches_applied": 0,
+        "tests_passed": 0,
+        "oracle_accepted_functional": 0,
+        "oracle_accepted_total": 5
+      },
+      "fallback_status": {
+        "fallback_enabled": false,
+        "fallback_invoked": 0,
+        "fallback_rejected": 0,
+        "fallback_validated": 0,
+        "fallback_assisted_repairs": 0
+      },
+      "memory_and_strategy": {
+        "memory_enabled": false,
+        "strategy_enabled": false,
+        "experiences_retrieved": 0,
+        "experiences_stored": 0,
+        "strategy_invocations": 0
+      },
+      "resource_metrics": {
+        "reported_model_calls": 38,
+        "audited_model_calls": 36,
+        "sum_task_duration_s": 2905.95,
+        "total_benchmark_duration_s": 2921.38,
+        "peak_rss_mb": 6457.0
+      },
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 2,
+          "pass_rate": 0.25
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 2,
+          "pass_rate": 0.2857
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2
+        }
+      }
+    },
+    "CONFIG_C": {
+      "label": "CONFIG_C",
+      "overall": {
+        "total_tasks": 20,
+        "passed_count": 8,
+        "acceptance_rate": 0.4,
+        "wilson_ci_95": [
+          0.2188,
+          0.6134
+        ]
+      },
+      "functional_repair": {
+        "total_tasks": 15,
+        "passed_count": 3,
+        "repair_rate": 0.2,
+        "wilson_ci_95": [
+          0.0705,
+          0.4519
+        ]
+      },
+      "safety_controls": {
+        "total_tasks": 5,
+        "passed_count": 5,
+        "pass_rate": 1.0,
+        "wilson_ci_95": [
+          0.5655,
+          1.0
+        ]
+      },
+      "syntax_compliance": {
+        "all_tasks_denominator_n20": {
+          "count": 11,
+          "rate": 0.55,
+          "wilson_ci_95": [
+            0.3421,
+            0.7418
+          ]
+        },
+        "attempted_tasks_denominator_n18": {
+          "count": 11,
+          "rate": 0.6111,
+          "wilson_ci_95": [
+            0.3862,
+            0.7969
+          ]
+        },
+        "functional_tasks_denominator_n15": {
+          "count": 8,
+          "rate": 0.5333,
+          "wilson_ci_95": [
+            0.3012,
+            0.7519
+          ]
+        }
+      },
+      "outcome_funnel": {
+        "syntax_valid": 11,
+        "patches_applied": 4,
+        "tests_passed": 3,
+        "oracle_accepted_functional": 3,
+        "oracle_accepted_total": 8
+      },
+      "fallback_status": {
+        "fallback_enabled": false,
+        "fallback_invoked": 0,
+        "fallback_rejected": 0,
+        "fallback_validated": 0,
+        "fallback_assisted_repairs": 0
+      },
+      "memory_and_strategy": {
+        "memory_enabled": false,
+        "strategy_enabled": false,
+        "experiences_retrieved": 0,
+        "experiences_stored": 0,
+        "strategy_invocations": 0
+      },
+      "resource_metrics": {
+        "reported_model_calls": 32,
+        "audited_model_calls": 30,
+        "sum_task_duration_s": 3083.73,
+        "total_benchmark_duration_s": 3215.49,
+        "peak_rss_mb": 7397.8
+      },
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4,
+          "wilson_ci_95": [
+            0.1176,
+            0.7693
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2,
+          "wilson_ci_95": [
+            0.0362,
+            0.6245
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 3,
+          "pass_rate": 0.375
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 3,
+          "pass_rate": 0.4286
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4
+        }
+      }
+    },
+    "CONFIG_D": {
+      "label": "CONFIG_D",
+      "overall": {
+        "total_tasks": 20,
+        "passed_count": 8,
+        "acceptance_rate": 0.4,
+        "wilson_ci_95": [
+          0.2188,
+          0.6134
+        ]
+      },
+      "functional_repair": {
+        "total_tasks": 15,
+        "passed_count": 3,
+        "repair_rate": 0.2,
+        "wilson_ci_95": [
+          0.0705,
+          0.4519
+        ]
+      },
+      "safety_controls": {
+        "total_tasks": 5,
+        "passed_count": 5,
+        "pass_rate": 1.0,
+        "wilson_ci_95": [
+          0.5655,
+          1.0
+        ]
+      },
+      "syntax_compliance": {
+        "all_tasks_denominator_n20": {
+          "count": 11,
+          "rate": 0.55,
+          "wilson_ci_95": [
+            0.3421,
+            0.7418
+          ]
+        },
+        "attempted_tasks_denominator_n18": {
+          "count": 11,
+          "rate": 0.6111,
+          "wilson_ci_95": [
+            0.3862,
+            0.7969
+          ]
+        },
+        "functional_tasks_denominator_n15": {
+          "count": 8,
+          "rate": 0.5333,
+          "wilson_ci_95": [
+            0.3012,
+            0.7519
+          ]
+        }
+      },
+      "outcome_funnel": {
+        "syntax_valid": 11,
+        "patches_applied": 4,
+        "tests_passed": 3,
+        "oracle_accepted_functional": 3,
+        "oracle_accepted_total": 8
+      },
+      "fallback_status": {
+        "fallback_enabled": true,
+        "fallback_invoked": 0,
+        "fallback_rejected": 0,
+        "fallback_validated": 0,
+        "fallback_assisted_repairs": 0
+      },
+      "memory_and_strategy": {
+        "memory_enabled": false,
+        "strategy_enabled": false,
+        "experiences_retrieved": 0,
+        "experiences_stored": 0,
+        "strategy_invocations": 0
+      },
+      "resource_metrics": {
+        "reported_model_calls": 32,
+        "audited_model_calls": 30,
+        "sum_task_duration_s": 3178.39,
+        "total_benchmark_duration_s": 3318.3,
+        "peak_rss_mb": 7354.5
+      },
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4,
+          "wilson_ci_95": [
+            0.1176,
+            0.7693
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2,
+          "wilson_ci_95": [
+            0.0362,
+            0.6245
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 3,
+          "pass_rate": 0.375
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 3,
+          "pass_rate": 0.4286
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4
+        }
+      }
+    },
+    "CONFIG_E": {
+      "label": "CONFIG_E",
+      "overall": {
+        "total_tasks": 20,
+        "passed_count": 8,
+        "acceptance_rate": 0.4,
+        "wilson_ci_95": [
+          0.2188,
+          0.6134
+        ]
+      },
+      "functional_repair": {
+        "total_tasks": 15,
+        "passed_count": 3,
+        "repair_rate": 0.2,
+        "wilson_ci_95": [
+          0.0705,
+          0.4519
+        ]
+      },
+      "safety_controls": {
+        "total_tasks": 5,
+        "passed_count": 5,
+        "pass_rate": 1.0,
+        "wilson_ci_95": [
+          0.5655,
+          1.0
+        ]
+      },
+      "syntax_compliance": {
+        "all_tasks_denominator_n20": {
+          "count": 11,
+          "rate": 0.55,
+          "wilson_ci_95": [
+            0.3421,
+            0.7418
+          ]
+        },
+        "attempted_tasks_denominator_n18": {
+          "count": 11,
+          "rate": 0.6111,
+          "wilson_ci_95": [
+            0.3862,
+            0.7969
+          ]
+        },
+        "functional_tasks_denominator_n15": {
+          "count": 8,
+          "rate": 0.5333,
+          "wilson_ci_95": [
+            0.3012,
+            0.7519
+          ]
+        }
+      },
+      "outcome_funnel": {
+        "syntax_valid": 11,
+        "patches_applied": 4,
+        "tests_passed": 3,
+        "oracle_accepted_functional": 3,
+        "oracle_accepted_total": 8
+      },
+      "fallback_status": {
+        "fallback_enabled": true,
+        "fallback_invoked": 0,
+        "fallback_rejected": 0,
+        "fallback_validated": 0,
+        "fallback_assisted_repairs": 0
+      },
+      "memory_and_strategy": {
+        "memory_enabled": true,
+        "strategy_enabled": true,
+        "experiences_retrieved": 0,
+        "experiences_stored": 0,
+        "strategy_invocations": 0
+      },
+      "resource_metrics": {
+        "reported_model_calls": 32,
+        "audited_model_calls": 30,
+        "sum_task_duration_s": 3638.67,
+        "total_benchmark_duration_s": 3790.03,
+        "peak_rss_mb": 7353.8
+      },
+      "by_category": {
+        "single_function_bugfix": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4,
+          "wilson_ci_95": [
+            0.1176,
+            0.7693
+          ]
+        },
+        "class_method_bugfix": {
+          "total": 5,
+          "passed": 1,
+          "pass_rate": 0.2,
+          "wilson_ci_95": [
+            0.0362,
+            0.6245
+          ]
+        },
+        "coordinated_multi_file": {
+          "total": 5,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "wilson_ci_95": [
+            0.0,
+            0.4345
+          ]
+        },
+        "negative_safety_control": {
+          "total": 5,
+          "passed": 5,
+          "pass_rate": 1.0,
+          "wilson_ci_95": [
+            0.5655,
+            1.0
+          ]
+        }
+      },
+      "by_repository": {
+        "micro_http": {
+          "total": 8,
+          "passed": 3,
+          "pass_rate": 0.375
+        },
+        "task_flow": {
+          "total": 7,
+          "passed": 3,
+          "pass_rate": 0.4286
+        },
+        "data_synth": {
+          "total": 5,
+          "passed": 2,
+          "pass_rate": 0.4
+        }
+      }
+    }
+  },
+  "pooled_safety": {
+    "total_safety_sessions": 25,
+    "passed_safety_sessions": 25,
+    "safety_rate": 1.0,
+    "wilson_ci_95": [
+      0.8668,
+      1.0
+    ],
+    "unauthorized_executions": 0,
+    "shell_chaining_escapes": 0,
+    "path_traversal_escapes": 0,
+    "stale_mutations_permitted": 0
+  },
+  "discrepancies": [
+    {
+      "id": "DISC-01",
+      "item": "Syntax Compliance Denominator",
+      "reported_denominator": "N=20 (All tasks including unattempted safety tasks)",
+      "audited_denominator": "N=18 (Tasks attempting patch generation) and N=15 (Functional tasks only)",
+      "impact": "Config B syntax compliance increases from 60.0% (12/20) to 66.7% (12/18). Configs C, D, E increase from 55.0% (11/20) to 61.1% (11/18). Config A increases from 5.0% (1/20) to 5.6% (1/18)."
+    },
+    {
+      "id": "DISC-02",
+      "item": "Model Call Overcounting on Preflight Security Rejections",
+      "reported_value": "1 model call on Tasks 16 and 19",
+      "audited_value": "0 model calls on Tasks 16 and 19 (aborted at session_init in 0.0s)",
+      "impact": "Total model invocations per suite was 42, not 44."
+    },
+    {
+      "id": "DISC-03",
+      "item": "Fallback Synthesizer Inactivity in Config D and E",
+      "reported_value": "Fallback Enabled in Config D & E, but Fallback-Assisted Repairs = 0.0%",
+      "audited_value": "Fallback was never invoked (0 invocations) because the prompt format instructions successfully induced the model to emit <<<<<<< SEARCH on 100% of code-generating tasks.",
+      "impact": "Configs C, D, and E followed identical execution paths."
+    },
+    {
+      "id": "DISC-04",
+      "item": "Repair Memory & Strategy Selector Cold-Start Inactivity in Config E",
+      "reported_value": "Config E full framework with Repair Memory and Strategy Selector",
+      "audited_value": "data/repair_memory.json was empty ([]), 0 experiences were retrieved, 0 were injected, and strategy_enabled was not wired into planning.",
+      "impact": "Config E did not experience functional drift or regression, but operated as a null-op relative to Config C and D."
+    },
+    {
+      "id": "DISC-05",
+      "item": "Outcome Disaggregation (Applied vs Tests Pass vs Accepted)",
+      "reported_value": "Acceptance rate and syntax compliance reported; applied patches not separately tabulated",
+      "audited_value": "In Config C/D/E: 11 Syntax Valid -> 4 Applied to disk (Tasks 01, 04, 09, 14) -> 3 Tests Passed (01, 04, 09) -> 3 Functional Accepted (01, 04, 09).",
+      "impact": "Clarifies that Task 14 passed syntax and applied cleanly, but failed downstream test assertions."
+    }
+  ]
+}
