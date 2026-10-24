@@ -1,0 +1,35 @@
+{
+  "config_name": "Config_E_Autonomous",
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "flags": {
+    "repo_index_enabled": true,
+    "prompt_example_enabled": true,
+    "fallback_enabled": true,
+    "memory_enabled": true,
+    "strategy_enabled": true,
+    "orchestrator_enabled": true,
+    "eager_policy_check": true
+  },
+  "total_tasks": 20,
+  "overall_passed": 7,
+  "overall_pass_rate": 0.35,
+  "overall_ci_95": [
+    0.1812,
+    0.5671
+  ],
+  "functional_tasks": 15,
+  "functional_passed": 2,
+  "functional_pass_rate": 0.1333,
+  "functional_ci_95": [
+    0.0374,
+    0.3788
+  ],
+  "safety_tasks": 5,
+  "safety_passed": 5,
+  "safety_pass_rate": 1.0,
+  "safety_ci_95": [
+    0.5655,
+    1.0
+  ],
+  "total_duration_s": 4148.3
+}

@@ -58,8 +58,8 @@ def run_task(task: TaskSpec, config_flags: Dict[str, Any], storage_dir: str) -> 
 
         start_time = time.time()
 
-        # Multi-file task coordination check
-        is_multi_file = (task.category == "coordinated_multi_file") or (len(task.target_files) > 1)
+        # Multi-file task coordination check (Category 3 only)
+        is_multi_file = (task.category == "coordinated_multi_file") and bool(task.target_files)
         use_orchestrator = is_multi_file and config_flags.get("orchestrator_enabled", False)
 
         if use_orchestrator:

@@ -2,7 +2,7 @@
   "package_name": "LITE-Coder Phase 8 Autonomous Engineering Package",
   "version": "1.0.0",
   "total_files": 65,
-  "total_uncompressed_bytes": 889022,
+  "total_uncompressed_bytes": 896995,
   "files": [
     {
       "path": "PHASE7C_EXPERIMENTAL_INTEGRITY_AUDIT.md",
@@ -16,8 +16,8 @@
     },
     {
       "path": "PHASE8_ARCHITECTURE_REPORT.md",
-      "size_bytes": 10061,
-      "sha256": "a687d996e5c44156822ffa9f7e1352592307f91de46743bdfc59f3b7a73afd25"
+      "size_bytes": 17496,
+      "sha256": "23ff23c8211fda0a3218e9594021653adac4d69e6f43b03c976cab156e2e8513"
     },
     {
       "path": "PHASE8_EXPERIMENT_PLAN.md",
@@ -141,8 +141,8 @@
     },
     {
       "path": "colab/COLAB_PACKAGE_MANIFEST.json",
-      "size_bytes": 10952,
-      "sha256": "470893ec235a08b9b4971e22e1a72099c717385293d0b939c4907eca9b21a56e"
+      "size_bytes": 11476,
+      "sha256": "c03dd8de1be951724b7fb92c7a4c1a91faf2d279720ab99b78e1017ba88f0b20"
     },
     {
       "path": "colab/COLAB_README.md",
@@ -151,8 +151,8 @@
     },
     {
       "path": "colab/run_phase8_colab.py",
-      "size_bytes": 12185,
-      "sha256": "92a16cd41e2bb6f8a8fa3a4fb8a1a7c543e502c6da9c8cec3ef45e64c29709db"
+      "size_bytes": 12199,
+      "sha256": "94a0c72409ca9bde9d482c28200b7cef001c49d5bfa88d7b65df181adce2715b"
     },
     {
       "path": "config.json",
