@@ -59,11 +59,11 @@ def test_pytest_dangerous_flag_boundaries():
 
 def test_untested_attack_surface_analysis():
     runner = ProjectTestRunner()
-    # Inspect flags that are NOT blocked by current allowlist
+    # Phase 8.1 closes the plugin-loading surface recorded by the historical audit
     # For example, -p plugin can load plugins if installed or in pythonpath
     plugin_flag_allowed = runner.is_command_allowed("pytest -p my_plugin")
-    # Documents that -p is currently not blocked by _validate_pytest_args
-    assert plugin_flag_allowed is True
+    # User-supplied plugin loading must now be rejected
+    assert plugin_flag_allowed is False
 
 def test_working_directory_validation():
     runner = ProjectTestRunner()

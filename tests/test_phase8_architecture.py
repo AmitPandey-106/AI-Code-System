@@ -217,7 +217,8 @@ def test_multi_file_orchestrator_atomic_rollback():
         orchestrator = MultiFileEngineeringOrchestrator(
             repo_root=td,
             test_command="pytest test_ab.py",
-            fallback_enabled=True
+            fallback_enabled=True,
+            approval_callback=lambda proposal: True
         )
 
         with patch("app.engineering_loop.generate_raw") as mock_gen:

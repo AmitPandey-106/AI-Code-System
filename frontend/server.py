@@ -37,7 +37,33 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
+    def _proxy_engineering(self):
+        # Only this fixed route family is proxied; never accept an arbitrary URL.
+        path = self.path.removeprefix('/api')
+        data = None
+        if self.command == 'POST':
+            length = int(self.headers.get('Content-Length', 0))
+            if length > 65536:
+                self.send_error(413, "Request too large")
+                return
+            data = self.rfile.read(length)
+        try:
+            req = urllib.request.Request(backend_url + path, data=data,
+                headers={'Content-Type': 'application/json'}, method=self.command)
+            with urllib.request.urlopen(req, timeout=30) as response:
+                status, body = response.status, response.read()
+        except urllib.error.HTTPError as exc:
+            status, body = exc.code, exc.read()
+        except Exception as exc:
+            status, body = 502, json.dumps({'detail': str(exc)}).encode()
+        self.send_response(status)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self):
+        if self.path.startswith('/api/engineering/'):
+            return self._proxy_engineering()
         if self.path == '/api/status':
             try:
                 req = urllib.request.Request(f"{backend_url}/", method='GET')
@@ -60,6 +86,8 @@ class ProxyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+        if self.path.startswith('/api/engineering/'):
+            return self._proxy_engineering()
         if self.path in ('/api/generate', '/api/plan'):
             endpoint = self.path.replace('/api/', '')
             content_length = int(self.headers.get('Content-Length', 0))

@@ -2,6 +2,10 @@ import json
 import os
 import random
 import time
+import math
+from pathlib import Path
+from filelock import FileLock
+from app.file_transaction import atomic_write
 from typing import Dict, List, Tuple, Optional
 from app.repair_strategy import STRATEGIES, get_baseline_strategies
 
@@ -21,22 +25,32 @@ class StrategySelector:
         else:
             self.stats_file = STRATEGY_STATS_FILE
             self.memory_file = STRATEGY_MEMORY_FILE
-        self.stats = self._load_stats()
+        self.warnings = []
+        self.stats = self._load_stats() if self.is_enabled() else {}
 
     def is_enabled(self) -> bool:
         if self.enabled is not None:
             return self.enabled
-        return bool(
-            config.get("STRATEGY_LEARNING_ENABLED") or
-            os.environ.get("LITECODER_STRATEGY_ENABLED", "").lower() in ("true", "1")
-        )
-        
+        if "LITECODER_STRATEGY_ENABLED" in os.environ:
+            return os.environ["LITECODER_STRATEGY_ENABLED"].lower() in ("true", "1")
+        return bool(config.get("STRATEGY_LEARNING_ENABLED", False))
+
     def _load_stats(self) -> dict:
         if os.path.exists(self.stats_file):
             try:
                 with open(self.stats_file, "r", encoding="utf-8") as f:
-                    return json.load(f)
-            except Exception:
+                    data = json.load(f)
+                    if not isinstance(data, dict):
+                        raise ValueError("incompatible strategy schema")
+                    for strategy, errors in data.items():
+                        if strategy not in STRATEGIES or not isinstance(errors, dict):
+                            raise ValueError("invalid strategy record")
+                        for values in errors.values():
+                            if not isinstance(values, dict) or any(not isinstance(values.get(k), (int, float)) or not math.isfinite(values[k]) or values[k] < 0 for k in ("total_attempts", "successes", "failures")) or not isinstance(values.get("reward"), (int, float)) or not math.isfinite(values["reward"]):
+                                raise ValueError("invalid strategy counters")
+                    return data
+            except (ValueError, OSError) as exc:
+                self.warnings.append(f"Strategy load failed: {exc}")
                 return {}
         return {}
         
@@ -44,8 +58,7 @@ class StrategySelector:
         parent_dir = os.path.dirname(self.stats_file)
         if parent_dir:
             os.makedirs(parent_dir, exist_ok=True)
-        with open(self.stats_file, "w", encoding="utf-8") as f:
-            json.dump(self.stats, f, indent=4)
+        atomic_write(Path(self.stats_file), json.dumps(self.stats, indent=2).encode(), 0o600)
             
     def _save_memory(self, record: dict):
         parent_dir = os.path.dirname(self.memory_file)
@@ -58,9 +71,13 @@ class StrategySelector:
                     memories = json.load(f)
             except Exception:
                 memories = []
+        if not isinstance(memories, list):
+            memories = []
+        if any(m.get("feedback_id") == record["feedback_id"] and m.get("attempt_number") == record["attempt_number"] and m.get("strategy_id") == record["strategy_id"] for m in memories if isinstance(m, dict)):
+            return False
         memories.append(record)
-        with open(self.memory_file, "w", encoding="utf-8") as f:
-            json.dump(memories, f, indent=4)
+        atomic_write(Path(self.memory_file), json.dumps(memories, indent=2).encode(), 0o600)
+        return True
 
     def select_strategy(self, error_type: str, attempt_number: int, previous_strategies: List[str], memory_available: bool, difficulty: str) -> dict:
         """Selects a strategy for the current attempt."""
@@ -168,53 +185,63 @@ class StrategySelector:
     def record_outcome(self, strategy_id: str, error_type: str, task: str, attempt_number: int, success: bool, tests_passed: bool, execution_passed: bool, duration_ms: int, feedback_id: str, security_violation: bool, timeout: bool):
         """Records the outcome and updates policy statistics."""
         if not self.is_enabled():
-            return
+            return False
+        if strategy_id not in STRATEGIES or attempt_number < 1 or duration_ms < 0:
+            return False
+        if success and (not tests_passed or not execution_passed or security_violation or timeout):
+            return False
+        Path(self.stats_file).parent.mkdir(parents=True, exist_ok=True)
+        with FileLock(self.stats_file + ".lock", timeout=10):
+            self.stats = self._load_stats()
             
-        reward = self.compute_reward(success, tests_passed, attempt_number, duration_ms, error_type, security_violation, timeout)
+            reward = self.compute_reward(success, tests_passed, attempt_number, duration_ms, error_type, security_violation, timeout)
         
-        # Update Memory
-        record = {
-            "strategy_id": strategy_id,
-            "error_type": error_type,
-            "task_category": "general",
-            "attempt_number": attempt_number,
-            "success": success,
-            "tests_passed": tests_passed,
-            "execution_passed": execution_passed,
-            "duration_ms": duration_ms,
-            "reward": reward,
-            "timestamp": time.time(),
-            "feedback_id": feedback_id
-        }
-        self._save_memory(record)
-        
-        # Update Policy
-        if strategy_id not in self.stats:
-            self.stats[strategy_id] = {}
-            
-        if error_type not in self.stats[strategy_id]:
-            self.stats[strategy_id][error_type] = {
-                "total_attempts": 0,
-                "successes": 0,
-                "failures": 0,
-                "reward": 0.0,
-                "average_attempts": 0.0,
-                "average_runtime_ms": 0.0
+            # Update Memory
+            record = {
+                "strategy_id": strategy_id,
+                "error_type": error_type,
+                "task_category": "general",
+                "attempt_number": attempt_number,
+                "success": success,
+                "tests_passed": tests_passed,
+                "execution_passed": execution_passed,
+                "duration_ms": duration_ms,
+                "reward": reward,
+                "timestamp": time.time(),
+                "feedback_id": feedback_id
             }
-            
-        st = self.stats[strategy_id][error_type]
-        st["total_attempts"] += 1
-        if success:
-            st["successes"] += 1
-        else:
-            st["failures"] += 1
-            
-        st["reward"] += reward
-        st["average_runtime_ms"] = ((st["average_runtime_ms"] * (st["total_attempts"] - 1)) + duration_ms) / max(1, st["total_attempts"])
-        st["average_attempts"] = ((st["average_attempts"] * (st["total_attempts"] - 1)) + attempt_number) / max(1, st["total_attempts"])
+            if not self._save_memory(record):
+                return False
         
-        self._save_stats()
+            # Update Policy
+            if strategy_id not in self.stats:
+                self.stats[strategy_id] = {}
+            
+            if error_type not in self.stats[strategy_id]:
+                self.stats[strategy_id][error_type] = {
+                    "total_attempts": 0,
+                    "successes": 0,
+                    "failures": 0,
+                    "reward": 0.0,
+                    "average_attempts": 0.0,
+                    "average_runtime_ms": 0.0
+                }
+            
+            st = self.stats[strategy_id][error_type]
+            st["total_attempts"] += 1
+            if success:
+                st["successes"] += 1
+            else:
+                st["failures"] += 1
+            
+            st["reward"] += reward
+            st["average_runtime_ms"] = ((st["average_runtime_ms"] * (st["total_attempts"] - 1)) + duration_ms) / max(1, st["total_attempts"])
+            st["average_attempts"] = ((st["average_attempts"] * (st["total_attempts"] - 1)) + attempt_number) / max(1, st["total_attempts"])
         
+            self._save_stats()
+        
+            return True
+
     def reset(self):
         """Clears in-memory statistics to ensure isolation between experiments."""
         self.stats = {}

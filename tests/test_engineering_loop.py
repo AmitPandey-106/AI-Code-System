@@ -29,7 +29,7 @@ def mock_generate_raw_repair(prompt: str) -> str:
 +++ b/test_math.py
 @@ -1,2 +1,2 @@
  def add(a, b):
--    return a * b
+-    return a - b
 +    return a + b
 ```
 """
@@ -98,7 +98,7 @@ def test_repair_budget_exhaustion(temp_repo, monkeypatch):
 +++ b/test_math.py
 @@ -1,2 +1,2 @@
  def add(a, b):
--    return a * b
+-    return a - b
 +    return a * b
 ```
 """)

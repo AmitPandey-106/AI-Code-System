@@ -211,7 +211,10 @@ def add(a, b):
 
     session.source_file_hashes = hashes
     session.current_patch_hash = hashlib.sha256(patch.encode("utf-8")).hexdigest()
-    session.state = EngineeringState.AWAITING_APPROVAL
+    # Obtain approval state through actual validation rather than assigning it.
+    with __import__("unittest.mock", fromlist=["patch"]).patch("app.engineering_loop.generate_raw", return_value=session.current_diff):
+        session.step()
+    assert session.state == EngineeringState.AWAITING_APPROVAL
 
     # External modification to calc.py on disk
     with open(os.path.join(repo_env, "calc.py"), "w", encoding="utf-8") as f:
@@ -286,7 +289,10 @@ def add(a, b):
 """
     session.current_patch_hash = hashlib.sha256(session.current_diff.encode("utf-8")).hexdigest()
     session.source_file_hashes = {"calc.py": session._compute_file_hash("calc.py")}
-    session.state = EngineeringState.AWAITING_APPROVAL
+    # Obtain approval state through actual validation rather than assigning it.
+    with __import__("unittest.mock", fromlist=["patch"]).patch("app.engineering_loop.generate_raw", return_value=session.current_diff):
+        session.step()
+    assert session.state == EngineeringState.AWAITING_APPROVAL
 
     # First approval succeeds
     assert session.approve() is True

@@ -1,0 +1,17 @@
+# Versions from the verified Windows CPU environment; Colab GPU installation is unverified.
+torch==2.11.0
+transformers==5.7.0
+accelerate==1.13.0
+peft==0.19.1
+safetensors==0.7.0
+sentence-transformers==6.0.0
+faiss-cpu==1.15.0
+numpy==2.2.6
+fastapi==0.136.1
+uvicorn==0.46.0
+pydantic==2.13.3
+psutil==7.2.2
+datasets==4.8.5
+filelock==3.29.0
+pytest==9.1.1
+httpx==0.28.1

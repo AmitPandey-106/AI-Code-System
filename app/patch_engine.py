@@ -1,4 +1,6 @@
 import os
+import ast
+from app.file_transaction import FileTransaction, safe_path, read_bytes, digest
 import re
 import hashlib
 from typing import Dict, Any, List, Optional, Tuple
@@ -8,39 +10,11 @@ class PatchEngine:
         self.repo_root = os.path.abspath(repo_root)
 
     def _is_safe_path(self, path: str) -> bool:
-        if not path or os.path.isabs(path):
+        try:
+            safe_path(self.repo_root, path)
+            return True
+        except (ValueError, OSError):
             return False
-        # Normalize path
-        norm = os.path.normpath(path)
-        parts = norm.split(os.sep)
-        if ".." in parts or "." in parts[:1]:
-            return False
-
-        abs_path = os.path.abspath(os.path.join(self.repo_root, norm))
-        real_repo = os.path.realpath(self.repo_root)
-
-        # String prefix check
-        if not (abs_path == self.repo_root or abs_path.startswith(self.repo_root + os.sep)):
-            return False
-
-        # Realpath check to prevent symlink escapes
-        if os.path.exists(abs_path):
-            real_file = os.path.realpath(abs_path)
-            if not (real_file == real_repo or real_file.startswith(real_repo + os.sep)):
-                return False
-        else:
-            # Walk up to closest existing ancestor directory
-            curr = os.path.dirname(abs_path)
-            while curr and not os.path.exists(curr):
-                parent = os.path.dirname(curr)
-                if parent == curr:
-                    break
-                curr = parent
-            if curr and os.path.exists(curr):
-                real_curr = os.path.realpath(curr)
-                if not (real_curr == real_repo or real_curr.startswith(real_repo + os.sep)):
-                    return False
-        return True
 
     def detect_format(self, text: str) -> str:
         """Determines whether patch text is structured SEARCH/REPLACE or unified diff."""
@@ -266,16 +240,17 @@ class PatchEngine:
             if line.startswith("--- "):
                 if current_file:
                     files.append(current_file)
+                current_hunk = None
                 current_file = {"old_file": line[4:].strip(), "new_file": "", "hunks": []}
             elif line.startswith("+++ "):
                 if current_file:
                     current_file["new_file"] = line[4:].strip()
             elif line.startswith("@@ "):
-                m = re.match(r"@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@", line)
+                m = re.match(r"@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@", line)
                 if m and current_file:
                     old_start = int(m.group(1))
-                    new_start = int(m.group(2))
-                    current_hunk = {"old_start": old_start, "new_start": new_start, "lines": []}
+                    new_start = int(m.group(3))
+                    current_hunk = {"old_start": old_start, "new_start": new_start, "old_count": int(m.group(2) or 1), "new_count": int(m.group(4) or 1), "lines": []}
                     current_file["hunks"].append(current_hunk)
             else:
                 if current_hunk is not None:
@@ -309,19 +284,16 @@ class PatchEngine:
         if old_start < 0:
             old_start = 0
 
-        match_idx = -1
-        search_range = range(max(0, old_start - 50), min(len(lines), old_start + 50))
-        for idx in search_range:
-            if idx + len(hunk_old_lines) <= len(lines):
-                if lines[idx:idx + len(hunk_old_lines)] == hunk_old_lines:
-                    match_idx = idx
-                    break
-
-        if match_idx == -1:
-            if not lines and not hunk_old_lines:
-                match_idx = 0
-            else:
-                return False, lines, f"Context mismatch for hunk at line {old_start+1}"
+        if len(hunk_old_lines) != hunk.get("old_count", len(hunk_old_lines)) or len(hunk_new_lines) != hunk.get("new_count", len(hunk_new_lines)):
+            return False, lines, "MalformedDiff: hunk line counts do not match header"
+        if not hunk_old_lines:
+            matches = [min(old_start, len(lines))]
+        else:
+            matches = [i for i in range(len(lines) - len(hunk_old_lines) + 1)
+                       if lines[i:i + len(hunk_old_lines)] == hunk_old_lines]
+        if len(matches) != 1:
+            return False, lines, "AmbiguousMatchError" if matches else f"Context mismatch for hunk at line {old_start+1}"
+        match_idx = matches[0]
 
         new_lines = lines[:match_idx] + hunk_new_lines + lines[match_idx + len(hunk_old_lines):]
         return True, new_lines, ""
@@ -330,174 +302,74 @@ class PatchEngine:
     # PRIMARY ATOMIC PATCH ENTRY POINT
     # -------------------------------------------------------------
 
-    def apply_patch(
-        self,
-        patch_text: str,
-        dry_run: bool = False,
-        expected_hashes: Optional[Dict[str, str]] = None
-    ) -> Dict[str, Any]:
-        """
-        Validates and applies patch (SEARCH/REPLACE or unified diff) atomically.
-        Guarantees:
-        - Rejects unparseable syntax, ambiguous matches, and traversal/symlinks.
-        - If expected_hashes is given, verifies disk state before writing.
-        - If any error occurs, 0 files are written to disk.
-        """
-        result = {
-            "success": False,
-            "modified_files": [],
-            "source_file_hashes": {},
-            "errors": [],
-            "dry_run": dry_run,
-            "format": "unknown"
-        }
-
-        if not patch_text or not patch_text.strip():
-            result["errors"].append("EmptyPatch: No patch content provided.")
-            return result
-
-        fmt = self.detect_format(patch_text)
-        result["format"] = fmt
-
-        # ==========================================
-        # ROUTE A: SEARCH / REPLACE
-        # ==========================================
-        if fmt == "search_replace":
-            parse_ok, parsed_files, parse_err = self._parse_search_replace(patch_text)
-            if not parse_ok:
-                result["errors"].append(parse_err)
-                return result
-
-            # Validation stage (100% in-memory)
-            file_modifications = []  # (abs_path, rel_path, new_content, original_hash)
-            for f_entry in parsed_files:
-                rel_path = f_entry["file"]
-                if not self._is_safe_path(rel_path):
-                    result["errors"].append(f"SecurityViolation: Invalid or unsafe path '{rel_path}'")
-                    return result
-
-                abs_path = os.path.abspath(os.path.join(self.repo_root, rel_path))
-
-                # Expected hash check
-                if expected_hashes and rel_path in expected_hashes:
-                    if os.path.exists(abs_path):
-                        with open(abs_path, "rb") as check_f:
-                            curr_h = hashlib.sha256(check_f.read()).hexdigest()
-                        if curr_h != expected_hashes[rel_path]:
-                            result["errors"].append(
-                                f"StaleSourceError: File '{rel_path}' was modified on disk after proposal. "
-                                f"Expected {expected_hashes[rel_path][:8]}, got {curr_h[:8]}."
-                            )
-                            return result
-
-                ok, new_content, orig_hash, err = self._apply_search_replace_file(rel_path, f_entry["blocks"])
+    def apply_patch(self, patch_text, dry_run=False, expected_hashes=None):
+        result = {"success": False, "modified_files": [], "source_file_hashes": {},
+                  "errors": [], "dry_run": dry_run, "format": self.detect_format(patch_text or "")}
+        tx = None
+        try:
+            fmt = result["format"]
+            if fmt == "search_replace":
+                ok, entries, error = self._parse_search_replace(patch_text)
                 if not ok:
-                    result["errors"].append(err)
-                    return result
-
-                result["source_file_hashes"][rel_path] = orig_hash
-                file_modifications.append((abs_path, rel_path, new_content, orig_hash))
-
-            # Application stage (Only executed if all validations succeeded)
-            if not dry_run:
-                # Second verification of disk hashes immediately before writing (race protection)
-                for abs_path, rel_path, _, orig_hash in file_modifications:
-                    if os.path.exists(abs_path) and orig_hash:
-                        with open(abs_path, "rb") as check_f:
-                            disk_hash = hashlib.sha256(check_f.read()).hexdigest()
-                        if disk_hash != orig_hash:
-                            result["errors"].append(f"StaleSourceError: File '{rel_path}' changed immediately prior to write.")
-                            return result
-
-                for abs_path, rel_path, new_content, _ in file_modifications:
-                    os.makedirs(os.path.dirname(abs_path), exist_ok=True)
-                    with open(abs_path, "w", encoding="utf-8", newline="") as out_f:
-                        out_f.write(new_content)
-                    result["modified_files"].append(rel_path)
+                    raise ValueError(error)
+                targets = [e["file"].replace("\\", "/") for e in entries]
+            elif fmt == "unified_diff":
+                entries = self._parse_diff(patch_text)
+                targets = []
+                for entry in entries:
+                    old = entry["old_file"].removeprefix("a/")
+                    new = entry["new_file"].removeprefix("b/")
+                    if not new or new == "/dev/null" or (old != "/dev/null" and old != new):
+                        raise ValueError("MalformedDiff: deletion/rename or incomplete header unsupported")
+                    targets.append(new.replace("\\", "/"))
             else:
-                for _, rel_path, _, _ in file_modifications:
-                    result["modified_files"].append(rel_path)
-
-            result["success"] = True
-            return result
-
-        # ==========================================
-        # ROUTE B: UNIFIED DIFF
-        # ==========================================
-        elif fmt == "unified_diff":
-            try:
-                files = self._parse_diff(patch_text)
-            except Exception as e:
-                result["errors"].append(f"Malformed diff syntax: {str(e)}")
-                return result
-
-            if not files:
-                result["errors"].append("No valid files found in unified diff.")
-                return result
-
-            file_modifications = []
-            for f in files:
-                old_file = f["old_file"]
-                new_file = f["new_file"]
-                if old_file.startswith("a/"): old_file = old_file[2:]
-                if new_file.startswith("b/"): new_file = new_file[2:]
-
-                target_file = new_file or old_file
-                if not self._is_safe_path(target_file):
-                    result["errors"].append(f"SecurityViolation: Invalid or unsafe path '{target_file}'")
-                    return result
-
-                abs_path = os.path.abspath(os.path.join(self.repo_root, target_file))
-
-                # Expected hash check
-                if expected_hashes and target_file in expected_hashes:
-                    if os.path.exists(abs_path):
-                        with open(abs_path, "rb") as check_f:
-                            curr_h = hashlib.sha256(check_f.read()).hexdigest()
-                        if curr_h != expected_hashes[target_file]:
-                            result["errors"].append(
-                                f"StaleSourceError: File '{target_file}' was modified on disk after proposal."
-                            )
-                            return result
-
-                lines = []
-                orig_hash = ""
-                if os.path.exists(abs_path):
-                    with open(abs_path, "rb") as check_f:
-                        orig_bytes = check_f.read()
-                    orig_hash = hashlib.sha256(orig_bytes).hexdigest()
-                    lines = orig_bytes.decode("utf-8", errors="replace").splitlines()
-                elif old_file != "/dev/null" and f.get("hunks") and any(hline.startswith("-") for hline in f["hunks"][0].get("lines", [])):
-                    result["errors"].append(f"FileNotFound: Cannot patch missing file '{target_file}'")
-                    return result
-
-                if not f.get("hunks"):
-                    result["errors"].append(f"MalformedDiff: No valid hunks found for '{target_file}'")
-                    return result
-
-                current_lines = list(lines)
-                for hunk in f["hunks"]:
-                    success, current_lines, err = self._apply_hunk(current_lines, hunk)
-                    if not success:
-                        result["errors"].append(f"HunkApplicationFailed in '{target_file}': {err}")
-                        return result
-
-                result["source_file_hashes"][target_file] = orig_hash
-                file_modifications.append((abs_path, target_file, "\n".join(current_lines) + "\n", orig_hash))
-
+                raise ValueError("UnrecognizedPatchFormat: no recognized patch blocks")
+            if not targets:
+                raise ValueError("EmptyPatch: no targets")
+            canonical_hashes = None if expected_hashes is None else {k.replace("\\", "/"): v for k, v in expected_hashes.items()}
+            if canonical_hashes is not None and set(canonical_hashes) != set(targets):
+                raise ValueError("StaleSourceError: proposal target set does not match approved snapshot")
+            tx = FileTransaction(self.repo_root, targets, canonical_hashes)
+            modifications = {}
+            for rel, entry in zip(targets, entries):
+                original = tx.original[rel]
+                if fmt == "search_replace":
+                    ok, text, original_hash, error = self._apply_search_replace_file(rel, entry["blocks"])
+                    if not ok:
+                        raise ValueError(error)
+                    if original_hash != digest(original):
+                        raise ValueError(f"StaleSourceError: {rel} changed during validation")
+                else:
+                    if original is None and entry["old_file"] != "/dev/null" and not (entry["hunks"] and all(h["old_count"] == 0 for h in entry["hunks"])):
+                        raise ValueError(f"FileNotFound: {rel}")
+                    source = (original or b"").decode("utf-8")
+                    lines = source.splitlines()
+                    if not entry["hunks"]:
+                        raise ValueError(f"MalformedDiff: no hunks in {rel}")
+                    for hunk in entry["hunks"]:
+                        ok, lines, error = self._apply_hunk(lines, hunk)
+                        if not ok:
+                            raise ValueError(f"HunkApplicationFailed in '{rel}': {error}")
+                    newline = "\r\n" if "\r\n" in source else "\n"
+                    text = newline.join(lines)
+                    if original is None or source.endswith("\n"):
+                        text += newline
+                if rel.endswith(".py"):
+                    compile(text.lstrip("\ufeff"), rel, "exec")
+                modifications[rel] = text.encode("utf-8")
+                result["source_file_hashes"][rel] = digest(original)
+            tx.verify()
             if not dry_run:
-                for abs_path, rel_path, new_content, _ in file_modifications:
-                    os.makedirs(os.path.dirname(abs_path), exist_ok=True)
-                    with open(abs_path, "w", encoding="utf-8", newline="") as out_f:
-                        out_f.write(new_content)
-                    result["modified_files"].append(rel_path)
-            else:
-                for _, rel_path, _, _ in file_modifications:
-                    result["modified_files"].append(rel_path)
-
+                for rel, data in modifications.items():
+                    tx.write(rel, data)
+            result["created_directories"] = [str(p.relative_to(self.repo_root)) for p in tx.created_dirs]
+            result["applied_file_hashes"] = {k: digest(v) for k, v in modifications.items()}
+            result["modified_files"] = targets
             result["success"] = True
-            return result
-
-        else:
-            result["errors"].append("UnrecognizedPatchFormat: Patch is neither a recognized SEARCH/REPLACE block nor a unified diff.")
-            return result
+        except Exception as exc:
+            result["errors"].append(f"{type(exc).__name__}: {exc}")
+            if tx is not None and not dry_run:
+                result["rolled_back"] = tx.rollback()
+                result["rollback_errors"] = tx.rollback_errors
+                result["errors"].extend(tx.rollback_errors)
+        return result

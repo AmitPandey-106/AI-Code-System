@@ -127,68 +127,39 @@ def run_native_tests(req: NativeTestRequest):
 class PatchRequest(BaseModel):
     repo_root: str
     diff_text: str
+    expected_patch_hash: Optional[str] = None
+    expected_hashes: Optional[dict[str, str]] = None
 
 @app.post("/propose_patch")
 def propose_patch(req: PatchRequest):
     from app.patch_engine import PatchEngine
     engine = PatchEngine(req.repo_root)
     result = engine.apply_patch(req.diff_text, dry_run=True)
+    if result["success"]:
+        import hashlib
+        result["patch_hash"] = hashlib.sha256(req.diff_text.encode()).hexdigest()
     return result
 
 @app.post("/apply_patch")
 def apply_patch(req: PatchRequest):
     from app.patch_engine import PatchEngine
     engine = PatchEngine(req.repo_root)
-    result = engine.apply_patch(req.diff_text, dry_run=False)
-    return result
+    import hashlib
+    import uuid
+    from fastapi import HTTPException
+    from app.file_transaction import RepositoryLease
+    if req.expected_patch_hash != hashlib.sha256(req.diff_text.encode()).hexdigest() or req.expected_hashes is None:
+        raise HTTPException(409, "Apply requires the reviewed patch hash and source snapshot hashes from propose_patch")
+    lease = RepositoryLease(req.repo_root, str(uuid.uuid4()))
+    if not lease.acquire():
+        raise HTTPException(409, "Repository has an active engineering transaction")
+    try:
+        return engine.apply_patch(req.diff_text, dry_run=False, expected_hashes=req.expected_hashes)
+    finally:
+        lease.release()
 
-class EngineeringRequest(BaseModel):
-    task_prompt: str
-    repo_root: str
-    test_command: str
-
-@app.post("/engineering/start")
-def start_engineering(req: EngineeringRequest):
-    from app.engineering_loop import engineering_manager
-    session_id = engineering_manager.start_session(req.task_prompt, req.repo_root, req.test_command)
-    session = engineering_manager.get_session(session_id)
-    return {"session_id": session_id, "state": session.state, "error": session.error_message}
-
-@app.post("/engineering/approve/{session_id}")
-def approve_engineering(session_id: str, expected_patch_hash: Optional[str] = None):
-    from app.engineering_loop import engineering_manager
-    session = engineering_manager.get_session(session_id)
-    if not session:
-        return {"error": "Session not found"}
-    if session.approve(expected_patch_hash=expected_patch_hash):
-        session.step() # Trigger testing & potential loop
-    return {"session_id": session_id, "state": session.state, "error": session.error_message}
-
-@app.post("/engineering/reject/{session_id}")
-def reject_engineering(session_id: str):
-    from app.engineering_loop import engineering_manager
-    session = engineering_manager.get_session(session_id)
-    if not session:
-        return {"error": "Session not found"}
-    session.reject()
-    return {"session_id": session_id, "state": session.state}
-
-@app.post("/engineering/cancel/{session_id}")
-def cancel_engineering(session_id: str):
-    from app.engineering_loop import engineering_manager
-    session = engineering_manager.get_session(session_id)
-    if not session:
-        return {"error": "Session not found"}
-    session.cancel()
-    return {"session_id": session_id, "state": session.state, "error": session.error_message}
-
-@app.get("/engineering/status/{session_id}")
-def get_engineering_status(session_id: str):
-    from app.engineering_loop import engineering_manager
-    session = engineering_manager.get_session(session_id)
-    if not session:
-        return {"error": "Session not found"}
-    return session.get_status()
+from app.engineering_api import router as engineering_router
+app.include_router(engineering_router)
 
 @app.post("/search")
 def search_repo(query: str, top_k: int = 5):

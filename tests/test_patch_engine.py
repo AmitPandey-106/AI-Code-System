@@ -47,7 +47,7 @@ def test_targeted_change_large_file(temp_repo):
     engine = PatchEngine(temp_repo)
     diff = """--- a/large.py
 +++ b/large.py
-@@ -49,3 +49,3 @@
+@@ -50,4 +50,4 @@
  # Line 49
  def target():
 -    return False
@@ -142,7 +142,7 @@ def test_multiple_hunks_one_file(temp_repo):
 -# Line 0
 +# Line ZERO
  # Line 1
-@@ -49,3 +49,3 @@
+@@ -50,4 +50,4 @@
  # Line 49
  def target():
 -    return False

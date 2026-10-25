@@ -15,6 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 
   <script>
+    window.tailwind = window.tailwind || {};
     tailwind.config = {
       darkMode: 'class',
       theme: {
@@ -42,6 +43,14 @@
   </script>
 
   <style>
+    /* Keep engineering controls usable if optional CDN styling is unavailable. */
+    #engineeringDialog { box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 12px; padding: 24px; background: #fff; color: #0f172a; }
+    #engineeringDialog label { display: block; margin: 8px 0; }
+    #engineeringDialog textarea, #engineeringDialog input:not([type=checkbox]), #engineeringDialog select { box-sizing: border-box; width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; background: transparent; color: inherit; }
+    #engineeringDialog button { padding: 8px 12px; margin: 4px 4px 4px 0; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; }
+    #engineeringDialog button:disabled { opacity: .4; cursor: default; }
+    #engineeringDialog pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 256px; overflow: auto; }
+    #engineeringDialog::backdrop { background: #0f172a33; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       overflow: hidden;
@@ -183,7 +192,7 @@
     <div class="hidden sm:flex items-center space-x-2">
       <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-purple-100 dark:bg-purple-950/70 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800 flex items-center space-x-1.5">
         <span class="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span>
-        <span>Qwen 2.5 Coder 1.5B (MODE-F LoRA)</span>
+        <span id="configuredModel">Loading model configuration…</span>
       </span>
       <span id="backendBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center space-x-1.5 cursor-pointer" onclick="checkBackendHealth()" title="Click to test connection">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
@@ -227,6 +236,8 @@
             <kbd class="text-[10px] text-lite-400 border border-lite-200 dark:border-lite-700 px-1 rounded bg-lite-50 dark:bg-lite-900">Ctrl+N</kbd>
           </button>
         </div>
+
+        <button id="engineeringOpen" class="w-full px-3 py-2 rounded-lg bg-indigo-600 text-white text-xs font-semibold">Engineering task</button>
 
         <!-- Conversation History Section -->
         <div class="space-y-1.5">
@@ -287,23 +298,23 @@
           </div>
           <div class="flex justify-between border-b border-lite-100 dark:border-lite-700/50 pb-1">
             <span>Model:</span>
-            <span class="font-mono font-medium text-lite-900 dark:text-lite-100">Qwen 1.5B</span>
+            <span class="font-mono font-medium text-lite-900 dark:text-lite-100" id="telemetryModel">Loading…</span>
           </div>
           <div class="flex justify-between border-b border-lite-100 dark:border-lite-700/50 pb-1">
             <span>Max Repair Retries:</span>
-            <span class="font-mono font-medium text-lite-900 dark:text-lite-100">5 attempts</span>
+            <span class="font-mono font-medium text-lite-900 dark:text-lite-100" id="telemetryAttempts">Loading…</span>
           </div>
           <div class="flex justify-between border-b border-lite-100 dark:border-lite-700/50 pb-1">
             <span>Repair Memory:</span>
-            <span class="font-mono text-purple-600 dark:text-purple-400 font-medium">FAISS (384-dim)</span>
+            <span class="font-mono text-purple-600 dark:text-purple-400 font-medium" id="telemetryMemory">Loading…</span>
           </div>
           <div class="flex justify-between border-b border-lite-100 dark:border-lite-700/50 pb-1">
             <span>RL Selector:</span>
-            <span class="font-mono text-indigo-600 dark:text-indigo-400 font-medium">&epsilon;-Greedy Bandit</span>
+            <span class="font-mono text-indigo-600 dark:text-indigo-400 font-medium" id="telemetryStrategy">Loading…</span>
           </div>
           <div class="flex justify-between">
             <span>Execution Sandbox:</span>
-            <span class="font-mono text-emerald-600 dark:text-emerald-400 font-medium">Subproc AST Guard</span>
+            <span class="font-mono text-emerald-600 dark:text-emerald-400 font-medium">Trusted repository tests</span>
           </div>
         </div>
 
@@ -315,7 +326,7 @@
           <i class="fa-solid fa-sliders"></i>
           <span>Backend Settings</span>
         </button>
-        <span class="text-[10px] text-lite-400 font-mono">v2.0 (Frozen)</span>
+        <span class="text-[10px] text-lite-400 font-mono">v2.1 Engineering</span>
       </div>
     </aside>
 
@@ -337,7 +348,7 @@
         <div class="flex items-center space-x-3 text-xs flex-shrink-0">
           <span class="text-lite-400 hidden sm:flex items-center space-x-1 font-mono">
             <i class="fa-solid fa-bolt text-amber-500"></i>
-            <span>Zero Regression State</span>
+            <span>Approval required</span>
           </span>
           <button onclick="clearCurrentChat()" class="hover:text-red-600 px-2 py-1 rounded hover:bg-lite-100 dark:hover:bg-lite-800 transition" title="Clear current chat">
             <i class="fa-regular fa-trash-can mr-1"></i> Clear Chat
@@ -712,7 +723,7 @@
     // BACKEND HEALTH CHECK
     // ========================================================
     function checkBackendHealth() {
-      const testUrl = window.location.port === '8500' ? '/api/status' : `${currentBackendUrl}/`;
+      const testUrl = window.location.protocol !== 'file:' ? '/api/status' : `${currentBackendUrl}/`;
       fetch(testUrl, { method: 'GET' })
         .then(res => {
           if (res.ok) {
@@ -1107,7 +1118,7 @@
 
     async function callBackend(endpoint, payload) {
       const urls = [
-        window.location.port === '8500' ? `/api/${endpoint}` : `${currentBackendUrl}/${endpoint}`,
+        window.location.protocol !== 'file:' ? `/api/${endpoint}` : `${currentBackendUrl}/${endpoint}`,
         `${currentBackendUrl}/${endpoint}`
       ];
       const uniqueUrls = [...new Set(urls)];
@@ -1431,7 +1442,7 @@
 
       const stageUpdater = startStageUpdater(execCardId);
 
-      const targetEndpoint = window.location.port === '8500' ? '/api/generate' : `${currentBackendUrl}/generate`;
+      const targetEndpoint = window.location.protocol !== 'file:' ? '/api/generate' : `${currentBackendUrl}/generate`;
       const payload = {
         prompt: prompt,
         authoritative_tests: actualTests || [],
@@ -1903,6 +1914,26 @@
         .replace(/\$/g, '\\$');
     }
   </script>
+
+
+  <dialog id="engineeringDialog" class="rounded-xl bg-white dark:bg-lite-900 text-lite-900 dark:text-lite-100 p-6 shadow-xl" style="width:min(960px,95vw);max-height:92vh;overflow:auto">
+    <div class="flex justify-between items-center mb-4"><h2 class="font-bold text-lg">Repository engineering</h2><button id="engineeringClose" aria-label="Close engineering">Close</button></div>
+    <div class="grid gap-3 text-sm">
+      <label>Task<textarea id="engineeringTask" class="w-full p-2 border rounded bg-transparent" rows="2" placeholder="Describe the change and expected behavior"></textarea></label>
+      <label>Repository path<input id="engineeringRoot" class="w-full p-2 border rounded bg-transparent" placeholder="Absolute local repository path"></label>
+      <label>Test command<input id="engineeringCommand" class="w-full p-2 border rounded bg-transparent" value="pytest"></label>
+      <div class="flex gap-4"><label><input id="engineeringMemory" type="checkbox"> Verified memory</label><label><input id="engineeringStrategy" type="checkbox"> Strategy learning</label></div>
+      <button id="engineeringStart" class="px-3 py-2 rounded bg-indigo-600 text-white disabled:opacity-40">Start task</button>
+      <label>Session<select id="engineeringSessions" class="w-full p-2 border rounded bg-transparent"></select></label>
+      <p id="engineeringState" role="status" aria-live="polite">No session selected.</p>
+      <pre id="engineeringError" role="alert" class="whitespace-pre-wrap text-red-600"></pre>
+      <div class="flex flex-wrap gap-3"><button id="engineeringApprove" disabled class="px-3 py-2 rounded border disabled:opacity-40">Approve this patch</button><button id="engineeringReject" disabled class="px-3 py-2 rounded border disabled:opacity-40">Reject</button><button id="engineeringCancel" disabled class="px-3 py-2 rounded border disabled:opacity-40">Cancel task</button><button id="engineeringRefresh" class="px-3 py-2 rounded border">Refresh</button></div>
+      <details open><summary>Proposed / final patch</summary><pre id="engineeringDiff" class="whitespace-pre-wrap text-xs p-3 border rounded max-h-64 overflow-auto"></pre></details>
+      <details open><summary>Tests, verification and rollback</summary><pre id="engineeringTests" class="whitespace-pre-wrap text-xs p-3 border rounded max-h-64 overflow-auto"></pre></details>
+      <details><summary>Progress events</summary><pre id="engineeringEvents" class="whitespace-pre-wrap text-xs"></pre></details>
+    </div>
+  </dialog>
+  <script src="engineering.js"></script>
 
 </body>
 </html>

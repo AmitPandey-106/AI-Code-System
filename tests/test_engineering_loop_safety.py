@@ -51,7 +51,7 @@ def test_subsequent_repair_requires_fresh_approval(repo_env, monkeypatch):
 +++ b/calculator.py
 @@ -1,2 +1,2 @@
  def calc(x):
--    return x * 10
+-    return x - 1
 +    return x + 1
 ```"""
         return """```diff
@@ -76,9 +76,9 @@ def test_subsequent_repair_requires_fresh_approval(repo_env, monkeypatch):
     # Must be paused awaiting approval for attempt 2!
     assert session.state == EngineeringState.AWAITING_APPROVAL
     assert session.current_attempt == 2
-    # Verify file has attempt 1's modification, NOT attempt 2's yet
+    # Failed attempt was rolled back; attempt 2 still requires fresh approval
     with open(os.path.join(repo_env, "calculator.py"), "r", encoding="utf-8") as f:
-        assert "return x * 10" in f.read()
+        assert "return x - 1" in f.read()
 
     # Now approve attempt 2
     assert session.approve() is True

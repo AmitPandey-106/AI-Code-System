@@ -4,6 +4,18 @@ import torch
 import ast
 import re
 
+import threading
+from functools import wraps
+
+_inference_lock = threading.RLock()
+
+def _model_synchronized(function):
+    @wraps(function)
+    def synchronized(*args, **kwargs):
+        with _inference_lock:
+            return function(*args, **kwargs)
+    return synchronized
+
 # =========================================================
 # MODEL LOADING
 # =========================================================
@@ -21,6 +33,7 @@ def get_current_model_name():
     val = os.environ.get("LITECODER_MODEL_NAME") or config.get("MODEL_NAME", "Qwen/Qwen2.5-Coder-1.5B")
     return val.strip() if val else "Qwen/Qwen2.5-Coder-1.5B"
 
+@_model_synchronized
 def reload_model():
     global _model, _base_model, _tokenizer, _loaded_adapter_id
     _model = None
@@ -51,14 +64,16 @@ def check_and_reload_adapter():
     elif _loaded_adapter_id is not None:
         reload_model()
 
+@_model_synchronized
 def get_model():
     global _base_model, _model, _tokenizer, _loaded_adapter_id
     from app.config import config
 
     current_model_name = get_current_model_name()
-    if _base_model is None or _tokenizer is None or getattr(_base_model, "_loaded_name", None) != current_model_name:
+    revision = os.environ.get("LITECODER_MODEL_REVISION") or config.get("MODEL_REVISION")
+    if _base_model is None or _tokenizer is None or (getattr(_base_model, "_loaded_name", None), getattr(_base_model, "_loaded_revision", None)) != (current_model_name, revision):
         cache_dir = os.path.abspath(".hf_cache") if os.path.exists(".hf_cache") else None
-        tokenizer = AutoTokenizer.from_pretrained(current_model_name, cache_dir=cache_dir)
+        tokenizer = AutoTokenizer.from_pretrained(current_model_name, cache_dir=cache_dir, revision=revision)
 
         if torch.cuda.is_available():
             selected_dtype = torch.float16
@@ -66,16 +81,19 @@ def get_model():
                 current_model_name,
                 torch_dtype=selected_dtype,
                 device_map="auto",
-                cache_dir=cache_dir
+                cache_dir=cache_dir,
+                revision=revision
             )
         else:
             base_model = AutoModelForCausalLM.from_pretrained(
                 current_model_name,
                 torch_dtype=torch.float32,
-                cache_dir=cache_dir
+                cache_dir=cache_dir,
+                revision=revision
             )
 
         base_model._loaded_name = current_model_name
+        base_model._loaded_revision = revision
         _base_model = base_model
         _tokenizer = tokenizer
         _model = None
@@ -250,6 +268,7 @@ def get_input_device(model_obj):
     except Exception:
         return model_obj.device if hasattr(model_obj, 'device') else torch.device('cpu')
 
+@_model_synchronized
 def generate_raw(prompt, max_new_tokens=None, temperature=None):
     model, tokenizer = get_model()
     current_name = get_current_model_name()

@@ -2,12 +2,13 @@ import os
 import ast
 import json
 import time
+import hashlib
+from app.file_transaction import safe_path
 from typing import List, Dict, Any, Optional
 
 try:
     import faiss
     import numpy as np
-    from sentence_transformers import SentenceTransformer
     FAISS_AVAILABLE = True
 except ImportError:
     FAISS_AVAILABLE = False
@@ -17,10 +18,12 @@ from app.config import config
 class RepoIndexer:
     def __init__(self, root_dir: str, index_dir: str = "data/repo_index"):
         self.root_dir = os.path.abspath(root_dir)
-        self.index_dir = index_dir
+        self.index_dir = os.path.join(index_dir, hashlib.sha256(os.path.normcase(self.root_dir).encode()).hexdigest()[:24])
+        index_dir = self.index_dir
         self.metadata_path = os.path.join(index_dir, "metadata.json")
         self.faiss_path = os.path.join(index_dir, "index.faiss")
         self.model_name = "sentence-transformers/all-MiniLM-L6-v2"
+        self.model_revision = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
         self._model = None
         self.index = None
         self.metadata: List[Dict[str, Any]] = []
@@ -38,7 +41,8 @@ class RepoIndexer:
     @property
     def model(self):
         if self._model is None and FAISS_AVAILABLE:
-            self._model = SentenceTransformer(self.model_name)
+            from sentence_transformers import SentenceTransformer
+            self._model = SentenceTransformer(self.model_name, revision=self.model_revision)
         return self._model
 
     def _should_ignore(self, path: str, is_dir: bool = False) -> bool:
@@ -55,7 +59,6 @@ class RepoIndexer:
         if not FAISS_AVAILABLE:
             return
             
-        os.makedirs(self.index_dir, exist_ok=True)
         if os.path.exists(self.metadata_path):
             try:
                 with open(self.metadata_path, "r", encoding="utf-8") as f:
@@ -93,8 +96,10 @@ class RepoIndexer:
     def _extract_symbols(self, file_path: str, rel_path: str) -> List[Dict[str, Any]]:
         symbols = []
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                source = f.read()
+            safe_path(self.root_dir, rel_path)
+            original_bytes = safe_path(self.root_dir, rel_path).read_bytes()
+            source = original_bytes.decode("utf-8-sig")
+            source_hash = hashlib.sha256(original_bytes).hexdigest()
         except Exception:
             return symbols
 
@@ -120,7 +125,7 @@ class RepoIndexer:
         # Extract Classes and Functions
         for node in ast.walk(tree):
             if isinstance(node, ast.ClassDef):
-                start = node.lineno - 1
+                start = min([node.lineno] + [d.lineno for d in node.decorator_list]) - 1
                 end = node.end_lineno if getattr(node, 'end_lineno', None) else start + 1
                 snippet = "\n".join(lines[start:end])
                 methods = [n.name for n in node.body if isinstance(n, ast.FunctionDef)]
@@ -132,10 +137,11 @@ class RepoIndexer:
                     "line_start": start + 1,
                     "line_end": end,
                     "snippet": snippet,
-                    "imports": imports
+                    "imports": imports,
+                    "source_hash": source_hash
                 })
             elif isinstance(node, ast.FunctionDef) or isinstance(node, ast.AsyncFunctionDef):
-                start = node.lineno - 1
+                start = min([node.lineno] + [d.lineno for d in node.decorator_list]) - 1
                 end = node.end_lineno if getattr(node, 'end_lineno', None) else start + 1
                 snippet = "\n".join(lines[start:end])
                 symbols.append({
@@ -145,16 +151,14 @@ class RepoIndexer:
                     "line_start": start + 1,
                     "line_end": end,
                     "snippet": snippet,
-                    "imports": imports
+                    "imports": imports,
+                    "source_hash": source_hash
                 })
 
         return symbols
 
-    def scan_and_index(self):
+    def scan_and_index(self, semantic=True):
         """Scans the repository and updates the FAISS index incrementally."""
-        if not FAISS_AVAILABLE:
-            print("[RepoIndexer] FAISS not available. Skipping indexing.")
-            return
 
         print(f"[RepoIndexer] Scanning repository: {self.root_dir}")
         new_symbols = []
@@ -181,7 +185,8 @@ class RepoIndexer:
                 new_symbols.extend(syms)
 
         if not new_symbols:
-            print("[RepoIndexer] No Python symbols found.")
+            self.metadata = []
+            self.index = None
             return
 
         # Prepare texts for embedding
@@ -192,6 +197,9 @@ class RepoIndexer:
             texts.append(text)
             self.metadata.append(sym)
 
+        if not FAISS_AVAILABLE or not semantic:
+            self.index = None
+            return
         print(f"[RepoIndexer] Generating embeddings for {len(texts)} symbols...")
         embeddings = self.model.encode(texts, convert_to_numpy=True)
         faiss.normalize_L2(embeddings)
@@ -205,8 +213,22 @@ class RepoIndexer:
 
     def search(self, query: str, top_k: int = 5) -> List[Dict[str, Any]]:
         """Retrieve most relevant symbols for a query."""
-        if not FAISS_AVAILABLE or self.index is None or not self.metadata:
+        if not self.metadata:
             return []
+        # Lexical retrieval makes repository understanding usable without a model download.
+        if self.index is None:
+            words = set(query.lower().replace("_", " ").split())
+            results = []
+            for item in self.metadata:
+                try:
+                    if hashlib.sha256(safe_path(self.root_dir, item["rel_path"]).read_bytes()).hexdigest() != item.get("source_hash"):
+                        continue
+                except (ValueError, OSError):
+                    continue
+                score = sum(w in (item["name"] + " " + item["rel_path"] + " " + item["snippet"]).lower() for w in words)
+                if score:
+                    results.append({**item, "score": score})
+            return sorted(results, key=lambda r: (-r["score"], r["rel_path"], r["line_start"]))[:top_k]
 
         query_emb = self.model.encode([query], convert_to_numpy=True)
         faiss.normalize_L2(query_emb)
@@ -222,6 +244,11 @@ class RepoIndexer:
                 continue
             
             item = dict(self.metadata[idx])
+            try:
+                if hashlib.sha256(safe_path(self.root_dir, item["rel_path"]).read_bytes()).hexdigest() != item.get("source_hash"):
+                    continue
+            except (ValueError, OSError):
+                continue
             item["score"] = float(distances[0][i])
             results.append(item)
             
@@ -229,10 +256,6 @@ class RepoIndexer:
 
 repo_indexer = None
 
-def get_repo_indexer(root_dir: str = "."):
-    global repo_indexer
-    abs_root = os.path.abspath(root_dir)
-    if repo_indexer is None or repo_indexer.root_dir != abs_root:
-        index_dir = config.get("REPO_INDEX_DIR", "data/repo_index")
-        repo_indexer = RepoIndexer(abs_root, index_dir=index_dir)
-    return repo_indexer
+def get_repo_indexer(root_dir="."):
+    # Dedicated fresh inspection per caller; no shared mutable per-session metadata.
+    return RepoIndexer(os.path.realpath(root_dir), index_dir=config.get("REPO_INDEX_DIR", "data/repo_index"))
