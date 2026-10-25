@@ -1,0 +1,9 @@
+........................................................................ [ 90%]
+........                                                                 [100%]
+============================== warnings summary ===============================
+tests/test_phase8_architecture.py::test_repair_memory_isolation_and_gating
+  D:\Amit Stuff\ai-code-system\app\repair_memory.py:70: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+    self.dimension = get_embedding_model().get_sentence_embedding_dimension()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+80 passed, 1 warning in 89.91s (0:01:29)

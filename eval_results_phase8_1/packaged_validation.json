@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "argv": [
+    "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\scripts\\phase8_1_validate.py",
+    "--suite",
+    "all"
+  ],
+  "cwd": "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv",
+  "returncode": 0,
+  "duration_s": 66.98500000033528,
+  "stdout": "........................................................................ [ 47%]\n........................................................................ [ 94%]\n........                                                                 [100%]\n152 passed in 62.50s (0:01:02)\n\n.................                                                        [100%]\n17 passed in 0.88s\n\n",
+  "stderr": ""
+}

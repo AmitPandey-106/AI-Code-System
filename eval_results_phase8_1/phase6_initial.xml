@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="50" time="22.382" timestamp="2026-10-25T11:58:36.477456+05:30" hostname="DESKTOP-LB495KL"><testcase classname="tests.test_engineering_loop" name="test_successful_task" time="1.482" /><testcase classname="tests.test_engineering_loop" name="test_repair_budget_exhaustion" time="1.036"><failure message="AssertionError: assert 'failed' == 'awaiting_approval'&#10;  &#10;  - awaiting_approval&#10;  + failed">temp_repo = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp0j1vgxfq'
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000028B1C041DE0&gt;
+
+    def test_repair_budget_exhaustion(temp_repo, monkeypatch):
+        import app.engineering_loop
+        # Always outputs the wrong fix `return a * b`
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", lambda p: """
+    ```diff
+    --- a/test_math.py
+    +++ b/test_math.py
+    @@ -1,2 +1,2 @@
+     def add(a, b):
+    -    return a - b
+    +    return a * b
+    ```
+    """ if "PREVIOUS" not in p else """
+    ```diff
+    --- a/test_math.py
+    +++ b/test_math.py
+    @@ -1,2 +1,2 @@
+     def add(a, b):
+    -    return a * b
+    +    return a * b
+    ```
+    """)
+    
+        session_id = engineering_manager.start_session("Fix addition", temp_repo, "pytest test_suite.py")
+        session = engineering_manager.get_session(session_id)
+    
+        assert session.state == EngineeringState.AWAITING_APPROVAL
+    
+        # Attempt 1
+        session.approve()
+        session.step()
+&gt;       assert session.state == EngineeringState.AWAITING_APPROVAL
+E       AssertionError: assert 'failed' == 'awaiting_approval'
+E         
+E         - awaiting_approval
+E         + failed
+
+tests\test_engineering_loop.py:114: AssertionError</failure></testcase><testcase classname="tests.test_engineering_loop" name="test_successful_repair" time="1.086"><failure message="AssertionError: assert 'failed' == 'awaiting_approval'&#10;  &#10;  - awaiting_approval&#10;  + failed">temp_repo = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp8mglulp5'
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000028B6332E530&gt;
+
+    def test_successful_repair(temp_repo, monkeypatch):
+        import app.engineering_loop
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", mock_generate_raw_repair)
+    
+        session_id = engineering_manager.start_session("Fix addition", temp_repo, "pytest test_suite.py")
+        session = engineering_manager.get_session(session_id)
+    
+        assert session.state == EngineeringState.AWAITING_APPROVAL
+    
+        # Attempt 1 (will fail tests because it makes it a * b)
+        session.approve()
+        session.step()
+    
+&gt;       assert session.state == EngineeringState.AWAITING_APPROVAL
+E       AssertionError: assert 'failed' == 'awaiting_approval'
+E         
+E         - awaiting_approval
+E         + failed
+
+tests\test_engineering_loop.py:142: AssertionError</failure></testcase><testcase classname="tests.test_engineering_loop" name="test_malformed_patch_rejection" time="0.023"><failure message="AssertionError: assert 'valid unified diff' in 'Budget exhausted. Model response contained no parseable SEARCH/REPLACE blocks.'&#10; +  where 'Budget exhausted. Model response contained no parseable SEARCH/REPLACE blocks.' = &lt;app.engineering_loop.EngineeringSession object at 0x0000028B633D3C10&gt;.error_message">temp_repo = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpuh_7ikvk'
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000028B633D3BE0&gt;
+
+    def test_malformed_patch_rejection(temp_repo, monkeypatch):
+        import app.engineering_loop
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", mock_generate_raw_malformed)
+    
+        session_id = engineering_manager.start_session("Fix addition", temp_repo, "pytest test_suite.py")
+        session = engineering_manager.get_session(session_id)
+    
+        assert session.state == EngineeringState.FAILED
+&gt;       assert "valid unified diff" in session.error_message
+E       AssertionError: assert 'valid unified diff' in 'Budget exhausted. Model response contained no parseable SEARCH/REPLACE blocks.'
+E        +  where 'Budget exhausted. Model response contained no parseable SEARCH/REPLACE blocks.' = &lt;app.engineering_loop.EngineeringSession object at 0x0000028B633D3C10&gt;.error_message
+
+tests\test_engineering_loop.py:160: AssertionError</failure></testcase><testcase classname="tests.test_engineering_loop" name="test_user_rejection" time="0.016" /><testcase classname="tests.test_engineering_loop" name="test_unsafe_command_rejected" time="0.049" /><testcase classname="tests.test_engineering_loop_safety" name="test_patch_cannot_apply_before_approval" time="0.071" /><testcase classname="tests.test_engineering_loop_safety" name="test_subsequent_repair_requires_fresh_approval" time="0.976"><failure message="AssertionError: assert 'failed' == 'awaiting_approval'&#10;  &#10;  - awaiting_approval&#10;  + failed">repo_env = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpqncc2586'
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000028B6332F220&gt;
+
+    def test_subsequent_repair_requires_fresh_approval(repo_env, monkeypatch):
+        import app.engineering_loop
+        # Attempt 1 produces wrong patch, attempt 2 produces right patch
+        def mock_gen(p):
+            if "PREVIOUS TEST FAILURE" in p:
+                return """```diff
+    --- a/calculator.py
+    +++ b/calculator.py
+    @@ -1,2 +1,2 @@
+     def calc(x):
+    -    return x * 10
+    +    return x + 1
+    ```"""
+            return """```diff
+    --- a/calculator.py
+    +++ b/calculator.py
+    @@ -1,2 +1,2 @@
+     def calc(x):
+    -    return x - 1
+    +    return x * 10
+    ```"""
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", mock_gen)
+    
+        session = EngineeringSession("Fix calculator", repo_env, "pytest test_calc.py")
+        session.step()
+        assert session.state == EngineeringState.AWAITING_APPROVAL
+        assert session.current_attempt == 1
+    
+        # Approve attempt 1
+        assert session.approve() is True
+        session.step()
+    
+        # Must be paused awaiting approval for attempt 2!
+&gt;       assert session.state == EngineeringState.AWAITING_APPROVAL
+E       AssertionError: assert 'failed' == 'awaiting_approval'
+E         
+E         - awaiting_approval
+E         + failed
+
+tests\test_engineering_loop_safety.py:77: AssertionError</failure></testcase><testcase classname="tests.test_engineering_loop_safety" name="test_duplicate_approval_prevention" time="0.050" /><testcase classname="tests.test_engineering_loop_safety" name="test_cancellation_terminates_safely" time="0.045" /><testcase classname="tests.test_engineering_loop_safety" name="test_failed_attempts_do_not_overwrite_unrelated_changes" time="0.051" /><testcase classname="tests.test_engineering_loop_safety" name="test_lock_not_held_during_model_cancel_responsive" time="0.020" /><testcase classname="tests.test_engineering_loop_safety" name="test_patch_hash_binding" time="0.033" /><testcase classname="tests.test_engineering_loop_safety" name="test_stale_source_detection_outside_hunk" time="0.038" /><testcase classname="tests.test_engineering_loop_safety" name="test_unhandled_exception_transitions_to_failed" time="0.021" /><testcase classname="tests.test_engineering_loop_safety" name="test_thread_safe_get_status" time="0.026" /><testcase classname="tests.test_engineering_loop_retries" name="test_syntax_retry_recovers_to_success" time="1.657" /><testcase classname="tests.test_engineering_loop_retries" name="test_patch_validation_retry_recovers_to_success" time="1.653" /><testcase classname="tests.test_engineering_loop_retries" name="test_syntax_retry_budget_exhaustion" time="0.032"><failure message="assert 2 == 3&#10; +  where 2 = &lt;app.engineering_loop.EngineeringSession object at 0x0000028B634235B0&gt;.current_attempt">repo_env = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp7uvdk5mp'
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000028B63423580&gt;
+
+    def test_syntax_retry_budget_exhaustion(repo_env, monkeypatch):
+        """
+        Model outputs malformed syntax on all 3 attempts.
+        Loop must halt safely with FAILED and failure_category == 'malformed_patch_syntax'.
+        """
+        import app.engineering_loop
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", lambda p: "No patch here!")
+    
+        session = EngineeringSession("Fix compute", repo_env, "pytest test_pass.py")
+        session.step()
+    
+        assert session.state == EngineeringState.FAILED
+&gt;       assert session.current_attempt == 3
+E       assert 2 == 3
+E        +  where 2 = &lt;app.engineering_loop.EngineeringSession object at 0x0000028B634235B0&gt;.current_attempt
+
+tests\test_engineering_loop_retries.py:126: AssertionError</failure></testcase><testcase classname="tests.test_engineering_loop_retries" name="test_cancellation_during_syntax_retries" time="0.020" /><testcase classname="tests.test_engineering_loop_retries" name="test_explicit_policy_event_on_unapproved_command" time="0.037" /><testcase classname="tests.test_engineering_loop_retries" name="test_stale_source_hash_records_stale_source_failure" time="0.031" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_correct_delimiter_parsing" time="0.012" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_missing_and_duplicated_delimiters" time="0.003" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_single_function_fallback_success" time="0.019" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_fallback_multi_function_rejected" time="0.003" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_fallback_multi_file_ambiguity_rejected" time="0.011" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_fallback_unknown_function_rejected" time="0.008" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_fallback_disabled_by_default" time="0.003" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_eager_policy_rejection_before_model_invocation" time="0.004" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_stale_source_detection_and_approval_binding" time="0.022" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_atomic_multi_file_rollback_on_invalid_block" time="0.017" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_traversal_and_symlink_protection" time="0.003" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_retry_limits_and_concurrent_approvals" time="0.057" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_fallback_class_method_rejected_safely" time="0.017" /><testcase classname="tests.test_phase7b_patch_reliability" name="test_fallback_preserves_decorators" time="0.016" /><testcase classname="tests.test_phase8_architecture" name="test_command_security_allowed_commands" time="0.001" /><testcase classname="tests.test_phase8_architecture" name="test_command_security_rejected_commands" time="0.001" /><testcase classname="tests.test_phase8_architecture" name="test_dynamic_ast_fallback_single_function" time="0.005" /><testcase classname="tests.test_phase8_architecture" name="test_dynamic_ast_fallback_rejects_class_method" time="0.003" /><testcase classname="tests.test_phase8_architecture" name="test_dynamic_ast_fallback_rejects_multiple_functions" time="0.002" /><testcase classname="tests.test_phase8_architecture" name="test_repair_memory_isolation_and_gating" time="12.126" /><testcase classname="tests.test_phase8_architecture" name="test_strategy_selector_isolation_and_rewards" time="0.008" /><testcase classname="tests.test_phase8_architecture" name="test_multi_file_orchestrator_atomic_rollback" time="0.020"><failure message="assert False is True&#10; +  where False = &lt;app.multi_file_orchestrator.MultiFileOrchestrationResult object at 0x0000028B06290E80&gt;.rolled_back">def test_multi_file_orchestrator_atomic_rollback():
+        with tempfile.TemporaryDirectory() as td:
+            file_a = os.path.join(td, "file_a.py")
+            file_b = os.path.join(td, "file_b.py")
+            with open(file_a, "w", encoding="utf-8") as f:
+                f.write("# ORIGINAL A\n")
+            with open(file_b, "w", encoding="utf-8") as f:
+                f.write("# ORIGINAL B\n")
+    
+            test_file = os.path.join(td, "test_ab.py")
+            with open(test_file, "w", encoding="utf-8") as f:
+                f.write("def test_never_pass():\n    assert False\n")
+    
+            orchestrator = MultiFileEngineeringOrchestrator(
+                repo_root=td,
+                test_command="pytest test_ab.py",
+                fallback_enabled=True
+            )
+    
+            with patch("app.engineering_loop.generate_raw") as mock_gen:
+                mock_gen.side_effect = [
+                    "FILE: file_a.py\n&lt;&lt;&lt;&lt;&lt;&lt;&lt; SEARCH\n# ORIGINAL A\n=======\n# MODIFIED A\n&gt;&gt;&gt;&gt;&gt;&gt;&gt; REPLACE",
+                    "FILE: file_b.py\n&lt;&lt;&lt;&lt;&lt;&lt;&lt; SEARCH\n# ORIGINAL B\n=======\n# MODIFIED B\n&gt;&gt;&gt;&gt;&gt;&gt;&gt; REPLACE"
+                ]
+    
+                # Execute plan on files where tests will fail
+                res = orchestrator.execute_plan(
+                    task_prompt="Update both files",
+                    target_files=["file_a.py", "file_b.py"]
+                )
+    
+            # Must report failure and rolled_back = True
+            assert res.success is False
+&gt;           assert res.rolled_back is True
+E           assert False is True
+E            +  where False = &lt;app.multi_file_orchestrator.MultiFileOrchestrationResult object at 0x0000028B06290E80&gt;.rolled_back
+
+tests\test_phase8_architecture.py:237: AssertionError</failure></testcase><testcase classname="tests.test_audit_security_boundaries" name="test_executable_allowlist_boundaries" time="0.002" /><testcase classname="tests.test_audit_security_boundaries" name="test_shell_operator_and_chaining_rejections" time="0.002" /><testcase classname="tests.test_audit_security_boundaries" name="test_pytest_dangerous_flag_boundaries" time="0.002" /><testcase classname="tests.test_audit_security_boundaries" name="test_untested_attack_surface_analysis" time="0.002"><failure message="assert False is True">def test_untested_attack_surface_analysis():
+        runner = ProjectTestRunner()
+        # Inspect flags that are NOT blocked by current allowlist
+        # For example, -p plugin can load plugins if installed or in pythonpath
+        plugin_flag_allowed = runner.is_command_allowed("pytest -p my_plugin")
+        # Documents that -p is currently not blocked by _validate_pytest_args
+&gt;       assert plugin_flag_allowed is True
+E       assert False is True
+
+tests\test_audit_security_boundaries.py:66: AssertionError</failure></testcase><testcase classname="tests.test_audit_security_boundaries" name="test_working_directory_validation" time="0.002" /><testcase classname="tests.test_audit_security_boundaries" name="test_environment_sanitization" time="0.783" /></testsuite></testsuites>

@@ -98,7 +98,7 @@ Do not claim every rejection was a fallback bug. Test reproducible extraction de
 | 6 | PASS | 50 existing loop/reliability/security cases plus 6 initial new whole-loop cases. Seven initial regressions fixed: failed-edit fixtures now search restored originals; plugin-loading expectation now rejects; explicit multi-file approval; bounded retries retain configured attempts/error compatibility. Manual state assignment in one test replaced by real validation. |
 | 7 | PASS | 4 initial API/proxy tests, later direct-patch hash/stale checks. Final rendered browser has 7 checks, including custom proxy port health and no-CDN operation; screenshot inspected. In-app tool runtime failed initialization, so bundled Playwright/Chrome was used. A later browser run caught an unguarded Tailwind CDN global; fixed with guarded initialization and local panel layout, then reran successfully. |
 | 8 | PASS | Final isolated run: 152/152 integration/regression cases and 17/17 legacy strategy cases, no warnings/skips. Exact argv/cwd/env in final command JSON. All ten requested scenarios are covered, with cancellation, timeout, rollback conflicts and concurrent learning added. |
-| 9 | LOCAL PREFLIGHT IN PROGRESS | New source-only allowlisted builder, pinned model/embedding revisions, targeted runner, dependency snapshot and execution/ablation guide created. No full 20-task LLM benchmark run. Remote Colab/CUDA validation remains unavailable locally. |
+| 9 | LOCAL PREFLIGHT PASS; COLAB/GPU UNVERIFIED | New source-only allowlisted builder, pinned model/embedding revisions, targeted runner, dependency snapshot and execution/ablation guide created. No full 20-task LLM benchmark run. Remote Colab/CUDA validation remains unavailable locally. |
 
 Final validation uses isolated cwd/config/state. The initial baseline used the
 existing tests' historical runtime behavior in the original cwd; those tests can
@@ -119,3 +119,6 @@ no OS sandbox/crash journal, in-process repository reservations, external-writer
 TOCTOU limitations and delayed cancellation of uninterruptible model inference.
 The offline one-call real-model smoke passed generation transport only; its output
 is not evidence of a valid patch or increased coding performance.
+
+
+Final source commit: `920c01aa0d510aa281092e6b55e4ce02b31e584e`. New package: 66 verified members, SHA256 `cfc072c4f63b98a44d08fc09db4929002951226271824e0a5d97dabe843a70f3`. Extracted package reproduced 152 integration and 17 strategy passes; no failures/errors/skips. Final browser: 7 checks, no page errors. Preservation: 1,728 entries unchanged. Remote Colab/GPU and full LLM benchmark remain unrun. See the integration fix report and targeted validation JSON.

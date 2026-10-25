@@ -1,0 +1,288 @@
+[
+  {
+    "purpose": "pre-edit baseline",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "environment": {
+      "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+      "HF_HUB_OFFLINE": "1",
+      "TRANSFORMERS_OFFLINE": "1"
+    },
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_patch_engine.py",
+      "tests/test_patch_engine_search_replace.py",
+      "tests/test_phase7b_patch_reliability.py",
+      "tests/test_project_test_runner.py",
+      "tests/test_engineering_loop.py",
+      "tests/test_engineering_loop_safety.py",
+      "tests/test_engineering_loop_retries.py",
+      "tests/test_phase8_architecture.py",
+      "tests/test_audit_security_boundaries.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/baseline.xml"
+    ],
+    "output": "baseline.log"
+  },
+  {
+    "purpose": "phase1",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_graph.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase1.xml"
+    ],
+    "output": "phase1.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase2",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_graph.py",
+      "tests/test_phase8_1_patches.py",
+      "tests/test_patch_engine.py",
+      "tests/test_patch_engine_search_replace.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase2.xml"
+    ],
+    "output": "phase2.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase3",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_execution.py",
+      "tests/test_project_test_runner.py",
+      "tests/test_phase8_1_graph.py",
+      "tests/test_phase8_1_patches.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase3.xml"
+    ],
+    "output": "phase3.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase4",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_learning.py",
+      "tests/test_phase8_1_graph.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase4.xml"
+    ],
+    "output": "phase4.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase5",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_multi.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase5.xml"
+    ],
+    "output": "phase5.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase6",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_engineering_loop.py",
+      "tests/test_engineering_loop_safety.py",
+      "tests/test_engineering_loop_retries.py",
+      "tests/test_phase7b_patch_reliability.py",
+      "tests/test_phase8_architecture.py",
+      "tests/test_audit_security_boundaries.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase6.xml"
+    ],
+    "output": "phase6.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase6_acceptance",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_loop.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase6_acceptance.xml"
+    ],
+    "output": "phase6_acceptance.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase7",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_api.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase7.xml"
+    ],
+    "output": "phase7.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase8_extra",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_loop.py",
+      "tests/test_phase8_1_api.py",
+      "tests/test_phase8_1_learning.py",
+      "tests/test_phase8_1_multi.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase8_extra.xml"
+    ],
+    "output": "phase8_extra.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "phase9_runner",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_research.py",
+      "tests/test_phase8_1_multi.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/phase9_runner.xml"
+    ],
+    "output": "phase9_runner.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "graph_flow_final",
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_phase8_1_graph.py",
+      "tests/test_phase8_1_loop.py",
+      "tests/test_phase8_1_multi.py",
+      "tests/test_phase8_1_api.py",
+      "tests/test_phase8_1_learning.py",
+      "-q",
+      "--junitxml=eval_results_phase8_1/graph_flow_final.xml"
+    ],
+    "output": "graph_flow_final.log",
+    "note": "Environment inherited the per-command settings shown in the engineering log/tool transcript; final reproducible environment is recorded separately."
+  },
+  {
+    "purpose": "final isolated integration",
+    "record": "final_integration_command.json",
+    "launcher": [
+      ".\\venv\\Scripts\\python.exe",
+      "scripts/phase8_1_validate.py",
+      "--suite",
+      "integration"
+    ]
+  },
+  {
+    "purpose": "final isolated legacy strategy",
+    "record": "isolated_strategy_regression_command.json",
+    "launcher": [
+      ".\\venv\\Scripts\\python.exe",
+      "scripts/phase8_1_validate.py",
+      "--suite",
+      "strategy"
+    ]
+  },
+  {
+    "purpose": "starting-source flag reproduction",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "scripts/phase8_1_reproduce_flags.py"
+    ]
+  },
+  {
+    "purpose": "source package",
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "scripts/build_phase8_1_package.py"
+    ]
+  },
+  {
+    "purpose": "extracted package validation",
+    "record": "packaged_validation.json"
+  },
+  {
+    "purpose": "latest pinned-model transport smoke",
+    "environment": {
+      "LITECODER_MODEL_NAME": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "LITECODER_MODEL_REVISION": "2e1fd397ee46e1388853d2af2c993145b0f1098a"
+    },
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "scripts/phase8_1_model_smoke.py"
+    ]
+  },
+  {
+    "purpose": "latest deterministic Studio server",
+    "environment": {
+      "HF_HUB_OFFLINE": "1"
+    },
+    "argv": [
+      ".\\venv\\Scripts\\python.exe",
+      "scripts/phase8_1_studio_smoke.py"
+    ]
+  },
+  {
+    "purpose": "latest browser UI validation",
+    "environment": {
+      "NODE_PATH": "C:\\Users\\T14s\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules"
+    },
+    "argv": [
+      "node",
+      "scripts/phase8_1_studio_browser.cjs",
+      "C:\\Users\\T14s\\AppData\\Local\\Temp\\litecoder-studio-qa-v2i686j5"
+    ]
+  },
+  {
+    "purpose": "JavaScript syntax",
+    "argv": [
+      "node",
+      "--check",
+      "frontend/engineering.js"
+    ]
+  },
+  {
+    "purpose": "whitespace verification",
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ]
+  }
+]

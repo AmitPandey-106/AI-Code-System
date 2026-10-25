@@ -1,0 +1,24 @@
+{
+  "state": "completed",
+  "test_results": {
+    "success": true,
+    "output": "============================= test session starts =============================\nplatform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-starting-repro-x5rnxq7l\\fixture\ncollected 1 item\n\ntest_mod.py .                                                            [100%]\n\n============================== 1 passed in 0.01s ==============================\n",
+    "error": null,
+    "exit_code": 0,
+    "duration_ms": 1006,
+    "timeout": false,
+    "status": "success"
+  },
+  "memory_requested": true,
+  "strategy_requested": true,
+  "memory_default_effective": false,
+  "strategy_default_effective": true,
+  "starting_config_memory": false,
+  "starting_config_strategy": true,
+  "persisted_files": [
+    "strategy_memory.json",
+    "strategy_stats.json"
+  ],
+  "source_commit": "e46b2f1d36beac4f46abd09d6d75ce7bfea7f449",
+  "scope": "original app and config exported byte-for-byte into a temporary directory; fake model, real native test"
+}

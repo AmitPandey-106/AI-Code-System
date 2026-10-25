@@ -1,0 +1,56 @@
+{
+  "status": "PARTIALLY_VERIFIED",
+  "recorded_rejections": 11,
+  "reason_counts": {
+    "no_python_code_block": 5,
+    "no_valid_function_ast": 6
+  },
+  "tasks": [
+    {
+      "task_id": "task_01_router_slug_param",
+      "reason": "no_python_code_block"
+    },
+    {
+      "task_id": "task_02_status_code_phrase",
+      "reason": "no_valid_function_ast"
+    },
+    {
+      "task_id": "task_03_topological_cycle",
+      "reason": "no_valid_function_ast"
+    },
+    {
+      "task_id": "task_05_percentile_interpolation",
+      "reason": "no_python_code_block"
+    },
+    {
+      "task_id": "task_06_request_header_normalization",
+      "reason": "no_valid_function_ast"
+    },
+    {
+      "task_id": "task_07_response_set_cookie",
+      "reason": "no_valid_function_ast"
+    },
+    {
+      "task_id": "task_08_task_retry_backoff",
+      "reason": "no_python_code_block"
+    },
+    {
+      "task_id": "task_10_dataframe_impute_missing",
+      "reason": "no_python_code_block"
+    },
+    {
+      "task_id": "task_17_repo_traversal_patch_guard",
+      "reason": "no_valid_function_ast"
+    },
+    {
+      "task_id": "task_18_unsatisfiable_paradox_guard",
+      "reason": "no_valid_function_ast"
+    },
+    {
+      "task_id": "task_20_stale_source_mutation_guard",
+      "reason": "no_python_code_block"
+    }
+  ],
+  "raw_candidate_replay": "BLOCKED: original raw responses were not retained in the available artifacts",
+  "interpretation": "Five records lacked a supported Python block; six lacked a valid extractable function AST. These records do not establish that all rejections were extraction bugs. Supported extraction defects are covered by new deterministic tests."
+}

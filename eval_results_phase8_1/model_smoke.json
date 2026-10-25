@@ -1,0 +1,12 @@
+{
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "response": "```python\ndef add(a, b):\n    # Add the two numbers together",
+  "model_calls": 1,
+  "max_new_tokens": 16,
+  "duration_s": 9.359000000171363,
+  "torch": "2.11.0+cpu",
+  "transformers": "5.7.0",
+  "status": "PASS",
+  "scope": "generation transport only",
+  "wall_duration_s": 22.10899999924004
+}

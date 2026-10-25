@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "source_commit": "920c01aa0d510aa281092e6b55e4ce02b31e584e",
+  "archive": "LITE_CODER_PHASE8_1_SOURCE.zip",
+  "sha256": "cfc072c4f63b98a44d08fc09db4929002951226271824e0a5d97dabe843a70f3",
+  "manifest_sha256": "b76f7bedf8c3dda851b92af37037cd8e1050645d69a92291e744bab78594bb4c",
+  "file_count": 66,
+  "checks": [
+    "all member hashes",
+    "CRC",
+    "exact allowlist",
+    "no manifest self-reference",
+    "credential pattern scan",
+    "committed source only"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "argv": [
+    "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_patch_engine.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_patch_engine_search_replace.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase7b_patch_reliability.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_project_test_runner.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_engineering_loop.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_engineering_loop_safety.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_engineering_loop_retries.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_architecture.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_audit_security_boundaries.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_repo_index.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_strategy_bookkeeping.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_1_api.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_1_execution.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_1_graph.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_1_learning.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_1_loop.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_1_multi.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_1_patches.py",
+    "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\tests\\test_phase8_1_research.py",
+    "-q",
+    "--junitxml=C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\eval_results_phase8_1\\final_integration.xml"
+  ],
+  "cwd": "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-validation-jzotntbz",
+  "environment": {
+    "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "PYTHONPATH": "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "config_sha256": "dc6203da7de4aef2b58926a13ba4533a1616d35899cfc5058fe8ba63411a62c1",
+  "fixture_overrides": {},
+  "returncode": 0,
+  "duration_s": 64.67200000025332
+}

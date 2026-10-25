@@ -1,0 +1,430 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "timezone": "Asia/Calcutta",
+  "historical_baseline": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "starting_commit": "e46b2f1d36beac4f46abd09d6d75ce7bfea7f449",
+  "ending_source_commit": "920c01aa0d510aa281092e6b55e4ce02b31e584e",
+  "branch": "fix/phase8-1-integration",
+  "source_changed_files": [
+    "PHASE8_1_ENGINEERING_PLAN.md",
+    "PHASE8_1_EXECUTION_GUIDE.md",
+    "app/engineering_api.py",
+    "app/engineering_loop.py",
+    "app/file_transaction.py",
+    "app/main.py",
+    "app/model.py",
+    "app/multi_file_orchestrator.py",
+    "app/patch_engine.py",
+    "app/process_control.py",
+    "app/project_test_runner.py",
+    "app/repair_memory.py",
+    "app/repo_index.py",
+    "app/strategy_selector.py",
+    "colab_phase8_1/config.json",
+    "colab_phase8_1/run_targeted.py",
+    "frontend/engineering.js",
+    "frontend/index.html",
+    "frontend/server.py",
+    "requirements-phase8_1.txt",
+    "scripts/build_phase8_1_package.py",
+    "scripts/phase8_1_model_smoke.py",
+    "scripts/phase8_1_reproduce_flags.py",
+    "scripts/phase8_1_studio_browser.cjs",
+    "scripts/phase8_1_studio_smoke.py",
+    "scripts/phase8_1_validate.py",
+    "tests/test_audit_security_boundaries.py",
+    "tests/test_engineering_loop.py",
+    "tests/test_engineering_loop_safety.py",
+    "tests/test_patch_engine.py",
+    "tests/test_phase7b_patch_reliability.py",
+    "tests/test_phase8_1_api.py",
+    "tests/test_phase8_1_execution.py",
+    "tests/test_phase8_1_graph.py",
+    "tests/test_phase8_1_learning.py",
+    "tests/test_phase8_1_loop.py",
+    "tests/test_phase8_1_multi.py",
+    "tests/test_phase8_1_patches.py",
+    "tests/test_phase8_1_research.py",
+    "tests/test_phase8_architecture.py"
+  ],
+  "suites": {
+    "baseline": {
+      "tests": 80,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 80,
+      "duration_s": 89.909,
+      "junit": "baseline.xml",
+      "log": "baseline.log"
+    },
+    "phase1": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 4,
+      "duration_s": 63.128,
+      "junit": "phase1.xml",
+      "log": "phase1.log"
+    },
+    "phase2": {
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 34,
+      "duration_s": 0.828,
+      "junit": "phase2.xml",
+      "log": "phase2.log"
+    },
+    "phase3": {
+      "tests": 39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 39,
+      "duration_s": 12.196,
+      "junit": "phase3.xml",
+      "log": "phase3.log"
+    },
+    "phase4": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 17,
+      "duration_s": 3.488,
+      "junit": "phase4.xml",
+      "log": "phase4.log"
+    },
+    "phase5": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 3,
+      "duration_s": 1.949,
+      "junit": "phase5.xml",
+      "log": "phase5.log"
+    },
+    "phase6": {
+      "tests": 50,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 50,
+      "duration_s": 27.743,
+      "junit": "phase6.xml",
+      "log": "phase6.log"
+    },
+    "phase6_acceptance": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 6,
+      "duration_s": 5.621,
+      "junit": "phase6_acceptance.xml",
+      "log": "phase6_acceptance.log"
+    },
+    "phase7": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 4,
+      "duration_s": 4.328,
+      "junit": "phase7.xml",
+      "log": "phase7.log"
+    },
+    "phase8_extra": {
+      "tests": 30,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 30,
+      "duration_s": 24.531,
+      "junit": "phase8_extra.xml",
+      "log": "phase8_extra.log"
+    },
+    "phase9_runner": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 6,
+      "duration_s": 15.609,
+      "junit": "phase9_runner.xml",
+      "log": "phase9_runner.log"
+    },
+    "graph_flow_final": {
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 34,
+      "duration_s": 25.1,
+      "junit": "graph_flow_final.xml",
+      "log": "graph_flow_final.log"
+    },
+    "phase6_initial": {
+      "tests": 50,
+      "failures": 7,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 43,
+      "duration_s": 22.382,
+      "junit": "phase6_initial.xml",
+      "log": "phase6_initial.log"
+    },
+    "integrated": {
+      "tests": 145,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 145,
+      "duration_s": 53.7,
+      "junit": "integrated.xml",
+      "log": "integrated.log"
+    },
+    "final_integration": {
+      "tests": 152,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 152,
+      "duration_s": 64.784,
+      "junit": "final_integration.xml",
+      "log": "final_integration.log"
+    },
+    "isolated_strategy_regression": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 17,
+      "duration_s": 0.867,
+      "junit": "isolated_strategy_regression.xml",
+      "log": "isolated_strategy_regression.log"
+    },
+    "packaged_final_integration": {
+      "tests": 152,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 152,
+      "duration_s": 62.351,
+      "junit": "packaged_final_integration.xml",
+      "log": "packaged_final_integration.log"
+    },
+    "packaged_isolated_strategy_regression": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 17,
+      "duration_s": 0.888,
+      "junit": "packaged_isolated_strategy_regression.xml",
+      "log": "packaged_isolated_strategy_regression.log"
+    }
+  },
+  "final_unique_test_count": 169,
+  "final_failures": 0,
+  "final_errors": 0,
+  "final_skips": 0,
+  "acceptance_scenarios": {
+    "simple_function_repair": "test_phase8_1_loop.py::test_malformed_retry_then_native_repair; test_phase8_1_learning.py::test_verified_repair_persists_and_is_retrieved_in_later_session",
+    "malformed_then_bounded_retry": "test_phase8_1_loop.py::test_malformed_retry_then_native_repair",
+    "failing_tests_rollback": "test_phase8_1_loop.py::test_test_failure_restored_before_new_approval",
+    "stale_source": "test_phase8_1_loop.py::test_stale_source_and_traversal_fail_without_overwriting",
+    "prohibited_command": "test_phase8_1_execution.py::test_narrow_command_policy; test_phase8_1_api.py::test_start_is_nonblocking_progress_and_cancel_are_isolated",
+    "traversal": "test_phase8_1_patches.py::test_platform_independent_path_rejections",
+    "verified_memory_across_sessions": "test_phase8_1_learning.py::test_verified_repair_persists_and_is_retrieved_in_later_session",
+    "strategy_prompt_and_persistence": "test_phase8_1_learning.py::test_verified_repair_persists_and_is_retrieved_in_later_session",
+    "multifile_rollback_after_real_mutation": "test_phase8_1_multi.py::test_later_model_failure_rolls_back_actual_first_mutation; test_phase8_1_execution.py::test_real_first_write_then_second_failure_restores_bytes",
+    "in_progress_cancel_or_timeout": "test_phase8_1_loop.py::test_cancellation_during_tests_restores_patch; test_phase8_1_loop.py::test_timeout_is_not_success_and_restores_patch; test_phase8_1_execution.py::test_cancel_owns_test_descendants"
+  },
+  "browser": {
+    "status": "PASS",
+    "checks": [
+      "backend health and configured model are visible on a custom proxy port",
+      "no mutation before approval",
+      "approved repair displays verified success, diff and tests",
+      "policy rejection displays failure and disables approval",
+      "switching sessions restores the selected session evidence",
+      "rejection cancels without mutation",
+      "engineering panel works without external CDN assets"
+    ],
+    "page_errors": []
+  },
+  "starting_flags": {
+    "state": "completed",
+    "test_results": {
+      "success": true,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-starting-repro-x5rnxq7l\\fixture\ncollected 1 item\n\ntest_mod.py .                                                            [100%]\n\n============================== 1 passed in 0.01s ==============================\n",
+      "error": null,
+      "exit_code": 0,
+      "duration_ms": 1006,
+      "timeout": false,
+      "status": "success"
+    },
+    "memory_requested": true,
+    "strategy_requested": true,
+    "memory_default_effective": false,
+    "strategy_default_effective": true,
+    "starting_config_memory": false,
+    "starting_config_strategy": true,
+    "persisted_files": [
+      "strategy_memory.json",
+      "strategy_stats.json"
+    ],
+    "source_commit": "e46b2f1d36beac4f46abd09d6d75ce7bfea7f449",
+    "scope": "original app and config exported byte-for-byte into a temporary directory; fake model, real native test"
+  },
+  "model_smoke": {
+    "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+    "response": "```python\ndef add(a, b):\n    # Add the two numbers together",
+    "model_calls": 1,
+    "max_new_tokens": 16,
+    "duration_s": 9.359000000171363,
+    "torch": "2.11.0+cpu",
+    "transformers": "5.7.0",
+    "status": "PASS",
+    "scope": "generation transport only",
+    "wall_duration_s": 22.10899999924004
+  },
+  "earlier_base_model_smoke": {
+    "model": "Qwen/Qwen2.5-Coder-1.5B",
+    "response": "a + b\n# Expected output: 10\n\nSure! Here's",
+    "model_calls": 1,
+    "max_new_tokens": 16,
+    "duration_s": 9.328000000678003,
+    "torch": "2.11.0+cpu",
+    "transformers": "5.7.0",
+    "status": "PASS",
+    "scope": "generation transport only",
+    "wall_duration_s": 21.625
+  },
+  "total_real_model_smoke_calls": 2,
+  "model_smoke_scope": "generation transport only; neither response is counted as a validated repair",
+  "package": {
+    "status": "PASS",
+    "source_commit": "920c01aa0d510aa281092e6b55e4ce02b31e584e",
+    "archive": "LITE_CODER_PHASE8_1_SOURCE.zip",
+    "sha256": "cfc072c4f63b98a44d08fc09db4929002951226271824e0a5d97dabe843a70f3",
+    "manifest_sha256": "b76f7bedf8c3dda851b92af37037cd8e1050645d69a92291e744bab78594bb4c",
+    "file_count": 66,
+    "checks": [
+      "all member hashes",
+      "CRC",
+      "exact allowlist",
+      "no manifest self-reference",
+      "credential pattern scan",
+      "committed source only"
+    ]
+  },
+  "extracted_package": {
+    "status": "PASS",
+    "argv": [
+      "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+      "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv\\scripts\\phase8_1_validate.py",
+      "--suite",
+      "all"
+    ],
+    "cwd": "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-package-49p3d5nv",
+    "returncode": 0,
+    "duration_s": 66.98500000033528,
+    "stdout": "........................................................................ [ 47%]\n........................................................................ [ 94%]\n........                                                                 [100%]\n152 passed in 62.50s (0:01:02)\n\n.................                                                        [100%]\n17 passed in 0.88s\n\n",
+    "stderr": ""
+  },
+  "preservation": {
+    "status": "PASS",
+    "checked_files": 1728,
+    "changed_or_missing": [],
+    "scope": "starting tracked historical files, pre-existing nonignored untracked files, and explicit historical Phase 8 archive; ignored runtime stores excluded"
+  },
+  "full_20_task_llm_benchmark_run": false,
+  "performance_improvement_measured": false,
+  "phase_status": {
+    "0": "PASS",
+    "1": "PASS",
+    "2": "PASS",
+    "3": "PASS",
+    "4": "PASS",
+    "5": "PASS",
+    "6": "PASS",
+    "7": "PASS",
+    "8": "PASS"
+  },
+  "phase9": {
+    "local_package_preflight": "PASS",
+    "colab_gpu_execution": "NOT_RUN_UNAVAILABLE_LOCAL_HOST",
+    "full_llm_benchmark": "NOT_RUN_REQUIRES_EXPLICIT_AUTHORIZATION"
+  },
+  "known_limits": [
+    "Native tests and conftest are trusted Python, not an OS sandbox",
+    "No crash journal or multiprocess API-worker repository coordination",
+    "In-process model inference cancellation waits for return",
+    "Ignored runtime stores were not in the initial preservation manifest",
+    "Frozen stale-source oracle is permissive; supplemental evidence recorded separately",
+    "No coding-performance improvement claim"
+  ],
+  "historical_fallback_analysis": {
+    "status": "PARTIALLY_VERIFIED",
+    "recorded_rejections": 11,
+    "reason_counts": {
+      "no_python_code_block": 5,
+      "no_valid_function_ast": 6
+    },
+    "tasks": [
+      {
+        "task_id": "task_01_router_slug_param",
+        "reason": "no_python_code_block"
+      },
+      {
+        "task_id": "task_02_status_code_phrase",
+        "reason": "no_valid_function_ast"
+      },
+      {
+        "task_id": "task_03_topological_cycle",
+        "reason": "no_valid_function_ast"
+      },
+      {
+        "task_id": "task_05_percentile_interpolation",
+        "reason": "no_python_code_block"
+      },
+      {
+        "task_id": "task_06_request_header_normalization",
+        "reason": "no_valid_function_ast"
+      },
+      {
+        "task_id": "task_07_response_set_cookie",
+        "reason": "no_valid_function_ast"
+      },
+      {
+        "task_id": "task_08_task_retry_backoff",
+        "reason": "no_python_code_block"
+      },
+      {
+        "task_id": "task_10_dataframe_impute_missing",
+        "reason": "no_python_code_block"
+      },
+      {
+        "task_id": "task_17_repo_traversal_patch_guard",
+        "reason": "no_valid_function_ast"
+      },
+      {
+        "task_id": "task_18_unsatisfiable_paradox_guard",
+        "reason": "no_valid_function_ast"
+      },
+      {
+        "task_id": "task_20_stale_source_mutation_guard",
+        "reason": "no_python_code_block"
+      }
+    ],
+    "raw_candidate_replay": "BLOCKED: original raw responses were not retained in the available artifacts",
+    "interpretation": "Five records lacked a supported Python block; six lacked a valid extractable function AST. These records do not establish that all rejections were extraction bugs. Supported extraction defects are covered by new deterministic tests."
+  }
+}

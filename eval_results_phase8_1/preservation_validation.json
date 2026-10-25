@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "checked_files": 1728,
+  "changed_or_missing": [],
+  "scope": "starting tracked historical files, pre-existing nonignored untracked files, and explicit historical Phase 8 archive; ignored runtime stores excluded"
+}

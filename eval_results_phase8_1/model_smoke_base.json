@@ -1,0 +1,12 @@
+{
+  "model": "Qwen/Qwen2.5-Coder-1.5B",
+  "response": "a + b\n# Expected output: 10\n\nSure! Here's",
+  "model_calls": 1,
+  "max_new_tokens": 16,
+  "duration_s": 9.328000000678003,
+  "torch": "2.11.0+cpu",
+  "transformers": "5.7.0",
+  "status": "PASS",
+  "scope": "generation transport only",
+  "wall_duration_s": 21.625
+}

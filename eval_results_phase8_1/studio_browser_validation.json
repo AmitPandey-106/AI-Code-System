@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": [
+    "backend health and configured model are visible on a custom proxy port",
+    "no mutation before approval",
+    "approved repair displays verified success, diff and tests",
+    "policy rejection displays failure and disables approval",
+    "switching sessions restores the selected session evidence",
+    "rejection cancels without mutation",
+    "engineering panel works without external CDN assets"
+  ],
+  "page_errors": []
+}

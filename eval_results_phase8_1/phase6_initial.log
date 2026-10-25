@@ -1,0 +1,240 @@
+.FFF...F..........F........................F...F..                       [100%]
+================================== FAILURES ===================================
+________________________ test_repair_budget_exhaustion ________________________
+
+temp_repo = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp0j1vgxfq'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028B1C041DE0>
+
+    def test_repair_budget_exhaustion(temp_repo, monkeypatch):
+        import app.engineering_loop
+        # Always outputs the wrong fix `return a * b`
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", lambda p: """
+    ```diff
+    --- a/test_math.py
+    +++ b/test_math.py
+    @@ -1,2 +1,2 @@
+     def add(a, b):
+    -    return a - b
+    +    return a * b
+    ```
+    """ if "PREVIOUS" not in p else """
+    ```diff
+    --- a/test_math.py
+    +++ b/test_math.py
+    @@ -1,2 +1,2 @@
+     def add(a, b):
+    -    return a * b
+    +    return a * b
+    ```
+    """)
+    
+        session_id = engineering_manager.start_session("Fix addition", temp_repo, "pytest test_suite.py")
+        session = engineering_manager.get_session(session_id)
+    
+        assert session.state == EngineeringState.AWAITING_APPROVAL
+    
+        # Attempt 1
+        session.approve()
+        session.step()
+>       assert session.state == EngineeringState.AWAITING_APPROVAL
+E       AssertionError: assert 'failed' == 'awaiting_approval'
+E         
+E         - awaiting_approval
+E         + failed
+
+tests\test_engineering_loop.py:114: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmp0j1vgxfq
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmp0j1vgxfq
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmp0j1vgxfq
+___________________________ test_successful_repair ____________________________
+
+temp_repo = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp8mglulp5'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028B6332E530>
+
+    def test_successful_repair(temp_repo, monkeypatch):
+        import app.engineering_loop
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", mock_generate_raw_repair)
+    
+        session_id = engineering_manager.start_session("Fix addition", temp_repo, "pytest test_suite.py")
+        session = engineering_manager.get_session(session_id)
+    
+        assert session.state == EngineeringState.AWAITING_APPROVAL
+    
+        # Attempt 1 (will fail tests because it makes it a * b)
+        session.approve()
+        session.step()
+    
+>       assert session.state == EngineeringState.AWAITING_APPROVAL
+E       AssertionError: assert 'failed' == 'awaiting_approval'
+E         
+E         - awaiting_approval
+E         + failed
+
+tests\test_engineering_loop.py:142: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmp8mglulp5
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmp8mglulp5
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmp8mglulp5
+_______________________ test_malformed_patch_rejection ________________________
+
+temp_repo = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpuh_7ikvk'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028B633D3BE0>
+
+    def test_malformed_patch_rejection(temp_repo, monkeypatch):
+        import app.engineering_loop
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", mock_generate_raw_malformed)
+    
+        session_id = engineering_manager.start_session("Fix addition", temp_repo, "pytest test_suite.py")
+        session = engineering_manager.get_session(session_id)
+    
+        assert session.state == EngineeringState.FAILED
+>       assert "valid unified diff" in session.error_message
+E       AssertionError: assert 'valid unified diff' in 'Budget exhausted. Model response contained no parseable SEARCH/REPLACE blocks.'
+E        +  where 'Budget exhausted. Model response contained no parseable SEARCH/REPLACE blocks.' = <app.engineering_loop.EngineeringSession object at 0x0000028B633D3C10>.error_message
+
+tests\test_engineering_loop.py:160: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmpuh_7ikvk
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmpuh_7ikvk
+_______________ test_subsequent_repair_requires_fresh_approval ________________
+
+repo_env = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmpqncc2586'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028B6332F220>
+
+    def test_subsequent_repair_requires_fresh_approval(repo_env, monkeypatch):
+        import app.engineering_loop
+        # Attempt 1 produces wrong patch, attempt 2 produces right patch
+        def mock_gen(p):
+            if "PREVIOUS TEST FAILURE" in p:
+                return """```diff
+    --- a/calculator.py
+    +++ b/calculator.py
+    @@ -1,2 +1,2 @@
+     def calc(x):
+    -    return x * 10
+    +    return x + 1
+    ```"""
+            return """```diff
+    --- a/calculator.py
+    +++ b/calculator.py
+    @@ -1,2 +1,2 @@
+     def calc(x):
+    -    return x - 1
+    +    return x * 10
+    ```"""
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", mock_gen)
+    
+        session = EngineeringSession("Fix calculator", repo_env, "pytest test_calc.py")
+        session.step()
+        assert session.state == EngineeringState.AWAITING_APPROVAL
+        assert session.current_attempt == 1
+    
+        # Approve attempt 1
+        assert session.approve() is True
+        session.step()
+    
+        # Must be paused awaiting approval for attempt 2!
+>       assert session.state == EngineeringState.AWAITING_APPROVAL
+E       AssertionError: assert 'failed' == 'awaiting_approval'
+E         
+E         - awaiting_approval
+E         + failed
+
+tests\test_engineering_loop_safety.py:77: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmpqncc2586
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmpqncc2586
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmpqncc2586
+_____________________ test_syntax_retry_budget_exhaustion _____________________
+
+repo_env = 'C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp7uvdk5mp'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028B63423580>
+
+    def test_syntax_retry_budget_exhaustion(repo_env, monkeypatch):
+        """
+        Model outputs malformed syntax on all 3 attempts.
+        Loop must halt safely with FAILED and failure_category == 'malformed_patch_syntax'.
+        """
+        import app.engineering_loop
+        monkeypatch.setattr(app.engineering_loop, "generate_raw", lambda p: "No patch here!")
+    
+        session = EngineeringSession("Fix compute", repo_env, "pytest test_pass.py")
+        session.step()
+    
+        assert session.state == EngineeringState.FAILED
+>       assert session.current_attempt == 3
+E       assert 2 == 3
+E        +  where 2 = <app.engineering_loop.EngineeringSession object at 0x0000028B634235B0>.current_attempt
+
+tests\test_engineering_loop_retries.py:126: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmp7uvdk5mp
+[RepoIndexer] Scanning repository: C:\Users\T14s\AppData\Local\Temp\tmp7uvdk5mp
+________________ test_multi_file_orchestrator_atomic_rollback _________________
+
+    def test_multi_file_orchestrator_atomic_rollback():
+        with tempfile.TemporaryDirectory() as td:
+            file_a = os.path.join(td, "file_a.py")
+            file_b = os.path.join(td, "file_b.py")
+            with open(file_a, "w", encoding="utf-8") as f:
+                f.write("# ORIGINAL A\n")
+            with open(file_b, "w", encoding="utf-8") as f:
+                f.write("# ORIGINAL B\n")
+    
+            test_file = os.path.join(td, "test_ab.py")
+            with open(test_file, "w", encoding="utf-8") as f:
+                f.write("def test_never_pass():\n    assert False\n")
+    
+            orchestrator = MultiFileEngineeringOrchestrator(
+                repo_root=td,
+                test_command="pytest test_ab.py",
+                fallback_enabled=True
+            )
+    
+            with patch("app.engineering_loop.generate_raw") as mock_gen:
+                mock_gen.side_effect = [
+                    "FILE: file_a.py\n<<<<<<< SEARCH\n# ORIGINAL A\n=======\n# MODIFIED A\n>>>>>>> REPLACE",
+                    "FILE: file_b.py\n<<<<<<< SEARCH\n# ORIGINAL B\n=======\n# MODIFIED B\n>>>>>>> REPLACE"
+                ]
+    
+                # Execute plan on files where tests will fail
+                res = orchestrator.execute_plan(
+                    task_prompt="Update both files",
+                    target_files=["file_a.py", "file_b.py"]
+                )
+    
+            # Must report failure and rolled_back = True
+            assert res.success is False
+>           assert res.rolled_back is True
+E           assert False is True
+E            +  where False = <app.multi_file_orchestrator.MultiFileOrchestrationResult object at 0x0000028B06290E80>.rolled_back
+
+tests\test_phase8_architecture.py:237: AssertionError
+____________________ test_untested_attack_surface_analysis ____________________
+
+    def test_untested_attack_surface_analysis():
+        runner = ProjectTestRunner()
+        # Inspect flags that are NOT blocked by current allowlist
+        # For example, -p plugin can load plugins if installed or in pythonpath
+        plugin_flag_allowed = runner.is_command_allowed("pytest -p my_plugin")
+        # Documents that -p is currently not blocked by _validate_pytest_args
+>       assert plugin_flag_allowed is True
+E       assert False is True
+
+tests\test_audit_security_boundaries.py:66: AssertionError
+============================== warnings summary ===============================
+tests/test_phase8_architecture.py::test_repair_memory_isolation_and_gating
+  D:\Amit Stuff\ai-code-system\app\repair_memory.py:91: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+    self.dimension = model.get_sentence_embedding_dimension()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_engineering_loop.py::test_repair_budget_exhaustion - Assert...
+FAILED tests/test_engineering_loop.py::test_successful_repair - AssertionErro...
+FAILED tests/test_engineering_loop.py::test_malformed_patch_rejection - Asser...
+FAILED tests/test_engineering_loop_safety.py::test_subsequent_repair_requires_fresh_approval
+FAILED tests/test_engineering_loop_retries.py::test_syntax_retry_budget_exhaustion
+FAILED tests/test_phase8_architecture.py::test_multi_file_orchestrator_atomic_rollback
+FAILED tests/test_audit_security_boundaries.py::test_untested_attack_surface_analysis
+7 failed, 43 passed, 1 warning in 22.42s
