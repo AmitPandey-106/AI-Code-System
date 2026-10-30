@@ -1,0 +1,12 @@
+{
+  "arm": "A",
+  "created": "2026-10-25T09:12:27.800380+00:00",
+  "experiment_id": "control-test",
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt03\\test_internal_authorization_is9\\A",
+  "parent_pid": 26220,
+  "plan_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "run_id": "3f8fa87053d841c2abe655a83b393202",
+  "source": "fixed-source",
+  "task_id": "task_01_router_slug_param"
+}

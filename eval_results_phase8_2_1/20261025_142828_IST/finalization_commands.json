@@ -1,0 +1,21 @@
+{
+  "finalize": {
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "exit_code": 0,
+    "powershell": "& '.\\venv\\Scripts\\python.exe' -B 'scripts/phase8_2_1_prepare.py' finalize --output 'eval_results_phase8_2_1/20261025_142828_IST' --controls-attempt controls_attempt07 --artifact-dir 'eval_results_phase8_2_1/20261025_142828_IST/final_gate_v3'",
+    "stdout": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424"
+  },
+  "read_only_plan_validation": {
+    "artifact": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\final_readonly_validation.json",
+    "exit_code": 0,
+    "functions": [
+      "phase8_2_1_arm.validate_plan(A, check_environment=True)",
+      "phase8_2_1_arm.validate_plan(B, check_environment=False)"
+    ]
+  },
+  "stage": {
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "exit_code": 0,
+    "powershell": "& '.\\venv\\Scripts\\python.exe' -B 'scripts/phase8_2_1_prepare.py' stage --output 'eval_results_phase8_2_1/20261025_142828_IST'"
+  }
+}

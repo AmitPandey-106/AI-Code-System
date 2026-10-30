@@ -1,0 +1,24 @@
+[
+    {
+        "task_id": "HELDOUT_T1",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def add_suffix(s): that returns the string duplicated.",
+        "expected_tests": [
+            "assert add_suffix('test') == 'testtest'",
+            "assert add_suffix('a') == 'aa'"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "HELDOUT_T2",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def compute_val(a, b): that returns a MULTIPLIED BY b.",
+        "expected_tests": [
+            "assert compute_val(4, 2) == 8",
+            "assert compute_val(5, 5) == 25"
+        ],
+        "source": "controlled"
+    }
+]

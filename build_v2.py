@@ -1,0 +1,99 @@
+import os
+import zipfile
+import hashlib
+from pathlib import Path
+import sys
+
+def create_zip():
+    # Verify canonical dataset hash first
+    canonical_dataset_path = "data/benchmark/v1.0/dataset.json"
+    with open(canonical_dataset_path, "rb") as f:
+        ds_hash = hashlib.sha256(f.read()).hexdigest()
+        
+    expected_hash = "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620"
+    if ds_hash != expected_hash:
+        print(f"ABORT: canonical dataset hash mismatch. Expected {expected_hash}, got {ds_hash}")
+        sys.exit(1)
+
+    zip_name = "LITE_CODER_FINAL_LORA_EVIDENCE_V4.zip"
+    
+    # Exclude logic
+    def should_exclude(path):
+        lower_path = path.lower()
+        if "__pycache__" in lower_path or ".git" in lower_path:
+            return True
+        if ".venv" in lower_path or "venv" in lower_path or "env" in lower_path:
+            return True
+        if "experiments\\" in path or "experiments/" in path:
+            # ONLY include CONTROLLED_LORA_PROOF
+            if "CONTROLLED_LORA_PROOF" not in path:
+                return True
+            # Exclude EVIDENCES or raw_tasks if any exist (historical outputs of the proof)
+            if "EVIDENCE" in path or "STAGE" in path or "raw_tasks" in path:
+                return True
+        if "data\\repair_memory.json" in path or "data/repair_memory.json" in path:
+            return True
+        if "data\\repair_memory_index.faiss" in path or "data/repair_memory_index.faiss" in path:
+            return True
+        if "data\\strategy_memory.json" in path or "data/strategy_memory.json" in path:
+            return True
+        if "data\\strategy_stats.json" in path or "data/strategy_stats.json" in path:
+            return True
+        if "models\\adapters" in path or "models/adapters" in path:
+            return True
+        if ".pyc" in lower_path:
+            return True
+        return False
+        
+    include_dirs = ["app", "benchmark", "experiments/CONTROLLED_LORA_PROOF", "data/benchmark"]
+    include_files = ["requirements.txt", "config.json"]
+    
+    with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zf:
+        # Add dirs
+        for d in include_dirs:
+            if not os.path.exists(d): continue
+            for root, dirs, files in os.walk(d):
+                for file in files:
+                    full_path = os.path.join(root, file)
+                    rel_path = os.path.relpath(full_path, start=".")
+                    if not should_exclude(rel_path):
+                        zf.write(full_path, arcname=rel_path)
+                        
+        # Add files
+        for f in include_files:
+            if os.path.exists(f) and not should_exclude(f):
+                zf.write(f, arcname=f)
+
+    # Verify
+    count = 0
+    size = os.path.getsize(zip_name)
+    manifest = []
+    
+    with zipfile.ZipFile(zip_name, 'r') as zf:
+        for info in zf.infolist():
+            count += 1
+            manifest.append(info.filename)
+            
+    sha256_hash = hashlib.sha256()
+    with open(zip_name, "rb") as f:
+        for byte_block in iter(lambda: f.read(4096), b""):
+            sha256_hash.update(byte_block)
+            
+    import json
+    result = {
+        "zip_path": os.path.abspath(zip_name),
+        "sha256": sha256_hash.hexdigest(),
+        "file_count": count,
+        "size_bytes": size,
+        "manifest_preview": manifest[:20],
+        "ds_hash": ds_hash
+    }
+    
+    print(json.dumps(result, indent=2))
+    
+    print("\n--- Manifest List ---")
+    for m in manifest:
+        print(m)
+
+if __name__ == "__main__":
+    create_zip()

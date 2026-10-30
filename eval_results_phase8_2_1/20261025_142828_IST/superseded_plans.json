@@ -1,0 +1,33 @@
+{
+  "current_plan": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\experiment_plan.json",
+  "current_plan_sha256": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+  "superseded": [
+    {
+      "approved_or_executed": false,
+      "file_sha256": "45affcc363fb711d5eee7a3a7f0376a3230cbc21d74743f02395bdf169f9e5a4",
+      "label": "phase8_2_reviewed",
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\experiment_plan.json",
+      "plan_sha256": "cea4b5a9eaa7b0c763b934f0473ea019efed9d333eeac8f2b82e8adf06c98204",
+      "reason": "Historical original entrypoint retains audited defects",
+      "status": "SUPERSEDED; do not execute"
+    },
+    {
+      "approved_or_executed": false,
+      "file_sha256": "2f6691b203cd584a7085e90a46553b51084650f4845a9678873181773ad6bef3",
+      "label": "preliminary_phase8_2_1",
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\experiment_plan.json",
+      "plan_sha256": "6e804be0ceeb412db1c0c108263011a4ede6f589925597329b9d9e49a6cc0372",
+      "reason": "Later exception-preservation hardening changed bound execution hashes; this plan now fails source validation",
+      "status": "SUPERSEDED; do not execute"
+    },
+    {
+      "approved_or_executed": false,
+      "file_sha256": "ca817dea0bc011ec0968bc1dd0f3da039d9b899ec38c63ee4cc7ebf50996c34e",
+      "label": "preliminary_gate_v2",
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v2\\experiment_plan.json",
+      "plan_sha256": "d4bca7f3f8dbe7e82802577e08fb22fd62ba9043d17a1a4714b33b3c5c1ef25b",
+      "reason": "Later exception-preservation hardening changed bound execution hashes; this plan now fails source validation",
+      "status": "SUPERSEDED; do not execute"
+    }
+  ]
+}

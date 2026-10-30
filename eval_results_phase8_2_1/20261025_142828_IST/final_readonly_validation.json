@@ -1,0 +1,56 @@
+{
+  "arm_identity": {
+    "A": {
+      "arm": "A",
+      "experiment_id": "20261025_142828_IST",
+      "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\runs\\A",
+      "plan_sha256": "6e804be0ceeb412db1c0c108263011a4ede6f589925597329b9d9e49a6cc0372",
+      "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+      "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+      "task_id": "task_01_router_slug_param"
+    },
+    "B": {
+      "arm": "B",
+      "experiment_id": "20261025_142828_IST",
+      "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\runs\\B",
+      "plan_sha256": "6e804be0ceeb412db1c0c108263011a4ede6f589925597329b9d9e49a6cc0372",
+      "revision": "920c01aa0d510aa281092e6b55e4ce02b31e584e",
+      "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\candidate",
+      "task_id": "task_01_router_slug_param"
+    }
+  },
+  "coding_model_calls": 0,
+  "current_platform": "Windows-10-10.0.22621-SP0",
+  "current_processor": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+  "current_python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "duration_s": 10.561999999918044,
+  "experiment_arms_started": 0,
+  "frozen_source_file_count": 115,
+  "full_readonly_validation_A": true,
+  "new_arm_output_exists": {
+    "A": false,
+    "B": false
+  },
+  "new_plan_sha256": "6e804be0ceeb412db1c0c108263011a4ede6f589925597329b9d9e49a6cc0372",
+  "original_preservation_changed": [],
+  "original_preservation_files_checked": 1934,
+  "plan_digest_matches": true,
+  "source_fixture_path_validation_B": true,
+  "unchanged_inherited_controls": [
+    "task_id",
+    "category",
+    "canonical_task_prompt",
+    "dataset_git_tree",
+    "dataset_module_sha256",
+    "fixture_hashes",
+    "model_prompt_sha256",
+    "model",
+    "hardware",
+    "dependency_versions",
+    "generation",
+    "limits",
+    "components",
+    "execution_order",
+    "order_seed"
+  ]
+}

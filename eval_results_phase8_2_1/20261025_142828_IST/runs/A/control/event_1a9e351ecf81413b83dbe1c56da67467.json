@@ -1,0 +1,12 @@
+{
+  "arm": "A",
+  "experiment_id": "20261025_142828_IST_final_gate_v3",
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\runs\\A",
+  "plan_sha256": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+  "status": "worker_output",
+  "task_id": "task_01_router_slug_param",
+  "text": "PermissionError: Internal worker authorization rejected",
+  "timestamp": "2026-10-27T08:04:41.907987+00:00"
+}

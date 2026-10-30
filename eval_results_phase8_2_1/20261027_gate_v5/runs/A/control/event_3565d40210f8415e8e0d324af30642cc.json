@@ -1,0 +1,12 @@
+{
+  "arm": "A",
+  "experiment_id": "20261027_gate_v5",
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v5\\runs\\A",
+  "plan_sha256": "e90ac2fc8d7a1f7abfe3c94a6ce30b3c01d158a032e896eb203a575a3a03ab3e",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+  "status": "worker_output",
+  "task_id": "task_01_router_slug_param",
+  "text": "    self.check(path, exclusive_only=bool(flags & os.O_EXCL))",
+  "timestamp": "2026-10-27T10:36:26.825354+00:00"
+}

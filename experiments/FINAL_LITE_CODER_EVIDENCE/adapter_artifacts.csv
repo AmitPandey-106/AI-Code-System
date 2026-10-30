@@ -1,0 +1,2 @@
+TrainingCycleID,AdapterWeightsExists,AdapterWeightsSize,ValidationStatus
+cycle_v1_1791456804,True,4372840,passed

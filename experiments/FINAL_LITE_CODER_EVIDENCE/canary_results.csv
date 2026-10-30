@@ -1,0 +1,4 @@
+TrainingCycleID,TaskID,Passed,CanaryTasks,CanarySuccessRate
+cycle_v1_1791456804,CANARY_1,True,3,0.6667
+cycle_v1_1791456804,CANARY_2,True,3,0.6667
+cycle_v1_1791456804,CANARY_3,False,3,0.6667

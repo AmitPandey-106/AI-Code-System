@@ -1,0 +1,14 @@
+{
+  "arm": "A",
+  "error_type": "KeyboardInterrupt",
+  "experiment_id": "20261027_gate_v7",
+  "functional_repair": null,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v7\\runs\\A",
+  "plan_sha256": "6c06ffe76d421450232cf533f0f5b13a045221ae9e4ce5010b59c1121d7d4b58",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+  "status": "cancelled",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-27T12:01:01.762462+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py\", line 482, in lifecycle\n    yield\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 430, in run_parent\n    answer = confirm(\"Review patch; type SHA256 to approve (\" + patch_hash + \"): \")\nKeyboardInterrupt\n"
+}

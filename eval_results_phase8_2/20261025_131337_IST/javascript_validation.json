@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "node",
+    "--check",
+    "frontend/engineering.js"
+  ],
+  "cwd": "D:\\Amit Stuff\\ai-code-system",
+  "exit_code": 0,
+  "duration_s": 0.06199999991804361,
+  "stdout": "",
+  "stderr": ""
+}

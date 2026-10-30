@@ -1,0 +1,10 @@
+\section{Experimental Setup}
+\subsection{Benchmark and Configurations}
+We evaluate the framework across a 100-task Python benchmark under strict deterministic conditions (\texttt{BENCHMARK\_SEED = 42}).
+The primary configurations are:
+\begin{itemize}
+    \item \textbf{Mode A (Baseline):} Zero-shot repair without memory.
+    \item \textbf{Mode D (Memory):} LITE-Coder experience retrieval enabled.
+    \item \textbf{Mode F (LoRA):} Model fine-tuned via LoRA parameter adaptation.
+    \item \textbf{Mode F\_SAFE:} AST/contract safety evaluation mechanisms enabled.
+\end{itemize}

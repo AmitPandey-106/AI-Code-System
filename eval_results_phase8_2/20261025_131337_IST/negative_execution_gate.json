@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py",
+    "--source",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\exports\\baseline",
+    "--output",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\arms\\A\\actual_run",
+    "--task-id",
+    "task_01_router_slug_param",
+    "--run",
+    "--plan",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\experiment_plan.json",
+    "--arm",
+    "A",
+    "--approved-plan-sha256",
+    "0000000000000000000000000000000000000000000000000000000000000000"
+  ],
+  "exit_code": 1,
+  "duration_s": 0.20299999974668026,
+  "expected_rejection": true,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py\", line 296, in <module>\n    main()\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py\", line 236, in main\n    check_approval(plan, args.approved_plan_sha256)\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py\", line 32, in check_approval\n    raise ValueError(\"Model execution requires explicit approval of this exact plan SHA256\")\nValueError: Model execution requires explicit approval of this exact plan SHA256\n",
+  "actual_run_directories_created": false,
+  "real_llm_calls": 0
+}

@@ -1,0 +1,14 @@
+{
+  "arm": "A",
+  "error_type": "ChildProcessError",
+  "experiment_id": "control-test",
+  "functional_repair": null,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt03\\test_parent_supervision_author3\\runs\\A",
+  "plan_sha256": "997142fade13fbf25341908cf226bbd4517fdf4943762eaf5ac2609dfe23dbff",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt03\\test_parent_supervision_author3\\source_A",
+  "status": "child_failure",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:12:29.381848+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py\", line 315, in lifecycle\n    yield\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 422, in run_parent\n    raise ChildProcessError(\"Worker failed; exit=\" + str(code))\nChildProcessError: Worker failed; exit=7\n"
+}

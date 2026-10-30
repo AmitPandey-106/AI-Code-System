@@ -9,6 +9,12 @@ from app.strategy_selector import StrategySelector
 from test_phase8_1_patches import patch
 
 
+LEGACY_VERIFICATION = {"syntax_passed": True, "safety_passed": True,
+                       "execution_passed": True, "tests_passed": True}
+ENGINEERING_VERIFICATION = {"passed": True, "native_tests_passed": True,
+                            "independent_verification_passed": True}
+
+
 class DeterministicEmbedding:
     def get_sentence_embedding_dimension(self):
         return 32
@@ -45,6 +51,10 @@ def test_verified_repair_persists_and_is_retrieved_in_later_session(tmp_path, mo
     documents = json.loads((Path(s.storage_dir) / "repair_memory.json").read_text())
     assert len(documents) == 1
     assert documents[0]["metadata"]["session_id"] == s.session_id
+    assert documents[0]["metadata"]["source_hashes"] == s.source_file_hashes
+    assert documents[0]["metadata"]["patch_hash"] == s.current_patch_hash
+    assert documents[0]["verification"] == ENGINEERING_VERIFICATION
+    assert documents[0]["successful_fix"] == s.current_diff
     assert "return 0" in documents[0]["broken_code"]
     assert documents[0]["verification"]["independent_verification_passed"]
     selector = StrategySelector(s.storage_dir, enabled=True)
@@ -120,7 +130,8 @@ def test_concurrent_learning_writes_are_not_lost(tmp_path):
     def write(i):
         mem = memory.RepairMemory(str(tmp_path), enabled=True)
         assert mem.add_verified_experience(task=f"task {i}", error_type="AssertionError", error_message="failure",
-            broken_code="return 0", successful_fix=f"return {i}", tests="pytest", verification={"passed": True}, repair_attempts=1)
+            broken_code="return 0", successful_fix=f"return {i}", tests="pytest",
+            verification=dict(ENGINEERING_VERIFICATION), repair_attempts=1)
         selector = StrategySelector(str(tmp_path), enabled=True)
         assert selector.record_outcome("DIRECT_REPAIR", "AssertionError", f"task {i}", 1, True, True, True, 1,
                                        f"feedback-{i}", False, False)
@@ -128,3 +139,138 @@ def test_concurrent_learning_writes_are_not_lost(tmp_path):
         list(pool.map(write, [1, 2]))
     assert len(memory.RepairMemory(str(tmp_path), enabled=True).memories) == 2
     assert StrategySelector(str(tmp_path), enabled=True).stats["DIRECT_REPAIR"]["AssertionError"]["successes"] == 2
+
+
+@pytest.mark.parametrize("predicate,verification,expected", [
+    pytest.param("memory", LEGACY_VERIFICATION, True, id="complete-legacy"),
+    pytest.param("memory", ENGINEERING_VERIFICATION, True, id="complete-engineering"),
+    pytest.param("memory", {"passed": True, "tests_passed": False}, False, id="contradictory"),
+    pytest.param("training", ENGINEERING_VERIFICATION, False, id="engineering-patch-is-not-training-code"),
+])
+def test_verification_schema_probe(predicate, verification, expected):
+    # The four observations from the architecture audit, with repaired expectations.
+    if predicate == "memory":
+        assert memory.verified(verification) is expected
+    else:
+        from app.training_dataset import validate_training_experience
+        assert validate_training_experience(dict(success=True, error_type="AssertionError",
+            error_message="failure", broken_code="def f(): return 0", successful_fix=patch(),
+            verification=dict(verification))) is expected
+
+
+def assert_verification_rejected(tmp_path, verification):
+    assert memory.verified(verification) is False
+    storage = tmp_path / "rejected"
+    mem = memory.RepairMemory(str(storage), enabled=True)
+    args = dict(task="f", error_type="AssertionError", error_message="failure",
+                broken_code="def f(): return 0", successful_fix="def f(): return 1",
+                tests="pytest", verification=verification, repair_attempts=1)
+    assert mem.add_repair_experience(**args) is False
+    assert mem.add_verified_experience(**args) is False
+    assert not storage.exists()
+
+
+@pytest.mark.parametrize("verification", [None, False, 1, "passed", [], {},
+    {"status": "success"}, {"success": True}, {"sandboxed_execution": True},
+    {"syntax_passed": True, "safety_passed": True, "execution_passed": True,
+     "passed": True, "native_tests_passed": True}])
+def test_missing_malformed_and_mixed_partial_verification(tmp_path, verification):
+    assert_verification_rejected(tmp_path, verification)
+
+
+@pytest.mark.parametrize("verification", [
+    pytest.param({key: True for i, key in enumerate(schema) if mask & (1 << i)},
+                 id=f"{name}-{mask}")
+    for name, schema in (("legacy", LEGACY_VERIFICATION), ("engineering", ENGINEERING_VERIFICATION))
+    for mask in range(1, (1 << len(schema)) - 1)
+])
+def test_every_incomplete_schema_is_rejected(tmp_path, verification):
+    assert_verification_rejected(tmp_path, verification)
+
+
+@pytest.mark.parametrize("field", ["syntax_passed", "safety_passed", "execution_passed", "tests_passed",
+    "passed", "native_tests_passed", "independent_verification_passed", "success", "sandboxed_execution"])
+@pytest.mark.parametrize("value", [False, None, 0, 1, "true", "false", [], np.bool_(True)])
+def test_explicit_negative_or_non_boolean_verification_is_rejected(tmp_path, field, value):
+    # Even a second complete positive schema cannot override a contradictory flag.
+    verification = {**LEGACY_VERIFICATION, **ENGINEERING_VERIFICATION,
+                    "success": True, "sandboxed_execution": True, field: value}
+    assert_verification_rejected(tmp_path, verification)
+
+
+@pytest.mark.parametrize("schema", [LEGACY_VERIFICATION, ENGINEERING_VERIFICATION], ids=["legacy", "engineering"])
+@pytest.mark.parametrize("status", ["cancelled", "canceled", "cancelling", "failed", "error", "timeout",
+    "oracle_failed", "pending", "running", "", None, False, 1, [], {}])
+def test_unsuccessful_unknown_or_malformed_status_is_rejected(tmp_path, schema, status):
+    assert_verification_rejected(tmp_path, {**schema, "status": status})
+
+
+@pytest.mark.parametrize("schema", [LEGACY_VERIFICATION, ENGINEERING_VERIFICATION], ids=["legacy", "engineering"])
+@pytest.mark.parametrize("status", ["success", "passed", "completed", "verified"])
+def test_complete_verification_accepts_successful_terminal_status(schema, status):
+    assert memory.verified({**schema, "status": status}) is True
+
+
+@pytest.mark.parametrize("verification", [
+    {**LEGACY_VERIFICATION, "sandboxed_execution": True},
+    {**LEGACY_VERIFICATION, "passed": True, "success": True},
+    {**ENGINEERING_VERIFICATION, "tests_passed": True, "success": True},
+    {**ENGINEERING_VERIFICATION, "duration_ms": 5, "detail": "native verification"},
+    {**LEGACY_VERIFICATION, **ENGINEERING_VERIFICATION},
+])
+def test_complete_schema_accepts_positive_supplemental_evidence(verification):
+    before = json.dumps(verification, sort_keys=True)
+    assert memory.verified(verification) is True
+    assert json.dumps(verification, sort_keys=True) == before
+
+
+@pytest.mark.parametrize("method", ["add_repair_experience", "add_verified_experience"])
+@pytest.mark.parametrize("kind", ["legacy", "engineering"])
+def test_complete_verification_round_trips_without_schema_conversion(tmp_path, method, kind):
+    from app.training_dataset import validate_training_experience
+    verification = dict(LEGACY_VERIFICATION if kind == "legacy" else ENGINEERING_VERIFICATION)
+    if kind == "legacy":
+        verification["sandboxed_execution"] = True
+    successful_fix = "def f():\n    return 1\n" if kind == "legacy" else patch()
+    metadata = {} if kind == "legacy" else {"session_id": "reviewed-session",
+        "source_hashes": {"mod.py": hashlib.sha256(b"def f(): return 0\n").hexdigest()},
+        "patch_hash": hashlib.sha256(successful_fix.encode()).hexdigest(), "fallback_used": False}
+    before = json.dumps([verification, metadata], sort_keys=True)
+    mem = memory.RepairMemory(str(tmp_path), enabled=True)
+    assert getattr(mem, method)(task="f", error_type="AssertionError", error_message="failure",
+        broken_code="def f(): return 0", successful_fix=successful_fix, tests="pytest",
+        verification=verification, repair_attempts=1, metadata=metadata) is True
+    raw = (tmp_path / "repair_memory.json").read_bytes()
+    record = json.loads(raw)[0]
+    assert record["verification"] == verification
+    assert record["metadata"] == metadata and record["successful_fix"] == successful_fix
+    assert json.dumps([verification, metadata], sort_keys=True) == before
+    assert validate_training_experience(record) is (kind == "legacy")
+    reloaded = memory.RepairMemory(str(tmp_path), enabled=True)
+    assert reloaded.memories == [record]
+    found = reloaded.search_similar_experiences("f", "AssertionError", "failure", "def f(): return 0")
+    assert found[0]["memory"] == record
+    assert (tmp_path / "repair_memory.json").read_bytes() == raw
+    assert not (tmp_path / "repair_memory_index.faiss").exists()
+
+
+def test_loading_does_not_rewrite_existing_valid_or_incomplete_records(tmp_path):
+    records = [dict(memory_id=name, task="f", error_type="AssertionError", error_message="failure",
+                    broken_code="def f(): return 0", successful_fix=fix, verification=verification,
+                    metadata={"original_provenance": name})
+               for name, verification, fix in (
+                   ("legacy", dict(LEGACY_VERIFICATION), "def f(): return 1"),
+                   ("engineering", dict(ENGINEERING_VERIFICATION), patch()),
+                   ("incomplete", {"passed": True}, patch()))]
+    path = tmp_path / "repair_memory.json"
+    raw = json.dumps(records, indent=4).encode()
+    path.write_bytes(raw)
+    before = path.stat()
+    mem = memory.RepairMemory(str(tmp_path), enabled=True)
+    assert mem.memories == records[:2]
+    assert mem.warnings
+    assert mem.search_similar_experiences("f", "AssertionError", "failure", "def f(): return 0")
+    after = path.stat()
+    assert path.read_bytes() == raw
+    assert (after.st_size, after.st_mtime_ns, after.st_mode) == (before.st_size, before.st_mtime_ns, before.st_mode)
+    assert not (tmp_path / "repair_memory_index.faiss").exists()

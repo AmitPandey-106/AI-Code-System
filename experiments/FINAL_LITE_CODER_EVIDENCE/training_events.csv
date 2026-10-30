@@ -1,0 +1,2 @@
+training_cycle_id,trigger_task_id,source_memory_count,training_status,training_loss,candidate_adapter,candidate_adapter_path,adapter_weights_exists,adapter_weights_size,validation_status,promotion_status,rollback,active_adapter_id,canary_tasks,canary_success_rate,rejection_reason
+cycle_v1_1791456804,PROOF_T4,,success,0.045,adapter_v1_1791456804,models/adapters/adapter_v1_1791456804,True,4372840,passed,rejected,True,,3,0.6667,canary_regression_detected

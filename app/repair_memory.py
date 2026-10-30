@@ -28,10 +28,23 @@ def get_embedding_model():
 
 
 def verified(verification):
-    if not isinstance(verification, dict) or verification.get("status") in ("failed", "error", "cancelled"):
+    """Require a complete legacy or engineering proof, without converting it.
+
+    Every supplied recognized flag must be literal True, including supplemental
+    flags from the other format. A summary flag alone is not complete evidence.
+    """
+    if not isinstance(verification, dict):
         return False
-    flags = [verification[k] for k in ("passed", "native_tests_passed", "success", "independent_verification_passed") if k in verification]
-    return bool(flags) and all(flag is True for flag in flags)
+    if "status" in verification and (not isinstance(verification["status"], str)
+            or verification["status"] not in ("success", "passed", "completed", "verified")):
+        return False
+    legacy = ("syntax_passed", "safety_passed", "execution_passed", "tests_passed")
+    engineering = ("passed", "native_tests_passed", "independent_verification_passed")
+    recognized = legacy + engineering + ("success", "sandboxed_execution")
+    if any(verification[key] is not True for key in recognized if key in verification):
+        return False
+    return (all(verification.get(key) is True for key in legacy)
+            or all(verification.get(key) is True for key in engineering))
 
 
 class RepairMemory:

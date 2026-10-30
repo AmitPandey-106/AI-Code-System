@@ -1,0 +1,32 @@
+{
+  "mode": "model_free_probe",
+  "real_model_calls": 0,
+  "boundary_invocations": 1,
+  "model_loader_blocked": true,
+  "task_id": "task_01_router_slug_param",
+  "category": "single_function_bugfix",
+  "canonical_task_prompt": "In micro_http/router.py, fix match_path so that parameter segments like <slug> support hyphens (e.g., 'hello-world-2026') in addition to alphanumeric characters.",
+  "test_command": "pytest tests/test_router.py",
+  "targets": [
+    "micro_http/router.py"
+  ],
+  "fixture_hashes": {
+    "LICENSE": "a8e8a99d20f3469ed2087cb45bb8b90854b6cc820875e49700b31073e565cf3f",
+    "micro_http/__init__.py": "0776d36ab09243061c2b22341ec05d447a4dd5f509e41cefc9a70e100d770549",
+    "micro_http/middleware.py": "2a7ce39f9d1595ea0489bbb5c889636796e7046028af293575d00d3648228971",
+    "micro_http/request.py": "1bafa4f1faf8b07c3e1e6e72c823a88bed9522c98f5818230ecf1c8d15bc2630",
+    "micro_http/response.py": "23ea8aa5efbca84edc8982b4ec739596511e045f1dc66ebcf9209277b984e9ee",
+    "micro_http/router.py": "dcd69f55a213daf4732bd53e1abab4f26ee96565bd303868aa8e7ac37609d4ba",
+    "tests/test_router.py": "1476656eefe48924bbe83ccc07d9d122e906ca7584f2f1aa77c6531fb9804838"
+  },
+  "fixture_unchanged": true,
+  "initial_independent_oracle": {
+    "passed": false,
+    "exit_code": 1,
+    "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0\nrootdir: D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\arms\\A\\probe\\fixture\ncollected 2 items\n\ntests\\test_router.py .F                                                  [100%]\n\n================================== FAILURES ===================================\n____________________________ test_slug_with_hyphen ____________________________\n\n    def test_slug_with_hyphen():\n        matched, params = match_path(\"/articles/<slug>\", \"/articles/hello-world-2026\")\n>       assert matched is True\nE       assert False is True\n\ntests\\test_router.py:10: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_router.py::test_slug_with_hyphen - assert False is True\n========================= 1 failed, 1 passed in 0.10s =========================\n",
+    "stderr": ""
+  },
+  "prompt_sha256": "9f9ed1d8310e6792670551e66c9348e2192b4992a8df2630cab3a77cbb35af6d",
+  "session_probe_state": "failed",
+  "note": "Sentinel output is not an actual model result or functional repair."
+}

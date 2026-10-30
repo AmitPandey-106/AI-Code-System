@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "tests/test_phase8_2_1_hardening.py",
+    "tests/test_phase8_2_preflight.py",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\controls_attempt01.xml",
+    "--basetemp=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_attempt01"
+  ],
+  "cwd": "D:\\Amit Stuff\\ai-code-system",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "HF_DATASETS_OFFLINE": "1"
+  },
+  "exit_code": 0,
+  "duration_s": 5.811999999918044
+}

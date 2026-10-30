@@ -1,0 +1,30 @@
+{
+  "actual_model_calls_returned": 0,
+  "actual_model_calls_started": 0,
+  "arm": "A",
+  "call_count_basis": "durable pre-call events (attempt upper bound); after forced kill exact entry/return can be unknown",
+  "cleanup_errors": [],
+  "experiment_id": "control-test",
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_parent_supervision_author0\\runs\\A",
+  "output_tokens": null,
+  "plan_sha256": "87e337e0f816f915b6008ed2d590b94d076522eb0b346af6a9aa4c0a9ee849fc",
+  "protected_after_verified": true,
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_parent_supervision_author0\\source_A",
+  "status": "completed",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:16:31.566188+00:00",
+  "worker_terminal": {
+    "actual_model_calls": 0,
+    "arm": "A",
+    "experiment_id": "control-test",
+    "functional_repair": null,
+    "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_parent_supervision_author0\\runs\\A",
+    "plan_sha256": "87e337e0f816f915b6008ed2d590b94d076522eb0b346af6a9aa4c0a9ee849fc",
+    "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+    "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_parent_supervision_author0\\source_A",
+    "status": "completed",
+    "task_id": "task_01_router_slug_param",
+    "timestamp": "2026-10-25T09:16:31.522594+00:00"
+  }
+}

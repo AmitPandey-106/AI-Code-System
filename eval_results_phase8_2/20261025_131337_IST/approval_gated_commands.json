@@ -1,0 +1,40 @@
+{
+  "status": "NOT_EXECUTED_REQUIRES_HUMAN_APPROVAL",
+  "plan_sha256": "cea4b5a9eaa7b0c763b934f0473ea019efed9d333eeac8f2b82e8adf06c98204",
+  "ordered_argv": [
+    [
+      "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+      "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py",
+      "--source",
+      "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\exports\\baseline",
+      "--output",
+      "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\arms\\A\\actual_run",
+      "--task-id",
+      "task_01_router_slug_param",
+      "--run",
+      "--plan",
+      "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\experiment_plan.json",
+      "--arm",
+      "A",
+      "--approved-plan-sha256",
+      "cea4b5a9eaa7b0c763b934f0473ea019efed9d333eeac8f2b82e8adf06c98204"
+    ],
+    [
+      "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+      "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py",
+      "--source",
+      "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\exports\\candidate",
+      "--output",
+      "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\arms\\B\\actual_run",
+      "--task-id",
+      "task_01_router_slug_param",
+      "--run",
+      "--plan",
+      "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\experiment_plan.json",
+      "--arm",
+      "B",
+      "--approved-plan-sha256",
+      "cea4b5a9eaa7b0c763b934f0473ea019efed9d333eeac8f2b82e8adf06c98204"
+    ]
+  ]
+}

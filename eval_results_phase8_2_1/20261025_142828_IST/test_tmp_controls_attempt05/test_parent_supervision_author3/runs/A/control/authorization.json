@@ -1,0 +1,16 @@
+{
+  "arm": "A",
+  "child_pid": 123,
+  "created": "2026-10-25T09:16:32.061200+00:00",
+  "experiment_id": "control-test",
+  "expires": 1792919822.0847483,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_parent_supervision_author3\\runs\\A",
+  "parent_pid": 30180,
+  "plan_sha256": "68a6604b0c9171054eb5cfc2d114aa77755150e09ca7f16e40505dd674ef1755",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "run_id": "cb1b3360bbeb4457a78609d7167095eb",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_parent_supervision_author3\\source_A",
+  "supervised": true,
+  "task_id": "task_01_router_slug_param",
+  "token_sha256": "2bdd5e297b1a89449bda3c34b20c1ec326acaf9de4bd8fb1ee0c1dcef281c9e3"
+}

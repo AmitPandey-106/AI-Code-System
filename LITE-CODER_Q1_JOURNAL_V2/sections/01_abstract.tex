@@ -1,0 +1,6 @@
+\begin{abstract}
+Automated Program Repair (APR) utilizing Large Language Models (LLMs) often relies on massive parameter models that are computationally prohibitive for local environments. Conversely, lightweight local models struggle to self-correct effectively without extensive, resource-intensive fine-tuning. We propose \textbf{LITE-Coder}, a novel experience-based repair memory framework designed specifically for lightweight code LLMs. By incorporating a dynamic Retrieval-Augmented Generation (RAG) architecture coupled with a verification-gated memory admission mechanism, LITE-Coder acquires and reuses verified program-repair experience without requiring continual weight updates. Evaluated on a 100-task benchmark using Qwen2.5-Coder-1.5B, our methodology isolates the impact of semantic memory retrieval (using MiniLM-L6-v2 embeddings and a FAISS index) from parameter adaptation. While comprehensive adversarial containment evaluations remain [RESULT PENDING --- REQUIRED EXPERIMENT], preliminary evidence indicates that verified experience memory mitigates repetitive repair failures, achieving comparable structural fixes at a fraction of the compute cost of fine-tuning.
+\end{abstract}
+\begin{IEEEkeywords}
+Automated Program Repair, Large Language Models, Retrieval-Augmented Generation, Edge Computing.
+\end{IEEEkeywords}

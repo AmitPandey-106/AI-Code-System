@@ -1,0 +1,12 @@
+{
+  "task": "group_anagrams",
+  "initial_candidate_hash": "5c35e1b53996",
+  "initial_failure_type": "CODE_FAILURE",
+  "total_repair_attempts": 1,
+  "repair_candidate_hashes": [
+    "ce4d95009539"
+  ],
+  "accepted": true,
+  "self_repair_success": true,
+  "final_code": "from collections import defaultdict\n\ndef group_anagrams(words):\n    groups = defaultdict(list)\n\n    for word in words:\n        sorted_word = ''.join(sorted(word))\n        groups[sorted_word].append(word)\n\n    return list(groups.values())"
+}

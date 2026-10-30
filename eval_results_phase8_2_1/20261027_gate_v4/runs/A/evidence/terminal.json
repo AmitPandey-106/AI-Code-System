@@ -1,0 +1,14 @@
+{
+  "arm": "A",
+  "error_type": "PermissionError",
+  "experiment_id": "20261027_gate_v4",
+  "functional_repair": null,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v4\\runs\\A",
+  "plan_sha256": "5bec1e2a44e36c824f09ead174dc8e7338fd503bc28d2c25e369043467bb81e0",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+  "status": "execution_exception",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-27T10:04:14.620790+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py\", line 469, in lifecycle\n    yield\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 362, in internal_worker\n    experiment_worker(plan, arm, evidence, policy, review)\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 237, in experiment_worker\n    initial = oracle(task, fixture, {}, argv)\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 144, in oracle\n    return task.acceptance_fn(str(fixture), status)\n  File \"D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline\\eval_dataset_v2\\tasks.py\", line 61, in eval_task_01\n    res = subprocess.run(cmd, cwd=repo_root, capture_output=True, text=True)\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 141, in fixed\n    return run_guarded_tests(argv, fixture)\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 121, in run_guarded_tests\n    process = supervisor.launch(argv, cwd=fixture, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py\", line 417, in launch\n    self.process = subprocess.Popen(argv, start_new_session=os.name != \"nt\",\n  File \"C:\\Users\\T14s\\AppData\\Local\\Programs\\Python\\Python310\\lib\\subprocess.py\", line 971, in __init__\n    self._execute_child(args, executable, preexec_fn, close_fds,\n  File \"C:\\Users\\T14s\\AppData\\Local\\Programs\\Python\\Python310\\lib\\subprocess.py\", line 1452, in _execute_child\n    sys.audit(\"subprocess.Popen\", executable, args, cwd, env)\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py\", line 369, in audit\n    raise PermissionError(\"Only the fixed guarded pytest worker may launch\")\nPermissionError: Only the fixed guarded pytest worker may launch\n"
+}

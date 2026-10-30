@@ -1,0 +1,13 @@
+{
+  "ambient_pytest": "C:\\Users\\T14s\\AppData\\Local\\Programs\\Python\\Python310\\Scripts\\pytest.EXE",
+  "pinned_pytest": "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\pytest.EXE",
+  "python_executable": "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+  "version_argv": [
+    "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\pytest.EXE",
+    "--version"
+  ],
+  "exit_code": 0,
+  "stdout": "pytest 9.1.1\n",
+  "stderr": "",
+  "policy": "Venv Scripts prepended to PATH for both frozen native runners; independent oracle already uses sys.executable."
+}

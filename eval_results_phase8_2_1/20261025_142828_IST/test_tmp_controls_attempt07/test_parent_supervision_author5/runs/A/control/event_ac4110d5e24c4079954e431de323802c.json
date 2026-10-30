@@ -1,0 +1,13 @@
+{
+  "arm": "A",
+  "child_pid": 123,
+  "experiment_id": "control-test",
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt07\\test_parent_supervision_author5\\runs\\A",
+  "plan_sha256": "aaad9f228be5da5a3fa93fcadd11538ab3a0dcf993c622322ace09ab5218ff86",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt07\\test_parent_supervision_author5\\source_A",
+  "status": "worker_started",
+  "supervision_established": true,
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:23:25.761392+00:00"
+}

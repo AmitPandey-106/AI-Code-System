@@ -1,0 +1,56 @@
+{
+  "created_at": "2026-10-27T16:53:47+0530",
+  "experiment_id": "20261027_gate_v7",
+  "lineage_chain": [
+    {
+      "gate": "v1 (Phase 8.2)",
+      "plan_sha256": "cea4b5a9eaa7b0c763b934f0473ea019efed9d333eeac8f2b82e8adf06c98204"
+    },
+    {
+      "gate": "v2",
+      "plan_sha256": "d4bca7f3f8dbe7e82802577e08fb22fd62ba9043d17a1a4714b33b3c5c1ef25b"
+    },
+    {
+      "gate": "v3",
+      "plan_sha256": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424"
+    },
+    {
+      "gate": "v4",
+      "plan_sha256": "5bec1e2a44e36c824f09ead174dc8e7338fd503bc28d2c25e369043467bb81e0"
+    },
+    {
+      "gate": "v5",
+      "plan_sha256": "e90ac2fc8d7a1f7abfe3c94a6ce30b3c01d158a032e896eb203a575a3a03ab3e"
+    },
+    {
+      "gate": "v6",
+      "plan_sha256": "a364f12bba42d5665963de1f1126021d63467db2892d69fbce6a519bba0fd950"
+    },
+    {
+      "gate": "v7",
+      "plan_sha256": "6c06ffe76d421450232cf533f0f5b13a045221ae9e4ce5010b59c1121d7d4b58"
+    }
+  ],
+  "plan_file_sha256": "aa0455fef1b9bb2f08f1dd1be8cdf6d5890d534d6eb23cef9533e3bb274c828b",
+  "plan_sha256": "6c06ffe76d421450232cf533f0f5b13a045221ae9e4ce5010b59c1121d7d4b58",
+  "supersedes": {
+    "gate_version": "v6",
+    "plan_file_sha256": "cd79917b7775d995ffc15dcb0e0d3fca9d284c351f7b0e2d188626dd9c0b2fd2",
+    "plan_path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v6\\experiment_plan.json",
+    "plan_sha256": "a364f12bba42d5665963de1f1126021d63467db2892d69fbce6a519bba0fd950",
+    "preserved_run_v6": {
+      "arm": "A",
+      "classification": "inconclusive_review_rejected",
+      "initial_oracle_reproduced": true,
+      "model_calls": 1,
+      "patch_applied": false,
+      "patch_generated": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v6\\runs\\A",
+      "preserved_unmodified": true,
+      "proposal_approved": false,
+      "proposal_sha256": "9f42149b685e76d41fbc30b71790ab23dc4b24b0a6a76e7df063a8a4ef06913a",
+      "run_id": "Gate v6 Arm A Run (20261027_gate_v6/runs/A)"
+    },
+    "supersession_reason": "Gate v6 Arm A execution proceeded past initial oracle, model loading, and inference, producing valid candidate patch 9f42149b685e76d41fbc30b71790ab23dc4b24b0a6a76e7df063a8a4ef06913a. At the interactive human review prompt, non-matching input ('?') was submitted, causing the runner to fail closed and record classification: 'inconclusive_review_rejected' with proposal_approved: false. The workspace fixture was never modified (retains original failing hash dcd69f55...), but because the run directory is sealed and runner invariants prohibit in-place resumption or re-claim (FileExistsError), Gate v7 is created to provide a fresh, unexecuted paired run container with full lineage to Gate v6."
+  }
+}

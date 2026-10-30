@@ -1,0 +1,41 @@
+{
+  "arm_identity": {
+    "A": {
+      "arm": "A",
+      "experiment_id": "20261027_gate_v7",
+      "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v7\\runs\\A",
+      "plan_sha256": "6c06ffe76d421450232cf533f0f5b13a045221ae9e4ce5010b59c1121d7d4b58",
+      "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+      "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+      "task_id": "task_01_router_slug_param"
+    },
+    "B": {
+      "arm": "B",
+      "experiment_id": "20261027_gate_v7",
+      "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v7\\runs\\B",
+      "plan_sha256": "6c06ffe76d421450232cf533f0f5b13a045221ae9e4ce5010b59c1121d7d4b58",
+      "revision": "920c01aa0d510aa281092e6b55e4ce02b31e584e",
+      "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\candidate",
+      "task_id": "task_01_router_slug_param"
+    }
+  },
+  "coding_model_calls": 0,
+  "current_platform": "Windows-10-10.0.22621-SP0",
+  "current_processor": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+  "current_python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "duration_s": 29.43082547187805,
+  "experiment_arms_started": 0,
+  "full_readonly_validation_A": true,
+  "full_readonly_validation_B": true,
+  "plan_digest_matches": true,
+  "plan_file_sha256": "aa0455fef1b9bb2f08f1dd1be8cdf6d5890d534d6eb23cef9533e3bb274c828b",
+  "plan_sha256": "6c06ffe76d421450232cf533f0f5b13a045221ae9e4ce5010b59c1121d7d4b58",
+  "preservation": {
+    "gate_v3_preserved": true,
+    "gate_v4_preserved": true,
+    "gate_v5_preserved": true,
+    "gate_v6_preserved": true,
+    "protected_trees_intact": true,
+    "runs_v6_preserved": true
+  }
+}

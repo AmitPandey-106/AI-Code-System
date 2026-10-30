@@ -1,0 +1,18 @@
+{
+  "actual_model_calls": 1,
+  "arm": "A",
+  "do_sample": false,
+  "experiment_id": "20261027_gate_v7",
+  "input_ids_sha256": "1399128ca9c4c9fef049ebab609c6bd88d2facfdba8e11d9e5acbe6b08f294f5",
+  "input_tokens": 628,
+  "max_new_tokens": 768,
+  "max_time": 180,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v7\\runs\\A",
+  "plan_sha256": "6c06ffe76d421450232cf533f0f5b13a045221ae9e4ce5010b59c1121d7d4b58",
+  "repetition_penalty": 1.1,
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+  "status": "generation_started",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-27T11:52:36.295902+00:00"
+}

@@ -1,0 +1,49 @@
+{
+  "created_at": "2026-10-27T16:23:01+0530",
+  "experiment_id": "20261027_gate_v6",
+  "lineage_chain": [
+    {
+      "gate": "v1 (Phase 8.2)",
+      "plan_sha256": "cea4b5a9eaa7b0c763b934f0473ea019efed9d333eeac8f2b82e8adf06c98204"
+    },
+    {
+      "gate": "v2",
+      "plan_sha256": "d4bca7f3f8dbe7e82802577e08fb22fd62ba9043d17a1a4714b33b3c5c1ef25b"
+    },
+    {
+      "gate": "v3",
+      "plan_sha256": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424"
+    },
+    {
+      "gate": "v4",
+      "plan_sha256": "5bec1e2a44e36c824f09ead174dc8e7338fd503bc28d2c25e369043467bb81e0"
+    },
+    {
+      "gate": "v5",
+      "plan_sha256": "e90ac2fc8d7a1f7abfe3c94a6ce30b3c01d158a032e896eb203a575a3a03ab3e"
+    },
+    {
+      "gate": "v6",
+      "plan_sha256": "a364f12bba42d5665963de1f1126021d63467db2892d69fbce6a519bba0fd950"
+    }
+  ],
+  "plan_file_sha256": "cd79917b7775d995ffc15dcb0e0d3fca9d284c351f7b0e2d188626dd9c0b2fd2",
+  "plan_sha256": "a364f12bba42d5665963de1f1126021d63467db2892d69fbce6a519bba0fd950",
+  "supersedes": {
+    "gate_version": "v5",
+    "plan_file_sha256": "469076889258a6ed40d95c57aba13481e3f6f29d701c93b25851e9c8715b4587",
+    "plan_path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v5\\experiment_plan.json",
+    "plan_sha256": "e90ac2fc8d7a1f7abfe3c94a6ce30b3c01d158a032e896eb203a575a3a03ab3e",
+    "preserved_failed_run": {
+      "arm": "A",
+      "initial_oracle_reproduced": true,
+      "model_calls": 0,
+      "patch_applied": false,
+      "patch_generated": false,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v5\\runs\\A",
+      "preserved_unmodified": true,
+      "run_id": "Gate v5 Arm A Run (20261027_gate_v5/runs/A)"
+    },
+    "supersession_reason": "Phase E5.B diagnosed Arm A worker termination (PermissionError: Write outside owned arm workspace) during 'import app.engineering_loop' at line 242 of scripts/phase8_2_1_arm.py (after successful initial oracle defect reproduction). The standard library dependency dill (dill._dill:165) probes Python file-type descriptors at import time by opening os.devnull in 'r+b' mode. Because canonical(os.devnull) is outside the arm workspace, WritePolicy.audit('open') rejected the call. Phase E6 repaired WritePolicy.audit('open') to allow the canonical OS null-device discard sink for open events while keeping all other paths outside workspace strictly denied, and added regression tests DEVNULL-01 through DEVNULL-05."
+  }
+}

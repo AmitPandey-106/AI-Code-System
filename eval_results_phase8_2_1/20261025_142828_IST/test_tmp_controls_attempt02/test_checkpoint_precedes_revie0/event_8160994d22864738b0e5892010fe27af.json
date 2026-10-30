@@ -1,0 +1,20 @@
+{
+  "arm": "A",
+  "experiment_id": "control-test",
+  "fixture_hashes": {
+    "file": "hash"
+  },
+  "initial_oracle": {
+    "exit_code": 1,
+    "passed": false
+  },
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt02\\test_checkpoint_precedes_revie0",
+  "plan_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "prompt_sha256": "prompt",
+  "proposal_sha256": "c24d8bcf1ab082393349cd52aed98ce9e266c0f6bc300faa3afd9d729f113f77",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "fixed-source",
+  "status": "awaiting_patch_review",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:11:40.654018+00:00"
+}

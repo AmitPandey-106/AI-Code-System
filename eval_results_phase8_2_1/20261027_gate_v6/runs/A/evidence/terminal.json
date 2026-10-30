@@ -1,0 +1,85 @@
+{
+  "actual_model_calls": 1,
+  "arm": "A",
+  "boundary_invocations": 1,
+  "classification": "inconclusive_review_rejected",
+  "experiment_id": "20261027_gate_v6",
+  "final_oracle": {
+    "exit_code": 1,
+    "passed": false,
+    "stderr": "",
+    "stdout": ".F                                                                       [100%]\n================================== FAILURES ===================================\n____________________________ test_slug_with_hyphen ____________________________\n\n    def test_slug_with_hyphen():\n        matched, params = match_path(\"/articles/<slug>\", \"/articles/hello-world-2026\")\n>       assert matched is True\nE       assert False is True\n\ntests\\test_router.py:10: AssertionError\n=========================== short test summary info ===========================\nFAILED \\\\.\\nul\\::test_slug_with_hyphen - assert False is True\n1 failed, 1 passed in 0.07s\n"
+  },
+  "fixture_after": {
+    "LICENSE": "a8e8a99d20f3469ed2087cb45bb8b90854b6cc820875e49700b31073e565cf3f",
+    "micro_http/__init__.py": "0776d36ab09243061c2b22341ec05d447a4dd5f509e41cefc9a70e100d770549",
+    "micro_http/middleware.py": "2a7ce39f9d1595ea0489bbb5c889636796e7046028af293575d00d3648228971",
+    "micro_http/request.py": "1bafa4f1faf8b07c3e1e6e72c823a88bed9522c98f5818230ecf1c8d15bc2630",
+    "micro_http/response.py": "23ea8aa5efbca84edc8982b4ec739596511e045f1dc66ebcf9209277b984e9ee",
+    "micro_http/router.py": "dcd69f55a213daf4732bd53e1abab4f26ee96565bd303868aa8e7ac37609d4ba",
+    "tests/test_router.py": "1476656eefe48924bbe83ccc07d9d122e906ca7584f2f1aa77c6531fb9804838"
+  },
+  "functional_repair": null,
+  "initial_oracle": {
+    "exit_code": 1,
+    "passed": false,
+    "stderr": "",
+    "stdout": ".F                                                                       [100%]\n================================== FAILURES ===================================\n____________________________ test_slug_with_hyphen ____________________________\n\n    def test_slug_with_hyphen():\n        matched, params = match_path(\"/articles/<slug>\", \"/articles/hello-world-2026\")\n>       assert matched is True\nE       assert False is True\n\ntests\\test_router.py:10: AssertionError\n=========================== short test summary info ===========================\nFAILED \\\\.\\nul\\::test_slug_with_hyphen - assert False is True\n1 failed, 1 passed in 0.08s\n"
+  },
+  "oracle_files_unchanged": true,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v6\\runs\\A",
+  "plan_sha256": "a364f12bba42d5665963de1f1126021d63467db2892d69fbce6a519bba0fd950",
+  "proposal_approved": false,
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "session": {
+    "attempt": 1,
+    "current_diff": "FILE: micro_http/router.py\n<<<<<<< SEARCH\nregex_pattern += r\"/(\\w+)\"\n=======\nregex_pattern += r\"/([a-zA-Z0-9\\-]+)\"\n>>>>>>> REPLACE\n",
+    "current_patch_hash": "9f42149b685e76d41fbc30b71790ab23dc4b24b0a6a76e7df063a8a4ef06913a",
+    "error_message": "User rejected proposed patch.",
+    "failure_category": "cancelled",
+    "fallback_rejected_reason": "",
+    "fallback_used": false,
+    "history": [
+      {
+        "attempt": 1,
+        "diagnosis": "",
+        "diff": "FILE: micro_http/router.py\n<<<<<<< SEARCH\nregex_pattern += r\"/(\\w+)\"\n=======\nregex_pattern += r\"/([a-zA-Z0-9\\-]+)\"\n>>>>>>> REPLACE\n",
+        "error_message": "",
+        "failure_category": "none",
+        "last_syntax_error": "",
+        "patch_hash": "9f42149b685e76d41fbc30b71790ab23dc4b24b0a6a76e7df063a8a4ef06913a",
+        "plan": "FILE: micro_http/router.py\n<<<<<<< SEARCH\nregex_pattern += r\"/(\\w+)\"\n=======\nregex_pattern += r\"/([a-zA-Z0-9\\-]+)\"\n>>>>>>> REPLACE",
+        "policy_event": null,
+        "state": "awaiting_approval",
+        "test_results": null,
+        "timestamp": 1793098638.2852507
+      },
+      {
+        "attempt": 1,
+        "diagnosis": "",
+        "diff": "FILE: micro_http/router.py\n<<<<<<< SEARCH\nregex_pattern += r\"/(\\w+)\"\n=======\nregex_pattern += r\"/([a-zA-Z0-9\\-]+)\"\n>>>>>>> REPLACE\n",
+        "error_message": "User rejected proposed patch.",
+        "failure_category": "cancelled",
+        "last_syntax_error": "",
+        "patch_hash": "9f42149b685e76d41fbc30b71790ab23dc4b24b0a6a76e7df063a8a4ef06913a",
+        "plan": "FILE: micro_http/router.py\n<<<<<<< SEARCH\nregex_pattern += r\"/(\\w+)\"\n=======\nregex_pattern += r\"/([a-zA-Z0-9\\-]+)\"\n>>>>>>> REPLACE",
+        "policy_event": null,
+        "state": "cancelled",
+        "test_results": null,
+        "timestamp": 1793098753.706343
+      }
+    ],
+    "last_syntax_error": "",
+    "memory_retrieved_count": 0,
+    "policy_event": null,
+    "selected_strategy": "",
+    "session_id": "79280324-3fb0-4353-a83b-c16b25b12dcf",
+    "state": "cancelled",
+    "strategy_history": [],
+    "test_results": null
+  },
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+  "status": "review_rejected",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-27T10:59:14.947215+00:00"
+}

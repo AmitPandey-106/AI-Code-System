@@ -1,0 +1,13 @@
+{
+  "approved": true,
+  "arm": "A",
+  "experiment_id": "control-test",
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt07\\test_checkpoint_precedes_revie0",
+  "plan_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "proposal_sha256": "c24d8bcf1ab082393349cd52aed98ce9e266c0f6bc300faa3afd9d729f113f77",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "fixed-source",
+  "status": "patch_review_decision",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:23:23.937393+00:00"
+}

@@ -1,0 +1,136 @@
+{
+  "phase": "8.2.3",
+  "audit_timestamp_ist": "2026-10-26T12:53:32+05:30",
+  "reviewed_plan_digest": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+  "task_id": "task_01_router_slug_param",
+  "current_host_status": {
+    "os_edition": "Microsoft Windows 11 Pro (10.0.22621, 64-bit, SKU 48)",
+    "processor": "Intel(R) Core(TM) i7-10610U CPU @ 1.80GHz",
+    "physical_cores": 4,
+    "logical_cores": 8,
+    "physical_ram_bytes": 34100875264,
+    "physical_ram_gb": 31.76,
+    "hardware_virtualization_in_firmware": true,
+    "vm_monitor_mode_extensions": true,
+    "slat_enabled": true,
+    "dep_available": true,
+    "hypervisor_present": false,
+    "hyperv_feature_installed": false,
+    "windows_sandbox_installed": false,
+    "third_party_hypervisors_installed": []
+  },
+  "storage_availability": {
+    "C_drive_free_gb": 5.81,
+    "D_drive_free_gb": 301.5,
+    "E_drive_free_gb": 287.85,
+    "target_vm_drive": "D:\\hyperv_vms"
+  },
+  "isolation_limitation_analysis": {
+    "primary_limitation": "Hardware and OS edition support Hyper-V natively, but the Hyper-V optional feature (Microsoft-Hyper-V-All) is currently not enabled in Windows. Enabling it requires elevation (Administrator privileges) and a single system reboot.",
+    "evaluated_alternatives": [
+      {
+        "name": "Hyper-V Generation 2 VM (Recommended)",
+        "suitability": "Highest",
+        "boundary_type": "OS / Type-1 Hypervisor Hardware Virtualization",
+        "requires_elevation_to_enable": true,
+        "requires_reboot": true,
+        "network_isolation_mechanism": "Explicitly omit virtual network adapter (zero vNICs attached)",
+        "storage_isolation_mechanism": "Read-only SCSI VHDX/ISO for inputs + separate isolated VHDX for outputs",
+        "reproducibility_impact": "Zero drift; exact Windows platform match"
+      },
+      {
+        "name": "Windows Sandbox (.wsb)",
+        "suitability": "Medium",
+        "boundary_type": "Lightweight Containerized Windows Desktop VM",
+        "requires_elevation_to_enable": true,
+        "requires_reboot": true,
+        "network_isolation_mechanism": "<Networking>Disable</Networking> in .wsb configuration",
+        "storage_isolation_mechanism": "<MappedFolder><ReadOnly>true</ReadOnly></MappedFolder>",
+        "reproducibility_impact": "Low; ephemeral storage destroyed immediately on exit requiring automated host mapping"
+      },
+      {
+        "name": "WSL 2 / Rootless Linux Container",
+        "suitability": "Unsuitable",
+        "boundary_type": "Linux Kernel Namespace Container",
+        "requires_elevation_to_enable": true,
+        "requires_reboot": true,
+        "network_isolation_mechanism": "--network none",
+        "storage_isolation_mechanism": ":ro volume mounts",
+        "reproducibility_impact": "Severe platform violation (alters OS from Windows to Linux, breaking Windows Job Object supervisor and reviewed plan digest)"
+      }
+    ]
+  },
+  "proposed_vm_specification": {
+    "vm_name": "LITECODER-PHASE8-RUNNER",
+    "generation": 2,
+    "startup_memory_mb": 8192,
+    "dynamic_memory": false,
+    "processor_count": 4,
+    "network_adapter": "None (zero connected virtual adapters)",
+    "guest_service_interface": false,
+    "enhanced_session_mode": false,
+    "disks": {
+      "os_disk": {
+        "type": "Differencing VHDX",
+        "host_path": "D:\\hyperv_vms\\litecoder_os_diff.vhdx",
+        "base_image": "D:\\hyperv_vms\\base_win11_template.vhdx"
+      },
+      "read_only_input_disk": {
+        "type": "Read-Only VHDX or ISO-9660 / UDF",
+        "host_path": "D:\\hyperv_vms\\litecoder_inputs_ro.vhdx",
+        "attached_mode": "ReadOnly",
+        "guest_mount": "E:\\",
+        "contents": [
+          "Pinned model snapshot (7 files, 3.10 GB)",
+          "Python 3.10 runtime & dependencies (1.23 GB)",
+          "Canonical task fixture (7 files)",
+          "Frozen baseline & candidate exports (115 files)",
+          "Execution source adapters (scripts/phase8_2_1_*.py, tests/phase8_2_1_*.py)",
+          "Reviewed experiment_plan.json and manifests"
+        ]
+      },
+      "writable_output_disk": {
+        "type": "Fixed or Dynamically Expanding VHDX (10 GB)",
+        "host_path": "D:\\hyperv_vms\\litecoder_output.vhdx",
+        "guest_mount": "W:\\",
+        "purpose": "Exclusive scratch workspace for runs/A and runs/B"
+      }
+    },
+    "disposal_procedure": [
+      "1. Stop VM forcefully: Stop-VM -Name LITECODER-PHASE8-RUNNER -TurnOff",
+      "2. Mount output VHDX read-only on host: Mount-VHD -Path D:\\hyperv_vms\\litecoder_output.vhdx -ReadOnly",
+      "3. Extract and hash-verify runs/A and runs/B into eval_results_phase8_2_1/.../runs/",
+      "4. Dismount output VHDX: Dismount-VHD -Path D:\\hyperv_vms\\litecoder_output.vhdx",
+      "5. Delete differencing OS disk and VM instance: Remove-VM -Name LITECODER-PHASE8-RUNNER -Force; Remove-Item D:\\hyperv_vms\\litecoder_os_diff.vhdx"
+    ]
+  },
+  "in_guest_verification_protocol": {
+    "network_probes": [
+      "Get-NetAdapter | Where-Object { $_.Status -eq 'Up' } (Must be empty)",
+      "ping 8.8.8.8 -n 1 (Must fail with network unreachable)",
+      "Resolve-DnsName huggingface.co (Must fail / return error)",
+      "Invoke-WebRequest -Uri http://1.1.1.1 -TimeoutSec 2 (Must fail)"
+    ],
+    "storage_probes": [
+      "Attempt write to E:\\test.tmp (Must fail with Media Write-Protected / Access Denied)",
+      "Re-hash all execution source files against source_hash_manifest.json",
+      "Re-hash all 7 model snapshot files against experiment_plan.json",
+      "Recalculate canonical plan digest and verify 7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424"
+    ]
+  },
+  "required_administrator_commands": [
+    {
+      "step": "1. Enable Hyper-V Feature",
+      "command": "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart",
+      "privilege": "Administrator",
+      "reboot_required": true
+    },
+    {
+      "step": "2. Restart Computer",
+      "command": "Restart-Computer",
+      "privilege": "Administrator",
+      "reboot_required": true
+    }
+  ],
+  "final_verdict": "BLOCKED (Pending Administrator Hyper-V Enablement) / ALTERNATIVE REQUIRED if elevation is not available"
+}

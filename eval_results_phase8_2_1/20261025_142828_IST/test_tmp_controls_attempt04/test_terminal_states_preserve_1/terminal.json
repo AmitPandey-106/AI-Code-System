@@ -1,0 +1,14 @@
+{
+  "arm": "A",
+  "error_type": "RuntimeError",
+  "experiment_id": "control-test",
+  "functional_repair": null,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt04\\test_terminal_states_preserve_1",
+  "plan_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "fixed-source",
+  "status": "execution_exception",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:13:00.612127+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py\", line 315, in lifecycle\n    yield\n  File \"D:\\Amit Stuff\\ai-code-system\\tests\\test_phase8_2_1_hardening.py\", line 177, in test_terminal_states_preserve_original_exception_and_prior_evidence\n    with controls.lifecycle(ev): raise exc\nRuntimeError: API failed\n"
+}

@@ -1,0 +1,26 @@
+{
+  "arm": "A",
+  "experiment_id": "20261027_gate_v6",
+  "final_oracle": {
+    "exit_code": 1,
+    "passed": false,
+    "stderr": "",
+    "stdout": ".F                                                                       [100%]\n================================== FAILURES ===================================\n____________________________ test_slug_with_hyphen ____________________________\n\n    def test_slug_with_hyphen():\n        matched, params = match_path(\"/articles/<slug>\", \"/articles/hello-world-2026\")\n>       assert matched is True\nE       assert False is True\n\ntests\\test_router.py:10: AssertionError\n=========================== short test summary info ===========================\nFAILED \\\\.\\nul\\::test_slug_with_hyphen - assert False is True\n1 failed, 1 passed in 0.07s\n"
+  },
+  "fixture_after": {
+    "LICENSE": "a8e8a99d20f3469ed2087cb45bb8b90854b6cc820875e49700b31073e565cf3f",
+    "micro_http/__init__.py": "0776d36ab09243061c2b22341ec05d447a4dd5f509e41cefc9a70e100d770549",
+    "micro_http/middleware.py": "2a7ce39f9d1595ea0489bbb5c889636796e7046028af293575d00d3648228971",
+    "micro_http/request.py": "1bafa4f1faf8b07c3e1e6e72c823a88bed9522c98f5818230ecf1c8d15bc2630",
+    "micro_http/response.py": "23ea8aa5efbca84edc8982b4ec739596511e045f1dc66ebcf9209277b984e9ee",
+    "micro_http/router.py": "dcd69f55a213daf4732bd53e1abab4f26ee96565bd303868aa8e7ac37609d4ba",
+    "tests/test_router.py": "1476656eefe48924bbe83ccc07d9d122e906ca7584f2f1aa77c6531fb9804838"
+  },
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v6\\runs\\A",
+  "plan_sha256": "a364f12bba42d5665963de1f1126021d63467db2892d69fbce6a519bba0fd950",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+  "status": "oracle_completed",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-27T10:59:14.900003+00:00"
+}

@@ -1,0 +1,14 @@
+[
+    {
+        "prompt": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f4(): pass\n\nERROR:\nerror_4\n\nReturn corrected executable Python code:\n",
+        "completion": "\ndef f4(): return 4\n",
+        "text": "You are an expert Python debugger.\n\nFix the Python code carefully.\nSTRICT RULES:\n- Return executable Python code\n- Avoid syntax issues\n- Preserve intended functionality\n\nIMPORTANT:\n- Return ONLY executable Python code\n- NO explanations\n- NO markdown\n- NO comments\n- Return the FULL, COMPLETE corrected Python program.\n- Do NOT return a patch, diff, isolated replacement line, or partial snippet.\n- The returned code will replace the entire previous program and must be independently executable.\n\nCURRENT PROBLEM:\nBROKEN CODE:\ndef f4(): pass\n\nERROR:\nerror_4\n\nReturn corrected executable Python code:\n\ndef f4(): return 4\n",
+        "fingerprint": "f4148b038eeb1cf9296068be1c754e49",
+        "raw_task": "Task 4",
+        "raw_broken_code": "def f4(): pass",
+        "raw_error_message": "error_4",
+        "raw_successful_fix": "def f4(): return 4",
+        "raw_tests": "",
+        "is_replay": false
+    }
+]

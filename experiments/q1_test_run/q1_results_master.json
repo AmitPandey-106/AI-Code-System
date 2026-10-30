@@ -1,0 +1,126 @@
+{
+  "metadata": {
+    "title": "LITE-Coder Q1 Benchmark Evaluation",
+    "device": "CPU",
+    "timestamp": "2026-09-30 11:24:44",
+    "total_tasks": 11
+  },
+  "summary": {
+    "total_eval_tasks": 1,
+    "zero_shot_passed": 0,
+    "naive_passed": 1,
+    "lite_coder_passed": 0,
+    "total_ast_violations_caught": 0,
+    "execution_time_seconds": 165.39
+  },
+  "negative_controls_summary": {
+    "total_negative_controls": 10,
+    "isolated_count": 10,
+    "controls": [
+      {
+        "control_id": "TASK_NEG_01",
+        "name": "Invalid Test Syntax",
+        "oracle_state": "INVALID",
+        "test_failure_type": "TEST_HARNESS_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_02",
+        "name": "Contradictory Boundary Oracle",
+        "oracle_state": "CONTRADICTORY",
+        "test_failure_type": "TEST_ORACLE_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_03",
+        "name": "Contradictory Dual Assertion",
+        "oracle_state": "UNDETERMINED",
+        "test_failure_type": "CODE_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_04",
+        "name": "Global Namespace Pollution Trap",
+        "oracle_state": "UNDETERMINED",
+        "test_failure_type": "CODE_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_05",
+        "name": "Unorderable Types Comparison",
+        "oracle_state": "UNDETERMINED",
+        "test_failure_type": "CODE_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_06",
+        "name": "Impossible Empty vs Non-Empty Requirement",
+        "oracle_state": "UNDETERMINED",
+        "test_failure_type": "CODE_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_07",
+        "name": "Harness Monkey-Patch Injection Attack",
+        "oracle_state": "UNDETERMINED",
+        "test_failure_type": "TEST_HARNESS_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_08",
+        "name": "Missing Required Attribute Assumption",
+        "oracle_state": "UNDETERMINED",
+        "test_failure_type": "CODE_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_09",
+        "name": "Direct Memory Pointer Comparison Contradiction",
+        "oracle_state": "UNDETERMINED",
+        "test_failure_type": "CODE_FAILURE",
+        "isolated_successfully": true
+      },
+      {
+        "control_id": "TASK_NEG_10",
+        "name": "Undetermined Oracle State",
+        "oracle_state": "UNDETERMINED",
+        "test_failure_type": null,
+        "isolated_successfully": true
+      }
+    ]
+  },
+  "domain_breakdown": {
+    "Strings & Sequences": {
+      "count": 1,
+      "zero_shot": 0,
+      "naive": 1,
+      "lite_coder": 0,
+      "ast_caught": 0
+    }
+  },
+  "task_results": [
+    {
+      "task_id": "TASK_STR_01",
+      "task_name": "reverse_words",
+      "domain": "Strings & Sequences",
+      "difficulty": "EASY",
+      "zero_shot": {
+        "passed": false,
+        "attempts": 0,
+        "message": "AssertionError: Test failed on assertion: assert reverse_words('the sky is blue') == 'blue is sky the'"
+      },
+      "naive_repair": {
+        "passed": true,
+        "attempts": 1,
+        "final_code": "def reverse_words(s: str) -> str:\n    # Fixed defect: splits string into list, then joins it in reversed order\n    return \" \".join(reversed(s.split()))"
+      },
+      "lite_coder": {
+        "passed": false,
+        "attempts": 3,
+        "ast_violations_caught": 0,
+        "final_code": "def reverse_words(s: str) -> str:\n    # Corrected defect: reversed words correctly\n    words = s.split()\n    reversed_words = [word[::-1] for word in words]\n    return ' '.join(reversed_words)",
+        "last_error": "Test Failed\nTraceback (most recent call last):\n  File \"C:\\Users\\T14s\\AppData\\Local\\Temp\\tmp7t2ecqhv\\script_c6d05bbdef304efb8e2384e05112c4c4.py\", line 11, in <module>\n    assert reverse_words('the sky is blue') == 'blue is sky the'\nAssertionError\n"
+      }
+    }
+  ]
+}

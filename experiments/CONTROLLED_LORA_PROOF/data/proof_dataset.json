@@ -1,0 +1,112 @@
+[
+    {
+        "task_id": "PROOF_T1",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def add_nums(a, b): that returns a plus b.",
+        "expected_tests": [
+            "assert add_nums(10, 5) == 15",
+            "assert add_nums(2, 3) == 5"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T2",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def mult_nums(a, b): that returns a multiplied by b.",
+        "expected_tests": [
+            "assert mult_nums(10, 5) == 50",
+            "assert mult_nums(3, 4) == 12"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T3",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def get_first(lst): that returns the first element of lst.",
+        "expected_tests": [
+            "assert get_first([1, 2, 3]) == 1",
+            "assert get_first(['a', 'b']) == 'a'"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T4",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def check_less(a, b): that returns True when a is less than b.",
+        "expected_tests": [
+            "assert check_less(2, 5) == True",
+            "assert check_less(10, 5) == False"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T5",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def check_equal(a, b): that returns True when a equals b.",
+        "expected_tests": [
+            "assert check_equal(5, 5) == True",
+            "assert check_equal(1, 2) == False"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T6",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def is_empty(lst): that returns whether a list is empty.",
+        "expected_tests": [
+            "assert is_empty([]) == True",
+            "assert is_empty([1]) == False"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T7",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def sub_nums(a, b): that returns a minus b.",
+        "expected_tests": [
+            "assert sub_nums(10, 5) == 5",
+            "assert sub_nums(5, 10) == -5"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T8",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def div_nums(a, b): that returns a divided by b.",
+        "expected_tests": [
+            "assert div_nums(10, 5) == 2",
+            "assert div_nums(12, 3) == 4"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T9",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def get_last(lst): that returns the last element of lst.",
+        "expected_tests": [
+            "assert get_last([1, 2, 3]) == 3",
+            "assert get_last(['a', 'b']) == 'b'"
+        ],
+        "source": "controlled"
+    },
+    {
+        "task_id": "PROOF_T10",
+        "category": "logic",
+        "difficulty": "EASY",
+        "prompt": "Write a python function def is_positive(n): that returns whether n is positive.",
+        "expected_tests": [
+            "assert is_positive(5) == True",
+            "assert is_positive(-1) == False"
+        ],
+        "source": "controlled"
+    }
+]

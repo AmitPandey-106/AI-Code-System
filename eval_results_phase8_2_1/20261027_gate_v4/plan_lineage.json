@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-10-27T15:20:45+0530",
+  "experiment_id": "20261027_gate_v4",
+  "lineage_chain": [
+    {
+      "gate": "v1 (Phase 8.2)",
+      "plan_sha256": "cea4b5a9eaa7b0c763b934f0473ea019efed9d333eeac8f2b82e8adf06c98204"
+    },
+    {
+      "gate": "v2",
+      "plan_sha256": "d4bca7f3f8dbe7e82802577e08fb22fd62ba9043d17a1a4714b33b3c5c1ef25b"
+    },
+    {
+      "gate": "v3",
+      "plan_sha256": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424"
+    },
+    {
+      "gate": "v4",
+      "plan_sha256": "5bec1e2a44e36c824f09ead174dc8e7338fd503bc28d2c25e369043467bb81e0"
+    }
+  ],
+  "plan_file_sha256": "894f483fdb64e61957b1a7a9c3a33f034166096f713a7ffd12e9ae5007e9eecc",
+  "plan_sha256": "5bec1e2a44e36c824f09ead174dc8e7338fd503bc28d2c25e369043467bb81e0",
+  "supersedes": {
+    "gate_version": "v3",
+    "plan_file_sha256": "bc0d7585aef6a4f0fb3d7d0194a62cd72c873a4118356ae5dab37de630980c68",
+    "plan_path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\experiment_plan.json",
+    "plan_sha256": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+    "preserved_failed_run": {
+      "arm": "A",
+      "model_calls": 0,
+      "patch_applied": false,
+      "patch_generated": false,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\runs\\A",
+      "preserved_unmodified": true,
+      "run_id": "a6172b256ecf4001a8f68f7c7b7fc924"
+    },
+    "supersession_reason": "Phase E2.A diagnosed Arm A worker authorization failure (PermissionError: Internal worker authorization rejected) caused by Windows CPython venv redirector stub (venvlauncher.exe / py.exe) interposing a process level between runner and worker, failing strict child PID equality. Phase E4 implemented and verified a two-tier verified handshake (direct PID match or Toolhelp32 process-ancestry validation within the designated Win32 Job Object). The changes to scripts/phase8_2_1_controls.py and tests/test_phase8_2_1_hardening.py updated execution source hashes, requiring Gate v4 plan creation."
+  }
+}

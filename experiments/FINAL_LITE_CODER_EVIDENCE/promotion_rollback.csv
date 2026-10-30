@@ -1,0 +1,2 @@
+TrainingCycleID,PromotionStatus,Rollback,ActiveAdapterID,RejectionReason
+cycle_v1_1791456804,rejected,True,,canary_regression_detected

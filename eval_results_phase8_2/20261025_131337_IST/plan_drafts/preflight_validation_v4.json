@@ -1,0 +1,106 @@
+{
+  "status": "READY_FOR_PLAN_REVIEW_AWAITING_HUMAN_APPROVAL",
+  "research_experiment_complete": false,
+  "plan_sha256": "d29f104524cc12fba2161aa91497ef3cb81774730daeed29225e15b55bea9002",
+  "actual_model_backed_comparison_run": false,
+  "actual_coding_model_calls": 0,
+  "fresh_phase8_1_validation": {
+    "final_integration": {
+      "tests": 152,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 152,
+      "duration_s": 42.306
+    },
+    "isolated_strategy_regression": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 17,
+      "duration_s": 0.499
+    }
+  },
+  "new_control_plane_validation": {
+    "tests": 10,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 10,
+    "duration_s": 1.222
+  },
+  "javascript": {
+    "argv": [
+      "node",
+      "--check",
+      "frontend/engineering.js"
+    ],
+    "cwd": "D:\\Amit Stuff\\ai-code-system",
+    "exit_code": 0,
+    "duration_s": 0.06199999991804361,
+    "stdout": "",
+    "stderr": ""
+  },
+  "original_targeted_listing": {
+    "exit_code": 0,
+    "real_llm_calls": 0,
+    "guarded_generation_attempts": 0,
+    "task_count": 20
+  },
+  "initial_fixture_oracles": {
+    "A": {
+      "passed": false,
+      "exit_code": 1,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0\nrootdir: D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\arms\\A\\probe_final\\fixture\ncollected 2 items\n\ntests\\test_router.py .F                                                  [100%]\n\n================================== FAILURES ===================================\n____________________________ test_slug_with_hyphen ____________________________\n\n    def test_slug_with_hyphen():\n        matched, params = match_path(\"/articles/<slug>\", \"/articles/hello-world-2026\")\n>       assert matched is True\nE       assert False is True\n\ntests\\test_router.py:10: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_router.py::test_slug_with_hyphen - assert False is True\n========================= 1 failed, 1 passed in 0.13s =========================\n",
+      "stderr": ""
+    },
+    "B": {
+      "passed": false,
+      "exit_code": 1,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0\nrootdir: D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2\\20261025_131337_IST\\arms\\B\\probe_final\\fixture\ncollected 2 items\n\ntests\\test_router.py .F                                                  [100%]\n\n================================== FAILURES ===================================\n____________________________ test_slug_with_hyphen ____________________________\n\n    def test_slug_with_hyphen():\n        matched, params = match_path(\"/articles/<slug>\", \"/articles/hello-world-2026\")\n>       assert matched is True\nE       assert False is True\n\ntests\\test_router.py:10: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_router.py::test_slug_with_hyphen - assert False is True\n========================= 1 failed, 1 passed in 0.11s =========================\n",
+      "stderr": ""
+    }
+  },
+  "cross_arm_prompt_identical": true,
+  "cross_arm_fixture_identical": true,
+  "actual_arm_run_directories_exist": {
+    "A": false,
+    "B": false
+  },
+  "first_validation_attempt": {
+    "final_integration": {
+      "tests": 152,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 151,
+      "duration_s": 71.669
+    },
+    "isolated_strategy_regression": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 17,
+      "duration_s": 0.544
+    }
+  },
+  "not_tested": [
+    "Actual coding-model weight loading and generation",
+    "Real patch proposal/application and final independent outcomes",
+    "Paired comparison and functional accuracy improvement",
+    "Retries, learning benefits, full benchmark, GPU/Colab"
+  ],
+  "inherited_only": [
+    "Historical Phase 8 20-task outcomes",
+    "Phase 8.1 browser checks and model transport smokes"
+  ],
+  "limitations": [
+    "One task and one attempt per arm do not establish general repair accuracy, retry benefits or learning benefits",
+    "Retrieval is deliberately disabled to keep prompts identical; this is a controlled repair-pipeline comparison, not a complete default-configuration benchmark",
+    "Actual weight loading, generation, token counts, approved patch application and paired functional outcomes have not been tested in this phase",
+    "Canonical tests execute trusted local Python; pytest/process restrictions are not an OS sandbox",
+    "CPU marketing name lookup was denied; observed processor identifier/core counts are recorded"
+  ]
+}

@@ -1,0 +1,1 @@
+torch\ntransformers\nfaiss-cpu\nsentence-transformers\npandas\nnumpy\n

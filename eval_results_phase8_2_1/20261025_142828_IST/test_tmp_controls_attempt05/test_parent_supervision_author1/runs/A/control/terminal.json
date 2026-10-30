@@ -1,0 +1,14 @@
+{
+  "arm": "A",
+  "error_type": "KeyboardInterrupt",
+  "experiment_id": "control-test",
+  "functional_repair": null,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_parent_supervision_author1\\runs\\A",
+  "plan_sha256": "7fc63fc08976fbc30d116bdf7cc71416fe53fafa0edfaa55f287968eef82544a",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_parent_supervision_author1\\source_A",
+  "status": "cancelled",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:16:31.723620+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py\", line 320, in lifecycle\n    yield\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 415, in run_parent\n    answer = confirm(\"Review patch; type SHA256 to approve (\" + patch_hash + \"): \")\n  File \"D:\\Amit Stuff\\ai-code-system\\tests\\test_phase8_2_1_hardening.py\", line 346, in confirm\n    if mode == \"cancel\": raise interrupted\nKeyboardInterrupt: fixed cancellation\n"
+}

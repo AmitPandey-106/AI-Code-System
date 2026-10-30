@@ -1,0 +1,32 @@
+[
+    {
+        "prompt": "Write factorial function"
+    },
+    {
+        "prompt": "Write binary search implementation"
+    },
+    {
+        "prompt": "Write palindrome checker"
+    },
+    {
+        "prompt": "Write quicksort implementation"
+    },
+    {
+        "prompt": "Write fibonacci function"
+    },
+    {
+        "prompt": "Write prime number checker"
+    },
+    {
+        "prompt": "Write merge sort implementation"
+    },
+    {
+        "prompt": "Write linked list implementation"
+    },
+    {
+        "prompt": "Write stack implementation"
+    },
+    {
+        "prompt": "Write queue implementation"
+    }
+]

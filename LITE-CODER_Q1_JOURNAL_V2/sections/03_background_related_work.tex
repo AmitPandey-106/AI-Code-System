@@ -1,0 +1,9 @@
+\section{Background and Related Work}
+\subsection{Automated Program Repair}
+Traditional automated program repair (APR) techniques search for valid patches through heuristics or constraint solving. Recent advancements utilize LLMs to directly generate patches. 
+
+\subsection{Retrieval-Augmented Generation for Code}
+RAG techniques dynamically supply LLMs with external knowledge. While commonly applied to API documentation and natural language QA, leveraging RAG for iterative code repair trajectories remains underexplored for lightweight models.
+
+\subsection{Continual Learning and Parameter Adaptation}
+Parameter-efficient fine-tuning (PEFT), such as Low-Rank Adaptation (LoRA), mitigates the cost of full model retraining but introduces complexity in maintaining up-to-date repositories of fixed bugs. We propose experience replay as an orthogonal, complimentary mechanism.

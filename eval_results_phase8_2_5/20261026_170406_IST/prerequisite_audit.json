@@ -1,0 +1,140 @@
+{
+  "phase": "8.2.5",
+  "audit_timestamp_ist": "2026-10-26T17:04:06+05:30",
+  "reviewed_plan_digest": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+  "task_id": "task_01_router_slug_param",
+  "overall_recommendation": "BLOCKED",
+  "prerequisite_checklist": [
+    {
+      "id": "PREREQ-01",
+      "name": "Hyper-V Hypervisor Active",
+      "status": "PASS",
+      "measured_fact": "Hypervisor detected and active in root partition; version 10.0.22621.1 in registry"
+    },
+    {
+      "id": "PREREQ-02",
+      "name": "Hyper-V Management Service (vmms)",
+      "status": "PASS",
+      "measured_fact": "Service vmms is Running with StartupType Automatic"
+    },
+    {
+      "id": "PREREQ-03",
+      "name": "Existing Virtual Machines Isolation",
+      "status": "PASS",
+      "measured_fact": "0 existing VMs found on host; clean virtualization namespace"
+    },
+    {
+      "id": "PREREQ-04",
+      "name": "Existing Virtual Switches Isolation",
+      "status": "PASS",
+      "measured_fact": "0 virtual switches found on host; physical network disconnection intact"
+    },
+    {
+      "id": "PREREQ-05",
+      "name": "Host Storage Capacity on Drive D:",
+      "status": "PASS",
+      "measured_fact": "Drive D: has 301.48 GB free; proposed VM demand is ~75.0 GB (>226 GB safety margin)"
+    },
+    {
+      "id": "PREREQ-06",
+      "name": "Host Drive C: Protection",
+      "status": "PASS",
+      "measured_fact": "Drive C: has 5.76 GB free; strictly excluded from all VM storage"
+    },
+    {
+      "id": "PREREQ-07",
+      "name": "Canonical Experiment Plan Integrity",
+      "status": "PASS",
+      "measured_fact": "Computed canonical digest 7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424 matches 100%"
+    },
+    {
+      "id": "PREREQ-08",
+      "name": "Execution Source Adapters Integrity",
+      "status": "PASS",
+      "measured_fact": "6/6 source adapter files match source_hash_manifest.json (0 mismatches)"
+    },
+    {
+      "id": "PREREQ-09",
+      "name": "Protected Exports and Fixture Integrity",
+      "status": "PASS",
+      "measured_fact": "122/122 fixture and export files match protected_file_hash_manifest.json (0 mismatches)"
+    },
+    {
+      "id": "PREREQ-10",
+      "name": "Model Snapshot Checksums and Size",
+      "status": "PASS",
+      "measured_fact": "7/7 model files match experiment_plan.json (3,099,021,808 bytes total)"
+    },
+    {
+      "id": "PREREQ-11",
+      "name": "Tracked Git Repository Cleanliness",
+      "status": "PASS",
+      "measured_fact": "0 modified tracked files on branch fix/phase8-1-integration"
+    },
+    {
+      "id": "PREREQ-12",
+      "name": "Host Physical RAM Availability",
+      "status": "PASS",
+      "measured_fact": "Total visible RAM 31.76 GB; free physical RAM 19.08 GB. 12 GB allocation leaves 7.08 GB free on host"
+    },
+    {
+      "id": "PREREQ-13",
+      "name": "Model CPU Inference Memory Feasibility",
+      "status": "PASS",
+      "measured_fact": "Model requires 6.17 GB in float32; inference working set ~7.32 GB; guest OS ~2.80 GB; total demand ~10.07 GB. 12 GB static RAM provides ~1.93 GB headroom, eliminating pagefile thrashing"
+    },
+    {
+      "id": "PREREQ-14",
+      "name": "Native Offline ISO Packaging Capability",
+      "status": "PASS",
+      "measured_fact": "Windows COM object IMAPI2FS.MsftFileSystemImage is verified present for offline ISO creation"
+    },
+    {
+      "id": "PREREQ-15",
+      "name": "Hardware-Enforced Read-Only Storage Validation",
+      "status": "PASS",
+      "measured_fact": "Add-VMHardDiskDrive lacks -ReadOnly; mounting inputs as ISO via Add-VMDvdDrive verified as native hardware read-only mechanism"
+    },
+    {
+      "id": "PREREQ-16",
+      "name": "VM Storage Lifecycle & Evidence Disposal Protocol",
+      "status": "PASS",
+      "measured_fact": "Base template sealed with attrib +r; differencing OS deleted post-run; output disk mounted read-only on host for extraction; original repo untouched"
+    },
+    {
+      "id": "PREREQ-17",
+      "name": "Offline Python Environment Portability",
+      "status": "PASS",
+      "measured_fact": "Base Python 3.10.11 (3.62 GB) available locally at C:\\Users\\T14s\\AppData\\Local\\Programs\\Python\\Python310; mapped to guest template with input disk on D: to preserve exact plan path D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe with 0 plan drift"
+    },
+    {
+      "id": "PREREQ-18",
+      "name": "Offline Guest OS Installation Media Availability",
+      "status": "FAIL",
+      "measured_fact": "Location D:\\hyperv_staging does not exist. No .iso, .vhdx, or .wim files found on C:, D:, or E:. Downloads strictly prohibited.",
+      "blocker": "User must provide offline Windows 11 installation media (ISO or pre-built base VHDX) locally"
+    },
+    {
+      "id": "PREREQ-19",
+      "name": "Hyper-V User Authorization Context",
+      "status": "FAIL",
+      "measured_fact": "Session runs at Medium Mandatory Level; BUILTIN\\Hyper-V Administrators has 0 members. Modifying security settings prohibited without approval.",
+      "blocker": "User must execute in elevated PowerShell: Add-LocalGroupMember -Group 'Hyper-V Administrators' -Member $env:USERNAME"
+    }
+  ],
+  "confirmed_blockers": [
+    {
+      "blocker_id": "BLOCKER-01",
+      "title": "Offline Windows 11 Installation Media Missing",
+      "description": "No valid Windows 11 ISO or base image exists on local host storage. Network access and downloads are prohibited by experimental protocol.",
+      "remediation": "Provide local offline ISO image to D:\\hyperv_staging\\os_media\\"
+    },
+    {
+      "blocker_id": "BLOCKER-02",
+      "title": "Hyper-V Management Permissions Not Configured",
+      "description": "Current standard user token is denied access to Hyper-V management APIs. Changing group memberships or permissions is prohibited without explicit authorization.",
+      "remediation": "Administrator executes Add-LocalGroupMember -Group 'Hyper-V Administrators' -Member $env:USERNAME in elevated prompt"
+    }
+  ],
+  "stop_condition_met": true
+}

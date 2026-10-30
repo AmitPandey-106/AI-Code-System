@@ -1,0 +1,195 @@
+{
+    "zip_path": "D:\\Amit Stuff\\ai-code-system\\LITE_CODER_Q1_FINAL_COLAB_V5.zip",
+    "zip_sha256": "6bb894768a566ad0e37cd5b4aaffcdcb97de2d43cfa5e90d5939e75e65fb4801",
+    "zip_size": 83471,
+    "file_count": 37,
+    "dataset_sha256": "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620",
+    "dataset_task_count": 100,
+    "files": [
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/data/benchmark/v1.0/dataset.json",
+            "size": 88986,
+            "sha256": "2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/canary.py",
+            "size": 6697,
+            "sha256": "efab0dfedeed637f7c45b9867d97c5cd414be006d8c93a3f05f063ada9034741"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/config.py",
+            "size": 1138,
+            "sha256": "3864b8d169fba36e7df930cfd2ef84f6b74719ad1cffc339b1b0a92b085671c6"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/contract.py",
+            "size": 29882,
+            "sha256": "92155fd561e19e86babee0b52c18da767b67c156dd943512c5093d533f86ab69"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/evaluator.py",
+            "size": 4622,
+            "sha256": "b7143bdc422bd0459b99a17dbb184cf82f1e4e32ffb0f30265e2f6c335aee26e"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/executor.py",
+            "size": 5668,
+            "sha256": "19e3cff783df44378f462f0d920c5f26c855114a6d81c4b7364f3982d33fe40f"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/feedback.py",
+            "size": 1350,
+            "sha256": "058f54d965fbd817aeec62f0d3975906f66095aca250fde5d894c62a968c1dc2"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/main.py",
+            "size": 38363,
+            "sha256": "8ed8250f5f1f2c71e87d5553aa1c245ae1fe02c69f1c69a3d8740dab527383a7"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/model.py",
+            "size": 21759,
+            "sha256": "84e734fd637ab9256a432046b202e4d28630c1afb05640994b046783c2839596"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/repair_difficulty.py",
+            "size": 2327,
+            "sha256": "a32811c0f2e15395a7d748aa17943b940e69bf5fc4ec24168d6d044ceb5497af"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/repair_memory.py",
+            "size": 5398,
+            "sha256": "f2ebc6a20be741887e6695a6225975ed6ea59754510cc1c4b7231a47817548f5"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/repair_strategy.py",
+            "size": 3266,
+            "sha256": "7f9681841d79f6744e92a80469eebeebab3243cbf5a2dafbc442bab28851e56c"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/security.py",
+            "size": 2591,
+            "sha256": "1b776cdb22325a9255270b1434d600d9020414615e3221034ef67789df6626e0"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/strategy_selector.py",
+            "size": 7579,
+            "sha256": "e5ab55b1800bc9667bf1d4a5fc5fba5e75fa6faffc3d0ffa76d6de2a002483a2"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/tester.py",
+            "size": 44972,
+            "sha256": "6d123f3b5369e1efc56f0fa0969522073df62a608204b6fa61c2a5e9550f80a5"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/app/training_dataset.py",
+            "size": 7186,
+            "sha256": "5ebbb0374efa0356122d14c18af4d1937bd9de05dc05e4e326ccd072eb0d7eb4"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/ablation.py",
+            "size": 1948,
+            "sha256": "03de0b75cf9d4b965f2266d57004c57fbf6c513af5bbc6510dd94f0b371aea77"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/dataset.py",
+            "size": 3329,
+            "sha256": "cfb2d0d42d2b775fbf373af5039db20dc816140e8600479395a9c459a6210af0"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/executor.py",
+            "size": 3043,
+            "sha256": "1a250fb4c13cb921e862e5d1f1b10af5cf4d01b0ce6955ecb8f3a2e85f9dc724"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/fault_injector.py",
+            "size": 4590,
+            "sha256": "3af0031bc9cc11623d3b8ed135d5d93851462e840d941c06f293e1978d869e77"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/forgetting.py",
+            "size": 1129,
+            "sha256": "df29c3d58150a4a5c9c3ffc321b63f90690423fc7a7241b0e6637cf7e67e1cea"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/generator.py",
+            "size": 3325,
+            "sha256": "a57bc597d38345e2dc256544ebeba4e28906648b4abd69df15ead3c741262ae8"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/metrics.py",
+            "size": 3244,
+            "sha256": "979ba5df4070ca4221d15de4d6953c2be187ef27c41d1bc47903303205fed346"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/reporter.py",
+            "size": 2044,
+            "sha256": "5921a1975f63e64d283999555d216fc211d12cd28f20f9a2fa9172204f8d3e2b"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/reporter_8_1.py",
+            "size": 4695,
+            "sha256": "435b86cb5dd8597e92b06194eb45601708e44ad87296160d2bf481db6478f338"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/runner.py",
+            "size": 18814,
+            "sha256": "6bc89d7fa438476b5ce8fe9b8f405a0e5fe39c3a2c9a4450ab222d1e08ffa4bb"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/run_experiment.py",
+            "size": 6264,
+            "sha256": "53daff931bdaa1c5c678065f1012979f757edca842da0992a9d865333fd62760"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/schemas.py",
+            "size": 1943,
+            "sha256": "986b6cd7fae25b3800628674af59b3eb48b42ce745e648ad36408b6c0df40ce0"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/statistics.py",
+            "size": 1303,
+            "sha256": "1bb96071668eaa0a6dfac96376c4389bdf4f4470b59c72ba9aea3c78a311dbb9"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/table_generator.py",
+            "size": 5402,
+            "sha256": "2f19fd51d34d5733f1189da394b91b4e89cea1a7441eabe121bedf18c699ffea"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/benchmark/__init__.py",
+            "size": 34,
+            "sha256": "38fc3c8b05ea057649ff4cec7d3c8d1e7a22b3958c599cf1f932ab6a04894486"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/RUN_ALL_FINAL_EXPERIMENTS_V5.py",
+            "size": 6454,
+            "sha256": "70006049056d6352df324b292d05607d9091537e26d6108aa47cf409f92a2af1"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/COLAB_PREFLIGHT_V5.py",
+            "size": 1039,
+            "sha256": "8c6815f1966e2a1d944a371c1d2bc5e98e6904514578d3f13dff5fd5c1a5d47d"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/train_worker.py",
+            "size": 24145,
+            "sha256": "6408aa19d898c2c260110877f7e1fe6b24c434477e052ca8111e27279e36880f"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/requirements.txt",
+            "size": 596,
+            "sha256": "e79e6dd28b20119ff9d97cae6fc68f33c7b8bcc99266c41b38ca5b2febc1f196"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/README.md",
+            "size": 3175,
+            "sha256": "10f68e51e60a32ab75e44203134b3b323220f989e58acc2e944858ae91d1a4c3"
+        },
+        {
+            "path": "LITE_CODER_Q1_COLAB_FINAL/config.json",
+            "size": 508,
+            "sha256": "2af33361aa338992ede962b619ce04029ebfb8c94cc5744f03700eff01727c0b"
+        }
+    ]
+}

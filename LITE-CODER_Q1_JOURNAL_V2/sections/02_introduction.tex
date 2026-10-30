@@ -1,0 +1,14 @@
+\section{Introduction}
+The integration of Large Language Models (LLMs) into software engineering workflows has shifted the paradigm of code generation. However, generated code often fails initial execution due to syntax errors, logical bugs, or API misuses. While large models excel at zero-shot repair, their deployment necessitates cloud infrastructure, posing privacy and latency challenges.
+
+Lightweight local LLMs (typically under 3 billion parameters) present a desirable alternative for edge development, yet their stateless generation often leads to repeated repair failures. Existing literature primarily focuses on prompt engineering for large models or parameter-efficient fine-tuning (e.g., LoRA) for smaller models. Continual training is resource-intensive and risks catastrophic forgetting.
+
+This paper addresses the gap by investigating a verification-gated, experience-based memory system designed to provide dynamic, in-context learning specifically for code repair.
+
+\subsection{Contributions}
+\begin{itemize}
+    \item \textbf{Verified experience memory for lightweight APR}: A RAG-based framework specifically engineered to capture failed-state-to-successful-fix trajectories.
+    \item \textbf{Closed-loop adaptive repair architecture}: Isolates memory acquisition from parameter updates.
+    \item \textbf{Verification-gated knowledge admission}: A strict mechanism ensuring only successfully executed and validated repairs enter the memory, averting hallucination contamination.
+    \item \textbf{Controlled benchmark methodology}: Empirical comparison decoupling baseline zero-shot repair, retrieved-experience repair, and LoRA fine-tuning.
+\end{itemize}

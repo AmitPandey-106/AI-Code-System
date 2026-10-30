@@ -1,0 +1,282 @@
+[
+  {
+    "type": "class",
+    "name": "ExecutionContext",
+    "methods": [
+      "__init__",
+      "set",
+      "get"
+    ],
+    "rel_path": "task_flow\\context.py",
+    "line_start": 3,
+    "line_end": 11,
+    "snippet": "class ExecutionContext:\n    def __init__(self):\n        self._data: Dict[str, Any] = {}\n\n    def set(self, key: str, value: Any):\n        self._data[key] = value\n\n    def get(self, key: str, default: Optional[Any] = None) -> Any:\n        return self._data.get(key, default)",
+    "imports": [
+      "typing.Dict",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "__init__",
+    "rel_path": "task_flow\\context.py",
+    "line_start": 4,
+    "line_end": 5,
+    "snippet": "    def __init__(self):\n        self._data: Dict[str, Any] = {}",
+    "imports": [
+      "typing.Dict",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "set",
+    "rel_path": "task_flow\\context.py",
+    "line_start": 7,
+    "line_end": 8,
+    "snippet": "    def set(self, key: str, value: Any):\n        self._data[key] = value",
+    "imports": [
+      "typing.Dict",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "get",
+    "rel_path": "task_flow\\context.py",
+    "line_start": 10,
+    "line_end": 11,
+    "snippet": "    def get(self, key: str, default: Optional[Any] = None) -> Any:\n        return self._data.get(key, default)",
+    "imports": [
+      "typing.Dict",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  },
+  {
+    "type": "class",
+    "name": "SequentialExecutor",
+    "methods": [
+      "__init__",
+      "run_all"
+    ],
+    "rel_path": "task_flow\\executor.py",
+    "line_start": 5,
+    "line_end": 21,
+    "snippet": "class SequentialExecutor:\n    def __init__(self, graph: TaskGraph):\n        self.graph = graph\n\n    def run_all(self) -> Dict[str, Any]:\n        results = {}\n        while True:\n            runnable = self.graph.get_runnable_tasks()\n            if not runnable:\n                break\n            for task in runnable:\n                try:\n                    res = task.execute()\n                    results[task.name] = res\n                except Exception as e:\n                    results[task.name] = None\n        return results",
+    "imports": [
+      "typing.Dict",
+      "typing.Any",
+      "task_flow.graph.TaskGraph",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "__init__",
+    "rel_path": "task_flow\\executor.py",
+    "line_start": 6,
+    "line_end": 7,
+    "snippet": "    def __init__(self, graph: TaskGraph):\n        self.graph = graph",
+    "imports": [
+      "typing.Dict",
+      "typing.Any",
+      "task_flow.graph.TaskGraph",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "run_all",
+    "rel_path": "task_flow\\executor.py",
+    "line_start": 9,
+    "line_end": 21,
+    "snippet": "    def run_all(self) -> Dict[str, Any]:\n        results = {}\n        while True:\n            runnable = self.graph.get_runnable_tasks()\n            if not runnable:\n                break\n            for task in runnable:\n                try:\n                    res = task.execute()\n                    results[task.name] = res\n                except Exception as e:\n                    results[task.name] = None\n        return results",
+    "imports": [
+      "typing.Dict",
+      "typing.Any",
+      "task_flow.graph.TaskGraph",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "find_cycle",
+    "rel_path": "task_flow\\graph.py",
+    "line_start": 4,
+    "line_end": 28,
+    "snippet": "def find_cycle(adj: Dict[str, List[str]]) -> Optional[List[str]]:\n    \"\"\"\n    Detects cycle in adjacency graph.\n    BUG: Returns True or None, instead of returning the ordered cycle list [node, ..., node].\n    \"\"\"\n    visited = set()\n    rec_stack = set()\n\n    def dfs(node):\n        visited.add(node)\n        rec_stack.add(node)\n        for neighbor in adj.get(node, []):\n            if neighbor not in visited:\n                if dfs(neighbor):\n                    return True\n            elif neighbor in rec_stack:\n                return True\n        rec_stack.remove(node)\n        return False\n\n    for n in adj:\n        if n not in visited:\n            if dfs(n):\n                return True  # BUG: should return cycle path\n    return None",
+    "imports": [
+      "typing.Dict",
+      "typing.List",
+      "typing.Optional",
+      "typing.Set",
+      "task_flow.task.Task",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "class",
+    "name": "TaskGraph",
+    "methods": [
+      "__init__",
+      "add_task",
+      "get_runnable_tasks"
+    ],
+    "rel_path": "task_flow\\graph.py",
+    "line_start": 30,
+    "line_end": 52,
+    "snippet": "class TaskGraph:\n    def __init__(self):\n        self.tasks: Dict[str, Task] = {}\n        self.dependencies: Dict[str, Set[str]] = {}\n\n    def add_task(self, task: Task, dependencies: Optional[List[str]] = None):\n        self.tasks[task.name] = task\n        self.dependencies[task.name] = set(dependencies or [])\n\n    def get_runnable_tasks(self) -> List[Task]:\n        \"\"\"\n        Returns list of tasks ready for execution.\n        BUG: Returns tasks if dependencies are merely in tasks dict, not requiring SUCCESS.\n        \"\"\"\n        runnable = []\n        for name, task in self.tasks.items():\n            if task.status == TaskStatus.PENDING:\n                deps = self.dependencies.get(name, set())\n                # BUG: checks status != FAILED instead of all == SUCCESS\n                all_satisfied = all(self.tasks[d].status != TaskStatus.FAILED for d in deps if d in self.tasks)\n                if all_satisfied:\n                    runnable.append(task)\n        return runnable",
+    "imports": [
+      "typing.Dict",
+      "typing.List",
+      "typing.Optional",
+      "typing.Set",
+      "task_flow.task.Task",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "dfs",
+    "rel_path": "task_flow\\graph.py",
+    "line_start": 12,
+    "line_end": 22,
+    "snippet": "    def dfs(node):\n        visited.add(node)\n        rec_stack.add(node)\n        for neighbor in adj.get(node, []):\n            if neighbor not in visited:\n                if dfs(neighbor):\n                    return True\n            elif neighbor in rec_stack:\n                return True\n        rec_stack.remove(node)\n        return False",
+    "imports": [
+      "typing.Dict",
+      "typing.List",
+      "typing.Optional",
+      "typing.Set",
+      "task_flow.task.Task",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "__init__",
+    "rel_path": "task_flow\\graph.py",
+    "line_start": 31,
+    "line_end": 33,
+    "snippet": "    def __init__(self):\n        self.tasks: Dict[str, Task] = {}\n        self.dependencies: Dict[str, Set[str]] = {}",
+    "imports": [
+      "typing.Dict",
+      "typing.List",
+      "typing.Optional",
+      "typing.Set",
+      "task_flow.task.Task",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "add_task",
+    "rel_path": "task_flow\\graph.py",
+    "line_start": 35,
+    "line_end": 37,
+    "snippet": "    def add_task(self, task: Task, dependencies: Optional[List[str]] = None):\n        self.tasks[task.name] = task\n        self.dependencies[task.name] = set(dependencies or [])",
+    "imports": [
+      "typing.Dict",
+      "typing.List",
+      "typing.Optional",
+      "typing.Set",
+      "task_flow.task.Task",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "get_runnable_tasks",
+    "rel_path": "task_flow\\graph.py",
+    "line_start": 39,
+    "line_end": 52,
+    "snippet": "    def get_runnable_tasks(self) -> List[Task]:\n        \"\"\"\n        Returns list of tasks ready for execution.\n        BUG: Returns tasks if dependencies are merely in tasks dict, not requiring SUCCESS.\n        \"\"\"\n        runnable = []\n        for name, task in self.tasks.items():\n            if task.status == TaskStatus.PENDING:\n                deps = self.dependencies.get(name, set())\n                # BUG: checks status != FAILED instead of all == SUCCESS\n                all_satisfied = all(self.tasks[d].status != TaskStatus.FAILED for d in deps if d in self.tasks)\n                if all_satisfied:\n                    runnable.append(task)\n        return runnable",
+    "imports": [
+      "typing.Dict",
+      "typing.List",
+      "typing.Optional",
+      "typing.Set",
+      "task_flow.task.Task",
+      "task_flow.task.TaskStatus"
+    ]
+  },
+  {
+    "type": "class",
+    "name": "TaskStatus",
+    "methods": [],
+    "rel_path": "task_flow\\task.py",
+    "line_start": 4,
+    "line_end": 8,
+    "snippet": "class TaskStatus:\n    PENDING = \"PENDING\"\n    RUNNING = \"RUNNING\"\n    SUCCESS = \"SUCCESS\"\n    FAILED = \"FAILED\"",
+    "imports": [
+      "time",
+      "typing.Callable",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  },
+  {
+    "type": "class",
+    "name": "Task",
+    "methods": [
+      "__init__",
+      "record_failure",
+      "execute"
+    ],
+    "rel_path": "task_flow\\task.py",
+    "line_start": 10,
+    "line_end": 39,
+    "snippet": "class Task:\n    def __init__(self, name: str, fn: Callable, retries: int = 0):\n        self.name = name\n        self.fn = fn\n        self.retries = retries\n        self.status = TaskStatus.PENDING\n        self.result: Any = None\n        self.error: Optional[str] = None\n        self.failure_count = 0\n        self.next_retry_delay = 0.0\n\n    def record_failure(self, error_msg: str, base_delay: float = 1.0):\n        \"\"\"\n        Records task execution failure.\n        BUG: Fails to increment failure_count and uses linear instead of exponential backoff.\n        \"\"\"\n        self.status = TaskStatus.FAILED\n        self.error = error_msg\n        # Linear bug instead of base_delay * (2 ** self.failure_count)\n        self.next_retry_delay = base_delay * self.failure_count\n\n    def execute(self, *args, **kwargs) -> Any:\n        self.status = TaskStatus.RUNNING\n        try:\n            self.result = self.fn(*args, **kwargs)\n            self.status = TaskStatus.SUCCESS\n            return self.result\n        except Exception as e:\n            self.record_failure(str(e))\n            raise",
+    "imports": [
+      "time",
+      "typing.Callable",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "__init__",
+    "rel_path": "task_flow\\task.py",
+    "line_start": 11,
+    "line_end": 19,
+    "snippet": "    def __init__(self, name: str, fn: Callable, retries: int = 0):\n        self.name = name\n        self.fn = fn\n        self.retries = retries\n        self.status = TaskStatus.PENDING\n        self.result: Any = None\n        self.error: Optional[str] = None\n        self.failure_count = 0\n        self.next_retry_delay = 0.0",
+    "imports": [
+      "time",
+      "typing.Callable",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "record_failure",
+    "rel_path": "task_flow\\task.py",
+    "line_start": 21,
+    "line_end": 29,
+    "snippet": "    def record_failure(self, error_msg: str, base_delay: float = 1.0):\n        \"\"\"\n        Records task execution failure.\n        BUG: Fails to increment failure_count and uses linear instead of exponential backoff.\n        \"\"\"\n        self.status = TaskStatus.FAILED\n        self.error = error_msg\n        # Linear bug instead of base_delay * (2 ** self.failure_count)\n        self.next_retry_delay = base_delay * self.failure_count",
+    "imports": [
+      "time",
+      "typing.Callable",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  },
+  {
+    "type": "function",
+    "name": "execute",
+    "rel_path": "task_flow\\task.py",
+    "line_start": 31,
+    "line_end": 39,
+    "snippet": "    def execute(self, *args, **kwargs) -> Any:\n        self.status = TaskStatus.RUNNING\n        try:\n            self.result = self.fn(*args, **kwargs)\n            self.status = TaskStatus.SUCCESS\n            return self.result\n        except Exception as e:\n            self.record_failure(str(e))\n            raise",
+    "imports": [
+      "time",
+      "typing.Callable",
+      "typing.Any",
+      "typing.Optional"
+    ]
+  }
+]

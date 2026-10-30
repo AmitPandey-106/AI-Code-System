@@ -1,0 +1,10 @@
+{
+  "authentication_path": "windows_verified_trampoline",
+  "job_name": "Local\\LiteCoder_Job_08e877b9126a45068f824731d0f646be",
+  "launcher_pid": 7692,
+  "parent_pid": 5852,
+  "run_id": "3aade2dbaa9d48bb969f5e971e79ee1a",
+  "timestamp": "2026-10-27T10:36:20.373140+00:00",
+  "windows_trampoline": true,
+  "worker_pid": 6880
+}

@@ -1,0 +1,80 @@
+TASK:
+In micro_http/router.py, fix match_path so that parameter segments like <slug> support hyphens (e.g., 'hello-world-2026') in addition to alphanumeric characters.
+
+SOURCE SNAPSHOT (read-only context):
+FILE: micro_http/router.py
+import re
+from typing import Dict, Any, Optional, Tuple
+
+def match_path(pattern: str, path: str) -> Tuple[bool, Dict[str, str]]:
+    """
+    Matches a URL pattern like '/users/<id>/profile' against '/users/42/profile'.
+    Returns (matched, params_dict).
+    """
+    regex_pattern = "^"
+    parts = pattern.strip("/").split("/")
+    param_names = []
+
+    for part in parts:
+        if part.startswith("<") and part.endswith(">"):
+            param_name = part[1:-1]
+            param_names.append(param_name)
+            # BUG: uses \w+ which excludes hyphens like 'john-doe'
+            regex_pattern += r"/(\w+)"
+        else:
+            regex_pattern += f"/{re.escape(part)}"
+    regex_pattern += "$"
+
+    match = re.match(regex_pattern, path)
+    if not match:
+        return False, {}
+
+    params = {}
+    for name, val in zip(param_names, match.groups()):
+        params[name] = val
+    return True, params
+
+class Router:
+    def __init__(self):
+        self.routes = []
+
+    def add_route(self, method: str, pattern: str, handler: Any):
+        self.routes.append((method.upper(), pattern, handler))
+
+    def resolve(self, method: str, path: str) -> Optional[Tuple[Any, Dict[str, str]]]:
+        for m, pattern, handler in self.routes:
+            if m == method.upper():
+                matched, params = match_path(pattern, path)
+                if matched:
+                    return handler, params
+        return None
+
+
+INSTRUCTIONS:
+You must output your code change using explicit SEARCH/REPLACE blocks formatted exactly as:
+FILE: <relative_path>
+<<<<<<< SEARCH
+<exact lines to find>
+=======
+<replacement lines>
+>>>>>>> REPLACE
+
+CRITICAL FORMAT RULES:
+1. Always include the 'FILE: <relative_path>' line first.
+2. The search block must start with '<<<<<<< SEARCH' and end with '======='.
+3. The replace block must start with '=======' and end with '>>>>>>> REPLACE'.
+4. Do NOT omit '<<<<<<< ', '=======', or '>>>>>>> '. Do NOT write bare 'SEARCH' or 'REPLACE'.
+5. Do NOT wrap in markdown fences (like ```).
+6. Do NOT include explanations or conversational prose.
+
+EXAMPLE:
+FILE: math_utils.py
+<<<<<<< SEARCH
+def subtract(a, b):
+    return a + b
+=======
+def subtract(a, b):
+    return a - b
+>>>>>>> REPLACE
+
+Now provide only the SEARCH/REPLACE block for the task above.

@@ -1,0 +1,14 @@
+{
+  "arm": "A",
+  "error_type": "TimeoutExpired",
+  "experiment_id": "control-test",
+  "functional_repair": null,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt04\\test_parent_supervision_author2\\runs\\A",
+  "plan_sha256": "a7ae0782bb261d37112426dcb625681f1ca4b1532cfcd8094d730e2feeb0c165",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt04\\test_parent_supervision_author2\\source_A",
+  "status": "timeout",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:13:01.867053+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py\", line 315, in lifecycle\n    yield\n  File \"D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py\", line 397, in run_parent\n    for line in process.stdout:\n  File \"D:\\Amit Stuff\\ai-code-system\\tests\\test_phase8_2_1_hardening.py\", line 333, in __iter__\n    def __iter__(self): raise subprocess.TimeoutExpired(\"fixed dummy\", 300)\nsubprocess.TimeoutExpired: Command 'fixed dummy' timed out after 300 seconds\n"
+}

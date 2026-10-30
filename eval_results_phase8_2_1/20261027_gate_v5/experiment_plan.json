@@ -1,0 +1,713 @@
+{
+  "acceptance": {
+    "functional_failure": "Within-budget parse/validation failure, or applied repair fails independent assertion tests",
+    "functional_success": "Explicitly approved applied change; unchanged oracle/test bytes; independent frozen oracle exit 0; framework completed; target bytes differ from failing fixture",
+    "inconclusive": "Environment/import/model/cache error, timeout, missing/rejected reviewer confirmation, prompt/fixture/source drift",
+    "separate_metrics": [
+      "independent functional outcome",
+      "framework state",
+      "patch validity",
+      "approval decision",
+      "rollback integrity",
+      "calls and tokens",
+      "load/inference/tests/review latency"
+    ]
+  },
+  "adapter_sha256": "3d6163bd22da1b8e1268888c6e03b6e477bf994a7d880591c9046df806b933a6",
+  "approval_gate": {
+    "approved_digest_argument": "--approved-plan-sha256",
+    "current_authorization": "NOT_GRANTED",
+    "human_plan_confirmation": "Exact digest typed before owning outputs and initializing supervisor/launching worker",
+    "internal_worker": "Private pipe capability; one-use SHA256 verifier bound to plan/task/revision/arm/output/run_id/parent PID/child PID; expires in 30s",
+    "proposal_confirmation": "Durable complete checkpoint before exact proposal-hash confirmation; target writes remain locked until confirmation",
+    "run_flag": "--run"
+  },
+  "arms": {
+    "A": {
+      "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+      "run_output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v5\\runs\\A",
+      "source_export": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+      "source_files": {
+        "app/canary.py": {
+          "sha256": "efab0dfedeed637f7c45b9867d97c5cd414be006d8c93a3f05f063ada9034741",
+          "size": 6697
+        },
+        "app/config.py": {
+          "sha256": "3864b8d169fba36e7df930cfd2ef84f6b74719ad1cffc339b1b0a92b085671c6",
+          "size": 1138
+        },
+        "app/contract.py": {
+          "sha256": "92155fd561e19e86babee0b52c18da767b67c156dd943512c5093d533f86ab69",
+          "size": 29882
+        },
+        "app/engineering_loop.py": {
+          "sha256": "30a2e08ba06a875f952caa8806d73b4ae0eb2b93771f78036f69af1a525e4706",
+          "size": 39162
+        },
+        "app/evaluator.py": {
+          "sha256": "b7143bdc422bd0459b99a17dbb184cf82f1e4e32ffb0f30265e2f6c335aee26e",
+          "size": 4622
+        },
+        "app/executor.py": {
+          "sha256": "19e3cff783df44378f462f0d920c5f26c855114a6d81c4b7364f3982d33fe40f",
+          "size": 5668
+        },
+        "app/feedback.py": {
+          "sha256": "31774febdd085099652a82c8faa32d21a93713e779070849feb7a1a47b574f84",
+          "size": 1309
+        },
+        "app/main.py": {
+          "sha256": "cc5597e762a97fe3f9a6cd331f6b3a0630c94b7dc74734c0b692fe573e487155",
+          "size": 44133
+        },
+        "app/model.py": {
+          "sha256": "b77a34b1b19bda1f50744a817de54f36c74206ee401f79f1535d6c7866ef6a7b",
+          "size": 22608
+        },
+        "app/multi_file_orchestrator.py": {
+          "sha256": "0a2aa488c1a2c939f856de4bd6147a79b2b3d117349511b7f79a14afc7dc8a0d",
+          "size": 8143
+        },
+        "app/patch_engine.py": {
+          "sha256": "9cc5bf70c4b6eb86d660699ece460c4e3c348dae680a31b6cbd9cd787b716353",
+          "size": 21715
+        },
+        "app/project_test_runner.py": {
+          "sha256": "802fb5f1a6e264eb97fcab76939692b40f8245a3d02c8e925419407a6e783849",
+          "size": 8277
+        },
+        "app/repair_difficulty.py": {
+          "sha256": "a32811c0f2e15395a7d748aa17943b940e69bf5fc4ec24168d6d044ceb5497af",
+          "size": 2327
+        },
+        "app/repair_memory.py": {
+          "sha256": "5c1692078aaff92de305a23a6ee057e78b82472010e5f0f25d5eef78235550fa",
+          "size": 7984
+        },
+        "app/repair_strategy.py": {
+          "sha256": "7f9681841d79f6744e92a80469eebeebab3243cbf5a2dafbc442bab28851e56c",
+          "size": 3266
+        },
+        "app/repo_index.py": {
+          "sha256": "f0b022b488ed6cecaad925f95e159f0890a209fd9b6927c8a2f091673757f74e",
+          "size": 8596
+        },
+        "app/security.py": {
+          "sha256": "1b776cdb22325a9255270b1434d600d9020414615e3221034ef67789df6626e0",
+          "size": 2591
+        },
+        "app/strategy_selector.py": {
+          "sha256": "fb7cd702aba00c32a276e9b05073e84e784d046b369020ce63bbf3b3ad669a33",
+          "size": 8510
+        },
+        "app/tester.py": {
+          "sha256": "6d123f3b5369e1efc56f0fa0969522073df62a608204b6fa61c2a5e9550f80a5",
+          "size": 44972
+        },
+        "app/train_worker.py": {
+          "sha256": "6408aa19d898c2c260110877f7e1fe6b24c434477e052ca8111e27279e36880f",
+          "size": 24145
+        },
+        "app/training_dataset.py": {
+          "sha256": "5ebbb0374efa0356122d14c18af4d1937bd9de05dc05e4e326ccd072eb0d7eb4",
+          "size": 7186
+        },
+        "config.json": {
+          "sha256": "2aea5fcfcacc05c4af2a49da11c35c2c95d2a0df3b17a5a87b7c079bcf84c175",
+          "size": 517
+        },
+        "eval_dataset_v2/__init__.py": {
+          "sha256": "4dd27ae129aa55ba60f8dfcd8b09c67ffecde52f7dc626cf02e80777fc108e0e",
+          "size": 325
+        },
+        "eval_dataset_v2/eval_runner.py": {
+          "sha256": "f5474536179784523f1828be8e97630a5ec85657005f56be3bb074bddb2e4363",
+          "size": 13555
+        },
+        "eval_dataset_v2/manifest.json": {
+          "sha256": "aa94b40b6c75807939f5af6e773943fe43bd3974b75e655c5cd8d1f7d07e4ad1",
+          "size": 1764
+        },
+        "eval_dataset_v2/repositories.py": {
+          "sha256": "b63b736de2af91b8d86422d0dec59b6bdc375c72e8ef7ca7c74e56fd70bc3b58",
+          "size": 18190
+        },
+        "eval_dataset_v2/tasks.py": {
+          "sha256": "493c2c0c3267a9ab7a49ef36d88769d12c6b2af0cdecdc7c470d86576e767e42",
+          "size": 34739
+        },
+        "frontend/index.html": {
+          "sha256": "23d116c6e7fcbcefc3d0fed775e0e01fea71b2da1dddb67ffdd6808499e7fe4c",
+          "size": 100929
+        },
+        "frontend/server.py": {
+          "sha256": "e884ac41a51c3790e018f853d853b05324c73b9d85f480b9c0d1370d0ba3abdd",
+          "size": 7594
+        },
+        "tests/test_benchmark.py": {
+          "sha256": "93ce653a8f060abb2d7abd6a540b57a1e639a3ff6aa3607172fb9b9594f12c58",
+          "size": 1936
+        },
+        "tests/test_engineering_loop.py": {
+          "sha256": "21f0aebe6fe0b29354211a5441664792954ca5f7bf83e5f12c25597c05cc9535",
+          "size": 6250
+        },
+        "tests/test_engineering_loop_retries.py": {
+          "sha256": "b5d4d6ee18aea09668193b771aa444dc39c38dd491b2f68b6698319ba58e2f27",
+          "size": 7121
+        },
+        "tests/test_engineering_loop_safety.py": {
+          "sha256": "b849f2244b877c0b070c055696b80a55a65684a5d5ebd914c86c657c9276e11d",
+          "size": 9238
+        },
+        "tests/test_eval_dataset_v2.py": {
+          "sha256": "e185d41faf915652d9b757ee2f23fc2292228c43fb3af1251b19f8d607a41d8e",
+          "size": 2790
+        },
+        "tests/test_fault_injection.py": {
+          "sha256": "04a4282aba48a00c9b307c92fdffa59c0f84a953da143d1ecc37ea0b1adb2246",
+          "size": 1233
+        },
+        "tests/test_forgetting.py": {
+          "sha256": "8e51fda24ec646d6f14203570c66fea38d9b411b31446f10a2f9b8174bbac30c",
+          "size": 492
+        },
+        "tests/test_infrastructure.py": {
+          "sha256": "1544125d7026697976ff436e42af2b6ab1e8bd48a345c75a0b42eadb561188ff",
+          "size": 3541
+        },
+        "tests/test_lora_pipeline.py": {
+          "sha256": "55e8eeb02c5dfd0a94636014d90af6735de0e3f9f1a991ce020712c581148ccf",
+          "size": 11504
+        },
+        "tests/test_mode_f_safe.py": {
+          "sha256": "623476700bf1eae7e6bcf2f4de93dc34e21fd20adb61c97690c3e8b5fa019aea",
+          "size": 14603
+        },
+        "tests/test_patch_engine.py": {
+          "sha256": "e7b35fa77d29a37970c185652f8a60dc67379fcf58eafd5125350c9cdc2f3b12",
+          "size": 5298
+        },
+        "tests/test_patch_engine_search_replace.py": {
+          "sha256": "1d2e030b96b86ece1906b5e5a052c5eea8e9842fe519728a4a73183e9195ba32",
+          "size": 7718
+        },
+        "tests/test_phase7b_patch_reliability.py": {
+          "sha256": "3357f3d21dd2db7e77da64fb01110517ab285fb417b44e237b7dc56598cd0e84",
+          "size": 10614
+        },
+        "tests/test_phase8_architecture.py": {
+          "sha256": "c4abedd3c9fa0c73c6aa833dabbb9575be26883c0d8ba276bf5ad4f3a13bd55d",
+          "size": 10724
+        },
+        "tests/test_project_test_runner.py": {
+          "sha256": "a48f7c407287e8b1b3722078958e423f35a64eb8d9676b6427505b16a1dc55d5",
+          "size": 3857
+        },
+        "tests/test_repo_index.py": {
+          "sha256": "32eea4aef24b05a83f2c4a56b9b30c962622b20e2e07502bc23829c82d8a6926",
+          "size": 4426
+        },
+        "tests/test_runner_error_handling.py": {
+          "sha256": "7b2e2eabb8f41917cbf6f9e632530d91aa3dcadc2367ecf41708ad508697afc6",
+          "size": 29550
+        },
+        "tests/test_strategy_bookkeeping.py": {
+          "sha256": "dc75f23b1d1bec07e004a46506d6df8302736e71ed27f057fac36716eccb7c31",
+          "size": 8420
+        },
+        "tests/test_strategy_learning.py": {
+          "sha256": "544e2692010170971ff528ce85b83c307c2698993df7776dc6465a781bd93427",
+          "size": 5218
+        },
+        "train_worker.py": {
+          "sha256": "6408aa19d898c2c260110877f7e1fe6b24c434477e052ca8111e27279e36880f",
+          "size": 24145
+        }
+      }
+    },
+    "B": {
+      "revision": "920c01aa0d510aa281092e6b55e4ce02b31e584e",
+      "run_output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v5\\runs\\B",
+      "source_export": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\candidate",
+      "source_files": {
+        "app/canary.py": {
+          "sha256": "efab0dfedeed637f7c45b9867d97c5cd414be006d8c93a3f05f063ada9034741",
+          "size": 6697
+        },
+        "app/config.py": {
+          "sha256": "3864b8d169fba36e7df930cfd2ef84f6b74719ad1cffc339b1b0a92b085671c6",
+          "size": 1138
+        },
+        "app/contract.py": {
+          "sha256": "92155fd561e19e86babee0b52c18da767b67c156dd943512c5093d533f86ab69",
+          "size": 29882
+        },
+        "app/engineering_api.py": {
+          "sha256": "a9e2807c880ac7891009daeb2c9f51b9075ac807346a56738543195d6973ac8e",
+          "size": 3122
+        },
+        "app/engineering_loop.py": {
+          "sha256": "c7706e440294814ddb1cb2992e13eb183135d848d846e9c1132b3b32103fb3e9",
+          "size": 39070
+        },
+        "app/evaluator.py": {
+          "sha256": "b7143bdc422bd0459b99a17dbb184cf82f1e4e32ffb0f30265e2f6c335aee26e",
+          "size": 4622
+        },
+        "app/executor.py": {
+          "sha256": "19e3cff783df44378f462f0d920c5f26c855114a6d81c4b7364f3982d33fe40f",
+          "size": 5668
+        },
+        "app/feedback.py": {
+          "sha256": "31774febdd085099652a82c8faa32d21a93713e779070849feb7a1a47b574f84",
+          "size": 1309
+        },
+        "app/file_transaction.py": {
+          "sha256": "3286241974bf1eeb3e019b467e08f87bd726ad4826fdd8139979c9c0fa766e0b",
+          "size": 6413
+        },
+        "app/main.py": {
+          "sha256": "fd0b4049795c9afaf639698898367cfbcfaefd2f784441c68bf4e3974e329304",
+          "size": 43008
+        },
+        "app/model.py": {
+          "sha256": "4316bc13b280218ea19872979549639f50fb3e722aaa3e9063f5b2413b9c6b3c",
+          "size": 23237
+        },
+        "app/multi_file_orchestrator.py": {
+          "sha256": "474b9343ce863df4712a11951d5f80105959157a44cacf438f2f61a8a2e06b97",
+          "size": 9956
+        },
+        "app/patch_engine.py": {
+          "sha256": "9e53c0cfc68cdf1af977205a24dbe041f609e996788bb95ee347b14483f77afe",
+          "size": 17008
+        },
+        "app/process_control.py": {
+          "sha256": "b8221c95bab0dd70d79164f11b18b2a8b3686b6812364e3f2c943493ea1ecae4",
+          "size": 2692
+        },
+        "app/project_test_runner.py": {
+          "sha256": "b292bb18f79b64195ac717c40387ae0dec809bf188b540581841c95b610894ba",
+          "size": 8678
+        },
+        "app/repair_difficulty.py": {
+          "sha256": "a32811c0f2e15395a7d748aa17943b940e69bf5fc4ec24168d6d044ceb5497af",
+          "size": 2327
+        },
+        "app/repair_memory.py": {
+          "sha256": "95ab83a5687cd83035559b5847c9067b125a828f551a94a4c789667485d0d79b",
+          "size": 7122
+        },
+        "app/repair_strategy.py": {
+          "sha256": "7f9681841d79f6744e92a80469eebeebab3243cbf5a2dafbc442bab28851e56c",
+          "size": 3266
+        },
+        "app/repo_index.py": {
+          "sha256": "22b1f287a168208bb6cfd1f95aa168f277a4da43bca963a39483e8d569ac6e69",
+          "size": 10098
+        },
+        "app/security.py": {
+          "sha256": "1b776cdb22325a9255270b1434d600d9020414615e3221034ef67789df6626e0",
+          "size": 2591
+        },
+        "app/strategy_selector.py": {
+          "sha256": "454eab0d73af6094f267e9bf516882a43d0308c7c7029f18c2590921e44fe587",
+          "size": 10530
+        },
+        "app/tester.py": {
+          "sha256": "6d123f3b5369e1efc56f0fa0969522073df62a608204b6fa61c2a5e9550f80a5",
+          "size": 44972
+        },
+        "app/train_worker.py": {
+          "sha256": "6408aa19d898c2c260110877f7e1fe6b24c434477e052ca8111e27279e36880f",
+          "size": 24145
+        },
+        "app/training_dataset.py": {
+          "sha256": "5ebbb0374efa0356122d14c18af4d1937bd9de05dc05e4e326ccd072eb0d7eb4",
+          "size": 7186
+        },
+        "colab_phase8_1/config.json": {
+          "sha256": "dc6203da7de4aef2b58926a13ba4533a1616d35899cfc5058fe8ba63411a62c1",
+          "size": 294
+        },
+        "colab_phase8_1/run_targeted.py": {
+          "sha256": "000059b2882aa7b44c45097e923233726b0748f62da1c35c1128f50648dbad02",
+          "size": 8378
+        },
+        "config.json": {
+          "sha256": "2aea5fcfcacc05c4af2a49da11c35c2c95d2a0df3b17a5a87b7c079bcf84c175",
+          "size": 517
+        },
+        "eval_dataset_v2/__init__.py": {
+          "sha256": "4dd27ae129aa55ba60f8dfcd8b09c67ffecde52f7dc626cf02e80777fc108e0e",
+          "size": 325
+        },
+        "eval_dataset_v2/eval_runner.py": {
+          "sha256": "f5474536179784523f1828be8e97630a5ec85657005f56be3bb074bddb2e4363",
+          "size": 13555
+        },
+        "eval_dataset_v2/manifest.json": {
+          "sha256": "aa94b40b6c75807939f5af6e773943fe43bd3974b75e655c5cd8d1f7d07e4ad1",
+          "size": 1764
+        },
+        "eval_dataset_v2/repositories.py": {
+          "sha256": "b63b736de2af91b8d86422d0dec59b6bdc375c72e8ef7ca7c74e56fd70bc3b58",
+          "size": 18190
+        },
+        "eval_dataset_v2/tasks.py": {
+          "sha256": "493c2c0c3267a9ab7a49ef36d88769d12c6b2af0cdecdc7c470d86576e767e42",
+          "size": 34739
+        },
+        "frontend/engineering.js": {
+          "sha256": "07cb091a49b0528dd4f3246da56ba8f1ebc3587130035899a80c299694b81cd6",
+          "size": 6390
+        },
+        "frontend/index.html": {
+          "sha256": "b8eddfafb9a0c9226802c3791ead346dce3f1ee6e888fca38051c7a7ea4c810c",
+          "size": 104715
+        },
+        "frontend/server.py": {
+          "sha256": "20d5018d2890b15c8d4b2ebebfbcc13c6e698e138c544e59f3355a1ab6015c3f",
+          "size": 8886
+        },
+        "scripts/phase8_1_model_smoke.py": {
+          "sha256": "e1314b721d3703c1964d441a197d5e04ec0e608f778e914dd72464de9842da90",
+          "size": 2257
+        },
+        "scripts/phase8_1_validate.py": {
+          "sha256": "0e77d362d9138bf353b5f5aa9d02173473c228be938615cd3b364ebc34b6cf4c",
+          "size": 3133
+        },
+        "tests/test_audit_security_boundaries.py": {
+          "sha256": "eeebbc3b964f4eae6aacc6d2b9edac22dbf12226b51ceaedafb7eee897e064e1",
+          "size": 4454
+        },
+        "tests/test_benchmark.py": {
+          "sha256": "93ce653a8f060abb2d7abd6a540b57a1e639a3ff6aa3607172fb9b9594f12c58",
+          "size": 1936
+        },
+        "tests/test_engineering_loop.py": {
+          "sha256": "fe1859ed26fe708f981f01cf500e872438d94b03fe158e30468a41da5bf9808f",
+          "size": 6250
+        },
+        "tests/test_engineering_loop_retries.py": {
+          "sha256": "b5d4d6ee18aea09668193b771aa444dc39c38dd491b2f68b6698319ba58e2f27",
+          "size": 7121
+        },
+        "tests/test_engineering_loop_safety.py": {
+          "sha256": "c1ef11c4012fc1759f353c2a29da02edde541a0faea8ee8a71d39dcc140de5ab",
+          "size": 9246
+        },
+        "tests/test_eval_dataset_v2.py": {
+          "sha256": "e185d41faf915652d9b757ee2f23fc2292228c43fb3af1251b19f8d607a41d8e",
+          "size": 2790
+        },
+        "tests/test_fault_injection.py": {
+          "sha256": "04a4282aba48a00c9b307c92fdffa59c0f84a953da143d1ecc37ea0b1adb2246",
+          "size": 1233
+        },
+        "tests/test_forgetting.py": {
+          "sha256": "8e51fda24ec646d6f14203570c66fea38d9b411b31446f10a2f9b8174bbac30c",
+          "size": 492
+        },
+        "tests/test_infrastructure.py": {
+          "sha256": "1544125d7026697976ff436e42af2b6ab1e8bd48a345c75a0b42eadb561188ff",
+          "size": 3541
+        },
+        "tests/test_lora_pipeline.py": {
+          "sha256": "55e8eeb02c5dfd0a94636014d90af6735de0e3f9f1a991ce020712c581148ccf",
+          "size": 11504
+        },
+        "tests/test_mode_f_safe.py": {
+          "sha256": "623476700bf1eae7e6bcf2f4de93dc34e21fd20adb61c97690c3e8b5fa019aea",
+          "size": 14603
+        },
+        "tests/test_patch_engine.py": {
+          "sha256": "2e0b1a4e4d5d319bbdb27e8bc92532a1460ca702c22d5ac4e10198e625fe6004",
+          "size": 5298
+        },
+        "tests/test_patch_engine_search_replace.py": {
+          "sha256": "1d2e030b96b86ece1906b5e5a052c5eea8e9842fe519728a4a73183e9195ba32",
+          "size": 7718
+        },
+        "tests/test_phase7b_patch_reliability.py": {
+          "sha256": "a1137e3ce2cd2b4392ac473ea0b4b24f3e7ae3141abc742f5f1677f4a3158b67",
+          "size": 11108
+        },
+        "tests/test_phase8_1_api.py": {
+          "sha256": "38b0f0e909063237ac0d88800dd883edd1bb0bf7e62ee922fc324b1d78b1096e",
+          "size": 6190
+        },
+        "tests/test_phase8_1_execution.py": {
+          "sha256": "2f8d0c3ebb50390d3b586ca4779562256c81b72f7a86e8e62f9572dbcfba2045",
+          "size": 4054
+        },
+        "tests/test_phase8_1_graph.py": {
+          "sha256": "640876218ec2247848dca16b10a8ac31d48c0c0fb46203cc4e8ec5d358fdfa54",
+          "size": 2252
+        },
+        "tests/test_phase8_1_learning.py": {
+          "sha256": "2a12346e51c9a6c44981ae5695f857c8767e808c99211365f61a5ee844185bfa",
+          "size": 6746
+        },
+        "tests/test_phase8_1_loop.py": {
+          "sha256": "737a25b8682f6e6c9e8a733f2f7fd415e9e123e5aab648f02464bc38fd0f51a4",
+          "size": 5308
+        },
+        "tests/test_phase8_1_multi.py": {
+          "sha256": "1e03f390727a69af4d091d3994f6f191364b32313b4eabcb282b1c3764b7fe13",
+          "size": 3560
+        },
+        "tests/test_phase8_1_patches.py": {
+          "sha256": "2d89afbd1f536077cd7f998242e5d84dc5a16981e044e49c112936d1bfbae1b4",
+          "size": 3282
+        },
+        "tests/test_phase8_1_research.py": {
+          "sha256": "8edd4b08c9dd924b94fc376c413be75d0f53ed564e9d2bda7c34c5e122a47029",
+          "size": 2976
+        },
+        "tests/test_phase8_architecture.py": {
+          "sha256": "6c49214913311be0d450403ac34148e3a23b55dbfdb5490bb464dc2cbaba0828",
+          "size": 10777
+        },
+        "tests/test_project_test_runner.py": {
+          "sha256": "a48f7c407287e8b1b3722078958e423f35a64eb8d9676b6427505b16a1dc55d5",
+          "size": 3857
+        },
+        "tests/test_repo_index.py": {
+          "sha256": "32eea4aef24b05a83f2c4a56b9b30c962622b20e2e07502bc23829c82d8a6926",
+          "size": 4426
+        },
+        "tests/test_runner_error_handling.py": {
+          "sha256": "7b2e2eabb8f41917cbf6f9e632530d91aa3dcadc2367ecf41708ad508697afc6",
+          "size": 29550
+        },
+        "tests/test_strategy_bookkeeping.py": {
+          "sha256": "dc75f23b1d1bec07e004a46506d6df8302736e71ed27f057fac36716eccb7c31",
+          "size": 8420
+        },
+        "tests/test_strategy_learning.py": {
+          "sha256": "544e2692010170971ff528ce85b83c307c2698993df7776dc6465a781bd93427",
+          "size": 5218
+        },
+        "train_worker.py": {
+          "sha256": "6408aa19d898c2c260110877f7e1fe6b24c434477e052ca8111e27279e36880f",
+          "size": 24145
+        }
+      }
+    }
+  },
+  "canonical_fixture": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\canonical_fixture",
+  "canonical_task_prompt": "In micro_http/router.py, fix match_path so that parameter segments like <slug> support hyphens (e.g., 'hello-world-2026') in addition to alphanumeric characters.",
+  "category": "single_function_bugfix",
+  "comparison_report_policy": "Create a comparison report only after both actual arms have run; no comparison report or result predictions exist at preflight.",
+  "components": {
+    "eager_policy_check": true,
+    "fallback_enabled": true,
+    "lora_enabled": false,
+    "memory_enabled": false,
+    "prompt_example_enabled": true,
+    "repo_index_enabled": false,
+    "strategy_enabled": false
+  },
+  "cost": {
+    "electricity_and_wall_time_cost": "Not estimated; limits above are caps, not performance predictions",
+    "paid_api_or_gpu_spend": "None: local cached CPU execution; no metered service"
+  },
+  "dataset_git_tree": "816181aa6ba56e52080712c998e67e31e2385a17",
+  "dataset_module_sha256": "493c2c0c3267a9ab7a49ef36d88769d12c6b2af0cdecdc7c470d86576e767e42",
+  "dependency_versions": {
+    "accelerate": "1.13.0",
+    "numpy": "2.2.6",
+    "peft": "0.19.1",
+    "pytest": "9.1.1",
+    "safetensors": "0.7.0",
+    "torch": "2.11.0",
+    "transformers": "5.7.0"
+  },
+  "deterministic_test_results_sha256": "273dcb20041372df4c8f6b26ef6beacf306be69505163a53a74a31837db9bee1",
+  "downloads_permitted": false,
+  "evidence_output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v5",
+  "execution_files": {
+    "phase8_2_1_arm.py": "3d6163bd22da1b8e1268888c6e03b6e477bf994a7d880591c9046df806b933a6",
+    "phase8_2_1_controls.py": "221c96a24f30d7f5cb6ff898e6f6b7e888ea436907a46dd7f961745e52268b65",
+    "phase8_2_1_pytest.py": "0f026f6054aeb1194d854f9e36f11d95680018a15b9d1ba0cd73719ec2dfdee0"
+  },
+  "execution_order": [
+    "A",
+    "B"
+  ],
+  "experiment_id": "20261027_gate_v5",
+  "experimental_controls": [
+    "Identical canonical task, fixture bytes, raw prompt and tokenizer/system template",
+    "Same environment, model cache hashes, CPU, precision, threads, greedy settings, budgets and independent oracle",
+    "Both frozen implementations run in separate processes with separate source/config/state/fixture/output directories",
+    "Common read-only source snapshot in task context replaces arm-dependent retrieval; no per-arm prompt tuning",
+    "A common loader wrapper pins both arms to cached immutable weights because baseline ignores the revision environment variable"
+  ],
+  "fixture_hashes": {
+    "LICENSE": "a8e8a99d20f3469ed2087cb45bb8b90854b6cc820875e49700b31073e565cf3f",
+    "micro_http/__init__.py": "0776d36ab09243061c2b22341ec05d447a4dd5f509e41cefc9a70e100d770549",
+    "micro_http/middleware.py": "2a7ce39f9d1595ea0489bbb5c889636796e7046028af293575d00d3648228971",
+    "micro_http/request.py": "1bafa4f1faf8b07c3e1e6e72c823a88bed9522c98f5818230ecf1c8d15bc2630",
+    "micro_http/response.py": "23ea8aa5efbca84edc8982b4ec739596511e045f1dc66ebcf9209277b984e9ee",
+    "micro_http/router.py": "dcd69f55a213daf4732bd53e1abab4f26ee96565bd303868aa8e7ac37609d4ba",
+    "tests/test_router.py": "1476656eefe48924bbe83ccc07d9d122e906ca7584f2f1aa77c6531fb9804838"
+  },
+  "generation": {
+    "chat_template": "same pinned tokenizer and same frozen system message in both arms",
+    "do_sample": false,
+    "max_new_tokens": 768,
+    "repetition_penalty": 1.1,
+    "seed": 42,
+    "soft_timeout_seconds": 180
+  },
+  "generation_evidence_policy": "Exclusive raw prompt/response/proposal artifacts; durable pre-call and post-call events; rejected/failed candidates retained; no terminal overwrite",
+  "hardware": {
+    "attention_implementation": "eager",
+    "backend": "local Transformers/PyTorch CPU",
+    "cpu_marketing_name": null,
+    "device": "cpu",
+    "dtype": "float32",
+    "gpu_used": false,
+    "logical_cpus": 8,
+    "physical_cpus": 4,
+    "platform": "Windows-10-10.0.22621-SP0",
+    "processor_identifier": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+    "torch_threads": 4
+  },
+  "historical_roots": [
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_1",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2",
+    "D:\\Amit Stuff\\ai-code-system\\experiments",
+    "D:\\Amit Stuff\\ai-code-system\\app",
+    "D:\\Amit Stuff\\ai-code-system\\eval_dataset_v1",
+    "D:\\Amit Stuff\\ai-code-system\\eval_dataset_v2",
+    "D:\\Amit Stuff\\ai-code-system\\scripts",
+    "D:\\Amit Stuff\\ai-code-system\\tests",
+    "D:\\Amit Stuff\\ai-code-system\\.git",
+    "D:\\Amit Stuff\\ai-code-system\\.hf_cache",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\runs",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v4\\runs"
+  ],
+  "input_tokens": "Not measured before approval; exact chat/tokenized input IDs will be captured during actual generation.",
+  "limitations": [
+    "One task and one attempt per arm do not establish general repair accuracy, retry benefits or learning benefits",
+    "Retrieval is deliberately disabled to keep prompts identical; this is a controlled repair-pipeline comparison, not a complete default-configuration benchmark",
+    "Actual weight loading, generation, token counts, approved patch application and paired functional outcomes have not been tested in this phase",
+    "Canonical tests execute trusted local Python; pytest/process restrictions are not an OS sandbox",
+    "CPU marketing name lookup was denied; observed processor identifier/core counts are recorded",
+    "Python audit hooks reject ordinary writes/network operations; native code or the owning OS account can bypass them. No hardened OS sandbox or network isolation is claimed.",
+    "Read-only attributes apply to new exports/master fixture only. Historical exports remain byte-for-byte and attribute-for-attribute untouched.",
+    "Private pipe authorization closes accidental CLI bypass; it is not a security boundary against a malicious local user with the same OS rights.",
+    "Power loss may leave partial exclusive evidence; readers fail closed. After forced kill, durable pre-call events bound attempts but exact model-entry/return may be unknown.",
+    "End-to-end model loading, inference, approval/application and real paired execution remain untested and unexecuted."
+  ],
+  "limits": {
+    "arm_wall_timeout_seconds": 300,
+    "child_wall_cap_total_seconds": 600,
+    "max_attempts_per_arm": 1,
+    "max_generated_tokens_total": 1536,
+    "max_model_calls_per_arm": 1,
+    "max_model_calls_total": 2,
+    "native_test_timeout_seconds": 30,
+    "note": "Child wall limit includes patch review; pre-child confirmation and hash checks are separate. Timeouts are inconclusive infrastructure outcomes.",
+    "retries_per_arm": 0
+  },
+  "model": {
+    "files": {
+      "config.json": {
+        "sha256": "88f9a17863c05fb313515d2ff74b1098e0c35579f99068e32beda00618508ae0",
+        "size": 660
+      },
+      "generation_config.json": {
+        "sha256": "1a628a5775bc69cde01c6749a531150ca4d3189652c618a174f7077923acf3b1",
+        "size": 242
+      },
+      "merges.txt": {
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+        "size": 1671839
+      },
+      "model.safetensors": {
+        "sha256": "c1b9b30e907950516ba3c646bdf570d8084c25a6410a0cdca80cf04b11bc13a8",
+        "size": 3087467144
+      },
+      "tokenizer.json": {
+        "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "size": 7031645
+      },
+      "tokenizer_config.json": {
+        "sha256": "959e7f1d9a1b7641a6d6ce05ca97b75c7894fcb66cbe5a040406458fb1128ee4",
+        "size": 7305
+      },
+      "vocab.json": {
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+        "size": 2776833
+      }
+    },
+    "local_snapshot": "D:\\Amit Stuff\\ai-code-system\\.hf_cache\\models--Qwen--Qwen2.5-Coder-1.5B-Instruct\\snapshots\\2e1fd397ee46e1388853d2af2c993145b0f1098a",
+    "name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+    "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a"
+  },
+  "model_backed_comparison_executed": false,
+  "model_prompt_file": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\common_model_prompt.txt",
+  "model_prompt_sha256": "9f9ed1d8310e6792670551e66c9348e2192b4992a8df2630cab3a77cbb35af6d",
+  "native_test_environment": {
+    "ambient_pytest": "C:\\Users\\T14s\\AppData\\Local\\Programs\\Python\\Python310\\Scripts\\pytest.EXE",
+    "exit_code": 0,
+    "pinned_pytest": "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\pytest.EXE",
+    "policy": "Venv Scripts prepended to PATH for both frozen native runners; independent oracle already uses sys.executable.",
+    "python_executable": "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "stderr": "",
+    "stdout": "pytest 9.1.1\n",
+    "version_argv": [
+      "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\pytest.EXE",
+      "--version"
+    ]
+  },
+  "network_required": false,
+  "oracle": {
+    "command": [
+      "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_router.py"
+    ],
+    "function_sha256": "782350edc491f9a68ab6f0383bea05407e13453eba63998cde32418ce8940893",
+    "policy": "Unchanged frozen oracle with common outer timeout and environment; test bytes must remain unchanged.",
+    "qualified_name": "eval_dataset_v2.tasks.eval_task_01",
+    "source": "def eval_task_01(repo_root: str, loop_result: Dict[str, Any]) -> Dict[str, Any]:\n    cmd = [sys.executable, \"-m\", \"pytest\", \"tests/test_router.py\"]\n    res = subprocess.run(cmd, cwd=repo_root, capture_output=True, text=True)\n    return {\n        \"passed\": res.returncode == 0,\n        \"exit_code\": res.returncode,\n        \"stdout\": res.stdout,\n        \"stderr\": res.stderr\n    }\n",
+    "test_file": "tests/test_router.py",
+    "test_sha256": "1476656eefe48924bbe83ccc07d9d122e906ca7584f2f1aa77c6531fb9804838",
+    "timeout_seconds": 30,
+    "transport": "Unchanged frozen oracle/assertions via common guarded pytest worker; 30s supervised timeout"
+  },
+  "order_seed": 20261025,
+  "outcome_record_policy": "Distinct cancelled/timeout/child_failure/execution_exception terminals; worker outcome plus parent post-run protected-hash/call audit. Interrupted model entry is not inferred.",
+  "paired_control_checks_before_comparison": [
+    "Both actual runs exist, with no unapproved reruns",
+    "Initial fixture hashes match the plan in both arms",
+    "Raw model prompt hashes match the plan and actual input-token ID hashes match each other",
+    "Model revision/weight hashes and actual generation settings/device/dtype agree",
+    "Oracle/test fingerprints unchanged; both independent oracle results available",
+    "Review/timeout/environment exclusions reported separately"
+  ],
+  "plan_sha256": "e90ac2fc8d7a1f7abfe3c94a6ce30b3c01d158a032e896eb203a575a3a03ab3e",
+  "preflight_control_test_count": 81,
+  "preparation_source_sha256": "e04d68c6197cc3aa8f364ea185fcfcc62c8014142e3e92d4e417a8d81b77d1de",
+  "python_runtime": {
+    "executable": "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]"
+  },
+  "run_root": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v5\\runs",
+  "schema_version": "8.2.1",
+  "selection_rationale": "Pure-standard-library single-function router defect; frozen oracle checks normal IDs and hyphenated slugs. Both fixtures freshly reproduce one pass and one assertion failure.",
+  "source_hash_manifest_sha256": "52f811f3852f4659e16dc5898e01be7b76677385dddc9f10b0fa5d1e6d9f5333",
+  "status": "AWAITING_INDEPENDENT_REVIEW_AND_EXPLICIT_APPROVAL",
+  "supersedes_prepared_plan_sha256": "5bec1e2a44e36c824f09ead174dc8e7338fd503bc28d2c25e369043467bb81e0",
+  "supersedes_unapproved_plan_sha256": "5bec1e2a44e36c824f09ead174dc8e7338fd503bc28d2c25e369043467bb81e0",
+  "task_id": "task_01_router_slug_param",
+  "torch_runtime": "2.11.0+cpu"
+}

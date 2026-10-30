@@ -1,0 +1,158 @@
+{
+  "execution_approved": false,
+  "experiment_executed": false,
+  "items": [
+    {
+      "control": "Plan identity and pinned inputs",
+      "evidence": "Read-only final validation; unchanged task/revisions/model/fixtures/prompt/oracle/settings; final execution file hashes bound.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+        "function": "validate_plan",
+        "line": 49
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Independent fixtures and per-arm state",
+      "evidence": "Exclusive arm ownership; byte copies of canonical fixture; separate workspace/fixture/state/tmp/evidence/control.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+        "function": "experiment_worker",
+        "line": 215
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Independent hyphenated-slug oracle",
+      "evidence": "Trusted canonical oracle transport reproduces one pass and one slug assertion failure without changing fixture bytes; syntax/model text alone cannot pass.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+        "function": "classify",
+        "line": 202
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "One call, 768 tokens, zero retries",
+      "evidence": "Boundary and real-generation guards; 769 rejected before invocation; second call rejected; max_attempts=1; fallback reuses response.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+        "function": "GenerationBudget",
+        "line": 149
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Offline local loader; ordinary Python network guard",
+      "evidence": "Cached snapshot verified (7 files); local_files_only; offline flags; connect/bind/DNS denied by audit policy. No network service.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py",
+        "function": "WritePolicy",
+        "line": 181
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Blocking patch approval and durable checkpoint",
+      "evidence": "Complete context/initial oracle/fixture/prompt/proposal hashes fsynced before review request. Fixture writes locked; exact hash unlocks target only.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py",
+        "function": "review_proposal",
+        "line": 335
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Append-only raw evidence and terminal lifecycle",
+      "evidence": "Exclusive raw prompt/response/proposal records and timestamped events; errors/rejection/failure retained; repeated finalize leaves prior bytes unchanged.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py",
+        "function": "Evidence",
+        "line": 110
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Cancellation/error/timeout/cleanup preservation",
+      "evidence": "Distinct terminal states and original BaseExceptions preserved, including secondary logging/cleanup failures and cancellation during final audit.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+        "function": "run_parent",
+        "line": 376
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Internal-worker authorization and supervision",
+      "evidence": "Exact typed parent approval before claim/job/launch; Windows job created first, child attached suspended; private one-use expiring PID/run/plan-bound capability.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py",
+        "function": "consume_authorization",
+        "line": 158
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Ordinary write isolation and protected hashes",
+      "evidence": "Traversal/ADS/device/short/symlink/reparse/hardlink aliases rejected; actual guarded-child cross-arm/protected writes denied; new exports read-only; before/after hashes equal.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py",
+        "function": "canonical",
+        "line": 49
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Fixed opt-in and no broader benchmark",
+      "evidence": "Default inert; public --child rejected; only A/B and canonical task/revisions/output paths accepted; B requires bound A terminal; no benchmark invocation.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+        "function": "main",
+        "line": 481
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Historical data and uncommitted preparation preserved",
+      "evidence": "2164 starting files, 1934 original-preservation entries and 247 old preparation files rehashed unchanged; no tracked edits; old and new actual arm outputs absent.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_prepare.py",
+        "function": "assert_preserved",
+        "line": 24
+      },
+      "status": "PASS"
+    },
+    {
+      "control": "Hardened OS filesystem/network sandbox",
+      "evidence": "Not implemented or claimed. Python hooks, file attributes, local capability and process jobs do not resist arbitrary malicious native code or a same-account attacker.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py",
+        "function": "WritePolicy",
+        "line": 181
+      },
+      "status": "UNVERIFIED"
+    },
+    {
+      "control": "Real model loading/inference/applied repair outcomes",
+      "evidence": "Intentionally unexecuted. Deterministic controls tests use fixed doubles; no coding-model or actual arm execution is authorized in this task.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+        "function": "experiment_worker",
+        "line": 215
+      },
+      "status": "UNVERIFIED"
+    },
+    {
+      "control": "Independent review and execution approval",
+      "evidence": "No approval granted. Review this final digest and complete evidence before separately authorizing execution.",
+      "reference": {
+        "file": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+        "function": "run_parent",
+        "line": 376
+      },
+      "status": "PENDING"
+    }
+  ],
+  "plan_sha256": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+  "scope": "Implementation/control gates verified model-free; no OS sandbox or actual model-backed outcome claim"
+}

@@ -1,0 +1,34 @@
+{
+  "A": {
+    "argv": [
+      "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+      "-B",
+      "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+      "--run",
+      "--plan",
+      "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v2\\experiment_plan.json",
+      "--arm",
+      "A",
+      "--approved-plan-sha256",
+      "d4bca7f3f8dbe7e82802577e08fb22fd62ba9043d17a1a4714b33b3c5c1ef25b"
+    ],
+    "executed": false,
+    "requires_typed_digest": true
+  },
+  "B": {
+    "argv": [
+      "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+      "-B",
+      "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py",
+      "--run",
+      "--plan",
+      "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v2\\experiment_plan.json",
+      "--arm",
+      "B",
+      "--approved-plan-sha256",
+      "d4bca7f3f8dbe7e82802577e08fb22fd62ba9043d17a1a4714b33b3c5c1ef25b"
+    ],
+    "executed": false,
+    "requires_typed_digest": true
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "argv": [
+    "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_patch_engine.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_patch_engine_search_replace.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase7b_patch_reliability.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_project_test_runner.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_engineering_loop.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_engineering_loop_safety.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_engineering_loop_retries.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_architecture.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_audit_security_boundaries.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_repo_index.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_strategy_bookkeeping.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_api.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_execution.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_graph.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_learning.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_loop.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_multi.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_patches.py",
+    "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_research.py",
+    "-q",
+    "--junitxml=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\eval_results_phase8_1\\final_integration.xml"
+  ],
+  "cwd": "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-validation-3b26ksjg",
+  "environment": {
+    "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "PYTHONPATH": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "config_sha256": "2aea5fcfcacc05c4af2a49da11c35c2c95d2a0df3b17a5a87b7c079bcf84c175",
+  "fixture_overrides": {},
+  "returncode": 0,
+  "duration_s": 62.96900000050664
+}

@@ -1,0 +1,215 @@
+{
+  "phase": "8.2.4",
+  "audit_timestamp_ist": "2026-10-26T16:54:22+05:30",
+  "reviewed_plan_digest": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+  "task_id": "task_01_router_slug_param",
+  "verified_facts": {
+    "hyperv_hypervisor_present": true,
+    "hyperv_registry_version": "10.0.22621.1",
+    "hyperv_vmms_service": {
+      "name": "vmms",
+      "display_name": "Hyper-V Virtual Machine Management",
+      "status": "Running",
+      "start_type": "Automatic"
+    },
+    "existing_virtual_switches": [],
+    "existing_virtual_machines": [],
+    "host_storage": {
+      "C_drive": {
+        "size_gb": 194.17,
+        "free_gb": 5.76,
+        "suitable_for_vm": false,
+        "reason": "Critically low free space (5.76 GB); must not be used for VM disks"
+      },
+      "D_drive": {
+        "size_gb": 390.62,
+        "free_gb": 301.48,
+        "suitable_for_vm": true,
+        "target_vm_directory": "D:\\hyperv_vms"
+      },
+      "E_drive": {
+        "size_gb": 367.93,
+        "free_gb": 287.85,
+        "suitable_for_vm": true
+      }
+    },
+    "host_memory": {
+      "total_physical_ram_gb": 31.76,
+      "total_visible_memory_kb": 33301636,
+      "free_physical_memory_kb": 19784340,
+      "free_physical_memory_gb": 18.87
+    },
+    "offline_os_media_search": {
+      "scanned_paths": [
+        "D:\\",
+        "E:\\",
+        "C:\\Users\\T14s\\Downloads",
+        "C:\\Users\\T14s\\Desktop",
+        "C:\\Users\\T14s\\Documents",
+        "C:\\Users\\Public",
+        "C:\\tmp"
+      ],
+      "extensions_searched": [".iso", ".vhdx", ".vhd", ".wim", ".img"],
+      "media_found": [],
+      "status": "UNAVAILABLE_OFFLINE"
+    },
+    "user_privilege_context": {
+      "username": "desktop-lb495kl\\t14s",
+      "token_integrity_level": "Medium Mandatory Level (UAC filtered)",
+      "member_of_hyperv_administrators": false,
+      "hyperv_administrators_group_member_count": 0,
+      "elevation_required_for_vm_management": true
+    },
+    "hash_verifications": {
+      "canonical_plan_digest": {
+        "expected": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+        "computed": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+        "verified": true
+      },
+      "execution_source_adapters": {
+        "checked_files": 6,
+        "mismatches": 0,
+        "verified": true
+      },
+      "protected_fixture_and_exports": {
+        "checked_files": 122,
+        "mismatches": 0,
+        "verified": true
+      },
+      "model_snapshot_files": {
+        "checked_files": 7,
+        "mismatches": 0,
+        "verified": true
+      },
+      "git_tracked_modifications": 0
+    }
+  },
+  "storage_capacity_assessment": {
+    "proposed_base_os_vhdx_max_gb": 25.0,
+    "proposed_diff_os_vhdx_max_gb": 10.0,
+    "proposed_read_only_inputs_vhdx_gb": 5.0,
+    "proposed_staging_directory_gb": 5.0,
+    "proposed_output_vhdx_gb": 10.0,
+    "operating_headroom_gb": 20.0,
+    "total_estimated_storage_gb": 75.0,
+    "available_d_drive_gb": 301.48,
+    "remaining_margin_gb": 226.48,
+    "verdict": "ADEQUATE (>400% safety headroom)"
+  },
+  "ram_allocation_assessment": {
+    "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+    "parameter_count": 1543714816,
+    "pinned_dtype": "float32",
+    "bytes_per_parameter": 4,
+    "model_weights_memory_gb": 6.17,
+    "model_weights_memory_gib": 5.75,
+    "pytorch_and_python_overhead_gb": 0.6,
+    "kv_cache_and_activations_gb": 0.55,
+    "total_inference_process_working_set_gb": 7.32,
+    "guest_windows11_baseline_os_footprint_gb": 2.8,
+    "total_guest_memory_demand_gb": 10.12,
+    "is_8gb_sufficient": false,
+    "reasons_8gb_insufficient": [
+      "Total demand (10.12 GB) exceeds 8.0 GB VM allocation by ~2.12 GB",
+      "Incurring continuous paging to pagefile.sys across 6.17 GB float32 model weights on every forward token generation step",
+      "Severe page thrashing causes 10x-100x inference latency degradation",
+      "Risk of exceeding soft_timeout_seconds (180s) or arm_wall_timeout_seconds (300s)",
+      "Risk of memory allocation failure / process crash"
+    ],
+    "recommended_guest_ram_mb": 12288,
+    "recommended_guest_ram_gb": 12.0,
+    "alternative_guest_ram_mb": 16384,
+    "alternative_guest_ram_gb": 16.0,
+    "dynamic_memory": false,
+    "host_free_ram_remaining_after_12gb_allocation_gb": 6.87,
+    "host_free_ram_remaining_after_16gb_allocation_gb": 2.87,
+    "experiment_cpu_and_generation_controls_preserved": true
+  },
+  "proposed_vm_specification": {
+    "vm_name": "LITECODER-PHASE8-RUNNER",
+    "generation": 2,
+    "secure_boot": true,
+    "processor_count": 4,
+    "static_memory_mb": 12288,
+    "dynamic_memory": false,
+    "virtual_network_adapter": "None (zero adapters attached)",
+    "guest_service_interface": false,
+    "enhanced_session_mode": false,
+    "clipboard_redirection": false,
+    "drive_redirection": false,
+    "disks": {
+      "controller": "SCSI",
+      "slot_0_os_disk": {
+        "type": "Differencing VHDX",
+        "host_path": "D:\\hyperv_vms\\litecoder_os_diff.vhdx",
+        "parent_base_image": "D:\\hyperv_vms\\base_win11_template.vhdx",
+        "mode": "ReadWrite (Disposable, deleted post-experiment)",
+        "guest_mount": "C:\\"
+      },
+      "slot_1_inputs_disk": {
+        "type": "Fixed/Dynamic VHDX or ISO-9660/UDF",
+        "host_path": "D:\\hyperv_vms\\litecoder_inputs_ro.vhdx",
+        "mode": "ReadOnly (SCSI hardware write-protection enforced)",
+        "guest_mount": "E:\\",
+        "contents": [
+          "Pinned model snapshot (7 files, 3,099,021,808 bytes)",
+          "Python 3.10 virtual environment & dependencies (1.23 GB)",
+          "Canonical task fixture (7 files)",
+          "Baseline export (57 files)",
+          "Candidate export (58 files)",
+          "Execution source adapters (scripts/phase8_2_1_*.py, tests/phase8_2_1_*.py)",
+          "Reviewed experiment_plan.json and manifests"
+        ]
+      },
+      "slot_2_output_disk": {
+        "type": "Dynamically Expanding VHDX (10 GB)",
+        "host_path": "D:\\hyperv_vms\\litecoder_output.vhdx",
+        "mode": "ReadWrite (Dedicated experiment output volume)",
+        "guest_mount": "W:\\",
+        "purpose": "Exclusive scratch workspace for runs/A, runs/B, and tmp"
+      }
+    }
+  },
+  "independent_verification_protocol": {
+    "step_1_network_isolation_check": [
+      "Get-NetAdapter | Measure-Object (Must equal 0)",
+      "Resolve-DnsName huggingface.co (Must fail / return DNS resolution error)",
+      "Invoke-WebRequest -Uri http://1.1.1.1 -TimeoutSec 2 (Must fail)",
+      "python -c \"import socket; socket.create_connection(('8.8.8.8', 53), timeout=2)\" (Must raise OSError Network unreachable)"
+    ],
+    "step_2_input_read_only_check": [
+      "python -c \"open('E:/write_probe.tmp', 'wb')\" (Must raise PermissionError or OSError Media Write Protected)",
+      "(Get-Disk -Number 1).IsReadOnly (Must equal True)"
+    ],
+    "step_3_hash_and_digest_check": [
+      "Re-hash all 6 execution sources against source_hash_manifest.json",
+      "Re-hash all 7 model snapshot files against experiment_plan.json",
+      "Re-hash all 122 protected files against protected_file_hash_manifest.json",
+      "Recalculate canonical plan digest and verify exact match with 7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424"
+    ],
+    "step_4_output_isolation_check": [
+      "Verify TMP and TEMP point strictly to W:\\tmp",
+      "Verify runs directory points strictly to W:\\runs",
+      "Confirm host drive redirection and enhanced session are absent"
+    ]
+  },
+  "remaining_prerequisites_and_blockers": [
+    {
+      "prerequisite": "Offline Guest OS Installation Media",
+      "status": "BLOCKED",
+      "detail": "No offline Windows 11 ISO, VHDX, or WIM is available on host drives (C:, D:, E:). Downloading an OS image is strictly prohibited. The user must provide or locate an offline Windows 11 installation media."
+    },
+    {
+      "prerequisite": "Hyper-V Management Permissions",
+      "status": "PENDING_ADMIN_ACTION",
+      "detail": "Current user session is running with a medium-integrity token and is not a member of 'BUILTIN\\Hyper-V Administrators'. To create and configure VMs, the user must run an elevated prompt once to execute: Add-LocalGroupMember -Group 'Hyper-V Administrators' -Member $env:USERNAME (and log off/on), or execute VM creation scripts from an elevated prompt."
+    },
+    {
+      "prerequisite": "RAM Allocation Approval",
+      "status": "AWAITING_USER_APPROVAL",
+      "detail": "Approval required to configure VM static RAM to 12 GB (or 16 GB) instead of 8 GB, based on the float32 model memory requirement (~10.12 GB total guest demand)."
+    }
+  ],
+  "stop_condition_met": true,
+  "final_verdict": "BLOCKED (Pending Offline Guest OS Image & Elevation / Approval)"
+}

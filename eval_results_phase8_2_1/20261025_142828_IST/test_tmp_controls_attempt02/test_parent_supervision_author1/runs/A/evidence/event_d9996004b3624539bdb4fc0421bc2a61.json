@@ -1,0 +1,21 @@
+{
+  "arm": "A",
+  "experiment_id": "control-test",
+  "fixture_hashes": {
+    "tests/test_router.py": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+    "x": "f16d05ec6b29248d2c61adb1e9263f78e4f7bace1b955014a2d17872cfe4064d"
+  },
+  "initial_oracle": {
+    "exit_code": 1,
+    "passed": false
+  },
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt02\\test_parent_supervision_author1\\runs\\A",
+  "plan_sha256": "cb096a8293b17921c3e91e8e90cac53e8cd1dada46dc0f4a4d7ef2fb5e503cce",
+  "prompt_sha256": "cf07194ee232eb531e15f690000d19846dea69cf05504782658afcfacb9228a2",
+  "proposal_sha256": "ca0a55a72d1bf7972e51b5ddbe8d0844e932cf4535d9b4588921552cd56a15cd",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt02\\test_parent_supervision_author1\\source_A",
+  "status": "awaiting_patch_review",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:11:41.839704+00:00"
+}

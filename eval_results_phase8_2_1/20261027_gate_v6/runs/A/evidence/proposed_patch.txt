@@ -1,0 +1,6 @@
+FILE: micro_http/router.py
+<<<<<<< SEARCH
+regex_pattern += r"/(\w+)"
+=======
+regex_pattern += r"/([a-zA-Z0-9\-]+)"
+>>>>>>> REPLACE

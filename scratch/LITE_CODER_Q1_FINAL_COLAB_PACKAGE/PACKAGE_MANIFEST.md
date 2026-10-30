@@ -1,0 +1,12 @@
+# PACKAGE MANIFEST
+- Package Name: LITE_CODER_Q1_FINAL_COLAB_PACKAGE
+- Creation Timestamp: 2026-10-02T11:35:48.452313Z
+- Runner SHA256: 8e35d2e0ca6038dcdd3c87ba171fbc30c45a1a95ea3427629f1cc5fa0b934bea
+- Benchmark SHA256: 2bd5075970f9b1320c4437663918f753ed059b6514bff82f96d8272eca262620
+- Included Directories: app, benchmark, data/benchmark/v1.0, scripts
+- Included Critical Files: run_final_experiments.py, dataset.json, config.json, RUN_FINAL_Q1_EXPERIMENTS.py, setup_colab.sh, README_COLAB.md
+- Excluded Historical Artifacts: experiments/, all legacy data/ files, .git, old memory indices
+- Python version requirement: >=3.10
+- GPU requirement: Required (T4, A100, etc.)
+- Dependency versions: PyTorch 2.11.0+cu128, Transformers 5.16.1, Sentence Transformers 5.7.0, FAISS 1.15.1, PEFT 0.20.0
+- Expected Output Directories: experiments/FINAL_Q1_EXP_01_CLEAN_BASELINE, experiments/FINAL_Q1_EXP_02_CLEAN_MEMORY

@@ -1,0 +1,18 @@
+{
+  "final_integration": {
+    "tests": 152,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 152,
+    "duration_s": 42.306
+  },
+  "isolated_strategy_regression": {
+    "tests": 17,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 17,
+    "duration_s": 0.499
+  }
+}

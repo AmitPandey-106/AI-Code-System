@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "checked_starting_files": 1934,
+  "changed_or_missing": [],
+  "tracked_changes": "",
+  "coding_model_cache_files_verified": 7,
+  "coding_model_calls": 0,
+  "actual_model_backed_runs": 0,
+  "plan_sha256": "cea4b5a9eaa7b0c763b934f0473ea019efed9d333eeac8f2b82e8adf06c98204",
+  "final_control_checks": 11
+}

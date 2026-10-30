@@ -1,0 +1,9 @@
+\section{Methodology}
+\subsection{Model and Embedding Architecture}
+LITE-Coder is implemented using \texttt{Qwen2.5-Coder-1.5B}. For retrieval, we utilize \texttt{sentence-transformers/all-MiniLM-L6-v2} generating 384-dimensional embeddings.
+
+\subsection{Memory Schema and Retrieval}
+Experience is stored within a FAISS (\texttt{IndexFlatIP}) vector index, optimized via L2-normalized Cosine Similarity. The schema explicitly maps the intersection of \textit{Broken Code}, \textit{Error Type}, and \textit{Error Message} to a verified patch. We apply a Top-K = 3 and a Similarity Threshold = 0.5.
+
+\subsection{Verification-Gated Admission}
+A crucial aspect of LITE-Coder is the strict gating mechanism. Memory admission only occurs following a fully successful execution verification phase (e.g., AST/contract validation), thereby preventing negative contamination.

@@ -1,0 +1,9 @@
+\section{Architecture}
+The LITE-Coder pipeline executes as follows:
+\begin{enumerate}
+    \item \textbf{Generate \& Execute:} Code is generated and executed.
+    \item \textbf{Diagnose:} Errors are captured and embedded.
+    \item \textbf{Retrieve:} The FAISS index is queried for semantically similar historical failures.
+    \item \textbf{Regenerate:} An adaptive repair strategy constructs a context-aware prompt.
+    \item \textbf{Verify \& Admit:} The regenerated code is verified. If successful, the trajectory is admitted to the experience memory.
+\end{enumerate}

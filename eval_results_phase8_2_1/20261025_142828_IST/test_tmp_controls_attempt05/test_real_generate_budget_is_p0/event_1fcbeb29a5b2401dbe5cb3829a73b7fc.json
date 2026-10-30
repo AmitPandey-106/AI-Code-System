@@ -1,0 +1,18 @@
+{
+  "actual_model_calls": 1,
+  "arm": "A",
+  "do_sample": false,
+  "experiment_id": "control-test",
+  "input_ids_sha256": "080903a04a0dad93142e48f2cc7b102f44859e90b7054cd416ffe16ca4ba5514",
+  "input_tokens": 3,
+  "max_new_tokens": 768,
+  "max_time": 180,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_real_generate_budget_is_p0",
+  "plan_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "repetition_penalty": 1.1,
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "fixed-source",
+  "status": "generation_started",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:16:31.409741+00:00"
+}

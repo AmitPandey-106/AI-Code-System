@@ -1,0 +1,12 @@
+{
+  "arm": "A",
+  "experiment_id": "control-test",
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt07\\test_parent_supervision_author2\\runs\\A",
+  "plan_sha256": "a2ff6d0f5294f0aba0d67829448d27cd1c80e2cb3cee356e888dce02859d0af2",
+  "protected_before_verified": true,
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt07\\test_parent_supervision_author2\\source_A",
+  "status": "parent_approved",
+  "task_id": "task_01_router_slug_param",
+  "timestamp": "2026-10-25T09:23:25.199429+00:00"
+}

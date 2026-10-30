@@ -1,0 +1,208 @@
+{
+  "phase": "8.2.2",
+  "task": "task_01_router_slug_param",
+  "audit_timestamp_ist": "2026-10-26T12:34:57+05:30",
+  "overall_verdict": "BLOCKED",
+  "verdict_rationale": "All cryptographic checksums, plan digests, source files, protected trees, model cache files, dependency versions, and 2,164 starting repository files match exactly with zero errors. Zero coding-model calls and zero experiment arms have executed. However, per Phase 8.2.2 criteria, OS-enforced isolation (disposable VM or kernel-enforced container with disabled network and OS-level read-only mounts) is unavailable on the bare-metal Windows host development environment. Application-level Python audit hooks are not an OS security boundary.",
+  "artifact_inventory": {
+    "PHASE8_2_1_HARDENING_REPORT.md": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\PHASE8_2_1_HARDENING_REPORT.md",
+      "size_bytes": 16301,
+      "sha256": "21bfbee5a671a8c8ab6f3ee853b8f9732dc356bf5e27fea742b781af0a2e2c6b"
+    },
+    "final_gate_v3/experiment_plan.json": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\experiment_plan.json",
+      "size_bytes": 32650,
+      "sha256": "bc0d7585aef6a4f0fb3d7d0194a62cd72c873a4118356ae5dab37de630980c68"
+    },
+    "final_gate_v3/final_readonly_validation.json": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\final_readonly_validation.json",
+      "size_bytes": 2394,
+      "sha256": "a26de68c1ea0f80dc08e47e5fbbd2eb231d73b6a3d5087e3ebdc1312edbbc103"
+    },
+    "final_gate_v3/source_hash_manifest.json": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\source_hash_manifest.json",
+      "size_bytes": 824,
+      "sha256": "494cc13f9671fe6b0b307cb23cc5346d895cd82657cf25a9deb85a63010c09db"
+    },
+    "final_gate_v3/protected_file_hash_manifest.json": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\protected_file_hash_manifest.json",
+      "size_bytes": 25989,
+      "sha256": "1b84317f7b48db841c9b92014940c01110de89c961a2fb6bf23a572c28399b48"
+    },
+    "final_gate_v3/approval_gated_commands.json": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\approval_gated_commands.json",
+      "size_bytes": 1051,
+      "sha256": "1b114b41d6a7d59af2cce4c560e3f24d17109e324d376d66ebd3701af08a7c87"
+    },
+    "final_gate_v3/test_results.json": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\final_gate_v3\\test_results.json",
+      "size_bytes": 24362,
+      "sha256": "ebba75d18e0905808e2fb62d48b2628eacb7193f828cae3901ffc94e5233bd08"
+    },
+    "environment_manifest.json": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\environment_manifest.json",
+      "size_bytes": 9691,
+      "sha256": "e8de02ed18276553e2f67c94dcd3441142c0100c81957dc22072b8cc4e36b173"
+    },
+    "created_changed_files.json": {
+      "exists": true,
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\created_changed_files.json",
+      "size_bytes": 720924,
+      "sha256": "094da1712794046ae875d723a93a352a00111b4b477d7b5eafd98afaff8755ed"
+    }
+  },
+  "plan_digest_verification": {
+    "canonical_procedure": "SHA-256 of sorted compact JSON excluding plan_sha256",
+    "calculated_plan_digest": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+    "reviewed_plan_digest": "7430f22335ee09e1f38aa8e6eee1fdd39b1f097058690a00d45bde6f589bc424",
+    "digest_matches": true,
+    "raw_file_sha256": "bc0d7585aef6a4f0fb3d7d0194a62cd72c873a4118356ae5dab37de630980c68",
+    "plan_file_sha256_txt": "bc0d7585aef6a4f0fb3d7d0194a62cd72c873a4118356ae5dab37de630980c68",
+    "raw_sha_matches": true
+  },
+  "source_integrity": {
+    "execution_sources": {
+      "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py": {
+        "expected": "3d6163bd22da1b8e1268888c6e03b6e477bf994a7d880591c9046df806b933a6",
+        "actual": "3d6163bd22da1b8e1268888c6e03b6e477bf994a7d880591c9046df806b933a6",
+        "matches": true
+      },
+      "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py": {
+        "expected": "9b4383f1b9fa4fa94ca0901c07f6db1391831bd71b45ee2746e3dbd163547abd",
+        "actual": "9b4383f1b9fa4fa94ca0901c07f6db1391831bd71b45ee2746e3dbd163547abd",
+        "matches": true
+      },
+      "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_prepare.py": {
+        "expected": "e04d68c6197cc3aa8f364ea185fcfcc62c8014142e3e92d4e417a8d81b77d1de",
+        "actual": "e04d68c6197cc3aa8f364ea185fcfcc62c8014142e3e92d4e417a8d81b77d1de",
+        "matches": true
+      },
+      "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_pytest.py": {
+        "expected": "0f026f6054aeb1194d854f9e36f11d95680018a15b9d1ba0cd73719ec2dfdee0",
+        "actual": "0f026f6054aeb1194d854f9e36f11d95680018a15b9d1ba0cd73719ec2dfdee0",
+        "matches": true
+      },
+      "D:\\Amit Stuff\\ai-code-system\\tests\\phase8_2_1_control_child.py": {
+        "expected": "46e6f1577ebed89670004cdb656b685ddbda61ae05dc840e38226da1f45a1432",
+        "actual": "46e6f1577ebed89670004cdb656b685ddbda61ae05dc840e38226da1f45a1432",
+        "matches": true
+      },
+      "D:\\Amit Stuff\\ai-code-system\\tests\\test_phase8_2_1_hardening.py": {
+        "expected": "bfc9f426e73e3980ae63c2bd6bf2da0bccb65046e062aa273bb230104f83c3ad",
+        "actual": "bfc9f426e73e3980ae63c2bd6bf2da0bccb65046e062aa273bb230104f83c3ad",
+        "matches": true
+      }
+    },
+    "historical_runner": {
+      "path": "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py",
+      "expected": "651bd5cd094e3881448ea511220a3db7fe426596862cae0d21f0f147bdfe52fd",
+      "actual": "651bd5cd094e3881448ea511220a3db7fe426596862cae0d21f0f147bdfe52fd",
+      "matches": true,
+      "invoked": false
+    }
+  },
+  "preservation_summary": {
+    "git_branch": "fix/phase8-1-integration",
+    "git_head": "4cb53fbcbd8c2ce0f9cb7286ac0dcd4377915395",
+    "git_status_clean_index": true,
+    "starting_files_checked": 2164,
+    "starting_files_matched": 2164,
+    "starting_files_missing": 0,
+    "starting_files_mismatched": 0,
+    "protected_files_checked": 122,
+    "protected_files_matched": 122,
+    "protected_files_mismatched": 0,
+    "actual_runs_exist": {
+      "new_phase8_2_1_runs_A": false,
+      "new_phase8_2_1_runs_B": false,
+      "old_phase8_2_runs_A": false,
+      "old_phase8_2_runs_B": false
+    }
+  },
+  "model_cache_offline_verification": {
+    "model_id": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+    "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+    "local_snapshot": "D:\\Amit Stuff\\ai-code-system\\.hf_cache\\models--Qwen--Qwen2.5-Coder-1.5B-Instruct\\snapshots\\2e1fd397ee46e1388853d2af2c993145b0f1098a",
+    "snapshot_directory_exists": true,
+    "files": {
+      "config.json": {
+        "size": 660,
+        "sha256": "88f9a17863c05fb313515d2ff74b1098e0c35579f99068e32beda00618508ae0",
+        "matches": true
+      },
+      "generation_config.json": {
+        "size": 242,
+        "sha256": "1a628a5775bc69cde01c6749a531150ca4d3189652c618a174f7077923acf3b1",
+        "matches": true
+      },
+      "merges.txt": {
+        "size": 1671839,
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+        "matches": true
+      },
+      "model.safetensors": {
+        "size": 3087467144,
+        "sha256": "c1b9b30e907950516ba3c646bdf570d8084c25a6410a0cdca80cf04b11bc13a8",
+        "matches": true
+      },
+      "tokenizer.json": {
+        "size": 7031645,
+        "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "matches": true
+      },
+      "tokenizer_config.json": {
+        "size": 7305,
+        "sha256": "959e7f1d9a1b7641a6d6ce05ca97b75c7894fcb66cbe5a040406458fb1128ee4",
+        "matches": true
+      },
+      "vocab.json": {
+        "size": 2776833,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+        "matches": true
+      }
+    },
+    "prompt_file": {
+      "path": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\common_model_prompt.txt",
+      "sha256": "9f9ed1d8310e6792670551e66c9348e2192b4992a8df2630cab3a77cbb35af6d",
+      "matches": true
+    },
+    "dependencies": {
+      "accelerate": "1.13.0",
+      "numpy": "2.2.6",
+      "peft": "0.19.1",
+      "pytest": "9.1.1",
+      "safetensors": "0.7.0",
+      "torch": "2.11.0",
+      "transformers": "5.7.0"
+    },
+    "dependencies_match_plan": true
+  },
+  "os_isolation_and_network_audit": {
+    "host_os": "Windows-10-10.0.22621-SP0",
+    "is_wsl": false,
+    "environment_type": "Host Windows User Session (Bare Metal)",
+    "disposable_vm_available": false,
+    "os_container_sandbox_active": false,
+    "os_network_restriction_enforced": false,
+    "physical_network_active": true,
+    "original_repo_writable_by_user_process": true,
+    "model_cache_writable_by_user_process": true,
+    "python_audit_hooks_present": true,
+    "python_audit_hooks_as_security_boundary": false,
+    "isolation_gate_verdict": "FAIL (BLOCKED)"
+  },
+  "execution_counts_statement": {
+    "coding_model_calls": 0,
+    "experiment_arms_started": 0,
+    "patches_applied": 0
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "arm": "A",
+  "child_pid": 123,
+  "created": "2026-10-25T09:16:30.305286+00:00",
+  "experiment_id": "control-test",
+  "expires": 1792919820.3125644,
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt05\\test_internal_authorization_is2\\A",
+  "parent_pid": 30180,
+  "plan_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "run_id": "aee0da359d4a41aaa353fe6204e632bf",
+  "source": "fixed-source",
+  "supervised": true,
+  "task_id": "task_01_router_slug_param",
+  "token_sha256": "db888fc63f23e95f267d035dbf3c79c5b886b9f721c71bbc5c5987f9f356be4f"
+}

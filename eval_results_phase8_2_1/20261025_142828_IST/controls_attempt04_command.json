@@ -1,0 +1,36 @@
+{
+  "argv": [
+    "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "tests/test_phase8_2_1_hardening.py",
+    "tests/test_phase8_2_preflight.py",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\controls_attempt04.xml",
+    "--basetemp=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt04"
+  ],
+  "cwd": "D:\\Amit Stuff\\ai-code-system",
+  "source_hashes": {
+    "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py": "62ac94fb104231ff62d9a4564e800b15e937b804fb2c03ce3ed139284ff05065",
+    "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py": "0c316b71970c024bbe26f486541c47ba55c807110255c5119ab1dd696fcd3343",
+    "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_pytest.py": "0f026f6054aeb1194d854f9e36f11d95680018a15b9d1ba0cd73719ec2dfdee0",
+    "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_prepare.py": "31aadb2e1ddc222d41af0650c65a6a58aa0ce863c813e905ad9538da0f19d86c",
+    "D:\\Amit Stuff\\ai-code-system\\tests\\test_phase8_2_1_hardening.py": "3c7276d9654c39fdabae7edcb52696454a50572079941cb5929c4581b2682e55",
+    "D:\\Amit Stuff\\ai-code-system\\tests\\phase8_2_1_control_child.py": "46e6f1577ebed89670004cdb656b685ddbda61ae05dc840e38226da1f45a1432",
+    "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py": "651bd5cd094e3881448ea511220a3db7fe426596862cae0d21f0f147bdfe52fd",
+    "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_preflight.py": "c63358bc72eb528d422a04be713cf5a11f0a76dae02c21df53f179b63c116b2f",
+    "D:\\Amit Stuff\\ai-code-system\\tests\\test_phase8_2_preflight.py": "6315380c4019afde73c346e2d4a90c8e1ecb537e46352b00d965c74635ff9ec2"
+  },
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "HF_DATASETS_OFFLINE": "1"
+  },
+  "exit_code": 0,
+  "duration_s": 6.718999999575317
+}

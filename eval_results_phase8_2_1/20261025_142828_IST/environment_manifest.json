@@ -1,0 +1,174 @@
+{
+  "cache_bytes_verified": {
+    "config.json": {
+      "sha256": "88f9a17863c05fb313515d2ff74b1098e0c35579f99068e32beda00618508ae0",
+      "size": 660
+    },
+    "generation_config.json": {
+      "sha256": "1a628a5775bc69cde01c6749a531150ca4d3189652c618a174f7077923acf3b1",
+      "size": 242
+    },
+    "merges.txt": {
+      "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+      "size": 1671839
+    },
+    "model.safetensors": {
+      "sha256": "c1b9b30e907950516ba3c646bdf570d8084c25a6410a0cdca80cf04b11bc13a8",
+      "size": 3087467144
+    },
+    "tokenizer.json": {
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "size": 7031645
+    },
+    "tokenizer_config.json": {
+      "sha256": "959e7f1d9a1b7641a6d6ce05ca97b75c7894fcb66cbe5a040406458fb1128ee4",
+      "size": 7305
+    },
+    "vocab.json": {
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "size": 2776833
+    }
+  },
+  "coding_model_calls": 0,
+  "coding_model_loaded": false,
+  "critical_dependencies": {
+    "accelerate": "1.13.0",
+    "numpy": "2.2.6",
+    "peft": "0.19.1",
+    "pytest": "9.1.1",
+    "safetensors": "0.7.0",
+    "torch": "2.11.0",
+    "transformers": "5.7.0"
+  },
+  "executable": "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+  "experiment_arms_started": 0,
+  "hardware_observation_note": "Platform/processor/Python/dependency metadata observed freshly. Physical CPU/RAM details inherited from the unchanged reviewed environment manifest.",
+  "logical_cpus": 8,
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "platform": "Windows-10-10.0.22621-SP0",
+  "processor": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "validation_environment_commands": {
+    "controls": {
+      "argv": [
+        "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/test_phase8_2_1_hardening.py",
+        "tests/test_phase8_2_preflight.py",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\controls_attempt07.xml",
+        "--basetemp=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\test_tmp_controls_attempt07"
+      ],
+      "cwd": "D:\\Amit Stuff\\ai-code-system",
+      "duration_s": 7.313000000081956,
+      "environment": {
+        "HF_DATASETS_OFFLINE": "1",
+        "HF_HUB_OFFLINE": "1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TRANSFORMERS_OFFLINE": "1"
+      },
+      "exit_code": 0,
+      "source_hashes": {
+        "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_arm.py": "3d6163bd22da1b8e1268888c6e03b6e477bf994a7d880591c9046df806b933a6",
+        "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_controls.py": "9b4383f1b9fa4fa94ca0901c07f6db1391831bd71b45ee2746e3dbd163547abd",
+        "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_prepare.py": "e04d68c6197cc3aa8f364ea185fcfcc62c8014142e3e92d4e417a8d81b77d1de",
+        "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_1_pytest.py": "0f026f6054aeb1194d854f9e36f11d95680018a15b9d1ba0cd73719ec2dfdee0",
+        "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_arm.py": "651bd5cd094e3881448ea511220a3db7fe426596862cae0d21f0f147bdfe52fd",
+        "D:\\Amit Stuff\\ai-code-system\\scripts\\phase8_2_preflight.py": "c63358bc72eb528d422a04be713cf5a11f0a76dae02c21df53f179b63c116b2f",
+        "D:\\Amit Stuff\\ai-code-system\\tests\\phase8_2_1_control_child.py": "46e6f1577ebed89670004cdb656b685ddbda61ae05dc840e38226da1f45a1432",
+        "D:\\Amit Stuff\\ai-code-system\\tests\\test_phase8_2_1_hardening.py": "bfc9f426e73e3980ae63c2bd6bf2da0bccb65046e062aa273bb230104f83c3ad",
+        "D:\\Amit Stuff\\ai-code-system\\tests\\test_phase8_2_preflight.py": "6315380c4019afde73c346e2d4a90c8e1ecb537e46352b00d965c74635ff9ec2"
+      }
+    },
+    "phase8_1": {
+      "argv": [
+        "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+        "-B",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\scripts\\phase8_1_validate.py",
+        "--suite",
+        "all"
+      ],
+      "cwd": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01",
+      "duration_s": 64.79700000025332,
+      "environment": {
+        "HF_DATASETS_OFFLINE": "1",
+        "HF_HUB_OFFLINE": "1",
+        "PYTEST_ADDOPTS": "-p no:cacheprovider",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TRANSFORMERS_OFFLINE": "1"
+      },
+      "exit_code": 0
+    },
+    "phase8_1_integration": {
+      "argv": [
+        "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_patch_engine.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_patch_engine_search_replace.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase7b_patch_reliability.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_project_test_runner.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_engineering_loop.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_engineering_loop_safety.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_engineering_loop_retries.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_architecture.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_audit_security_boundaries.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_repo_index.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_strategy_bookkeeping.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_api.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_execution.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_graph.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_learning.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_loop.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_multi.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_patches.py",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_phase8_1_research.py",
+        "-q",
+        "--junitxml=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\eval_results_phase8_1\\final_integration.xml"
+      ],
+      "config_sha256": "2aea5fcfcacc05c4af2a49da11c35c2c95d2a0df3b17a5a87b7c079bcf84c175",
+      "cwd": "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-validation-3b26ksjg",
+      "duration_s": 62.96900000050664,
+      "environment": {
+        "HF_HUB_OFFLINE": "1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01",
+        "TRANSFORMERS_OFFLINE": "1"
+      },
+      "fixture_overrides": {},
+      "returncode": 0
+    },
+    "phase8_1_strategy": {
+      "argv": [
+        "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\tests\\test_strategy_learning.py",
+        "-q",
+        "--junitxml=D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01\\eval_results_phase8_1\\isolated_strategy_regression.xml"
+      ],
+      "config_sha256": "2aea5fcfcacc05c4af2a49da11c35c2c95d2a0df3b17a5a87b7c079bcf84c175",
+      "cwd": "C:\\Users\\T14s\\AppData\\Local\\Temp\\phase8-1-validation-hnxpn0ot",
+      "duration_s": 1.5469999993219972,
+      "environment": {
+        "HF_HUB_OFFLINE": "1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\validation_export_01",
+        "TRANSFORMERS_OFFLINE": "1"
+      },
+      "fixture_overrides": {
+        "STRATEGY_LEARNING_ENABLED": true
+      },
+      "returncode": 0
+    }
+  }
+}

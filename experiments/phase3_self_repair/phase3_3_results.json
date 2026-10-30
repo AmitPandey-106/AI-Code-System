@@ -1,0 +1,156 @@
+{
+  "experiment_name": "PHASE_3_3_FAILURE_GUIDED_REPAIR_ABLATION",
+  "timestamp": 1790672987.6312914,
+  "summary": {
+    "experiment_name": "PHASE_3_3_FAILURE_GUIDED_REPAIR_ABLATION",
+    "total_tasks": 5,
+    "self_repair_successes": 1,
+    "self_repair_success_rate_percent": 20.0,
+    "baseline_phase3_2_success_rate_percent": 40.0,
+    "delta_percentage_points": -20.0,
+    "mean_repair_attempts": 3.4,
+    "mean_model_calls": 3.4,
+    "total_repeated_candidates": 11,
+    "negative_controls_all_passed": true,
+    "total_elapsed_seconds": 1702.03
+  },
+  "tasks": [
+    {
+      "task_id": "TASK_1",
+      "task_name": "add",
+      "domain": "Arithmetic",
+      "baseline_result": "SUCCESS",
+      "phase3_3_result": "SUCCESS",
+      "initial_failure": "CODE_FAILURE",
+      "initial_candidate_hash": "ead7ab5e4bde",
+      "repair_attempts": 1,
+      "model_calls": 1,
+      "candidate_hashes": [
+        "b7f2028d5b69"
+      ],
+      "repeated_candidate_count": 0,
+      "final_contract": "VALID",
+      "final_tests": "ALL_PASSED",
+      "accepted": true,
+      "self_repair_success": true,
+      "elapsed_time": 49.51,
+      "final_code": "def add(a, b):\n    \"\"\"\n    Calculates and returns the sum of two integers a and b.\n\n    Args:\n        a (int): First integer.\n        b (int): Second integer.\n\n    Returns:\n        int: Sum of a and b.\n    \"\"\"\n    return a + b"
+    },
+    {
+      "task_id": "TASK_2",
+      "task_name": "reverse_string",
+      "domain": "String Processing",
+      "baseline_result": "SUCCESS",
+      "phase3_3_result": "FAILED",
+      "initial_failure": "CODE_FAILURE",
+      "initial_candidate_hash": "3edd4616b10e",
+      "repair_attempts": 4,
+      "model_calls": 4,
+      "candidate_hashes": [
+        "0344769180ff",
+        "da4463d1d812",
+        "da4463d1d812",
+        "da4463d1d812"
+      ],
+      "repeated_candidate_count": 2,
+      "final_contract": "VALID",
+      "final_tests": "FAILED",
+      "accepted": false,
+      "self_repair_success": false,
+      "elapsed_time": 351.47,
+      "final_code": "def reverse_string(s):\n    \"\"\"\n    Reverse a given string using recursion.\n\n    Args:\n        s (str): The input string to be reversed.\n\n    Returns:\n        str: The reversed string.\n\n    Examples:\n        >>> reverse_string(\"hello\")\n        \"olleh\"\n        >>> reverse_string(\"\")\n        \"\"\n        >>> reverse_string(\"a\")\n        \"a\"\n\n    Note:\n        - This function does not modify the input string.\n        - It preserves spaces, punctuation, and case sensitivity.\n    \"\"\"\n\n    # Base case: if the string has one or zero characters, return it as is\n    if len(s) <= 1:\n        return s\n\n    # Find the middle index of the string\n    mid = len(s) // 2\n\n    # Recursively reverse the left half of the string\n    left_half = reverse_string(s[:mid])\n\n    # Recursively reverse the right half of the string\n    right_half = reverse_string(s[mid:])\n\n    # Concatenate the reversed halves to get the final reversed string\n    return left_half + right_half"
+    },
+    {
+      "task_id": "TASK_3",
+      "task_name": "binary_search",
+      "domain": "Searching",
+      "baseline_result": "FAILED",
+      "phase3_3_result": "FAILED",
+      "initial_failure": "CODE_FAILURE",
+      "initial_candidate_hash": "7df655eecc56",
+      "repair_attempts": 4,
+      "model_calls": 4,
+      "candidate_hashes": [
+        "e55bd5b20268",
+        "e55bd5b20268",
+        "e55bd5b20268",
+        "e55bd5b20268"
+      ],
+      "repeated_candidate_count": 3,
+      "final_contract": "VALID",
+      "final_tests": "FAILED",
+      "accepted": false,
+      "self_repair_success": false,
+      "elapsed_time": 418.47,
+      "final_code": "def binary_search(arr, target):\n    \"\"\"\n    Binary search for a target value in a sorted array of integers.\n\n    Args:\n        arr (list): A sorted list of integers.\n        target (int): The integer to search for.\n\n    Returns:\n        int: The index of the target element if found; otherwise, -1.\n    \"\"\"\n\n    # Check if the input array is empty\n    if not arr:\n        return -1\n\n    # Initialize the left and right pointers\n    left, right = 0, len(arr) - 1\n\n    # Perform binary search\n    while left <= right:\n        mid = (left + right) // 2\n\n        # Check if the middle element matches the target\n        if arr[mid] == target:\n            return mid\n\n        # Adjust the search range based on the comparison result\n        elif arr[mid] < target:\n            left = mid + 1\n\n        else:\n            right = mid - 1\n\n    # Target not found\n    return -1"
+    },
+    {
+      "task_id": "TASK_4",
+      "task_name": "merge_intervals",
+      "domain": "Interval Processing",
+      "baseline_result": "FAILED",
+      "phase3_3_result": "FAILED",
+      "initial_failure": "CODE_FAILURE",
+      "initial_candidate_hash": "f69524f256a2",
+      "repair_attempts": 4,
+      "model_calls": 4,
+      "candidate_hashes": [
+        "7252dc90faf6",
+        "7252dc90faf6",
+        "7252dc90faf6",
+        "7252dc90faf6"
+      ],
+      "repeated_candidate_count": 3,
+      "final_contract": "FAILED",
+      "final_tests": "FAILED",
+      "accepted": false,
+      "self_repair_success": false,
+      "elapsed_time": 317.83,
+      "final_code": "from typing import List\n\nclass Interval:\n    def __init__(self, start: int, end: int):\n        self.start = start\n        self.end = end\n\ndef merge_intervals(intervals: List[Interval]) -> List[Interval]:\n    if len(intervals) == 0:\n        return []\n\n    merged_intervals = []\n    intervals.sort(key=lambda x: x.start)\n\n    current_interval = intervals[0]\n    for i in range(1, len(intervals)):\n        if intervals[i].start <= current_interval.end:\n            current_interval.end = max(current_interval.end, intervals[i].end)\n        else:\n            merged_intervals.append(current_interval)\n            current_interval = intervals[i]\n\n    merged_intervals.append(current_interval)\n    return merged_intervals"
+    },
+    {
+      "task_id": "TASK_5",
+      "task_name": "schedule_meetings",
+      "domain": "Difficult Structured Task",
+      "baseline_result": "FAILED",
+      "phase3_3_result": "FAILED",
+      "initial_failure": "CONTRACT_FAILURE",
+      "initial_candidate_hash": "d683e13a2667",
+      "repair_attempts": 4,
+      "model_calls": 4,
+      "candidate_hashes": [
+        "e691bc5140bf",
+        "e691bc5140bf",
+        "e691bc5140bf",
+        "e691bc5140bf"
+      ],
+      "repeated_candidate_count": 3,
+      "final_contract": "FAILED",
+      "final_tests": "FAILED",
+      "accepted": false,
+      "self_repair_success": false,
+      "elapsed_time": 564.75,
+      "final_code": "from typing import List\n\ndef schedule_meetings(meetings: List[dict]) -> List[dict]:\n    \"\"\"\n    Schedule meetings based on their start and end times.\n\n    Args:\n        meetings (List[dict]): A list of dictionaries representing meetings,\n                               where each dictionary has keys 'title',\n                               'start', and 'end'.\n\n    Returns:\n        List[dict]: A list of dictionaries representing scheduled meetings,\n                    where each dictionary has keys 'title' and 'duration'.\n    \"\"\"\n\n    # Sort meetings by start time\n    meetings.sort(key=lambda x: x['start'])\n\n    # Initialize variables\n    scheduled_meetings = []\n\n    # Iterate over meetings\n    i = 0\n    while i < len(meetings):\n        # Get current meeting\n        curr_meeting = meetings[i]\n\n        # Check if there are any other meetings after this one\n        j = i + 1\n        while j < len(meetings) and meetings[j]['start'] <= curr_meeting['end']:\n            j += 1\n\n        # Merge overlapping meetings\n        merged_meeting = {\n            'title': ' '.join([m['title'] for m in meetings[i:j]]),\n            'start': min([m['start'] for m in meetings[i:j]]),\n            'end': max([m['end'] for m in meetings[i:j]])\n        }\n\n        # Add merged meeting to scheduled meetings\n        scheduled_meetings.append(merged_meeting)\n\n        # Move index past merged meetings\n        i = j\n\n    return scheduled_meetings"
+    }
+  ],
+  "negative_controls": [
+    {
+      "control_id": "NC_1",
+      "name": "Invalid Test Syntax",
+      "passed": true,
+      "fix_code_invoked": false
+    },
+    {
+      "control_id": "NC_2",
+      "name": "Contradictory Oracle",
+      "passed": true,
+      "fix_code_invoked": false
+    },
+    {
+      "control_id": "NC_3",
+      "name": "Undetermined Oracle",
+      "passed": true,
+      "fix_code_invoked": false
+    }
+  ]
+}

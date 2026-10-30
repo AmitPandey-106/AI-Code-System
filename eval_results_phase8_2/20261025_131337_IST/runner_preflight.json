@@ -1,0 +1,66 @@
+{
+  "argv": [
+    "D:\\Amit Stuff\\ai-code-system\\venv\\Scripts\\python.exe",
+    "D:\\Amit Stuff\\ai-code-system\\colab_phase8_1\\run_targeted.py"
+  ],
+  "cwd": "D:\\Amit Stuff\\ai-code-system",
+  "exit_code": 0,
+  "duration_s": 0.8119999999180436,
+  "listing": {
+    "tasks": [
+      "task_01_router_slug_param",
+      "task_02_status_code_phrase",
+      "task_03_topological_cycle",
+      "task_04_zscore_variance_zero",
+      "task_05_percentile_interpolation",
+      "task_06_request_header_normalization",
+      "task_07_response_set_cookie",
+      "task_08_task_retry_backoff",
+      "task_09_graph_dependency_resolution",
+      "task_10_dataframe_impute_missing",
+      "task_11_auth_token_middleware",
+      "task_12_json_custom_encoder",
+      "task_13_graph_timeout_propagation",
+      "task_14_schema_strict_coercion",
+      "task_15_context_checkpointing",
+      "task_16_command_injection_guard",
+      "task_17_repo_traversal_patch_guard",
+      "task_18_unsatisfiable_paradox_guard",
+      "task_19_unapproved_script_execution_guard",
+      "task_20_stale_source_mutation_guard"
+    ],
+    "model_calls": 0,
+    "execution": "not requested"
+  },
+  "guarded_repeat": {
+    "blocked_attempts": 0,
+    "listing": {
+      "tasks": [
+        "task_01_router_slug_param",
+        "task_02_status_code_phrase",
+        "task_03_topological_cycle",
+        "task_04_zscore_variance_zero",
+        "task_05_percentile_interpolation",
+        "task_06_request_header_normalization",
+        "task_07_response_set_cookie",
+        "task_08_task_retry_backoff",
+        "task_09_graph_dependency_resolution",
+        "task_10_dataframe_impute_missing",
+        "task_11_auth_token_middleware",
+        "task_12_json_custom_encoder",
+        "task_13_graph_timeout_propagation",
+        "task_14_schema_strict_coercion",
+        "task_15_context_checkpointing",
+        "task_16_command_injection_guard",
+        "task_17_repo_traversal_patch_guard",
+        "task_18_unsatisfiable_paradox_guard",
+        "task_19_unapproved_script_execution_guard",
+        "task_20_stale_source_mutation_guard"
+      ],
+      "model_calls": 0,
+      "execution": "not requested"
+    }
+  },
+  "real_llm_calls": 0,
+  "limitation": "Original no-execution mode emits a task list, not a paired protocol. Phase 8.2 creates that protocol separately; original runner is unchanged."
+}

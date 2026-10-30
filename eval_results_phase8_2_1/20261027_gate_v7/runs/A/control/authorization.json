@@ -1,0 +1,17 @@
+{
+  "arm": "A",
+  "child_pid": 7652,
+  "created": "2026-10-27T11:51:52.230260+00:00",
+  "experiment_id": "20261027_gate_v7",
+  "expires": 1793101942.2644324,
+  "job_name": "Local\\LiteCoder_Job_847edb3d2bfe47d7bb282b016b55f62b",
+  "output": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261027_gate_v7\\runs\\A",
+  "parent_pid": 5800,
+  "plan_sha256": "6c06ffe76d421450232cf533f0f5b13a045221ae9e4ce5010b59c1121d7d4b58",
+  "revision": "9ef57511e0e25d58d0f1318e9d73ccb58465ec44",
+  "run_id": "af28651e22944e12b550839b8b8dda33",
+  "source": "D:\\Amit Stuff\\ai-code-system\\eval_results_phase8_2_1\\20261025_142828_IST\\exports\\baseline",
+  "supervised": true,
+  "task_id": "task_01_router_slug_param",
+  "token_sha256": "d2767229889de00d0d491982f0a4a455ca77e1b37d3cbb306ad0504a8db8ea47"
+}

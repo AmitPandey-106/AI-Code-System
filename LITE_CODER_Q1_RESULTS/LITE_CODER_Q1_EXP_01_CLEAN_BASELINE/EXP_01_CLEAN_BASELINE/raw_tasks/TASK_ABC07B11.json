@@ -1,0 +1,140 @@
+{
+    "experiment_id": "FINAL_Q1_RUN/EXP_01_CLEAN_BASELINE",
+    "task_id": "TASK_ABC07B11",
+    "task_index": 59,
+    "mode": "MODE_A",
+    "status": "model_success",
+    "success": true,
+    "final_status": "model_success",
+    "attempts_used": 1,
+    "repair_effort": 1,
+    "generated_code": "# Task: Fix the given Python code that incorrectly determines whether a number is even or odd.\n#\n# Function: is_even\n# Input:     An integer n\n# Output:    A boolean value indicating whether n is even (True) or odd (False)\n#\n# Constraints:\n# - The function should be named \"is_even\"\n# - The function should take one argument \"n\" which is an integer\n# - The function should return a boolean value\n# - The function should use the modulo operator (%) to determine if n is even or odd\n# - The function should handle negative integers correctly\n#\n# Example usage:\n# >>> is_even(2)\n# True\n# >>> is_even(-5)\n# False\n\n\ndef is_even(n):\n    # Check if the number is even by checking if the remainder when divided by 2 is 0\n    return n % 2 == 0\n\n\n# Assertions to test your solution\nassert is_even(2) == True\nassert is_even(3) == False",
+    "initial_code": "# Task: Fix the given Python code that incorrectly determines whether a number is even or odd.\n#\n# Function: is_even\n# Input:     An integer n\n# Output:    A boolean value indicating whether n is even (True) or odd (False)\n#\n# Constraints:\n# - The function should be named \"is_even\"\n# - The function should take one argument \"n\" which is an integer\n# - The function should return a boolean value\n# - The function should use the modulo operator (%) to determine if n is even or odd\n# - The function should handle negative integers correctly\n#\n# Example usage:\n# >>> is_even(2)\n# True\n# >>> is_even(-5)\n# False\n\n\ndef is_even(n):\n    # Check if the number is even by checking if the remainder when divided by 2 is 0\n    return n % 2 == 0\n\n\n# Assertions to test your solution\nassert is_even(2) == True\nassert is_even(3) == False",
+    "error_category": null,
+    "error_type": null,
+    "error_message": null,
+    "error_stage": null,
+    "exception_class": null,
+    "traceback": null,
+    "error_diagnostic": null,
+    "execution": {
+        "success": true,
+        "output": "False",
+        "error": "",
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "tests": {
+        "success": true,
+        "failure_type": null,
+        "message": "All tests passed",
+        "tests": "assert is_even(2) == True\nassert is_even(3) == False",
+        "test_summary": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "errors": 0,
+            "timeout": false
+        },
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "error_message": "",
+            "error_type": null
+        }
+    },
+    "history": [],
+    "verification": {
+        "syntax_passed": true,
+        "safety_passed": true,
+        "execution_passed": true,
+        "tests_passed": true,
+        "sandboxed_execution": true
+    },
+    "strategy_history": [],
+    "difficulty": {},
+    "memory_used": null,
+    "lora_enabled": false,
+    "active_adapter_id": null,
+    "adapter_version": null,
+    "training_triggered": false,
+    "training_cycle_id": null,
+    "training_status": null,
+    "feedback_record": {
+        "feedback_id": "df9c430341b74dedacf0fd1aa9353cd8",
+        "timestamp": 1791101112.5369658,
+        "task": "Fix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0\n\nEnsure it passes these tests:\nassert is_even(2) == True\nassert is_even(3) == False",
+        "initial_code": "# Task: Fix the given Python code that incorrectly determines whether a number is even or odd.\n#\n# Function: is_even\n# Input:     An integer n\n# Output:    A boolean value indicating whether n is even (True) or odd (False)\n#\n# Constraints:\n# - The function should be named \"is_even\"\n# - The function should take one argument \"n\" which is an integer\n# - The function should return a boolean value\n# - The function should use the modulo operator (%) to determine if n is even or odd\n# - The function should handle negative integers correctly\n#\n# Example usage:\n# >>> is_even(2)\n# True\n# >>> is_even(-5)\n# False\n\n\ndef is_even(n):\n    # Check if the number is even by checking if the remainder when divided by 2 is 0\n    return n % 2 == 0\n\n\n# Assertions to test your solution\nassert is_even(2) == True\nassert is_even(3) == False",
+        "attempts": [
+            {
+                "attempt_number": 1,
+                "code": "# Task: Fix the given Python code that incorrectly determines whether a number is even or odd.\n#\n# Function: is_even\n# Input:     An integer n\n# Output:    A boolean value indicating whether n is even (True) or odd (False)\n#\n# Constraints:\n# - The function should be named \"is_even\"\n# - The function should take one argument \"n\" which is an integer\n# - The function should return a boolean value\n# - The function should use the modulo operator (%) to determine if n is even or odd\n# - The function should handle negative integers correctly\n#\n# Example usage:\n# >>> is_even(2)\n# True\n# >>> is_even(-5)\n# False\n\n\ndef is_even(n):\n    # Check if the number is even by checking if the remainder when divided by 2 is 0\n    return n % 2 == 0\n\n\n# Assertions to test your solution\nassert is_even(2) == True\nassert is_even(3) == False",
+                "execution_status": "success",
+                "error_type": null,
+                "error_message": null,
+                "tests_generated": "assert is_even(2) == True\nassert is_even(3) == False",
+                "test_results": {
+                    "total": 2,
+                    "passed": 2,
+                    "failed": 0,
+                    "errors": 0,
+                    "timeout": false
+                },
+                "repair_applied": null,
+                "verification": {
+                    "syntax_passed": true,
+                    "safety_passed": true,
+                    "error_message": "",
+                    "error_type": null
+                },
+                "contract_valid": true,
+                "contract_error": null
+            }
+        ],
+        "final_code": "# Task: Fix the given Python code that incorrectly determines whether a number is even or odd.\n#\n# Function: is_even\n# Input:     An integer n\n# Output:    A boolean value indicating whether n is even (True) or odd (False)\n#\n# Constraints:\n# - The function should be named \"is_even\"\n# - The function should take one argument \"n\" which is an integer\n# - The function should return a boolean value\n# - The function should use the modulo operator (%) to determine if n is even or odd\n# - The function should handle negative integers correctly\n#\n# Example usage:\n# >>> is_even(2)\n# True\n# >>> is_even(-5)\n# False\n\n\ndef is_even(n):\n    # Check if the number is even by checking if the remainder when divided by 2 is 0\n    return n % 2 == 0\n\n\n# Assertions to test your solution\nassert is_even(2) == True\nassert is_even(3) == False",
+        "final_status": "success",
+        "total_attempts": 1,
+        "total_repairs": 0,
+        "verification": {
+            "syntax_passed": true,
+            "safety_passed": true,
+            "execution_passed": true,
+            "tests_passed": true,
+            "sandboxed_execution": true
+        },
+        "execution": {
+            "status": "success",
+            "duration_ms": 55,
+            "timeout": false
+        },
+        "security": {
+            "status": "allowed",
+            "violations": []
+        },
+        "execution_time": 27.233690977096558,
+        "task_id": "TASK_ABC07B11",
+        "task_index": 59,
+        "lora_enabled": false,
+        "active_adapter_id": null,
+        "training_triggered": false,
+        "training_cycle_id": null,
+        "training_status": null,
+        "contract": {
+            "entry_point": "is_even",
+            "parameters": [
+                "n"
+            ],
+            "requirements_count": 0
+        },
+        "generation_prompt": "\nYou are an expert Python software engineer.\n\nYour task is to generate HIGH-QUALITY executable Python programs.\n\nCRITICAL TASK CONTRACT:\nTarget Entry Point: def is_even(n)\n\nSTRICT CONTRACT RULES:\n- You MUST implement and expose the required entry point 'is_even'.\n- Do NOT replace or reduce this program to an isolated helper function.\n- All auxiliary functions must directly serve the primary entry point 'is_even'.\n- Fix the reported issue while strictly preserving previously satisfied requirements.\n\nSTRICT RULES:\n- Return ONLY valid Python code\n- NO explanations\n- NO markdown\n- NO comments\n- NO pseudo code\n- Generate COMPLETE runnable programs\n- Include required imports\n- Include variable definitions if needed\n- Include function calls if needed\n- Include print statements for final output\n- Code must execute successfully\n- Avoid syntax errors\n- Avoid placeholders\n- Avoid unfinished code\n- Avoid input() calls\n- Use proper Python syntax and indentation\n- Prefer clean and efficient solutions\n\nIMPORTANT:\nThe generated code MUST run directly without modifications.\n\nPLAN:\n1. Identify the problem with the current implementation of `is_even`.\n2. Determine the correct condition to check if a number is even.\n3. Modify the code to correctly determine if a number is even.\n4. Test the modified code against the provided assertions to ensure correctness.\n\nStep 1: The current implementation of `is_even` checks if a number is odd by using the modulo operator (`%`). However, this does not accurately determine if a number is even because it returns `True` for odd numbers as well.\n\nStep 2: To fix this, we need to modify the condition in the `if` statement to check if the remainder when dividing by 2 is equal to zero instead of not equal to zero. This will correctly identify even numbers.\n\nStep 3: Update the code accordingly:\n\n\n\nStep 4: Test the modified code against the provided assertions to ensure correctness:\n\n\n\nThe updated code now correctly identifies even numbers.\n\nTASK:\nFix the following broken python code:\n\ndef is_even(n):\n    return n % 2 != 0\n\nEnsure it passes these tests:\nassert is_even(2) == True\nassert is_even(3) == False\n\nGenerate complete executable Python program:\n"
+    },
+    "timing": {
+        "total_ms": 27240
+    },
+    "runtime_ms": 27240,
+    "timestamp": 1791101139.777991
+}
